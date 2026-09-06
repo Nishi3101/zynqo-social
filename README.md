@@ -1,8 +1,8 @@
-# PulseAI - Next-Gen AI Social Entertainment Platform 🚀
+# Zynqo Social - Next-Gen AI Social Entertainment Platform 🚀
 ### Built for the AI Reels Hackathon • Futurrizon Technologies MVP Edition
 
 > **"Traditional platforms ask: *'How long can we keep you watching?'***  
-> **PulseAI asks: *'What do you need right now, how much time do you have, and how can we make that time meaningful?'"***
+> **Zynqo Social asks: *'What do you need right now, how much time do you have, and how can we make that time meaningful?'"***
 
 ---
 
@@ -10,7 +10,7 @@
 
 Traditional short-form video platforms (TikTok, Instagram Reels, YouTube Shorts) are engineered to trap users in passive, dopaminergic doomscrolling loops with zero regard for real-world application, learning retention, or time budget.
 
-**PulseAI** transforms short-form entertainment from passive consumption into an **intelligent, time-aware, and actionable ecosystem** that understands user intent, protects cognitive wellbeing, and bridges digital content into real-world action.
+**Zynqo Social** transforms short-form entertainment from passive consumption into an **intelligent, time-aware, and actionable ecosystem** that understands user intent, protects cognitive wellbeing, and bridges digital content into real-world action.
 
 ---
 
@@ -77,8 +77,13 @@ Transforms any reel in 1 click into 4 high-leverage outputs:
 - **Private Incognito Mode**: Prevent viewing activity from altering algorithms.
 - **JSON Data Export**: Full data sovereignty.
 
-### 11. 🌍 Full Multilingual Localization (Document 1 Requirement)
-- Instant language switcher supporting: **English (US)**, **Spanish (ES)**, **Hindi (IN)**, **French (FR)**, **Japanese (JA)**, and **German (DE)**.
+### 11. ✨ AI-Powered Content Suggestions (Upload & Post Studio)
+- **Automatic Multi-Language Captions**: Context-aware catchy titles and descriptions generated instantly in the user's selected language.
+- **Smart Hashtag Generation**: Mix of trending, niche, and viral discovery tags.
+- **Thumbnail Suggestions**: Optimal frame extraction and creative visual composition suggestions.
+
+### 12. 🌍 Full Multilingual Localization
+- Instant language switcher with deep real-time UI localization across: **English (US)**, **Gujarati (GU)**, **Hindi (IN)**, **Spanish (ES)**, **French (FR)**, **Japanese (JA)**, and **German (DE)**.
 
 ---
 
