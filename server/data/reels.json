@@ -1,0 +1,938 @@
+[
+  {
+    "id": "reel-1",
+    "title": "How Neural Networks Actually Learn in 60s",
+    "creator": {
+      "name": "Dr. Elena Vance",
+      "handle": "@elena_ai",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "verified": true,
+      "bio": "AI Researcher & Stanford Lecturer"
+    },
+    "videoUrl": "/videos/flower.mp4",
+    "visualTheme": "neural_network",
+    "description": "Forget complex calculus for a second. Here is the intuitive visual breakdown of weights, biases, and gradient descent. #MachineLearning #AIEducation #DeepLearning",
+    "duration": 58,
+    "category": "Tech & AI",
+    "intent": "teach",
+    "goalTags": [
+      "coding",
+      "ai-mastery"
+    ],
+    "mood": "curious",
+    "likes": 24205,
+    "commentsCount": 842,
+    "shares": 5120,
+    "views": 184000,
+    "isAIGenerated": false,
+    "safetyScore": 99,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Gradient descent minimizes the loss function by iteratively taking steps opposite to the gradient vector.",
+      "explanation": "Consensus across all fundamental machine learning literature (Goodfellow, Bengio, Courville 2016). Mathematical foundation is fully verified.",
+      "sources": [
+        {
+          "name": "MIT Deep Learning Book",
+          "url": "https://deeplearningbook.org",
+          "credibility": "Peer-Reviewed Academic"
+        },
+        {
+          "name": "Stanford CS231n",
+          "url": "https://cs231n.stanford.edu",
+          "credibility": "University Courseware"
+        }
+      ],
+      "aiConfidence": 99
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed interest in AI Engineering and spent 4+ mins on coding topics today.",
+      "matchedInterests": [
+        "Artificial Intelligence",
+        "Deep Learning",
+        "Python Programming"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 35,
+        "currentMood": 15,
+        "collaborativeFilter": 5
+      },
+      "privacyNote": "Derived from local device interest graph. No raw telemetry shared with third parties."
+    },
+    "transcript": "Think of a neural network like a giant soundboard with millions of volume sliders called weights. At first, all the sliders are set randomly, so the output is pure garbage static. Every time the network makes a guess, backpropagation calculates the error distance from reality. Gradient descent then nudges every slider down the slope of lowest error. Do this a billion times, and the machine starts recognizing dogs, translating languages, and driving cars.",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Neural networks optimize performance through iterative error correction via backpropagation and gradient descent.",
+        "bulletPoints": [
+          "Weights are adjustable parameters that transform input data.",
+          "Loss function quantifies how far the prediction is from ground truth.",
+          "Backpropagation calculates gradients (direction of steep error increase).",
+          "Gradient descent updates weights in reverse to reach optimal minima."
+        ],
+        "keyTakeaway": "Learning is descending the error mountain one small step at a time."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary role of gradient descent in training?",
+          "options": [
+            "To randomize initial weights",
+            "To adjust weights in the direction that minimizes loss",
+            "To delete unused neurons",
+            "To double the training speed"
+          ],
+          "correctIndex": 1,
+          "explanation": "Gradient descent computes the derivative of the loss and nudges weights toward the minimum."
+        },
+        {
+          "question": "What does backpropagation compute?",
+          "options": [
+            "The final accuracy percentage",
+            "The gradients of the loss with respect to each weight",
+            "The size of dataset",
+            "The hardware GPU temperature"
+          ],
+          "correctIndex": 1,
+          "explanation": "Backpropagation applies calculus chain rule backward through network layers to calculate gradients."
+        },
+        {
+          "question": "What happens if the learning rate is set excessively high?",
+          "options": [
+            "The model trains instantly with 100% accuracy",
+            "Weights may overshoot and fail to converge",
+            "The loss becomes zero immediately",
+            "The dataset increases"
+          ],
+          "correctIndex": 1,
+          "explanation": "High learning rates cause large oscillations that overshoot the minimum."
+        }
+      ],
+      "tasks": [
+        {
+          "id": "t1",
+          "title": "Implement a 2-layer perceptron from scratch in Python numpy",
+          "estimatedMinutes": 30,
+          "category": "Coding"
+        },
+        {
+          "id": "t2",
+          "title": "Visualize gradient descent loss curve on a toy quadratic function",
+          "estimatedMinutes": 15,
+          "category": "Experiment"
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": "Day 1",
+          "action": "Understand forward pass and scalar loss calculation",
+          "outcome": "Master matrix dot products and activations"
+        },
+        {
+          "day": "Day 2",
+          "action": "Derive backprop derivative by hand for a single neuron",
+          "outcome": "Grasp chain rule application"
+        },
+        {
+          "day": "Day 3",
+          "action": "Train a model on MNIST digits dataset with PyTorch",
+          "outcome": "Achieve >97% validation accuracy"
+        }
+      ]
+    },
+    "comments": [
+      {
+        "id": "c1",
+        "user": "Alex Chen",
+        "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100",
+        "text": "The soundboard analogy made this click after 2 weeks of confusion!",
+        "likes": 342,
+        "timeAgo": "2h ago"
+      },
+      {
+        "id": "c2",
+        "user": "Maya Patel",
+        "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100",
+        "text": "Can you do an episode on Adam optimizer vs SGD next?",
+        "likes": 118,
+        "timeAgo": "4h ago"
+      }
+    ]
+  },
+  {
+    "id": "reel-2",
+    "title": "The 2-Minute Rule That Destroys Procrastination",
+    "creator": {
+      "name": "Marcus Aurelius James",
+      "handle": "@marcus_focus",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+      "verified": true,
+      "bio": "Behavioral Psychologist & Author"
+    },
+    "videoUrl": "/videos/lava.webm",
+    "visualTheme": "zen_flow",
+    "description": "Your brain hates big goals because it perceives them as energy threats. Shrink any task into 120 seconds and watch resistance vanish. #Habits #Focus #DigitalWellbeing",
+    "duration": 48,
+    "category": "Productivity",
+    "intent": "achieve",
+    "goalTags": [
+      "habits",
+      "focus",
+      "self-growth"
+    ],
+    "mood": "stressed",
+    "likes": 48901,
+    "commentsCount": 1204,
+    "shares": 14200,
+    "views": 390000,
+    "isAIGenerated": false,
+    "safetyScore": 97,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Lowering friction and cognitive load for the initial 2 minutes triggers behavioral momentum via dopamine loops.",
+      "explanation": "Based on James Clear Atomic Habits and BJ Fogg Stanford Tiny Habits behavioral model (B=MAP).",
+      "sources": [
+        {
+          "name": "Stanford Behavior Design Lab",
+          "url": "https://behaviormodel.org",
+          "credibility": "University Research"
+        }
+      ],
+      "aiConfidence": 98
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You set a goal to improve daily focus and selected Achieve intent.",
+      "matchedInterests": [
+        "Productivity",
+        "Habit Formation",
+        "Cognitive Psychology"
+      ],
+      "signalWeight": {
+        "watchHistory": 30,
+        "goalAlignment": 50,
+        "currentMood": 15,
+        "collaborativeFilter": 5
+      },
+      "privacyNote": "Personal goal preference enabled in settings."
+    },
+    "transcript": "Whenever you dread writing a report, cleaning your room, or working out, your amygdala sounds an alarm about energy cost. The hack is the 2-Minute Rule: Never commit to the entire task. Commit only to opening the document and typing one sentence, or putting on your running shoes. Once physical inertia is broken, 85% of people continue working effortlessly.",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Overcome executive dysfunction by reducing initial action threshold to 2 minutes or less.",
+        "bulletPoints": [
+          "Procrastination is emotional regulation, not poor time management.",
+          "Friction of starting is 10x greater than friction of continuing.",
+          "Scale any habit down: Read 30 pages becomes Read one paragraph.",
+          "Action precedes motivation."
+        ],
+        "keyTakeaway": "Standardize before you optimize."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary psychological purpose of the 2-Minute Rule?",
+          "options": [
+            "To finish the entire project in 2 minutes",
+            "To eliminate friction of starting and build momentum",
+            "To test typing speed",
+            "To take a break"
+          ],
+          "correctIndex": 1,
+          "explanation": "Starting is the highest barrier; once started, psychological momentum takes over."
+        }
+      ],
+      "tasks": [
+        {
+          "id": "t3",
+          "title": "Pick your most avoided task right now and do strictly 2 minutes on it",
+          "estimatedMinutes": 2,
+          "category": "Habit Action"
+        },
+        {
+          "id": "t4",
+          "title": "Write down your 2-minute gateway habit for tomorrow morning",
+          "estimatedMinutes": 5,
+          "category": "Planning"
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": "Day 1",
+          "action": "Perform 2-minute gateway habit for work task",
+          "outcome": "Break task dread"
+        },
+        {
+          "day": "Day 2",
+          "action": "Tie gateway habit to morning anchor",
+          "outcome": "Form associative cue"
+        }
+      ]
+    },
+    "comments": [
+      {
+        "id": "c3",
+        "user": "Sara Jenkins",
+        "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100",
+        "text": "Did this with my essay today. Wrote 4 pages!",
+        "likes": 892,
+        "timeAgo": "1d ago"
+      }
+    ]
+  },
+  {
+    "id": "reel-3",
+    "title": "Debunking the '5 Liters of Water Daily' Viral Trend",
+    "creator": {
+      "name": "Dr. Aris Thorne",
+      "handle": "@dr_aris_md",
+      "avatar": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&auto=format&fit=crop&q=80",
+      "verified": true,
+      "bio": "Nephrologist & Public Health Educator"
+    },
+    "videoUrl": "/videos/clip_nature.mp4",
+    "visualTheme": "fitness_pulse",
+    "description": "Viral fitness influencers are telling you to chug 5L of water daily. Nephrologists are seeing hyponatremia hospital cases instead. Here is what your kidneys actually need. #AIRealityCheck #HealthFactCheck",
+    "duration": 52,
+    "category": "Health & Fitness",
+    "intent": "teach",
+    "goalTags": [
+      "fitness",
+      "health",
+      "science"
+    ],
+    "mood": "curious",
+    "likes": 67300,
+    "commentsCount": 3140,
+    "shares": 19400,
+    "views": 520000,
+    "isAIGenerated": false,
+    "safetyScore": 99,
+    "realityCheck": {
+      "verdict": "Claim Analyzed",
+      "claim": "Drinking 5 liters of water daily is necessary to detox the body and lose fat quickly.",
+      "explanation": "MISLEADING: Consuming excessive water without electrolyte replenishment can lead to hyponatremia. Kidneys filter 800-1000ml/hr max under normal conditions. Thirst and urine color are superior clinical markers.",
+      "sources": [
+        {
+          "name": "National Academies of Sciences",
+          "url": "https://nationalacademies.org",
+          "credibility": "National Medical Authority"
+        },
+        {
+          "name": "Mayo Clinic Nephrology Guidelines",
+          "url": "https://mayoclinic.org",
+          "credibility": "Clinical Institution"
+        }
+      ],
+      "aiConfidence": 97
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "AI Reality Check Shield prioritized this to counter viral misinformation in health feeds.",
+      "matchedInterests": [
+        "Health Myths",
+        "Nutrition Science",
+        "Wellness"
+      ],
+      "signalWeight": {
+        "watchHistory": 25,
+        "goalAlignment": 25,
+        "currentMood": 10,
+        "collaborativeFilter": 40
+      },
+      "privacyNote": "Delivered through Zynqo Social Safety & Trust Shield."
+    },
+    "transcript": "Stop carrying that gallon jug everywhere thinking it is cleansing toxins. Your liver and kidneys detoxify blood automatically. When you flood your body with 5 liters of water rapidly, you dilute blood serum sodium. In extreme cases, brain cells swell causing dizziness. Your body already has an advanced hydration sensor: thirst.",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Overhydration is a legitimate hazard; optimize hydration by listening to natural osmoreceptors.",
+        "bulletPoints": [
+          "Human kidneys can excrete approx 0.8-1.0 liter fluid per hour max.",
+          "Extreme water intake dilutes sodium levels (hypo-osmolar state).",
+          "Pale straw / light lemonade color is optimal clinical benchmark.",
+          "Eat water-dense whole foods for cellular hydration."
+        ],
+        "keyTakeaway": "Drink to thirst and monitor urine color; 2.5-3.5L total fluid is plenty."
+      },
+      "quiz": [
+        {
+          "question": "What serious condition can occur from rapid, extreme water consumption?",
+          "options": [
+            "Hyperglycemia",
+            "Hyponatremia (water intoxication)",
+            "Scurvy",
+            "Iron overload"
+          ],
+          "correctIndex": 1,
+          "explanation": "Hyponatremia occurs when blood sodium becomes critically diluted."
+        }
+      ],
+      "tasks": [
+        {
+          "id": "t5",
+          "title": "Check your daily hydration: Aim for straw-colored urine, not clear water",
+          "estimatedMinutes": 1,
+          "category": "Health Habit"
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": "Day 1",
+          "action": "Calculate baseline fluid intake based on body mass (approx 35ml per kg)",
+          "outcome": "Accurate personal target"
+        }
+      ]
+    },
+    "comments": [
+      {
+        "id": "c4",
+        "user": "Liam Vance",
+        "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100",
+        "text": "Got brain fog and headaches doing the 1-gallon challenge last year. Thank you!",
+        "likes": 1420,
+        "timeAgo": "18h ago"
+      }
+    ]
+  },
+  {
+    "id": "reel-4",
+    "title": "Quantum Computing in 60s: Superposition & Qubits",
+    "creator": {
+      "name": "Prof. Kenji Takahashi",
+      "handle": "@kenji_physics",
+      "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=80",
+      "verified": true,
+      "bio": "Quantum Optics & Hardware Engineer"
+    },
+    "videoUrl": "/videos/clip_scifi.mp4",
+    "visualTheme": "quantum_grid",
+    "description": "Classical bits are coins on the table (Heads or Tails). Qubits are spinning coins in the air. Here is why quantum computers will revolutionize cryptography. #QuantumTech #ExplainLikeIm10",
+    "duration": 55,
+    "category": "Science & Space",
+    "intent": "inspire",
+    "goalTags": [
+      "quantum",
+      "physics",
+      "computing"
+    ],
+    "mood": "curious",
+    "likes": 51401,
+    "commentsCount": 930,
+    "shares": 8900,
+    "views": 310000,
+    "isAIGenerated": false,
+    "safetyScore": 99,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Quantum superposition allows qubits to represent linear combinations of 0 and 1 states simultaneously.",
+      "explanation": "Accurately represents quantum state formalism and Bloch Sphere representation.",
+      "sources": [
+        {
+          "name": "IBM Quantum Research",
+          "url": "https://quantum-computing.ibm.com",
+          "credibility": "Industry Leader"
+        },
+        {
+          "name": "Nature Physics Review",
+          "url": "https://nature.com",
+          "credibility": "Top Scientific Journal"
+        }
+      ],
+      "aiConfidence": 99
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "Matched your preference for frontier science discoveries and Inspire me intent.",
+      "matchedInterests": [
+        "Quantum Physics",
+        "Future Computing",
+        "Nanotechnology"
+      ],
+      "signalWeight": {
+        "watchHistory": 40,
+        "goalAlignment": 30,
+        "currentMood": 20,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Transparent recommendation via Zynqo Social Discovery Engine."
+    },
+    "transcript": "Your smartphone computes using billions of transistors that are ON (1) or OFF (0). But at atomic scales, a qubit can exist in a superposition of both 0 and 1 until measured. When you entangle 50 qubits together, they evaluate 2^50 states at once—more configurations than the most powerful supercomputer could test in thousands of years.",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Quantum computing harnesses superposition and entanglement to solve combinatorial problems exponentially faster.",
+        "bulletPoints": [
+          "Classical bits = 0 or 1. Qubit = a|0> + b|1>.",
+          "Entanglement links qubits across space.",
+          "Key applications: Molecular simulation, post-quantum crypto."
+        ],
+        "keyTakeaway": "Quantum computers are specialized engines for atomic simulation and mathematical optimization."
+      },
+      "quiz": [
+        {
+          "question": "What is the phenomenon where a qubit exists in a linear combination of states?",
+          "options": [
+            "Decoherence",
+            "Superposition",
+            "Semiconduction",
+            "Induction"
+          ],
+          "correctIndex": 1,
+          "explanation": "Superposition allows a quantum system to exist in multiple state amplitudes simultaneously."
+        }
+      ],
+      "tasks": [
+        {
+          "id": "t6",
+          "title": "Run a 2-qubit Bell State circuit on IBM Quantum Composer",
+          "estimatedMinutes": 20,
+          "category": "Quantum Code"
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": "Day 1",
+          "action": "Learn linear algebra vectors and Dirac notation",
+          "outcome": "Understand state vectors"
+        }
+      ]
+    },
+    "comments": [
+      {
+        "id": "c5",
+        "user": "Zoe K.",
+        "avatar": "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100",
+        "text": "The spinning coin analogy is brilliant!",
+        "likes": 472,
+        "timeAgo": "3h ago"
+      }
+    ]
+  },
+  {
+    "id": "reel-5",
+    "title": "3 Bodyweight Exercises That Replace the Gym",
+    "creator": {
+      "name": "Kofi Mensah",
+      "handle": "@kofi_calisthenics",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
+      "verified": true,
+      "bio": "Olympic Calisthenics Coach"
+    },
+    "videoUrl": "/videos/clip_fitness.mp4",
+    "visualTheme": "fitness_pulse",
+    "description": "No gym membership needed. Master these 3 biomechanical movement patterns to build athletic strength anywhere. #Calisthenics #WorkoutPlan #HomeFitness",
+    "duration": 50,
+    "category": "Health & Fitness",
+    "intent": "achieve",
+    "goalTags": [
+      "fitness",
+      "bodyweight",
+      "habits"
+    ],
+    "mood": "energetic",
+    "likes": 89400,
+    "commentsCount": 1820,
+    "shares": 28100,
+    "views": 620000,
+    "isAIGenerated": false,
+    "safetyScore": 99,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Compound calisthenics stimulate progressive myofibrillar hypertrophy equivalent to weights when intensity is matched.",
+      "explanation": "Peer-reviewed sports science demonstrates mechanical tension can be achieved with bodyweight leverage progressions.",
+      "sources": [
+        {
+          "name": "Journal of Strength and Conditioning Research",
+          "url": "https://journals.lww.com",
+          "credibility": "Peer-Reviewed"
+        }
+      ],
+      "aiConfidence": 98
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You selected Daily Fitness as an active personal goal.",
+      "matchedInterests": [
+        "Strength Training",
+        "Calisthenics",
+        "Daily Workouts"
+      ],
+      "signalWeight": {
+        "watchHistory": 20,
+        "goalAlignment": 60,
+        "currentMood": 15,
+        "collaborativeFilter": 5
+      },
+      "privacyNote": "Customized based on your Goal-to-Content journey."
+    },
+    "transcript": "Stop making excuses that you have no equipment. Exercise 1: Pike push-up to pseudo-planche pushup for overhead shoulder pressing and chest. Exercise 2: Strict pull-ups or body rows under a table for lat width and biceps. Exercise 3: Elevated Bulgarian split squats for quad tear and glute stability. Master these three with mechanical drop sets and you will out-perform 90% of gym machines.",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Full-body athletic conditioning can be achieved through three fundamental compound leverage movements.",
+        "bulletPoints": [
+          "Compound pushing: Chest, anterior delts, triceps.",
+          "Compound pulling: Latissimus dorsi, rhomboids, biceps.",
+          "Unilateral leg drive: Bulgarian split squats correct muscular imbalances."
+        ],
+        "keyTakeaway": "Overload in calisthenics comes from adjusting lever arm length and tempo."
+      },
+      "quiz": [
+        {
+          "question": "How do you achieve progressive overload with bodyweight exercises?",
+          "options": [
+            "Do them faster with bad form",
+            "Alter leverage, slow tempo, and increase mechanical tension",
+            "Stop eating carbs",
+            "Only exercise once a month"
+          ],
+          "correctIndex": 1,
+          "explanation": "Leverage shifts increase the percentage of bodyweight transferred to working muscles."
+        }
+      ],
+      "tasks": [
+        {
+          "id": "t7",
+          "title": "Complete 3 sets of 8 Bulgarian split squats per leg right now",
+          "estimatedMinutes": 8,
+          "category": "Workout"
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": "Day 1",
+          "action": "3x10 Pike pushups + 3x12 Bulgarian Split Squats",
+          "outcome": "Hypertrophy"
+        }
+      ]
+    },
+    "comments": [
+      {
+        "id": "c6",
+        "user": "Tariq Ross",
+        "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100",
+        "text": "Bulgarian split squats transformed my legs!",
+        "likes": 560,
+        "timeAgo": "5h ago"
+      }
+    ]
+  },
+  {
+    "id": "reel-6",
+    "title": "Box Breathing: Instant 90-Second Cortisol Reset",
+    "creator": {
+      "name": "Serena Lin",
+      "handle": "@mindful_serena",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "verified": true,
+      "bio": "Breathwork Instructor"
+    },
+    "videoUrl": "/videos/clip_bbb.mp4",
+    "visualTheme": "zen_flow",
+    "description": "Feeling overwhelmed or doomscrolling? Pause right here. Follow the circle for 4 cycles of Navy SEAL box breathing. #ContentDetox #DigitalWellbeing #MentalHealth",
+    "duration": 45,
+    "category": "Mindfulness & Detox",
+    "intent": "relax",
+    "goalTags": [
+      "mindfulness",
+      "stress-relief",
+      "detox"
+    ],
+    "mood": "stressed",
+    "likes": 98202,
+    "commentsCount": 2430,
+    "shares": 34100,
+    "views": 850000,
+    "isAIGenerated": false,
+    "safetyScore": 100,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Rhythmic box breathing activates parasympathetic nervous system via vagus nerve stimulation, reducing heart rate.",
+      "explanation": "Clinical trials (Balban et al., Cell Reports Medicine 2023) confirm cyclic breathwork significantly improves mood and reduces anxiety.",
+      "sources": [
+        {
+          "name": "Cell Reports Medicine",
+          "url": "https://cell.com",
+          "credibility": "Medical Journal"
+        }
+      ],
+      "aiConfidence": 100
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "AI Stop-Scrolling Assistant detected continuous viewing and offered a mindful reset.",
+      "matchedInterests": [
+        "Stress Reduction",
+        "Mindfulness",
+        "Breathwork"
+      ],
+      "signalWeight": {
+        "watchHistory": 10,
+        "goalAlignment": 20,
+        "currentMood": 50,
+        "collaborativeFilter": 20
+      },
+      "privacyNote": "Triggered by Zynqo Social Digital Wellbeing & Detox Shield."
+    },
+    "transcript": "Take a breath with me. Inhale deeply through your nose for 4 seconds... hold your lungs full for 4 seconds... exhale slowly through your mouth for 4 seconds... hold empty for 4 seconds. When you prolong your exhale, your brain stem signals the heart to slow down. Notice your shoulders dropping. You are safe.",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Box breathing resets the autonomic nervous system from fight-or-flight to rest-and-digest.",
+        "bulletPoints": [
+          "Inhale 4s -> Hold 4s -> Exhale 4s -> Hold 4s.",
+          "Stimulates vagal nerve, lowering cortisol and blood pressure.",
+          "Used by Navy SEALs before high-pressure missions."
+        ],
+        "keyTakeaway": "Breath is the one involuntary system you can voluntarily command."
+      },
+      "quiz": [
+        {
+          "question": "Which nerve is stimulated during slow, controlled exhalation to slow heart rate?",
+          "options": [
+            "Optic nerve",
+            "Vagus nerve",
+            "Trigeminal nerve",
+            "Sciatic nerve"
+          ],
+          "correctIndex": 1,
+          "explanation": "The vagus nerve releases acetylcholine to reduce heart rate."
+        }
+      ],
+      "tasks": [
+        {
+          "id": "t9",
+          "title": "Complete 4 full cycles of box breathing with eyes closed",
+          "estimatedMinutes": 3,
+          "category": "Mindfulness"
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": "Day 1",
+          "action": "Practice 3 minutes of box breathing upon waking",
+          "outcome": "Calm baseline"
+        }
+      ]
+    },
+    "comments": [
+      {
+        "id": "c7",
+        "user": "David Miller",
+        "avatar": "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100",
+        "text": "Had a panic attack before an interview. This saved my day.",
+        "likes": 3100,
+        "timeAgo": "1d ago"
+      }
+    ]
+  },
+  {
+    "id": "reel-7",
+    "title": "Compound Interest in 45 Seconds: How $10/Day Becomes $1,000,000",
+    "creator": {
+      "name": "Rohan Deshmukh",
+      "handle": "@rohan_finance",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+      "verified": true,
+      "bio": "Certified Financial Analyst"
+    },
+    "videoUrl": "/videos/clip_animation.mp4",
+    "visualTheme": "finance_growth",
+    "description": "Linear thinking kills wealth. Here is the exact math of reinvested dividends and index compounding. #FinancialLiteracy #WealthBuilding #Investing",
+    "duration": 46,
+    "category": "Finance",
+    "intent": "achieve",
+    "goalTags": [
+      "wealth",
+      "investing",
+      "finance"
+    ],
+    "mood": "motivated",
+    "likes": 73800,
+    "commentsCount": 1650,
+    "shares": 21300,
+    "views": 490000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Investing $10/day ($300/mo) at historical S&P 500 returns (~10%) compounds to over $1,000,000 in ~33 years.",
+      "explanation": "Verified with standard financial future value formula. 33 years at 10% on $300/mo yields ~$1,020,000.",
+      "sources": [
+        {
+          "name": "Vanguard Index Fund Historical Database",
+          "url": "https://investor.vanguard.com",
+          "credibility": "Asset Management"
+        },
+        {
+          "name": "SEC Investor Bulletin",
+          "url": "https://sec.gov",
+          "credibility": "Government Regulatory Body"
+        }
+      ],
+      "aiConfidence": 99
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You engaged with financial independence reels and saved a budgeting tool.",
+      "matchedInterests": [
+        "Personal Finance",
+        "Stock Market",
+        "Passive Income"
+      ],
+      "signalWeight": {
+        "watchHistory": 50,
+        "goalAlignment": 30,
+        "currentMood": 10,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Generated from your selected Financial Independence track."
+    },
+    "transcript": "If you save $300 a month in cash under your mattress for 30 years, you have $108,000, and inflation eats half. But if you invest that into a broad index fund averaging 10% annual returns, you contribute $108,000, but compound growth pays you over $680,000 in interest. Time in the market beats timing the market every time.",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Exponential wealth creation relies on reinvesting capital gains over decades rather than saving cash.",
+        "bulletPoints": [
+          "Compound interest is interest on interest.",
+          "Rule of 72: Divide 72 by interest rate to find years to double money.",
+          "Automate dollar-cost averaging to remove emotional buying."
+        ],
+        "keyTakeaway": "Starting 5 years earlier can double your nest egg."
+      },
+      "quiz": [
+        {
+          "question": "Using the Rule of 72, approximately how many years will it take money to double at an 8% annual return?",
+          "options": [
+            "8 years",
+            "9 years (72 / 8)",
+            "12 years",
+            "72 years"
+          ],
+          "correctIndex": 1,
+          "explanation": "72 divided by 8 equals 9 years to double principal."
+        }
+      ],
+      "tasks": [
+        {
+          "id": "t11",
+          "title": "Check if your emergency fund is in a High-Yield Savings Account",
+          "estimatedMinutes": 10,
+          "category": "Finance Action"
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": "Day 1",
+          "action": "Calculate your net worth and monthly cash flow",
+          "outcome": "Financial clarity"
+        }
+      ]
+    },
+    "comments": [
+      {
+        "id": "c8",
+        "user": "Amara Diallo",
+        "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100",
+        "text": "The Rule of 72 is so simple and powerful!",
+        "likes": 780,
+        "timeAgo": "2d ago"
+      }
+    ]
+  },
+  {
+    "id": "reel-8",
+    "title": "5-Minute Mediterranean Power Bowl for Sustained Energy",
+    "creator": {
+      "name": "Chef Mateo Rossi",
+      "handle": "@mateo_cooks",
+      "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=80",
+      "verified": true,
+      "bio": "Culinary Nutritionist"
+    },
+    "videoUrl": "/videos/clip_movie.mp4",
+    "visualTheme": "cooking_flame",
+    "description": "Tired of the 2 PM food coma? Ditch processed takeout carbs. Here is a zero-cook 35g protein bowl that takes 4 minutes flat. #HealthyCooking #MealPrep #Nutrition",
+    "duration": 50,
+    "category": "Health & Fitness",
+    "intent": "achieve",
+    "goalTags": [
+      "cooking",
+      "nutrition",
+      "fitness"
+    ],
+    "mood": "energetic",
+    "likes": 61200,
+    "commentsCount": 1120,
+    "shares": 18900,
+    "views": 410000,
+    "isAIGenerated": false,
+    "safetyScore": 100,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Combining complex fiber with lean protein and monounsaturated fatty acids blunts postprandial glycemic spikes.",
+      "explanation": "Nutritional biochemistry demonstrates that protein and healthy fats delay gastric emptying, stabilizing blood glucose.",
+      "sources": [
+        {
+          "name": "Harvard School of Public Health",
+          "url": "https://hsph.harvard.edu",
+          "credibility": "Public Health Nutrition"
+        }
+      ],
+      "aiConfidence": 99
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You saved a meal-prep recipe and explored quick healthy cooking.",
+      "matchedInterests": [
+        "Mediterranean Diet",
+        "Quick Meals",
+        "Energy Optimization"
+      ],
+      "signalWeight": {
+        "watchHistory": 35,
+        "goalAlignment": 40,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Local preference tracking active."
+    },
+    "transcript": "Here is how you make lunch faster than ordering delivery. Drain a can of chickpeas, add halved cherry tomatoes, diced cucumber, and olives. Toss in 150 grams of flaked wild tuna or shredded chicken. Drizzle extra virgin olive oil, lemon juice, garlic, and oregano. 35g protein, zero processed junk, and zero 2 PM crash.",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Rapid zero-cook Mediterranean bowl engineered for sustained blood glucose stability and high satiety.",
+        "bulletPoints": [
+          "Chickpeas: High prebiotic resistant starch.",
+          "Extra virgin olive oil: Rich in oleic acid and polyphenols.",
+          "Wild tuna/chicken: Complete essential amino acid profile.",
+          "Zero appliances required."
+        ],
+        "keyTakeaway": "Zero-cook pantry staples make consistency effortless."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary physiological benefit of adding extra virgin olive oil to complex carbohydrates?",
+          "options": [
+            "Increases sugar spike",
+            "Slows gastric emptying and moderates blood glucose absorption",
+            "Destroys amino acids",
+            "Causes sodium retention"
+          ],
+          "correctIndex": 1,
+          "explanation": "Healthy lipids slow digestion rate, smoothing the insulin response curve."
+        }
+      ],
+      "tasks": [
+        {
+          "id": "t12",
+          "title": "Add canned chickpeas, extra virgin olive oil, and lemons to your shopping list",
+          "estimatedMinutes": 3,
+          "category": "Grocery Task"
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": "Day 1",
+          "action": "Stock pantry with 4 cans of chickpeas and quality olive oil",
+          "outcome": "Readiness"
+        }
+      ]
+    },
+    "comments": [
+      {
+        "id": "c9",
+        "user": "Claire Beauchamp",
+        "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100",
+        "text": "Kept me full until dinner!",
+        "likes": 910,
+        "timeAgo": "3d ago"
+      }
+    ]
+  }
+]

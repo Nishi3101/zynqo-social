@@ -1,0 +1,68 @@
+[
+  {
+    "id": "goal-coding",
+    "title": "Full-Stack AI Developer",
+    "description": "Master modern AI application development, neural networks, and agents in bite-sized 60-second reels.",
+    "category": "Technology",
+    "icon": "Code2",
+    "totalReels": 8,
+    "completedReels": 3,
+    "xpReward": 350,
+    "targetTags": ["coding", "ai-mastery"],
+    "curriculum": [
+      { "level": "Beginner", "topic": "How Neural Networks Actually Learn", "reelId": "reel-1", "completed": true },
+      { "level": "Beginner", "topic": "Quantum Computing & Qubits in 60s", "reelId": "reel-4", "completed": true },
+      { "level": "Intermediate", "topic": "Building RAG & Multi-Agent Pipelines", "reelId": "reel-1", "completed": false },
+      { "level": "Advanced", "topic": "Deploying Low-Latency Agentic Systems", "reelId": "reel-4", "completed": false }
+    ]
+  },
+  {
+    "id": "goal-fitness",
+    "title": "Daily Calisthenics & Peak Health",
+    "description": "Achieve functional peak fitness using bodyweight leverage, mobility drills, and science-backed nutrition.",
+    "category": "Health & Fitness",
+    "icon": "Dumbbell",
+    "totalReels": 6,
+    "completedReels": 2,
+    "xpReward": 300,
+    "targetTags": ["fitness", "bodyweight", "nutrition"],
+    "curriculum": [
+      { "level": "Fundamentals", "topic": "3 Bodyweight Exercises That Replace the Gym", "reelId": "reel-5", "completed": true },
+      { "level": "Nutrition", "topic": "5-Minute Mediterranean Power Bowl", "reelId": "reel-8", "completed": true },
+      { "level": "Recovery", "topic": "Debunking the 5L Water Daily Myth", "reelId": "reel-3", "completed": false },
+      { "level": "Mastery", "topic": "Pseudo Planche Pushups to Handstand Flow", "reelId": "reel-5", "completed": false }
+    ]
+  },
+  {
+    "id": "goal-productivity",
+    "title": "Atomic Habits & Deep Focus",
+    "description": "Reclaim cognitive clarity, defeat procrastination, and build unstoppable daily execution streaks.",
+    "category": "Mindset",
+    "icon": "Target",
+    "totalReels": 5,
+    "completedReels": 3,
+    "xpReward": 250,
+    "targetTags": ["habits", "focus", "mindfulness"],
+    "curriculum": [
+      { "level": "Foundation", "topic": "The 2-Minute Rule That Destroys Procrastination", "reelId": "reel-2", "completed": true },
+      { "level": "Reset", "topic": "Box Breathing: Instant 90s Cortisol Reset", "reelId": "reel-6", "completed": true },
+      { "level": "System", "topic": "Time Blocking & Dopamine Fasting Protocol", "reelId": "reel-2", "completed": false }
+    ]
+  },
+  {
+    "id": "goal-wealth",
+    "title": "Financial Independence & Compounding",
+    "description": "Build generational wealth through automated index investing, compounding math, and cashflow optimization.",
+    "category": "Finance",
+    "icon": "TrendingUp",
+    "totalReels": 6,
+    "completedReels": 2,
+    "xpReward": 400,
+    "targetTags": ["wealth", "investing", "finance"],
+    "curriculum": [
+      { "level": "Math", "topic": "Compound Interest in 45 Seconds", "reelId": "reel-7", "completed": true },
+      { "level": "Strategy", "topic": "The 3-Fund Index Portfolio Explained", "reelId": "reel-7", "completed": false },
+      { "level": "Tax Strategy", "topic": "Roth IRA vs 401k Tax Optimization", "reelId": "reel-7", "completed": false }
+    ]
+  }
+]

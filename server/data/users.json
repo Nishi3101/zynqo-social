@@ -1,0 +1,152 @@
+[
+  {
+    "id": "user-default",
+    "name": "Alex Rivera",
+    "email": "alex@zynqosocial.internal",
+    "language": "en",
+    "date_of_birth": "1995-06-15",
+    "category": "Manager",
+    "current_mood": "Happy",
+    "created_at": "2026-09-05T09:52:00.567Z"
+  },
+  {
+    "id": "user-1788601968490",
+    "name": "Sophia Miller",
+    "email": "sophia@example.com",
+    "language": "en",
+    "date_of_birth": "1998-04-12",
+    "category": "Teacher",
+    "current_mood": "Happy",
+    "created_at": "2026-09-05T09:52:48.490Z"
+  },
+  {
+    "id": "user-1788602129543",
+    "name": "Student User",
+    "email": "test_student@zynqosocial.internal",
+    "language": "en",
+    "date_of_birth": "2001-08-15",
+    "category": "Student",
+    "current_mood": "Happy",
+    "created_at": "2026-09-05T09:55:29.543Z"
+  },
+  {
+    "id": "user-1788602129601",
+    "name": "Teacher User",
+    "email": "test_teacher@zynqosocial.internal",
+    "language": "en",
+    "date_of_birth": "2001-08-15",
+    "category": "Teacher",
+    "current_mood": "Happy",
+    "created_at": "2026-09-05T09:55:29.601Z"
+  },
+  {
+    "id": "user-1788602129619",
+    "name": "Clerk User",
+    "email": "test_clerk@zynqosocial.internal",
+    "language": "en",
+    "date_of_birth": "2001-08-15",
+    "category": "Clerk",
+    "current_mood": "Happy",
+    "created_at": "2026-09-05T09:55:29.619Z"
+  },
+  {
+    "id": "user-1788602129643",
+    "name": "Manager User",
+    "email": "test_manager@zynqosocial.internal",
+    "language": "en",
+    "date_of_birth": "2001-08-15",
+    "category": "Manager",
+    "current_mood": "Happy",
+    "created_at": "2026-09-05T09:55:29.643Z"
+  },
+  {
+    "id": "user-1788602129658",
+    "name": "Head User",
+    "email": "test_head@zynqosocial.internal",
+    "language": "en",
+    "date_of_birth": "2001-08-15",
+    "category": "Head",
+    "current_mood": "Happy",
+    "created_at": "2026-09-05T09:55:29.658Z"
+  },
+  {
+    "id": "user-1788602129669",
+    "name": "Other User",
+    "email": "test_other@zynqosocial.internal",
+    "language": "en",
+    "date_of_birth": "2001-08-15",
+    "category": "Other",
+    "current_mood": "Happy",
+    "created_at": "2026-09-05T09:55:29.669Z"
+  },
+  {
+    "id": "user-1788603087413",
+    "name": "User 3650",
+    "email": "user_3650@zynqosocial.internal",
+    "language": "en",
+    "date_of_birth": "2000-01-01",
+    "category": "Student",
+    "current_mood": "Excited",
+    "created_at": "2026-09-05T10:11:27.413Z"
+  },
+  {
+    "id": "user-1788603224218",
+    "name": "Nishi  Thakkar",
+    "email": "nishithakkar47@gmail.com",
+    "language": "en",
+    "date_of_birth": "2008-01-31",
+    "category": "Student",
+    "current_mood": "Relaxed",
+    "created_at": "2026-09-05T10:13:44.218Z"
+  },
+  {
+    "id": "user-1788626972293",
+    "name": "Nishi Thakkar",
+    "email": "nishithakkarofficial@gmail.com",
+    "language": "en",
+    "date_of_birth": "2008-01-31",
+    "category": "Student",
+    "current_mood": "Happy",
+    "created_at": "2026-09-05T16:49:32.293Z"
+  },
+  {
+    "id": "user-1788630240377",
+    "name": "abc",
+    "email": "abc@gmail.com",
+    "language": "en",
+    "date_of_birth": "2014-01-01",
+    "category": "Student",
+    "current_mood": "Happy",
+    "created_at": "2026-09-05T17:44:00.377Z"
+  },
+  {
+    "id": "user-1788630771226",
+    "name": "abcd",
+    "email": "abcd@gmail.com",
+    "language": "en",
+    "date_of_birth": "2008-01-31",
+    "category": "Student",
+    "current_mood": "Happy",
+    "created_at": "2026-09-05T17:52:51.226Z"
+  },
+  {
+    "id": "user-1788686524784",
+    "name": "abc",
+    "email": "abc@gamil.com",
+    "language": "en",
+    "date_of_birth": "2008-01-31",
+    "category": "Student",
+    "current_mood": "Happy",
+    "created_at": "2026-09-06T09:22:04.784Z"
+  },
+  {
+    "id": "user-1788686810923",
+    "name": "ab",
+    "email": "ab@gmail.com",
+    "language": "en",
+    "date_of_birth": "2008-01-31",
+    "category": "Student",
+    "current_mood": "Relaxed",
+    "created_at": "2026-09-06T09:26:50.923Z"
+  }
+]
