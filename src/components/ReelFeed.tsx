@@ -51,14 +51,73 @@ export const ReelFeed: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentReelIndex, reels]);
 
+  const wheelCooldownRef = useRef(false);
+  const dragStartYRef = useRef<number | null>(null);
+
   const scrollToReel = (index: number) => {
     if (index < 0 || index >= reels.length) return;
     const container = containerRef.current;
     if (!container) return;
 
-    const targetEl = container.children[index] as HTMLElement;
-    if (targetEl) {
-      targetEl.scrollIntoView({ behavior: 'smooth' });
+    const itemHeight = container.clientHeight;
+    container.scrollTo({
+      top: index * itemHeight,
+      behavior: 'smooth'
+    });
+    setCurrentReelIndex(index);
+  };
+
+  // Wheel scrolling (Desktop mousewheel & trackpad)
+  const handleWheel = (e: React.WheelEvent) => {
+    if (wheelCooldownRef.current) return;
+    if (Math.abs(e.deltaY) < 25) return;
+
+    wheelCooldownRef.current = true;
+    if (e.deltaY > 0) {
+      scrollToReel(currentReelIndex + 1);
+    } else {
+      scrollToReel(currentReelIndex - 1);
+    }
+    setTimeout(() => {
+      wheelCooldownRef.current = false;
+    }, 450);
+  };
+
+  // Touch Swipe for mobile & tablets
+  const handleTouchStart = (e: React.TouchEvent) => {
+    dragStartYRef.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (dragStartYRef.current === null) return;
+    const deltaY = e.changedTouches[0].clientY - dragStartYRef.current;
+    dragStartYRef.current = null;
+    if (Math.abs(deltaY) < 40) return;
+
+    if (deltaY < 0) {
+      scrollToReel(currentReelIndex + 1);
+    } else {
+      scrollToReel(currentReelIndex - 1);
+    }
+  };
+
+  // Mouse drag up/down simulation
+  const handleMouseDown = (e: React.MouseEvent) => {
+    // Only left click
+    if (e.button !== 0) return;
+    dragStartYRef.current = e.clientY;
+  };
+
+  const handleMouseUp = (e: React.MouseEvent) => {
+    if (dragStartYRef.current === null) return;
+    const deltaY = e.clientY - dragStartYRef.current;
+    dragStartYRef.current = null;
+    if (Math.abs(deltaY) < 50) return;
+
+    if (deltaY < 0) {
+      scrollToReel(currentReelIndex + 1);
+    } else {
+      scrollToReel(currentReelIndex - 1);
     }
   };
 
@@ -68,7 +127,7 @@ export const ReelFeed: React.FC = () => {
     if (!container) return;
 
     const scrollTop = container.scrollTop;
-    const itemHeight = container.clientHeight;
+    const itemHeight = container.clientHeight || window.innerHeight;
     const activeIdx = Math.round(scrollTop / itemHeight);
 
     if (activeIdx !== currentReelIndex && activeIdx >= 0 && activeIdx < reels.length) {
@@ -113,38 +172,45 @@ export const ReelFeed: React.FC = () => {
 
   return (
     <div className="relative flex-1 h-full w-full flex items-center justify-center overflow-hidden">
-      {/* Reel Scroll Container */}
-      <div
-        ref={containerRef}
-        onScroll={handleScroll}
-        className="reel-container w-full h-full max-w-[430px] md:rounded-3xl md:overflow-hidden md:border md:border-white/10 shadow-2xl bg-black"
-        style={{ height: '100%' }}
-      >
-        {reels.map((reel, idx) => (
-          <div key={reel.id} className="reel-item w-full h-full relative">
-            <ReelCard reel={reel} isActive={idx === currentReelIndex} />
-          </div>
-        ))}
+      {/* Phone Mockup Frame (Clips corners without blocking inner scroll) */}
+      <div className="relative w-full h-full max-w-[430px] md:rounded-3xl md:border md:border-white/10 shadow-2xl bg-black overflow-hidden flex flex-col">
+        {/* Reel Scroll Container */}
+        <div
+          ref={containerRef}
+          onScroll={handleScroll}
+          onWheel={handleWheel}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          className="reel-container w-full h-full flex-1"
+        >
+          {reels.map((reel, idx) => (
+            <div key={reel.id} className="reel-item w-full h-full relative">
+              <ReelCard reel={reel} isActive={idx === currentReelIndex} />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Desktop Quick Nav Arrows */}
-      <div className="hidden lg:flex flex-col gap-2 absolute right-6 top-1/2 -translate-y-1/2 z-20">
+      <div className="hidden md:flex flex-col items-center gap-2 absolute right-3 lg:right-6 top-1/2 -translate-y-1/2 z-30">
         <button
           onClick={() => scrollToReel(currentReelIndex - 1)}
           disabled={currentReelIndex === 0}
-          className="p-3 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-white/10 text-white disabled:opacity-30 disabled:cursor-not-allowed backdrop-blur-md transition shadow-lg hover:scale-105"
-          title="Previous Reel (↑ / k)"
+          className="p-3 rounded-full bg-slate-900/90 hover:bg-cyan-500 hover:text-slate-950 border border-white/15 text-white disabled:opacity-25 disabled:cursor-not-allowed backdrop-blur-md transition shadow-xl hover:scale-110 active:scale-95"
+          title="Previous Reel (↑ or Scroll Up)"
         >
           <ChevronUp className="w-5 h-5" />
         </button>
-        <div className="text-center text-[10px] font-mono text-slate-400">
+        <div className="px-2.5 py-1 rounded-full bg-black/60 border border-white/10 text-center text-[11px] font-mono font-bold text-cyan-300 shadow">
           {currentReelIndex + 1} / {reels.length}
         </div>
         <button
           onClick={() => scrollToReel(currentReelIndex + 1)}
           disabled={currentReelIndex === reels.length - 1}
-          className="p-3 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-white/10 text-white disabled:opacity-30 disabled:cursor-not-allowed backdrop-blur-md transition shadow-lg hover:scale-105"
-          title="Next Reel (↓ / j)"
+          className="p-3 rounded-full bg-slate-900/90 hover:bg-cyan-500 hover:text-slate-950 border border-white/15 text-white disabled:opacity-25 disabled:cursor-not-allowed backdrop-blur-md transition shadow-xl hover:scale-110 active:scale-95"
+          title="Next Reel (↓ or Scroll Down)"
         >
           <ChevronDown className="w-5 h-5" />
         </button>

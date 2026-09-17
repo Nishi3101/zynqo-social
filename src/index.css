@@ -76,13 +76,23 @@ html.light ::-webkit-scrollbar-thumb:hover {
 /* Reel snap scroller */
 .reel-container {
   scroll-snap-type: y mandatory;
-  overflow-y: scroll;
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.reel-container::-webkit-scrollbar {
+  display: none;
 }
 
 .reel-item {
+  height: 100% !important;
+  min-height: 100% !important;
+  max-height: 100% !important;
   scroll-snap-align: start;
   scroll-snap-stop: always;
 }
