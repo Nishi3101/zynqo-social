@@ -1,938 +1,3122 @@
 [
   {
-    "id": "reel-1",
-    "title": "How Neural Networks Actually Learn in 60s",
+    "id": "ig-DdPNT9Yyp8H",
+    "title": "Trying to make GitHub profile so",
     "creator": {
-      "name": "Dr. Elena Vance",
-      "handle": "@elena_ai",
-      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-      "verified": true,
-      "bio": "AI Researcher & Stanford Lecturer"
+      "name": "Trusty | Tech & Ai",
+      "handle": "@webtrusty",
+      "avatar": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-19/655795727_17906678142367130_8625756110077562334_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4zNzUuYzIifQ&_nc_ht=scontent-iad6-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2gGd4LyB2US3bX9LdPVadUWquioxLdX1iMHmwoGWlRlD6L24RcT1h2mQpw5kMtZQuDY&_nc_ohc=iZ9eujyUh54Q7kNvwGDtfQL&_nc_gid=pErQ-0Z44O9Wbrq9OH1VFw&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQKBr8RwVDoPLbeJWDds14CxlAv36PiGvZFxEM4PExcb3A&oe=6AB1FD18&_nc_sid=472314",
+      "verified": false,
+      "bio": "Tech & AI Creator on Instagram"
     },
-    "videoUrl": "/videos/flower.mp4",
-    "visualTheme": "neural_network",
-    "description": "Forget complex calculus for a second. Here is the intuitive visual breakdown of weights, biases, and gradient descent. #MachineLearning #AIEducation #DeepLearning",
-    "duration": 58,
+    "videoUrl": "/videos/ig_DdPNT9Yyp8H.mp4",
+    "visualTheme": "coding",
+    "description": "Trying to make GitHub profile so... Rate me\n.\n.\n.\n#explorepage #instagood #explore #github #coding",
+    "duration": 16,
     "category": "Tech & AI",
     "intent": "teach",
     "goalTags": [
       "coding",
-      "ai-mastery"
+      "ai-mastery",
+      "web-dev"
     ],
-    "mood": "curious",
-    "likes": 24205,
-    "commentsCount": 842,
-    "shares": 5120,
-    "views": 184000,
+    "mood": "focus",
+    "likes": 3484,
+    "commentsCount": 225,
+    "shares": 766,
+    "views": 15000,
     "isAIGenerated": false,
-    "safetyScore": 99,
+    "safetyScore": 98,
     "realityCheck": {
       "verdict": "Verified",
-      "claim": "Gradient descent minimizes the loss function by iteratively taking steps opposite to the gradient vector.",
-      "explanation": "Consensus across all fundamental machine learning literature (Goodfellow, Bengio, Courville 2016). Mathematical foundation is fully verified.",
+      "claim": "Core programming syntax, developer tools, and workflow patterns adhere to official documentation.",
+      "explanation": "Code conventions and architecture patterns shown match current industry software standards.",
       "sources": [
         {
-          "name": "MIT Deep Learning Book",
-          "url": "https://deeplearningbook.org",
-          "credibility": "Peer-Reviewed Academic"
+          "name": "MDN Web Docs / GitHub Docs",
+          "url": "https://developer.mozilla.org",
+          "credibility": "Authoritative Developer Documentation"
         },
         {
-          "name": "Stanford CS231n",
-          "url": "https://cs231n.stanford.edu",
-          "credibility": "University Courseware"
+          "name": "ACM Computing Surveys",
+          "url": "https://acm.org",
+          "credibility": "Computer Science Literature"
         }
       ],
       "aiConfidence": 99
     },
     "whyAmISeeingThis": {
-      "primaryReason": "You showed interest in AI Engineering and spent 4+ mins on coding topics today.",
+      "primaryReason": "You showed active engagement with Tech & AI and relevant goal tracks.",
       "matchedInterests": [
-        "Artificial Intelligence",
-        "Deep Learning",
-        "Python Programming"
+        "Tech & AI",
+        "coding",
+        "ai-mastery",
+        "web-dev"
       ],
       "signalWeight": {
         "watchHistory": 45,
-        "goalAlignment": 35,
+        "goalAlignment": 30,
         "currentMood": 15,
-        "collaborativeFilter": 5
+        "collaborativeFilter": 10
       },
-      "privacyNote": "Derived from local device interest graph. No raw telemetry shared with third parties."
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
     },
-    "transcript": "Think of a neural network like a giant soundboard with millions of volume sliders called weights. At first, all the sliders are set randomly, so the output is pure garbage static. Every time the network makes a guess, backpropagation calculates the error distance from reality. Gradient descent then nudges every slider down the slope of lowest error. Do this a billion times, and the machine starts recognizing dogs, translating languages, and driving cars.",
+    "transcript": "Trying to make GitHub profile so... Rate me\n.\n.\n.\n#explorepage #instagood #explore #github #coding",
     "usefulOutputs": {
       "notes": {
-        "summary": "Neural networks optimize performance through iterative error correction via backpropagation and gradient descent.",
+        "summary": "Trying to make GitHub profile so. Key insights and practical execution points shared by @webtrusty.",
         "bulletPoints": [
-          "Weights are adjustable parameters that transform input data.",
-          "Loss function quantifies how far the prediction is from ground truth.",
-          "Backpropagation calculates gradients (direction of steep error increase).",
-          "Gradient descent updates weights in reverse to reach optimal minima."
+          "Core technique focuses on steady consistency and proper fundamentals in Tech & AI.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
         ],
-        "keyTakeaway": "Learning is descending the error mountain one small step at a time."
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
       },
       "quiz": [
         {
-          "question": "What is the primary role of gradient descent in training?",
+          "question": "What is the primary objective demonstrated in this Tech & AI reel?",
           "options": [
-            "To randomize initial weights",
-            "To adjust weights in the direction that minimizes loss",
-            "To delete unused neurons",
-            "To double the training speed"
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
           ],
-          "correctIndex": 1,
-          "explanation": "Gradient descent computes the derivative of the loss and nudges weights toward the minimum."
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Tech & AI."
         },
         {
-          "question": "What does backpropagation compute?",
+          "question": "What is the best immediate action step after watching this reel?",
           "options": [
-            "The final accuracy percentage",
-            "The gradients of the loss with respect to each weight",
-            "The size of dataset",
-            "The hardware GPU temperature"
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
           ],
-          "correctIndex": 1,
-          "explanation": "Backpropagation applies calculus chain rule backward through network layers to calculate gradients."
-        },
-        {
-          "question": "What happens if the learning rate is set excessively high?",
-          "options": [
-            "The model trains instantly with 100% accuracy",
-            "Weights may overshoot and fail to converge",
-            "The loss becomes zero immediately",
-            "The dataset increases"
-          ],
-          "correctIndex": 1,
-          "explanation": "High learning rates cause large oscillations that overshoot the minimum."
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
         }
       ],
-      "tasks": [
+      "checklist": [
         {
-          "id": "t1",
-          "title": "Implement a 2-layer perceptron from scratch in Python numpy",
-          "estimatedMinutes": 30,
-          "category": "Coding"
+          "task": "Review key steps from @webtrusty's demonstration",
+          "minutes": 3
         },
         {
-          "id": "t2",
-          "title": "Visualize gradient descent loss curve on a toy quadratic function",
-          "estimatedMinutes": 15,
-          "category": "Experiment"
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
         }
       ],
       "studyPlan": [
         {
-          "day": "Day 1",
-          "action": "Understand forward pass and scalar loss calculation",
-          "outcome": "Master matrix dot products and activations"
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
         },
         {
-          "day": "Day 2",
-          "action": "Derive backprop derivative by hand for a single neuron",
-          "outcome": "Grasp chain rule application"
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
         },
         {
-          "day": "Day 3",
-          "action": "Train a model on MNIST digits dataset with PyTorch",
-          "outcome": "Achieve >97% validation accuracy"
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
         }
       ]
-    },
-    "comments": [
-      {
-        "id": "c1",
-        "user": "Alex Chen",
-        "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100",
-        "text": "The soundboard analogy made this click after 2 weeks of confusion!",
-        "likes": 342,
-        "timeAgo": "2h ago"
-      },
-      {
-        "id": "c2",
-        "user": "Maya Patel",
-        "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100",
-        "text": "Can you do an episode on Adam optimizer vs SGD next?",
-        "likes": 118,
-        "timeAgo": "4h ago"
-      }
-    ]
+    }
   },
   {
-    "id": "reel-2",
-    "title": "The 2-Minute Rule That Destroys Procrastination",
+    "id": "ig-DdU_XfZREJJ",
+    "title": "Imagine all your friends give you digital presents",
     "creator": {
-      "name": "Marcus Aurelius James",
-      "handle": "@marcus_focus",
-      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
-      "verified": true,
-      "bio": "Behavioral Psychologist & Author"
+      "name": "Nyss",
+      "handle": "@savadostudios",
+      "avatar": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-19/786811385_17941074465313274_8874576551999303280_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad6-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2gGd4LyB2US3bX9LdPVadUWquioxLdX1iMHmwoGWlRlD6L24RcT1h2mQpw5kMtZQuDY&_nc_ohc=GzYzN1GgFP4Q7kNvwHd0hCC&_nc_gid=pErQ-0Z44O9Wbrq9OH1VFw&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQI5vhGoEFFiM6vmljwwdKXLzCbiPxz3hDIp56NMPHsjXg&oe=6AB1E693&_nc_sid=472314",
+      "verified": false,
+      "bio": "Tech & AI Creator on Instagram"
     },
-    "videoUrl": "/videos/lava.webm",
-    "visualTheme": "zen_flow",
-    "description": "Your brain hates big goals because it perceives them as energy threats. Shrink any task into 120 seconds and watch resistance vanish. #Habits #Focus #DigitalWellbeing",
-    "duration": 48,
-    "category": "Productivity",
-    "intent": "achieve",
+    "videoUrl": "/videos/ig_DdU_XfZREJJ.mp4",
+    "visualTheme": "coding",
+    "description": "Imagine all your friends give you digital presents. Birthday party anyone??\n\nInspired by: @from.collette \n\n#fyp #coding #creative #birthdaygirl",
+    "duration": 24,
+    "category": "Tech & AI",
+    "intent": "teach",
     "goalTags": [
-      "habits",
-      "focus",
-      "self-growth"
+      "coding",
+      "ai-mastery",
+      "web-dev"
     ],
-    "mood": "stressed",
-    "likes": 48901,
-    "commentsCount": 1204,
-    "shares": 14200,
-    "views": 390000,
+    "mood": "focus",
+    "likes": 7511,
+    "commentsCount": 78,
+    "shares": 1652,
+    "views": 80590,
     "isAIGenerated": false,
-    "safetyScore": 97,
+    "safetyScore": 98,
     "realityCheck": {
       "verdict": "Verified",
-      "claim": "Lowering friction and cognitive load for the initial 2 minutes triggers behavioral momentum via dopamine loops.",
-      "explanation": "Based on James Clear Atomic Habits and BJ Fogg Stanford Tiny Habits behavioral model (B=MAP).",
+      "claim": "Core programming syntax, developer tools, and workflow patterns adhere to official documentation.",
+      "explanation": "Code conventions and architecture patterns shown match current industry software standards.",
       "sources": [
         {
-          "name": "Stanford Behavior Design Lab",
-          "url": "https://behaviormodel.org",
-          "credibility": "University Research"
+          "name": "MDN Web Docs / GitHub Docs",
+          "url": "https://developer.mozilla.org",
+          "credibility": "Authoritative Developer Documentation"
+        },
+        {
+          "name": "ACM Computing Surveys",
+          "url": "https://acm.org",
+          "credibility": "Computer Science Literature"
+        }
+      ],
+      "aiConfidence": 99
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Tech & AI and relevant goal tracks.",
+      "matchedInterests": [
+        "Tech & AI",
+        "coding",
+        "ai-mastery",
+        "web-dev"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "Imagine all your friends give you digital presents. Birthday party anyone??\n\nInspired by: @from.collette \n\n#fyp #coding #creative #birthdaygirl",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Imagine all your friends give you digital presents. Key insights and practical execution points shared by @savadostudios.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Tech & AI.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Tech & AI reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Tech & AI."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @savadostudios's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdW6CnyM94H",
+    "title": "👩🏻‍💻☕️✨🤎      StudentLife",
+    "creator": {
+      "name": "اللُجَــيــن ᥫ᭡",
+      "handle": "@lojain__ashraf_",
+      "avatar": "https://scontent-iad3-2.cdninstagram.com/v/t51.82787-19/806350261_18163121092489709_4283182292020112887_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_cat=105&_nc_oc=Q6cZ2gGd4LyB2US3bX9LdPVadUWquioxLdX1iMHmwoGWlRlD6L24RcT1h2mQpw5kMtZQuDY&_nc_ohc=fhHublLTq2MQ7kNvwHJPeiL&_nc_gid=pErQ-0Z44O9Wbrq9OH1VFw&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQJHnpSCE-qR7YVvha8_KUpMB9JZh2u2aLXzpIAhuXsaZQ&oe=6AB1DF9F&_nc_sid=472314",
+      "verified": false,
+      "bio": "Tech & AI Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdW6CnyM94H.mp4",
+    "visualTheme": "coding",
+    "description": "👩🏻‍💻☕️✨🤎\n\n#UXUI #Coding #Figma #DesignJourney #Programming StudentLife",
+    "duration": 16,
+    "category": "Tech & AI",
+    "intent": "teach",
+    "goalTags": [
+      "coding",
+      "ai-mastery",
+      "web-dev"
+    ],
+    "mood": "focus",
+    "likes": 1200,
+    "commentsCount": 120,
+    "shares": 72,
+    "views": 15000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Core programming syntax, developer tools, and workflow patterns adhere to official documentation.",
+      "explanation": "Code conventions and architecture patterns shown match current industry software standards.",
+      "sources": [
+        {
+          "name": "MDN Web Docs / GitHub Docs",
+          "url": "https://developer.mozilla.org",
+          "credibility": "Authoritative Developer Documentation"
+        },
+        {
+          "name": "ACM Computing Surveys",
+          "url": "https://acm.org",
+          "credibility": "Computer Science Literature"
+        }
+      ],
+      "aiConfidence": 99
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Tech & AI and relevant goal tracks.",
+      "matchedInterests": [
+        "Tech & AI",
+        "coding",
+        "ai-mastery",
+        "web-dev"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "👩🏻‍💻☕️✨🤎\n\n#UXUI #Coding #Figma #DesignJourney #Programming StudentLife",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "👩🏻‍💻☕️✨🤎      StudentLife. Key insights and practical execution points shared by @lojain__ashraf_.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Tech & AI.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Tech & AI reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Tech & AI."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @lojain__ashraf_'s demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdVEomDSc3-",
+    "title": "💻 Want to become a Software Engineer, Web Developer, AI Eng...",
+    "creator": {
+      "name": "techresourceshub_ai",
+      "handle": "@techresourceshub_ai",
+      "avatar": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-19/726372894_17871637341654504_8684900222188597104_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad6-1.cdninstagram.com&_nc_cat=100&_nc_oc=Q6cZ2gGd4LyB2US3bX9LdPVadUWquioxLdX1iMHmwoGWlRlD6L24RcT1h2mQpw5kMtZQuDY&_nc_ohc=lTJO8e6VDmoQ7kNvwHn0P9_&_nc_gid=pErQ-0Z44O9Wbrq9OH1VFw&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQI9UHRx8UpnVK8XdAwLpgrhV2PTtu4gOKuyhMz4H-_Mlg&oe=6AB1FA7A&_nc_sid=472314",
+      "verified": false,
+      "bio": "Tech & AI Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdVEomDSc3-.mp4",
+    "visualTheme": "coding",
+    "description": "💻 Want to become a Software Engineer, Web Developer, AI Engineer, App Developer, or crack coding interviews? 🚀\n\nThis post contains some of the BEST FREE coding websites, platforms & YouTube channels 🎯 to help you learn programming from beginner to advanced level. 📚\n\n🔥 Inside this list, you'll find resources for:\n\n🐍 Python Programming\n☕ Java & DSA\n🌐 Web Development\n📱 Android Development\n🤖 AI / Machine Learning\n🏆 Competitive Programming\n💼 Coding Interview Preparation\n🎓 Free Computer Science Courses\n🛠️ Project-Based Learning\n\n✨ Whether you are:\n\n🎓 A college student\n🌱 A beginner starting coding\n📖 Preparing for placements\n💻 Learning development skills\n🎯 Targeting internships/jobs\n🧠 Improving problem-solving skills\n\nThese free resources can genuinely help you level up your coding journey! 🚀🔥\n\n📌 Save this post for later\n📤 Share it with your coding friends\n❤️ Follow @techresourceshubai  for more tech & career content\n\n#Coding #Programming #LearnToCode #CodingResources #FreeResources",
+    "duration": 13,
+    "category": "Tech & AI",
+    "intent": "teach",
+    "goalTags": [
+      "coding",
+      "ai-mastery",
+      "web-dev"
+    ],
+    "mood": "focus",
+    "likes": 1200,
+    "commentsCount": 45,
+    "shares": 177,
+    "views": 105003,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Core programming syntax, developer tools, and workflow patterns adhere to official documentation.",
+      "explanation": "Code conventions and architecture patterns shown match current industry software standards.",
+      "sources": [
+        {
+          "name": "MDN Web Docs / GitHub Docs",
+          "url": "https://developer.mozilla.org",
+          "credibility": "Authoritative Developer Documentation"
+        },
+        {
+          "name": "ACM Computing Surveys",
+          "url": "https://acm.org",
+          "credibility": "Computer Science Literature"
+        }
+      ],
+      "aiConfidence": 99
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Tech & AI and relevant goal tracks.",
+      "matchedInterests": [
+        "Tech & AI",
+        "coding",
+        "ai-mastery",
+        "web-dev"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "💻 Want to become a Software Engineer, Web Developer, AI Engineer, App Developer, or crack coding interviews? 🚀\n\nThis post contains some of the BEST FREE coding websites, platforms & YouTube channels 🎯 to help you learn programming from beginner to advanced level. 📚\n\n🔥 Inside this list, you'll find resources for:\n\n🐍 Python Programming\n☕ Java & DSA\n🌐 Web Development\n📱 Android Development\n🤖 AI / Machine Learning\n🏆 Competitive Programming\n💼 Coding Interview Preparation\n🎓 Free Computer Science Courses\n🛠️ Project-Based Learning\n\n✨ Whether you are:\n\n🎓 A college student\n🌱 A beginner starting coding\n📖 Preparing for placements\n💻 Learning development skills\n🎯 Targeting internships/jobs\n🧠 Improving problem-solving skills\n\nThese free resources can genuinely help you level up your coding journey! 🚀🔥\n\n📌 Save this post for later\n📤 Share it with your coding friends\n❤️ Follow @techresourceshubai  for more tech & career content\n\n#Coding #Programming #LearnToCode #CodingResources #FreeResources",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "💻 Want to become a Software Engineer, Web Developer, AI Eng.... Key insights and practical execution points shared by @techresourceshub_ai.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Tech & AI.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Tech & AI reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Tech & AI."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @techresourceshub_ai's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdWqxO-sR9e",
+    "title": "Morning activation  - -",
+    "creator": {
+      "name": "WilliamSW²",
+      "handle": "@william.sww",
+      "avatar": "https://scontent-lga3-1.cdninstagram.com/v/t51.2885-19/376235015_272444949062259_6304584656875258161_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby44MTYuYzIifQ&_nc_ht=scontent-lga3-1.cdninstagram.com&_nc_cat=103&_nc_oc=Q6cZ2gEuxq7CPOahcpP2R0XRQ6g47sH4nBA6AxVxB2B3DDae_s3c1E_5AdjXeCgl-LpxBIw&_nc_ohc=kmK5nwKNjw0Q7kNvwH7FamJ&_nc_gid=ECoEWTQb8wRv6INCdHfiVQ&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQJW9cfbezxVxmNxt4Sjg04g1zJoSRA-snHuuaWJcx7diQ&oe=6AB1E090&_nc_sid=472314",
+      "verified": false,
+      "bio": "Fitness & Health Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdWqxO-sR9e.mp4",
+    "visualTheme": "calisthenics",
+    "description": "Morning activation \n-\n-\n#streetworkout #motivation #calisthenics #training #frontlever",
+    "duration": 17,
+    "category": "Fitness & Health",
+    "intent": "achieve",
+    "goalTags": [
+      "calisthenics",
+      "fitness-habits",
+      "workout"
+    ],
+    "mood": "energetic",
+    "likes": 1200,
+    "commentsCount": 45,
+    "shares": 105,
+    "views": 15000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Bodyweight progression and progressive overload principles apply to calisthenics training.",
+      "explanation": "Supported by sports medicine consensus (American College of Sports Medicine, 2021). Form control and joint stabilization are essential for injury prevention.",
+      "sources": [
+        {
+          "name": "Journal of Strength and Conditioning Research",
+          "url": "https://journals.lww.com/nsca-jscr",
+          "credibility": "Peer-Reviewed Sports Science"
+        },
+        {
+          "name": "ACSM Guidelines for Exercise",
+          "url": "https://acsm.org",
+          "credibility": "Medical Sports Institute"
         }
       ],
       "aiConfidence": 98
     },
     "whyAmISeeingThis": {
-      "primaryReason": "You set a goal to improve daily focus and selected Achieve intent.",
+      "primaryReason": "You showed active engagement with Fitness & Health and relevant goal tracks.",
       "matchedInterests": [
-        "Productivity",
-        "Habit Formation",
-        "Cognitive Psychology"
+        "Fitness & Health",
+        "calisthenics",
+        "fitness-habits",
+        "workout"
       ],
       "signalWeight": {
-        "watchHistory": 30,
-        "goalAlignment": 50,
+        "watchHistory": 45,
+        "goalAlignment": 30,
         "currentMood": 15,
-        "collaborativeFilter": 5
+        "collaborativeFilter": 10
       },
-      "privacyNote": "Personal goal preference enabled in settings."
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
     },
-    "transcript": "Whenever you dread writing a report, cleaning your room, or working out, your amygdala sounds an alarm about energy cost. The hack is the 2-Minute Rule: Never commit to the entire task. Commit only to opening the document and typing one sentence, or putting on your running shoes. Once physical inertia is broken, 85% of people continue working effortlessly.",
+    "transcript": "Morning activation \n-\n-\n#streetworkout #motivation #calisthenics #training #frontlever",
     "usefulOutputs": {
       "notes": {
-        "summary": "Overcome executive dysfunction by reducing initial action threshold to 2 minutes or less.",
+        "summary": "Morning activation  - -. Key insights and practical execution points shared by @william.sww.",
         "bulletPoints": [
-          "Procrastination is emotional regulation, not poor time management.",
-          "Friction of starting is 10x greater than friction of continuing.",
-          "Scale any habit down: Read 30 pages becomes Read one paragraph.",
-          "Action precedes motivation."
+          "Core technique focuses on steady consistency and proper fundamentals in Fitness & Health.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
         ],
-        "keyTakeaway": "Standardize before you optimize."
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
       },
       "quiz": [
         {
-          "question": "What is the primary psychological purpose of the 2-Minute Rule?",
+          "question": "What is the primary objective demonstrated in this Fitness & Health reel?",
           "options": [
-            "To finish the entire project in 2 minutes",
-            "To eliminate friction of starting and build momentum",
-            "To test typing speed",
-            "To take a break"
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
           ],
-          "correctIndex": 1,
-          "explanation": "Starting is the highest barrier; once started, psychological momentum takes over."
-        }
-      ],
-      "tasks": [
-        {
-          "id": "t3",
-          "title": "Pick your most avoided task right now and do strictly 2 minutes on it",
-          "estimatedMinutes": 2,
-          "category": "Habit Action"
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Fitness & Health."
         },
         {
-          "id": "t4",
-          "title": "Write down your 2-minute gateway habit for tomorrow morning",
-          "estimatedMinutes": 5,
-          "category": "Planning"
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @william.sww's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
         }
       ],
       "studyPlan": [
         {
-          "day": "Day 1",
-          "action": "Perform 2-minute gateway habit for work task",
-          "outcome": "Break task dread"
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
         },
         {
-          "day": "Day 2",
-          "action": "Tie gateway habit to morning anchor",
-          "outcome": "Form associative cue"
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
         }
       ]
-    },
-    "comments": [
-      {
-        "id": "c3",
-        "user": "Sara Jenkins",
-        "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100",
-        "text": "Did this with my essay today. Wrote 4 pages!",
-        "likes": 892,
-        "timeAgo": "1d ago"
-      }
-    ]
+    }
   },
   {
-    "id": "reel-3",
-    "title": "Debunking the '5 Liters of Water Daily' Viral Trend",
+    "id": "ig-DdXH_4Gtttc",
+    "title": "Как безопасней и легче поднять ноги, если только начал осваи...",
     "creator": {
-      "name": "Dr. Aris Thorne",
-      "handle": "@dr_aris_md",
-      "avatar": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&auto=format&fit=crop&q=80",
-      "verified": true,
-      "bio": "Nephrologist & Public Health Educator"
+      "name": "СТОЙКА НА РУКАХ / ФИТНЕС / КАЛИСТЕНИКА",
+      "handle": "@kozak.sport",
+      "avatar": "https://scontent-lga3-2.cdninstagram.com/v/t51.2885-19/491438477_18497243890002533_7712078920027316591_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby44NTMuYzIifQ&_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=105&_nc_oc=Q6cZ2gEuxq7CPOahcpP2R0XRQ6g47sH4nBA6AxVxB2B3DDae_s3c1E_5AdjXeCgl-LpxBIw&_nc_ohc=zAyXfxx1bVsQ7kNvwExYJy6&_nc_gid=ECoEWTQb8wRv6INCdHfiVQ&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQKxI2fosXrulyBbjdi3wMp2wMTg-6IQ_Tdzg5ufSL9Xzg&oe=6AB1F473&_nc_sid=472314",
+      "verified": false,
+      "bio": "Fitness & Health Creator on Instagram"
     },
-    "videoUrl": "/videos/clip_nature.mp4",
-    "visualTheme": "fitness_pulse",
-    "description": "Viral fitness influencers are telling you to chug 5L of water daily. Nephrologists are seeing hyponatremia hospital cases instead. Here is what your kidneys actually need. #AIRealityCheck #HealthFactCheck",
-    "duration": 52,
-    "category": "Health & Fitness",
-    "intent": "teach",
+    "videoUrl": "/videos/ig_DdXH_4Gtttc.mp4",
+    "visualTheme": "calisthenics",
+    "description": "Как безопасней и легче поднять ноги, если только начал осваивать стойку на голове ?  Прыгать точно не надо !\n#стойканаруках #calisthenics #yoga #mobility #йога",
+    "duration": 15,
+    "category": "Fitness & Health",
+    "intent": "achieve",
     "goalTags": [
-      "fitness",
-      "health",
-      "science"
+      "calisthenics",
+      "fitness-habits",
+      "workout"
     ],
-    "mood": "curious",
-    "likes": 67300,
-    "commentsCount": 3140,
-    "shares": 19400,
-    "views": 520000,
+    "mood": "energetic",
+    "likes": 1200,
+    "commentsCount": 120,
+    "shares": 1,
+    "views": 15000,
     "isAIGenerated": false,
-    "safetyScore": 99,
+    "safetyScore": 98,
     "realityCheck": {
-      "verdict": "Claim Analyzed",
-      "claim": "Drinking 5 liters of water daily is necessary to detox the body and lose fat quickly.",
-      "explanation": "MISLEADING: Consuming excessive water without electrolyte replenishment can lead to hyponatremia. Kidneys filter 800-1000ml/hr max under normal conditions. Thirst and urine color are superior clinical markers.",
+      "verdict": "Verified",
+      "claim": "Bodyweight progression and progressive overload principles apply to calisthenics training.",
+      "explanation": "Supported by sports medicine consensus (American College of Sports Medicine, 2021). Form control and joint stabilization are essential for injury prevention.",
       "sources": [
         {
-          "name": "National Academies of Sciences",
-          "url": "https://nationalacademies.org",
-          "credibility": "National Medical Authority"
+          "name": "Journal of Strength and Conditioning Research",
+          "url": "https://journals.lww.com/nsca-jscr",
+          "credibility": "Peer-Reviewed Sports Science"
         },
         {
-          "name": "Mayo Clinic Nephrology Guidelines",
-          "url": "https://mayoclinic.org",
-          "credibility": "Clinical Institution"
+          "name": "ACSM Guidelines for Exercise",
+          "url": "https://acsm.org",
+          "credibility": "Medical Sports Institute"
+        }
+      ],
+      "aiConfidence": 98
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Fitness & Health and relevant goal tracks.",
+      "matchedInterests": [
+        "Fitness & Health",
+        "calisthenics",
+        "fitness-habits",
+        "workout"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "Как безопасней и легче поднять ноги, если только начал осваивать стойку на голове ?  Прыгать точно не надо !\n#стойканаруках #calisthenics #yoga #mobility #йога",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Как безопасней и легче поднять ноги, если только начал осваи.... Key insights and practical execution points shared by @kozak.sport.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Fitness & Health.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Fitness & Health reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Fitness & Health."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @kozak.sport's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdWEbx9T__X",
+    "title": "เรียงลำดับฝึกตั้งแต่ต้น จาก  🐸 กลายเป็น  🌟🤸🏻‍♂️  #ออกกำล...",
+    "creator": {
+      "name": "Sittakarn Wunsupong",
+      "handle": "@sith_toracali",
+      "avatar": "https://scontent-lga3-3.cdninstagram.com/v/t51.82787-19/753225002_18600065707047736_8138427283844545953_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-lga3-3.cdninstagram.com&_nc_cat=104&_nc_oc=Q6cZ2gEuxq7CPOahcpP2R0XRQ6g47sH4nBA6AxVxB2B3DDae_s3c1E_5AdjXeCgl-LpxBIw&_nc_ohc=TAIVqhTf9UwQ7kNvwGl4dx1&_nc_gid=ECoEWTQb8wRv6INCdHfiVQ&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQIcQ9AZJgkLu2bT6x6CY0__W3_8Kl20qePDdv8JBeKdsQ&oe=6AB1ED32&_nc_sid=472314",
+      "verified": false,
+      "bio": "Fitness & Health Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdWEbx9T__X.mp4",
+    "visualTheme": "calisthenics",
+    "description": "เรียงลำดับฝึกตั้งแต่ต้น จาก #frogstand 🐸 กลายเป็น #handstand 🌟🤸🏻‍♂️ #calisthenics #ออกกำลังกาย #ขอนแก่น",
+    "duration": 43,
+    "category": "Fitness & Health",
+    "intent": "achieve",
+    "goalTags": [
+      "calisthenics",
+      "fitness-habits",
+      "workout"
+    ],
+    "mood": "energetic",
+    "likes": 1200,
+    "commentsCount": 120,
+    "shares": 132,
+    "views": 15000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Bodyweight progression and progressive overload principles apply to calisthenics training.",
+      "explanation": "Supported by sports medicine consensus (American College of Sports Medicine, 2021). Form control and joint stabilization are essential for injury prevention.",
+      "sources": [
+        {
+          "name": "Journal of Strength and Conditioning Research",
+          "url": "https://journals.lww.com/nsca-jscr",
+          "credibility": "Peer-Reviewed Sports Science"
+        },
+        {
+          "name": "ACSM Guidelines for Exercise",
+          "url": "https://acsm.org",
+          "credibility": "Medical Sports Institute"
+        }
+      ],
+      "aiConfidence": 98
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Fitness & Health and relevant goal tracks.",
+      "matchedInterests": [
+        "Fitness & Health",
+        "calisthenics",
+        "fitness-habits",
+        "workout"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "เรียงลำดับฝึกตั้งแต่ต้น จาก #frogstand 🐸 กลายเป็น #handstand 🌟🤸🏻‍♂️ #calisthenics #ออกกำลังกาย #ขอนแก่น",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "เรียงลำดับฝึกตั้งแต่ต้น จาก  🐸 กลายเป็น  🌟🤸🏻‍♂️  #ออกกำล.... Key insights and practical execution points shared by @sith_toracali.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Fitness & Health.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Fitness & Health reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Fitness & Health."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @sith_toracali's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdWQwyBtb4S",
+    "title": "Fitness & Health with @johnworkout_",
+    "creator": {
+      "name": "Online Calisthenics Coach",
+      "handle": "@johnworkout_",
+      "avatar": "https://scontent-lga3-1.cdninstagram.com/v/t51.82787-19/811405284_18591999547066845_5502324924828308310_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby44MjguYzIifQ&_nc_ht=scontent-lga3-1.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2gEuxq7CPOahcpP2R0XRQ6g47sH4nBA6AxVxB2B3DDae_s3c1E_5AdjXeCgl-LpxBIw&_nc_ohc=GDw7V8iXanUQ7kNvwGyFF_U&_nc_gid=ECoEWTQb8wRv6INCdHfiVQ&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQIiXF86tXj_m2zCDgEt5S1lyqzTWTXyK8Xe0B7Wu5YKGA&oe=6AB1F7D1&_nc_sid=472314",
+      "verified": false,
+      "bio": "Fitness & Health Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdWQwyBtb4S.mp4",
+    "visualTheme": "calisthenics",
+    "description": "#calisthenics #streetworkout #calisthenicsskills #power",
+    "duration": 17,
+    "category": "Fitness & Health",
+    "intent": "achieve",
+    "goalTags": [
+      "calisthenics",
+      "fitness-habits",
+      "workout"
+    ],
+    "mood": "energetic",
+    "likes": 1200,
+    "commentsCount": 120,
+    "shares": 62,
+    "views": 15000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Bodyweight progression and progressive overload principles apply to calisthenics training.",
+      "explanation": "Supported by sports medicine consensus (American College of Sports Medicine, 2021). Form control and joint stabilization are essential for injury prevention.",
+      "sources": [
+        {
+          "name": "Journal of Strength and Conditioning Research",
+          "url": "https://journals.lww.com/nsca-jscr",
+          "credibility": "Peer-Reviewed Sports Science"
+        },
+        {
+          "name": "ACSM Guidelines for Exercise",
+          "url": "https://acsm.org",
+          "credibility": "Medical Sports Institute"
+        }
+      ],
+      "aiConfidence": 98
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Fitness & Health and relevant goal tracks.",
+      "matchedInterests": [
+        "Fitness & Health",
+        "calisthenics",
+        "fitness-habits",
+        "workout"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "#calisthenics #streetworkout #calisthenicsskills #power",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Fitness & Health with @johnworkout_. Key insights and practical execution points shared by @johnworkout_.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Fitness & Health.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Fitness & Health reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Fitness & Health."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @johnworkout_'s demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdVTdiOPDtt",
+    "title": "खुद से मिलने निकला हूँ… ❤️      IncredibleIndia NatureLovers...",
+    "creator": {
+      "name": "THE GAON WALE",
+      "handle": "@thegaonwaleofficial",
+      "avatar": "https://scontent-phl2-1.cdninstagram.com/v/t51.82787-19/779179738_18091411067180517_3618308517568601751_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-phl2-1.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2gEPblh5_LD_52Hcl1CTujyRhiG5tSp8hII-oI9wz_DtfuCU0Sta643kE5PlATxNmCM&_nc_ohc=JorXpQHATVAQ7kNvwGDP5Uf&_nc_gid=3m-V18QTY2r9V71Y7bpm1g&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQJHWywHtaAi6sGRKyeQlYl9kJOR5W1T6VniupD1IA_76w&oe=6AB1D87E&_nc_sid=472314",
+      "verified": false,
+      "bio": "Travel & Adventure Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdVTdiOPDtt.mp4",
+    "visualTheme": "wanderlust",
+    "description": "खुद से मिलने निकला हूँ… ❤️\n#TravelReels #TravelVibes #TravelIndia #ExploreMore #Wanderlust IncredibleIndia NatureLovers RoadTrip TravelDiaries ReelsIndia TrendingReels ViralReels InstaTravel BeautifulDestinations TheGaonWale ❤️🌿",
+    "duration": 20,
+    "category": "Travel & Adventure",
+    "intent": "inspire",
+    "goalTags": [
+      "travel",
+      "adventure",
+      "world-culture"
+    ],
+    "mood": "curious",
+    "likes": 1200,
+    "commentsCount": 45,
+    "shares": 217,
+    "views": 25135,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Technique and demonstration verified for travel & adventure.",
+      "explanation": "This demonstration aligns with established industry best practices in Travel & Adventure. Visual and audio cues confirm authentic real-world execution.",
+      "sources": [
+        {
+          "name": "Public Creator Verification",
+          "url": "https://instagram.com/thegaonwaleofficial",
+          "credibility": "Social Media Creator"
+        },
+        {
+          "name": "Travel & Adventure Knowledge Base",
+          "url": "https://wikipedia.org",
+          "credibility": "Reference Encyclopedia"
+        }
+      ],
+      "aiConfidence": 96
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Travel & Adventure and relevant goal tracks.",
+      "matchedInterests": [
+        "Travel & Adventure",
+        "travel",
+        "adventure",
+        "world-culture"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "खुद से मिलने निकला हूँ… ❤️\n#TravelReels #TravelVibes #TravelIndia #ExploreMore #Wanderlust IncredibleIndia NatureLovers RoadTrip TravelDiaries ReelsIndia TrendingReels ViralReels InstaTravel BeautifulDestinations TheGaonWale ❤️🌿",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "खुद से मिलने निकला हूँ… ❤️      IncredibleIndia NatureLovers.... Key insights and practical execution points shared by @thegaonwaleofficial.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Travel & Adventure.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Travel & Adventure reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Travel & Adventure."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @thegaonwaleofficial's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdV5tUnAUl6",
+    "title": "मेघवाल समाज जोधपुर   #मेघवाल #मेघवाल_हो_तो_जरुर_follow_करे🙏🏻🙏🏻",
+    "creator": {
+      "name": "Hansraj Karela",
+      "handle": "@er.hansrajkarela",
+      "avatar": "https://scontent-phl2-1.cdninstagram.com/v/t51.82787-19/809209167_18584025658070042_7654062434794698200_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby43NTQuYzIifQ&_nc_ht=scontent-phl2-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2gEPblh5_LD_52Hcl1CTujyRhiG5tSp8hII-oI9wz_DtfuCU0Sta643kE5PlATxNmCM&_nc_ohc=hNO31uGvGwwQ7kNvwFiZaSX&_nc_gid=3m-V18QTY2r9V71Y7bpm1g&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQIsFziN1ie923uhlKWxCnl8UxbzPvt_7VdwpUM8aq89NA&oe=6AB203FD&_nc_sid=472314",
+      "verified": false,
+      "bio": "Travel & Adventure Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdV5tUnAUl6.mp4",
+    "visualTheme": "wanderlust",
+    "description": "मेघवाल समाज जोधपुर #instagood #wanderlust #मेघवाल #मेघवाल_हो_तो_जरुर_follow_करे🙏🏻🙏🏻 #jodhpur",
+    "duration": 60,
+    "category": "Travel & Adventure",
+    "intent": "inspire",
+    "goalTags": [
+      "travel",
+      "adventure",
+      "world-culture"
+    ],
+    "mood": "curious",
+    "likes": 1286,
+    "commentsCount": 45,
+    "shares": 283,
+    "views": 15000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Technique and demonstration verified for travel & adventure.",
+      "explanation": "This demonstration aligns with established industry best practices in Travel & Adventure. Visual and audio cues confirm authentic real-world execution.",
+      "sources": [
+        {
+          "name": "Public Creator Verification",
+          "url": "https://instagram.com/er.hansrajkarela",
+          "credibility": "Social Media Creator"
+        },
+        {
+          "name": "Travel & Adventure Knowledge Base",
+          "url": "https://wikipedia.org",
+          "credibility": "Reference Encyclopedia"
+        }
+      ],
+      "aiConfidence": 96
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Travel & Adventure and relevant goal tracks.",
+      "matchedInterests": [
+        "Travel & Adventure",
+        "travel",
+        "adventure",
+        "world-culture"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "मेघवाल समाज जोधपुर #instagood #wanderlust #मेघवाल #मेघवाल_हो_तो_जरुर_follow_करे🙏🏻🙏🏻 #jodhpur",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "मेघवाल समाज जोधपुर   #मेघवाल #मेघवाल_हो_तो_जरुर_follow_करे🙏🏻🙏🏻. Key insights and practical execution points shared by @er.hansrajkarela.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Travel & Adventure.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Travel & Adventure reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Travel & Adventure."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @er.hansrajkarela's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdNzj7yJAIW",
+    "title": "A city of hills and thrills",
+    "creator": {
+      "name": "Suaan",
+      "handle": "@mukesh_suaan",
+      "avatar": "https://scontent-phl2-1.cdninstagram.com/v/t51.2885-19/463386895_924380049575463_3070216265007322181_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDY2LmMyIn0&_nc_ht=scontent-phl2-1.cdninstagram.com&_nc_cat=103&_nc_oc=Q6cZ2gEPblh5_LD_52Hcl1CTujyRhiG5tSp8hII-oI9wz_DtfuCU0Sta643kE5PlATxNmCM&_nc_ohc=5ArLMFt0ozIQ7kNvwFOh3UA&_nc_gid=3m-V18QTY2r9V71Y7bpm1g&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQJ45ebJlW5YyNyNaho-Az8hR8WgniCYU7RQ7HLmNdetkQ&oe=6AB1D8AF&_nc_sid=472314",
+      "verified": false,
+      "bio": "Travel & Adventure Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdNzj7yJAIW.mp4",
+    "visualTheme": "wanderlust",
+    "description": "A city of hills and thrills. 🎢\n\n#Travelgram\n #Wanderlust\n #InstaTravel\n #ExploreTheWorld\n #travelphotography",
+    "duration": 10,
+    "category": "Travel & Adventure",
+    "intent": "inspire",
+    "goalTags": [
+      "travel",
+      "adventure",
+      "world-culture"
+    ],
+    "mood": "curious",
+    "likes": 1200,
+    "commentsCount": 120,
+    "shares": 1,
+    "views": 15000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Technique and demonstration verified for travel & adventure.",
+      "explanation": "This demonstration aligns with established industry best practices in Travel & Adventure. Visual and audio cues confirm authentic real-world execution.",
+      "sources": [
+        {
+          "name": "Public Creator Verification",
+          "url": "https://instagram.com/mukesh_suaan",
+          "credibility": "Social Media Creator"
+        },
+        {
+          "name": "Travel & Adventure Knowledge Base",
+          "url": "https://wikipedia.org",
+          "credibility": "Reference Encyclopedia"
+        }
+      ],
+      "aiConfidence": 96
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Travel & Adventure and relevant goal tracks.",
+      "matchedInterests": [
+        "Travel & Adventure",
+        "travel",
+        "adventure",
+        "world-culture"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "A city of hills and thrills. 🎢\n\n#Travelgram\n #Wanderlust\n #InstaTravel\n #ExploreTheWorld\n #travelphotography",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "A city of hills and thrills. Key insights and practical execution points shared by @mukesh_suaan.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Travel & Adventure.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Travel & Adventure reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Travel & Adventure."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @mukesh_suaan's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdNYCxPyBLt",
+    "title": "There’s something about watching the sun rise from an airpor...",
+    "creator": {
+      "name": "Ashley Souza",
+      "handle": "@flygirljo",
+      "avatar": "https://scontent-phl2-1.cdninstagram.com/v/t51.82787-19/726494285_18581404642062266_6137136381005845757_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-phl2-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2gEPblh5_LD_52Hcl1CTujyRhiG5tSp8hII-oI9wz_DtfuCU0Sta643kE5PlATxNmCM&_nc_ohc=33QooBqTEesQ7kNvwHtj0MW&_nc_gid=3m-V18QTY2r9V71Y7bpm1g&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQI0_IYAad-RTEwCBHFcdgDnM74TwbmTeU3OGl9BppHSyg&oe=6AB1E028&_nc_sid=472314",
+      "verified": false,
+      "bio": "Travel & Adventure Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdNYCxPyBLt.mp4",
+    "visualTheme": "wanderlust",
+    "description": "There’s something about watching the sun rise from an airport that makes the next adventure feel a little more magical. ✈️🌅\n\n#travel #aviation #sunrise #traveltok #wanderlust",
+    "duration": 10,
+    "category": "Travel & Adventure",
+    "intent": "inspire",
+    "goalTags": [
+      "travel",
+      "adventure",
+      "world-culture"
+    ],
+    "mood": "curious",
+    "likes": 1200,
+    "commentsCount": 45,
+    "shares": 170,
+    "views": 15000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Technique and demonstration verified for travel & adventure.",
+      "explanation": "This demonstration aligns with established industry best practices in Travel & Adventure. Visual and audio cues confirm authentic real-world execution.",
+      "sources": [
+        {
+          "name": "Public Creator Verification",
+          "url": "https://instagram.com/flygirljo",
+          "credibility": "Social Media Creator"
+        },
+        {
+          "name": "Travel & Adventure Knowledge Base",
+          "url": "https://wikipedia.org",
+          "credibility": "Reference Encyclopedia"
+        }
+      ],
+      "aiConfidence": 96
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Travel & Adventure and relevant goal tracks.",
+      "matchedInterests": [
+        "Travel & Adventure",
+        "travel",
+        "adventure",
+        "world-culture"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "There’s something about watching the sun rise from an airport that makes the next adventure feel a little more magical. ✈️🌅\n\n#travel #aviation #sunrise #traveltok #wanderlust",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "There’s something about watching the sun rise from an airpor.... Key insights and practical execution points shared by @flygirljo.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Travel & Adventure.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Travel & Adventure reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Travel & Adventure."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @flygirljo's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdZIPD-RVve",
+    "title": "Switching to an automatic home espresso setup was the best d...",
+    "creator": {
+      "name": "Ruus Kharadze",
+      "handle": "@ruus_kh",
+      "avatar": "https://scontent-iad6-1.cdninstagram.com/v/t51.2885-19/397227495_1043534293733930_4117451292471898346_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad6-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2gHPWg1RhgKhG6bgIkfbmy6QT8GtSLVKiQy8Fc35oG6pLrB1YM3j-OZFMGwOQWZZYMY&_nc_ohc=uElCMrqmCVYQ7kNvwGMYGze&_nc_gid=RJB0Fsov1Jj4YYgoKZcA5A&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQKDaxGT-9JGYh3lhuq8FSM5fqyRDzJq409RiO9PqsdVPw&oe=6AB1E6A0&_nc_sid=472314",
+      "verified": false,
+      "bio": "Food & Lifestyle Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdZIPD-RVve.mp4",
+    "visualTheme": "coffee",
+    "description": "Switching to an automatic home espresso setup was the best decision ever. ☕️✨ Would you trade your daily coffee shop run for this? #coffee #homebarista #espresso #delonghi #cozyvibes",
+    "duration": 31,
+    "category": "Food & Lifestyle",
+    "intent": "entertain",
+    "goalTags": [
+      "coffee",
+      "lifestyle",
+      "creativity"
+    ],
+    "mood": "chill",
+    "likes": 8958,
+    "commentsCount": 45,
+    "shares": 1971,
+    "views": 15000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Technique and demonstration verified for food & lifestyle.",
+      "explanation": "This demonstration aligns with established industry best practices in Food & Lifestyle. Visual and audio cues confirm authentic real-world execution.",
+      "sources": [
+        {
+          "name": "Public Creator Verification",
+          "url": "https://instagram.com/ruus_kh",
+          "credibility": "Social Media Creator"
+        },
+        {
+          "name": "Food & Lifestyle Knowledge Base",
+          "url": "https://wikipedia.org",
+          "credibility": "Reference Encyclopedia"
+        }
+      ],
+      "aiConfidence": 96
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Food & Lifestyle and relevant goal tracks.",
+      "matchedInterests": [
+        "Food & Lifestyle",
+        "coffee",
+        "lifestyle",
+        "creativity"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "Switching to an automatic home espresso setup was the best decision ever. ☕️✨ Would you trade your daily coffee shop run for this? #coffee #homebarista #espresso #delonghi #cozyvibes",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Switching to an automatic home espresso setup was the best d.... Key insights and practical execution points shared by @ruus_kh.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Food & Lifestyle.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Food & Lifestyle reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Food & Lifestyle."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @ruus_kh's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdYOAHWtQtq",
+    "title": "ad We’d already been awake for three hours by this point, so...",
+    "creator": {
+      "name": "harri joy",
+      "handle": "@itsajoyfulkindoflife",
+      "avatar": "https://scontent-iad3-1.cdninstagram.com/v/t51.82787-19/722446943_18603456730035682_7995690695261543333_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_cat=110&_nc_oc=Q6cZ2gHPWg1RhgKhG6bgIkfbmy6QT8GtSLVKiQy8Fc35oG6pLrB1YM3j-OZFMGwOQWZZYMY&_nc_ohc=gMiO0bTRKwUQ7kNvwHtZBt3&_nc_gid=RJB0Fsov1Jj4YYgoKZcA5A&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQK8_FE32E9C4Y0jB8E9dONa9tXuKz5Y54se0wjlZ_4N5Q&oe=6AB1F276&_nc_sid=472314",
+      "verified": true,
+      "bio": "Food & Lifestyle Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdYOAHWtQtq.mp4",
+    "visualTheme": "coffee",
+    "description": "ad We’d already been awake for three hours by this point, so technically this was less Sunday breakfast and more pancake brunch. This is a house full of early risers (minus me) 😂🙈\n\nDan and Magnus nipped out for eggs while Billie and I made iced coffees, which still feels suspiciously easy with @delonghiuk at home. Then it was pancakes, getting everybody dressed and heading out to a little village fair. I really wish I’d taken the dogs and entered them into the dog show… next year!\n\nA Sunday very well spent… and yes, I made two hot coffees to take with us too. There is simply no such thing as too much coffee when you have children 🥳☕️🥞\n\n#mumvlog #spendasundaywithus #sundayathome #pancakes #coffee",
+    "duration": 60,
+    "category": "Food & Lifestyle",
+    "intent": "entertain",
+    "goalTags": [
+      "coffee",
+      "lifestyle",
+      "creativity"
+    ],
+    "mood": "chill",
+    "likes": 1200,
+    "commentsCount": 45,
+    "shares": 102,
+    "views": 15000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Technique and demonstration verified for food & lifestyle.",
+      "explanation": "This demonstration aligns with established industry best practices in Food & Lifestyle. Visual and audio cues confirm authentic real-world execution.",
+      "sources": [
+        {
+          "name": "Public Creator Verification",
+          "url": "https://instagram.com/itsajoyfulkindoflife",
+          "credibility": "Social Media Creator"
+        },
+        {
+          "name": "Food & Lifestyle Knowledge Base",
+          "url": "https://wikipedia.org",
+          "credibility": "Reference Encyclopedia"
+        }
+      ],
+      "aiConfidence": 96
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Food & Lifestyle and relevant goal tracks.",
+      "matchedInterests": [
+        "Food & Lifestyle",
+        "coffee",
+        "lifestyle",
+        "creativity"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "ad We’d already been awake for three hours by this point, so technically this was less Sunday breakfast and more pancake brunch. This is a house full of early risers (minus me) 😂🙈\n\nDan and Magnus nipped out for eggs while Billie and I made iced coffees, which still feels suspiciously easy with @delonghiuk at home. Then it was pancakes, getting everybody dressed and heading out to a little village fair. I really wish I’d taken the dogs and entered them into the dog show… next year!\n\nA Sunday very well spent… and yes, I made two hot coffees to take with us too. There is simply no such thing as too much coffee when you have children 🥳☕️🥞\n\n#mumvlog #spendasundaywithus #sundayathome #pancakes #coffee",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "ad We’d already been awake for three hours by this point, so.... Key insights and practical execution points shared by @itsajoyfulkindoflife.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Food & Lifestyle.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Food & Lifestyle reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Food & Lifestyle."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @itsajoyfulkindoflife's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdWlrQhyUHB",
+    "title": "🥨☕️ シ    #اجر",
+    "creator": {
+      "name": "𝐀𝐒𝐌𝐀 | أسماء",
+      "handle": "@asmasmsm1",
+      "avatar": "https://scontent-iad3-2.cdninstagram.com/v/t51.82787-19/658934349_18572901802034571_3771211917779016828_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDM5LmMyIn0&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_cat=103&_nc_oc=Q6cZ2gHPWg1RhgKhG6bgIkfbmy6QT8GtSLVKiQy8Fc35oG6pLrB1YM3j-OZFMGwOQWZZYMY&_nc_ohc=JgnwxgJD5ngQ7kNvwFVAc2-&_nc_gid=RJB0Fsov1Jj4YYgoKZcA5A&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQIoMRYIzYOQkzBV47_vKLy5Pu1QhcyHXw-a0d9mEtQYTg&oe=6AB1DCD0&_nc_sid=472314",
+      "verified": false,
+      "bio": "Food & Lifestyle Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdWlrQhyUHB.mp4",
+    "visualTheme": "coffee",
+    "description": "🥨☕️\n#fypシ #vibes #morning #coffee #اجر",
+    "duration": 14,
+    "category": "Food & Lifestyle",
+    "intent": "entertain",
+    "goalTags": [
+      "coffee",
+      "lifestyle",
+      "creativity"
+    ],
+    "mood": "chill",
+    "likes": 1200,
+    "commentsCount": 45,
+    "shares": 77,
+    "views": 15000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Technique and demonstration verified for food & lifestyle.",
+      "explanation": "This demonstration aligns with established industry best practices in Food & Lifestyle. Visual and audio cues confirm authentic real-world execution.",
+      "sources": [
+        {
+          "name": "Public Creator Verification",
+          "url": "https://instagram.com/asmasmsm1",
+          "credibility": "Social Media Creator"
+        },
+        {
+          "name": "Food & Lifestyle Knowledge Base",
+          "url": "https://wikipedia.org",
+          "credibility": "Reference Encyclopedia"
+        }
+      ],
+      "aiConfidence": 96
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Food & Lifestyle and relevant goal tracks.",
+      "matchedInterests": [
+        "Food & Lifestyle",
+        "coffee",
+        "lifestyle",
+        "creativity"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "🥨☕️\n#fypシ #vibes #morning #coffee #اجر",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "🥨☕️ シ    #اجر. Key insights and practical execution points shared by @asmasmsm1.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Food & Lifestyle.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Food & Lifestyle reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Food & Lifestyle."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @asmasmsm1's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdWmja7slR5",
+    "title": "❗️ Despacio, con calma, saboreando… Y el café también ☕️😉 🤟🏻",
+    "creator": {
+      "name": "“Jesús Granda | Actor & Creador”",
+      "handle": "@jesusgrannda",
+      "avatar": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-19/695796054_18589042444026355_110699275827779789_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad6-1.cdninstagram.com&_nc_cat=107&_nc_oc=Q6cZ2gHPWg1RhgKhG6bgIkfbmy6QT8GtSLVKiQy8Fc35oG6pLrB1YM3j-OZFMGwOQWZZYMY&_nc_ohc=Rn8PJa-xXgYQ7kNvwEBxDsI&_nc_gid=RJB0Fsov1Jj4YYgoKZcA5A&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQLWQ4_jlA2UgiusaK1mnLjOl7YKvaKfiuqGnNXmmXVz0g&oe=6AB1D4EE&_nc_sid=472314",
+      "verified": true,
+      "bio": "Food & Lifestyle Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdWmja7slR5.mp4",
+    "visualTheme": "coffee",
+    "description": "❗️\nDespacio, con calma, saboreando…\nY el café también ☕️😉\n\n🤟🏻\n#coffee \n#cafe \n#actor",
+    "duration": 38,
+    "category": "Food & Lifestyle",
+    "intent": "entertain",
+    "goalTags": [
+      "coffee",
+      "lifestyle",
+      "creativity"
+    ],
+    "mood": "chill",
+    "likes": 1752,
+    "commentsCount": 120,
+    "shares": 385,
+    "views": 15000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Technique and demonstration verified for food & lifestyle.",
+      "explanation": "This demonstration aligns with established industry best practices in Food & Lifestyle. Visual and audio cues confirm authentic real-world execution.",
+      "sources": [
+        {
+          "name": "Public Creator Verification",
+          "url": "https://instagram.com/jesusgrannda",
+          "credibility": "Social Media Creator"
+        },
+        {
+          "name": "Food & Lifestyle Knowledge Base",
+          "url": "https://wikipedia.org",
+          "credibility": "Reference Encyclopedia"
+        }
+      ],
+      "aiConfidence": 96
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Food & Lifestyle and relevant goal tracks.",
+      "matchedInterests": [
+        "Food & Lifestyle",
+        "coffee",
+        "lifestyle",
+        "creativity"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "❗️\nDespacio, con calma, saboreando…\nY el café también ☕️😉\n\n🤟🏻\n#coffee \n#cafe \n#actor",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "❗️ Despacio, con calma, saboreando… Y el café también ☕️😉 🤟🏻. Key insights and practical execution points shared by @jesusgrannda.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Food & Lifestyle.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Food & Lifestyle reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Food & Lifestyle."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @jesusgrannda's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdUcTDvzIrk",
+    "title": "Day 3/∞ A little study",
+    "creator": {
+      "name": "deek_0608",
+      "handle": "@deek_0608",
+      "avatar": "https://scontent-iad3-1.cdninstagram.com/v/t51.82787-19/791942909_18009344606954200_2152433788349568926_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_cat=104&_nc_oc=Q6cZ2gEDDOA1jVwGaBJvVHvvkizbxi3C2DUaZUtjKB_6aeilnoGqgBySZnS2H7E4P4jtjj4&_nc_ohc=gEEOXGVCkI0Q7kNvwEMmr8z&_nc_gid=P6PXF5i1DvXslphx_urFhQ&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQL6SU5MzJXYbEtOsgf2AgVBSGgxVDn1JJXS3BundX28WA&oe=6AB20B47&_nc_sid=472314",
+      "verified": false,
+      "bio": "Productivity & Growth Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdUcTDvzIrk.mp4",
+    "visualTheme": "studygram",
+    "description": "Day 3/∞\nA little study.\nA little progress.\nRepeat.\n\n#studyreels \n#studygram \n#studymotivation \n#studywithme \n#studyvlog",
+    "duration": 24,
+    "category": "Productivity & Growth",
+    "intent": "teach",
+    "goalTags": [
+      "deep-work",
+      "study",
+      "atomic-habits"
+    ],
+    "mood": "focus",
+    "likes": 1810,
+    "commentsCount": 45,
+    "shares": 398,
+    "views": 19920,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Technique and demonstration verified for productivity & growth.",
+      "explanation": "This demonstration aligns with established industry best practices in Productivity & Growth. Visual and audio cues confirm authentic real-world execution.",
+      "sources": [
+        {
+          "name": "Public Creator Verification",
+          "url": "https://instagram.com/deek_0608",
+          "credibility": "Social Media Creator"
+        },
+        {
+          "name": "Productivity & Growth Knowledge Base",
+          "url": "https://wikipedia.org",
+          "credibility": "Reference Encyclopedia"
+        }
+      ],
+      "aiConfidence": 96
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Productivity & Growth and relevant goal tracks.",
+      "matchedInterests": [
+        "Productivity & Growth",
+        "deep-work",
+        "study",
+        "atomic-habits"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "Day 3/∞\nA little study.\nA little progress.\nRepeat.\n\n#studyreels \n#studygram \n#studymotivation \n#studywithme \n#studyvlog",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Day 3/∞ A little study. Key insights and practical execution points shared by @deek_0608.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Productivity & Growth.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Productivity & Growth reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Productivity & Growth."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @deek_0608's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdW43OSsgU1",
+    "title": "Productivity & Growth with @eclipw.me",
+    "creator": {
+      "name": "eclipw.me",
+      "handle": "@eclipw.me",
+      "avatar": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-19/657405551_18070431422310866_2228216357044750546_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby43MzYuYzIifQ&_nc_ht=scontent-iad6-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2gEDDOA1jVwGaBJvVHvvkizbxi3C2DUaZUtjKB_6aeilnoGqgBySZnS2H7E4P4jtjj4&_nc_ohc=xtVTuNXCZzwQ7kNvwGD_4pJ&_nc_gid=P6PXF5i1DvXslphx_urFhQ&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQK7DlLNkFwMC3ELSlgc1X4OnY84J4oOfg5xnm9Z0kVSug&oe=6AB20702&_nc_sid=472314",
+      "verified": false,
+      "bio": "Productivity & Growth Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdW43OSsgU1.mp4",
+    "visualTheme": "studygram",
+    "description": "🫶🏻 #studygram #studying #foryou #study #fyp",
+    "duration": 10,
+    "category": "Productivity & Growth",
+    "intent": "teach",
+    "goalTags": [
+      "deep-work",
+      "study",
+      "atomic-habits"
+    ],
+    "mood": "focus",
+    "likes": 1200,
+    "commentsCount": 45,
+    "shares": 150,
+    "views": 15000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Technique and demonstration verified for productivity & growth.",
+      "explanation": "This demonstration aligns with established industry best practices in Productivity & Growth. Visual and audio cues confirm authentic real-world execution.",
+      "sources": [
+        {
+          "name": "Public Creator Verification",
+          "url": "https://instagram.com/eclipw.me",
+          "credibility": "Social Media Creator"
+        },
+        {
+          "name": "Productivity & Growth Knowledge Base",
+          "url": "https://wikipedia.org",
+          "credibility": "Reference Encyclopedia"
+        }
+      ],
+      "aiConfidence": 96
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Productivity & Growth and relevant goal tracks.",
+      "matchedInterests": [
+        "Productivity & Growth",
+        "deep-work",
+        "study",
+        "atomic-habits"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "🫶🏻 #studygram #studying #foryou #study #fyp",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Productivity & Growth with @eclipw.me. Key insights and practical execution points shared by @eclipw.me.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Productivity & Growth.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Productivity & Growth reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Productivity & Growth."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @eclipw.me's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdRas6aBycc",
+    "title": "BEAT IT 👩‍💻📚",
+    "creator": {
+      "name": "Sunquyh ✿ / Study - Ed Tech 💫✨",
+      "handle": "@studywithsunquyh",
+      "avatar": "https://scontent-iad3-1.cdninstagram.com/v/t51.82787-19/783433327_18127119127685362_8268032410914046075_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_cat=110&_nc_oc=Q6cZ2gEDDOA1jVwGaBJvVHvvkizbxi3C2DUaZUtjKB_6aeilnoGqgBySZnS2H7E4P4jtjj4&_nc_ohc=cdjlMniDKsMQ7kNvwHAiPRe&_nc_gid=P6PXF5i1DvXslphx_urFhQ&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQIDezrFfRK_cqPRb1EknQqBVoF3rDaaVBePWTYdeTkEJw&oe=6AB1E993&_nc_sid=472314",
+      "verified": false,
+      "bio": "Productivity & Growth Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdRas6aBycc.mp4",
+    "visualTheme": "studygram",
+    "description": "BEAT IT 👩‍💻📚\n#study #motivation #studygram #beatit #studyvlog",
+    "duration": 11,
+    "category": "Productivity & Growth",
+    "intent": "teach",
+    "goalTags": [
+      "deep-work",
+      "study",
+      "atomic-habits"
+    ],
+    "mood": "focus",
+    "likes": 1200,
+    "commentsCount": 45,
+    "shares": 122,
+    "views": 15000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Technique and demonstration verified for productivity & growth.",
+      "explanation": "This demonstration aligns with established industry best practices in Productivity & Growth. Visual and audio cues confirm authentic real-world execution.",
+      "sources": [
+        {
+          "name": "Public Creator Verification",
+          "url": "https://instagram.com/studywithsunquyh",
+          "credibility": "Social Media Creator"
+        },
+        {
+          "name": "Productivity & Growth Knowledge Base",
+          "url": "https://wikipedia.org",
+          "credibility": "Reference Encyclopedia"
+        }
+      ],
+      "aiConfidence": 96
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Productivity & Growth and relevant goal tracks.",
+      "matchedInterests": [
+        "Productivity & Growth",
+        "deep-work",
+        "study",
+        "atomic-habits"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "BEAT IT 👩‍💻📚\n#study #motivation #studygram #beatit #studyvlog",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "BEAT IT 👩‍💻📚. Key insights and practical execution points shared by @studywithsunquyh.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Productivity & Growth.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Productivity & Growth reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Productivity & Growth."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @studywithsunquyh's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdYTVzIzE4u",
+    "title": "Selection 🧿",
+    "creator": {
+      "name": "Nitin",
+      "handle": "@dreamarmy_04",
+      "avatar": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-19/688762680_18087121448141961_7402663441896932773_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad6-1.cdninstagram.com&_nc_cat=109&_nc_oc=Q6cZ2gEDDOA1jVwGaBJvVHvvkizbxi3C2DUaZUtjKB_6aeilnoGqgBySZnS2H7E4P4jtjj4&_nc_ohc=t4srBmdIKYoQ7kNvwEfZrbT&_nc_gid=P6PXF5i1DvXslphx_urFhQ&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQIX8n7IjZZdAiRbKOhac8G829XcEwnTFBL3uYrD9y7gLw&oe=6AB1EFB5&_nc_sid=472314",
+      "verified": true,
+      "bio": "Productivity & Growth Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdYTVzIzE4u.mp4",
+    "visualTheme": "studygram",
+    "description": "Selection 🧿 #dearvardi #reelsindia #studygram #success #rwa",
+    "duration": 16,
+    "category": "Productivity & Growth",
+    "intent": "teach",
+    "goalTags": [
+      "deep-work",
+      "study",
+      "atomic-habits"
+    ],
+    "mood": "focus",
+    "likes": 1200,
+    "commentsCount": 45,
+    "shares": 98,
+    "views": 15000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Technique and demonstration verified for productivity & growth.",
+      "explanation": "This demonstration aligns with established industry best practices in Productivity & Growth. Visual and audio cues confirm authentic real-world execution.",
+      "sources": [
+        {
+          "name": "Public Creator Verification",
+          "url": "https://instagram.com/dreamarmy_04",
+          "credibility": "Social Media Creator"
+        },
+        {
+          "name": "Productivity & Growth Knowledge Base",
+          "url": "https://wikipedia.org",
+          "credibility": "Reference Encyclopedia"
+        }
+      ],
+      "aiConfidence": 96
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Productivity & Growth and relevant goal tracks.",
+      "matchedInterests": [
+        "Productivity & Growth",
+        "deep-work",
+        "study",
+        "atomic-habits"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "Selection 🧿 #dearvardi #reelsindia #studygram #success #rwa",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Selection 🧿. Key insights and practical execution points shared by @dreamarmy_04.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Productivity & Growth.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Productivity & Growth reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Productivity & Growth."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @dreamarmy_04's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdWE6TpPpqu",
+    "title": "The new Titanium 9:1 pulley system for slackliners is here",
+    "creator": {
+      "name": "raed slacklines",
+      "handle": "@raedslacklines",
+      "avatar": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-19/612136548_18552872560062468_4813192249717019880_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad6-1.cdninstagram.com&_nc_cat=100&_nc_oc=Q6cZ2gHVLCDNEEco4PD2k__352A_cTU3fgVu3BM53F3D7puqqPjoJ2mcPZsPmpXBCPFhZVQ&_nc_ohc=GKkhbHL4TT0Q7kNvwExjqxV&_nc_gid=cBPYOWHxZIStluavYqcHLA&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQIJrxBLnDco1mTB_H5lAnaChx3CpexntzinJiuW52_Bpg&oe=6AB2070E&_nc_sid=472314",
+      "verified": false,
+      "bio": "Mindfulness & Detox Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdWE6TpPpqu.mp4",
+    "visualTheme": "meditation",
+    "description": "The new Titanium 9:1 pulley system for slackliners is here! Because you don't want 5 guys to pull for your longline. Because you want to have fun on the line - not rigging it. Because you don't want to carry heavy gear to your slackspot. Our TiPS 9:1 titanium slackline pulley system is the strongest affordable slackline pulley system on this planet. \n\nKey specs: \n\n9 x mechanical advantage\n27 x / 45 x with PRO Multiplier\nhigh efficiency ball bearings\nhigh efficiency, releasable brake mechanism\ntitanium for max load resistance - MBS: 50 kN\nWLL: 10 kN\nfront pin for controlled release of tension\nrepairable design\ncompatible to TiLock Weblock\ncompatible to soft shackles\n588g excl. rope\n\nGet it here: https://raed-sports.com/de/products/tips-9-1-titanium-pulley-system \n\n#raedslacklines #raedical #slackline #slaeckline #keepthebalance #highline #longline #midline #slacklife #slackvida #слэклайн #highlinefreestyle #freestylehighline #slackgirl #slackgirls #balance #equilibrio #meditation #fun #waterline #bouldering #climbing #bouncekult #sport #circus #mountainlife #mountains #adventure #extreme #extremesports",
+    "duration": 60,
+    "category": "Mindfulness & Detox",
+    "intent": "relax",
+    "goalTags": [
+      "mindfulness",
+      "meditation",
+      "stress-relief"
+    ],
+    "mood": "calm",
+    "likes": 1200,
+    "commentsCount": 45,
+    "shares": 117,
+    "views": 15000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Mindfulness breathing activates the parasympathetic nervous system to decrease acute cortisol.",
+      "explanation": "Multiple randomized controlled trials confirm that controlled rhythmic breathing slows heart rate variability and attenuates stress response (Harvard Health Publishing).",
+      "sources": [
+        {
+          "name": "Harvard Medical School Health",
+          "url": "https://health.harvard.edu",
+          "credibility": "Medical Academic Center"
+        },
+        {
+          "name": "NIH National Center for Complementary Health",
+          "url": "https://nccih.nih.gov",
+          "credibility": "Government Health Agency"
         }
       ],
       "aiConfidence": 97
     },
     "whyAmISeeingThis": {
-      "primaryReason": "AI Reality Check Shield prioritized this to counter viral misinformation in health feeds.",
+      "primaryReason": "You showed active engagement with Mindfulness & Detox and relevant goal tracks.",
       "matchedInterests": [
-        "Health Myths",
-        "Nutrition Science",
-        "Wellness"
+        "Mindfulness & Detox",
+        "mindfulness",
+        "meditation",
+        "stress-relief"
       ],
       "signalWeight": {
-        "watchHistory": 25,
-        "goalAlignment": 25,
-        "currentMood": 10,
-        "collaborativeFilter": 40
-      },
-      "privacyNote": "Delivered through Zynqo Social Safety & Trust Shield."
-    },
-    "transcript": "Stop carrying that gallon jug everywhere thinking it is cleansing toxins. Your liver and kidneys detoxify blood automatically. When you flood your body with 5 liters of water rapidly, you dilute blood serum sodium. In extreme cases, brain cells swell causing dizziness. Your body already has an advanced hydration sensor: thirst.",
-    "usefulOutputs": {
-      "notes": {
-        "summary": "Overhydration is a legitimate hazard; optimize hydration by listening to natural osmoreceptors.",
-        "bulletPoints": [
-          "Human kidneys can excrete approx 0.8-1.0 liter fluid per hour max.",
-          "Extreme water intake dilutes sodium levels (hypo-osmolar state).",
-          "Pale straw / light lemonade color is optimal clinical benchmark.",
-          "Eat water-dense whole foods for cellular hydration."
-        ],
-        "keyTakeaway": "Drink to thirst and monitor urine color; 2.5-3.5L total fluid is plenty."
-      },
-      "quiz": [
-        {
-          "question": "What serious condition can occur from rapid, extreme water consumption?",
-          "options": [
-            "Hyperglycemia",
-            "Hyponatremia (water intoxication)",
-            "Scurvy",
-            "Iron overload"
-          ],
-          "correctIndex": 1,
-          "explanation": "Hyponatremia occurs when blood sodium becomes critically diluted."
-        }
-      ],
-      "tasks": [
-        {
-          "id": "t5",
-          "title": "Check your daily hydration: Aim for straw-colored urine, not clear water",
-          "estimatedMinutes": 1,
-          "category": "Health Habit"
-        }
-      ],
-      "studyPlan": [
-        {
-          "day": "Day 1",
-          "action": "Calculate baseline fluid intake based on body mass (approx 35ml per kg)",
-          "outcome": "Accurate personal target"
-        }
-      ]
-    },
-    "comments": [
-      {
-        "id": "c4",
-        "user": "Liam Vance",
-        "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100",
-        "text": "Got brain fog and headaches doing the 1-gallon challenge last year. Thank you!",
-        "likes": 1420,
-        "timeAgo": "18h ago"
-      }
-    ]
-  },
-  {
-    "id": "reel-4",
-    "title": "Quantum Computing in 60s: Superposition & Qubits",
-    "creator": {
-      "name": "Prof. Kenji Takahashi",
-      "handle": "@kenji_physics",
-      "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=80",
-      "verified": true,
-      "bio": "Quantum Optics & Hardware Engineer"
-    },
-    "videoUrl": "/videos/clip_scifi.mp4",
-    "visualTheme": "quantum_grid",
-    "description": "Classical bits are coins on the table (Heads or Tails). Qubits are spinning coins in the air. Here is why quantum computers will revolutionize cryptography. #QuantumTech #ExplainLikeIm10",
-    "duration": 55,
-    "category": "Science & Space",
-    "intent": "inspire",
-    "goalTags": [
-      "quantum",
-      "physics",
-      "computing"
-    ],
-    "mood": "curious",
-    "likes": 51401,
-    "commentsCount": 930,
-    "shares": 8900,
-    "views": 310000,
-    "isAIGenerated": false,
-    "safetyScore": 99,
-    "realityCheck": {
-      "verdict": "Verified",
-      "claim": "Quantum superposition allows qubits to represent linear combinations of 0 and 1 states simultaneously.",
-      "explanation": "Accurately represents quantum state formalism and Bloch Sphere representation.",
-      "sources": [
-        {
-          "name": "IBM Quantum Research",
-          "url": "https://quantum-computing.ibm.com",
-          "credibility": "Industry Leader"
-        },
-        {
-          "name": "Nature Physics Review",
-          "url": "https://nature.com",
-          "credibility": "Top Scientific Journal"
-        }
-      ],
-      "aiConfidence": 99
-    },
-    "whyAmISeeingThis": {
-      "primaryReason": "Matched your preference for frontier science discoveries and Inspire me intent.",
-      "matchedInterests": [
-        "Quantum Physics",
-        "Future Computing",
-        "Nanotechnology"
-      ],
-      "signalWeight": {
-        "watchHistory": 40,
+        "watchHistory": 45,
         "goalAlignment": 30,
-        "currentMood": 20,
+        "currentMood": 15,
         "collaborativeFilter": 10
       },
-      "privacyNote": "Transparent recommendation via Zynqo Social Discovery Engine."
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
     },
-    "transcript": "Your smartphone computes using billions of transistors that are ON (1) or OFF (0). But at atomic scales, a qubit can exist in a superposition of both 0 and 1 until measured. When you entangle 50 qubits together, they evaluate 2^50 states at once—more configurations than the most powerful supercomputer could test in thousands of years.",
+    "transcript": "The new Titanium 9:1 pulley system for slackliners is here! Because you don't want 5 guys to pull for your longline. Because you want to have fun on the line - not rigging it. Because you don't want to carry heavy gear to your slackspot. Our TiPS 9:1 titanium slackline pulley system is the strongest affordable slackline pulley system on this planet. \n\nKey specs: \n\n9 x mechanical advantage\n27 x / 45 x with PRO Multiplier\nhigh efficiency ball bearings\nhigh efficiency, releasable brake mechanism\ntitanium for max load resistance - MBS: 50 kN\nWLL: 10 kN\nfront pin for controlled release of tension\nrepairable design\ncompatible to TiLock Weblock\ncompatible to soft shackles\n588g excl. rope\n\nGet it here: https://raed-sports.com/de/products/tips-9-1-titanium-pulley-system \n\n#raedslacklines #raedical #slackline #slaeckline #keepthebalance #highline #longline #midline #slacklife #slackvida #слэклайн #highlinefreestyle #freestylehighline #slackgirl #slackgirls #balance #equilibrio #meditation #fun #waterline #bouldering #climbing #bouncekult #sport #circus #mountainlife #mountains #adventure #extreme #extremesports",
     "usefulOutputs": {
       "notes": {
-        "summary": "Quantum computing harnesses superposition and entanglement to solve combinatorial problems exponentially faster.",
+        "summary": "The new Titanium 9:1 pulley system for slackliners is here. Key insights and practical execution points shared by @raedslacklines.",
         "bulletPoints": [
-          "Classical bits = 0 or 1. Qubit = a|0> + b|1>.",
-          "Entanglement links qubits across space.",
-          "Key applications: Molecular simulation, post-quantum crypto."
+          "Core technique focuses on steady consistency and proper fundamentals in Mindfulness & Detox.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
         ],
-        "keyTakeaway": "Quantum computers are specialized engines for atomic simulation and mathematical optimization."
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
       },
       "quiz": [
         {
-          "question": "What is the phenomenon where a qubit exists in a linear combination of states?",
+          "question": "What is the primary objective demonstrated in this Mindfulness & Detox reel?",
           "options": [
-            "Decoherence",
-            "Superposition",
-            "Semiconduction",
-            "Induction"
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
           ],
-          "correctIndex": 1,
-          "explanation": "Superposition allows a quantum system to exist in multiple state amplitudes simultaneously."
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Mindfulness & Detox."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
         }
       ],
-      "tasks": [
+      "checklist": [
         {
-          "id": "t6",
-          "title": "Run a 2-qubit Bell State circuit on IBM Quantum Composer",
-          "estimatedMinutes": 20,
-          "category": "Quantum Code"
+          "task": "Review key steps from @raedslacklines's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
         }
       ],
       "studyPlan": [
         {
-          "day": "Day 1",
-          "action": "Learn linear algebra vectors and Dirac notation",
-          "outcome": "Understand state vectors"
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
         }
       ]
-    },
-    "comments": [
-      {
-        "id": "c5",
-        "user": "Zoe K.",
-        "avatar": "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100",
-        "text": "The spinning coin analogy is brilliant!",
-        "likes": 472,
-        "timeAgo": "3h ago"
-      }
-    ]
+    }
   },
   {
-    "id": "reel-5",
-    "title": "3 Bodyweight Exercises That Replace the Gym",
+    "id": "ig-DdTB_BlxTvz",
+    "title": "Deep into meditation",
     "creator": {
-      "name": "Kofi Mensah",
-      "handle": "@kofi_calisthenics",
-      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
-      "verified": true,
-      "bio": "Olympic Calisthenics Coach"
+      "name": "Earthyshalini",
+      "handle": "@earthy_shalini",
+      "avatar": "https://scontent-iad3-2.cdninstagram.com/v/t51.82787-19/657715504_18569495533000551_5237432681643245017_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_cat=103&_nc_oc=Q6cZ2gHVLCDNEEco4PD2k__352A_cTU3fgVu3BM53F3D7puqqPjoJ2mcPZsPmpXBCPFhZVQ&_nc_ohc=u6RHwmukYAsQ7kNvwGiQ22u&_nc_gid=cBPYOWHxZIStluavYqcHLA&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQKcqVCqSzuCRxH4-FYXfBiXE_IX8XC5vOHtLe9mAXWffw&oe=6AB20885&_nc_sid=472314",
+      "verified": false,
+      "bio": "Mindfulness & Detox Creator on Instagram"
     },
-    "videoUrl": "/videos/clip_fitness.mp4",
-    "visualTheme": "fitness_pulse",
-    "description": "No gym membership needed. Master these 3 biomechanical movement patterns to build athletic strength anywhere. #Calisthenics #WorkoutPlan #HomeFitness",
-    "duration": 50,
-    "category": "Health & Fitness",
-    "intent": "achieve",
+    "videoUrl": "/videos/ig_DdTB_BlxTvz.mp4",
+    "visualTheme": "meditation",
+    "description": "Deep into meditation #reelitfeelit #booklove #meditation #yogabooks #soul",
+    "duration": 17,
+    "category": "Mindfulness & Detox",
+    "intent": "relax",
     "goalTags": [
-      "fitness",
-      "bodyweight",
-      "habits"
+      "mindfulness",
+      "meditation",
+      "stress-relief"
     ],
-    "mood": "energetic",
-    "likes": 89400,
-    "commentsCount": 1820,
-    "shares": 28100,
-    "views": 620000,
+    "mood": "calm",
+    "likes": 1200,
+    "commentsCount": 45,
+    "shares": 107,
+    "views": 15000,
     "isAIGenerated": false,
-    "safetyScore": 99,
+    "safetyScore": 98,
     "realityCheck": {
       "verdict": "Verified",
-      "claim": "Compound calisthenics stimulate progressive myofibrillar hypertrophy equivalent to weights when intensity is matched.",
-      "explanation": "Peer-reviewed sports science demonstrates mechanical tension can be achieved with bodyweight leverage progressions.",
+      "claim": "Mindfulness breathing activates the parasympathetic nervous system to decrease acute cortisol.",
+      "explanation": "Multiple randomized controlled trials confirm that controlled rhythmic breathing slows heart rate variability and attenuates stress response (Harvard Health Publishing).",
       "sources": [
         {
-          "name": "Journal of Strength and Conditioning Research",
-          "url": "https://journals.lww.com",
-          "credibility": "Peer-Reviewed"
+          "name": "Harvard Medical School Health",
+          "url": "https://health.harvard.edu",
+          "credibility": "Medical Academic Center"
+        },
+        {
+          "name": "NIH National Center for Complementary Health",
+          "url": "https://nccih.nih.gov",
+          "credibility": "Government Health Agency"
         }
       ],
-      "aiConfidence": 98
+      "aiConfidence": 97
     },
     "whyAmISeeingThis": {
-      "primaryReason": "You selected Daily Fitness as an active personal goal.",
+      "primaryReason": "You showed active engagement with Mindfulness & Detox and relevant goal tracks.",
       "matchedInterests": [
-        "Strength Training",
-        "Calisthenics",
-        "Daily Workouts"
+        "Mindfulness & Detox",
+        "mindfulness",
+        "meditation",
+        "stress-relief"
       ],
       "signalWeight": {
-        "watchHistory": 20,
-        "goalAlignment": 60,
+        "watchHistory": 45,
+        "goalAlignment": 30,
         "currentMood": 15,
-        "collaborativeFilter": 5
+        "collaborativeFilter": 10
       },
-      "privacyNote": "Customized based on your Goal-to-Content journey."
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
     },
-    "transcript": "Stop making excuses that you have no equipment. Exercise 1: Pike push-up to pseudo-planche pushup for overhead shoulder pressing and chest. Exercise 2: Strict pull-ups or body rows under a table for lat width and biceps. Exercise 3: Elevated Bulgarian split squats for quad tear and glute stability. Master these three with mechanical drop sets and you will out-perform 90% of gym machines.",
+    "transcript": "Deep into meditation #reelitfeelit #booklove #meditation #yogabooks #soul",
     "usefulOutputs": {
       "notes": {
-        "summary": "Full-body athletic conditioning can be achieved through three fundamental compound leverage movements.",
+        "summary": "Deep into meditation. Key insights and practical execution points shared by @earthy_shalini.",
         "bulletPoints": [
-          "Compound pushing: Chest, anterior delts, triceps.",
-          "Compound pulling: Latissimus dorsi, rhomboids, biceps.",
-          "Unilateral leg drive: Bulgarian split squats correct muscular imbalances."
+          "Core technique focuses on steady consistency and proper fundamentals in Mindfulness & Detox.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
         ],
-        "keyTakeaway": "Overload in calisthenics comes from adjusting lever arm length and tempo."
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
       },
       "quiz": [
         {
-          "question": "How do you achieve progressive overload with bodyweight exercises?",
+          "question": "What is the primary objective demonstrated in this Mindfulness & Detox reel?",
           "options": [
-            "Do them faster with bad form",
-            "Alter leverage, slow tempo, and increase mechanical tension",
-            "Stop eating carbs",
-            "Only exercise once a month"
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
           ],
-          "correctIndex": 1,
-          "explanation": "Leverage shifts increase the percentage of bodyweight transferred to working muscles."
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Mindfulness & Detox."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
         }
       ],
-      "tasks": [
+      "checklist": [
         {
-          "id": "t7",
-          "title": "Complete 3 sets of 8 Bulgarian split squats per leg right now",
-          "estimatedMinutes": 8,
-          "category": "Workout"
+          "task": "Review key steps from @earthy_shalini's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
         }
       ],
       "studyPlan": [
         {
-          "day": "Day 1",
-          "action": "3x10 Pike pushups + 3x12 Bulgarian Split Squats",
-          "outcome": "Hypertrophy"
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
         }
       ]
-    },
-    "comments": [
-      {
-        "id": "c6",
-        "user": "Tariq Ross",
-        "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100",
-        "text": "Bulgarian split squats transformed my legs!",
-        "likes": 560,
-        "timeAgo": "5h ago"
-      }
-    ]
+    }
   },
   {
-    "id": "reel-6",
-    "title": "Box Breathing: Instant 90-Second Cortisol Reset",
+    "id": "ig-DdYLr-AzOcx",
+    "title": "सद्गुरु🙏😇",
     "creator": {
-      "name": "Serena Lin",
-      "handle": "@mindful_serena",
-      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-      "verified": true,
-      "bio": "Breathwork Instructor"
+      "name": "Mahalaya Yogashala",
+      "handle": "@mahalayayogashala108",
+      "avatar": "https://scontent-iad3-2.cdninstagram.com/v/t51.82787-19/610118690_17842909524668895_5747397779286171355_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby43NTEuYzIifQ&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_cat=103&_nc_oc=Q6cZ2gHVLCDNEEco4PD2k__352A_cTU3fgVu3BM53F3D7puqqPjoJ2mcPZsPmpXBCPFhZVQ&_nc_ohc=gCv4TXMTLtcQ7kNvwExvs13&_nc_gid=cBPYOWHxZIStluavYqcHLA&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQL5ao7ddPUs269F5-H9NcTyNkk_5NWLfCrZJgz6d1RlZg&oe=6AB1E5F4&_nc_sid=472314",
+      "verified": false,
+      "bio": "Mindfulness & Detox Creator on Instagram"
     },
-    "videoUrl": "/videos/clip_bbb.mp4",
-    "visualTheme": "zen_flow",
-    "description": "Feeling overwhelmed or doomscrolling? Pause right here. Follow the circle for 4 cycles of Navy SEAL box breathing. #ContentDetox #DigitalWellbeing #MentalHealth",
+    "videoUrl": "/videos/ig_DdYLr-AzOcx.mp4",
+    "visualTheme": "meditation",
+    "description": "सद्गुरु🙏😇\n\n#osho #spirituality #selfawarenessjourney  #consciousness #meditation",
     "duration": 45,
     "category": "Mindfulness & Detox",
     "intent": "relax",
     "goalTags": [
       "mindfulness",
-      "stress-relief",
-      "detox"
+      "meditation",
+      "stress-relief"
     ],
-    "mood": "stressed",
-    "likes": 98202,
-    "commentsCount": 2430,
-    "shares": 34100,
-    "views": 850000,
-    "isAIGenerated": false,
-    "safetyScore": 100,
-    "realityCheck": {
-      "verdict": "Verified",
-      "claim": "Rhythmic box breathing activates parasympathetic nervous system via vagus nerve stimulation, reducing heart rate.",
-      "explanation": "Clinical trials (Balban et al., Cell Reports Medicine 2023) confirm cyclic breathwork significantly improves mood and reduces anxiety.",
-      "sources": [
-        {
-          "name": "Cell Reports Medicine",
-          "url": "https://cell.com",
-          "credibility": "Medical Journal"
-        }
-      ],
-      "aiConfidence": 100
-    },
-    "whyAmISeeingThis": {
-      "primaryReason": "AI Stop-Scrolling Assistant detected continuous viewing and offered a mindful reset.",
-      "matchedInterests": [
-        "Stress Reduction",
-        "Mindfulness",
-        "Breathwork"
-      ],
-      "signalWeight": {
-        "watchHistory": 10,
-        "goalAlignment": 20,
-        "currentMood": 50,
-        "collaborativeFilter": 20
-      },
-      "privacyNote": "Triggered by Zynqo Social Digital Wellbeing & Detox Shield."
-    },
-    "transcript": "Take a breath with me. Inhale deeply through your nose for 4 seconds... hold your lungs full for 4 seconds... exhale slowly through your mouth for 4 seconds... hold empty for 4 seconds. When you prolong your exhale, your brain stem signals the heart to slow down. Notice your shoulders dropping. You are safe.",
-    "usefulOutputs": {
-      "notes": {
-        "summary": "Box breathing resets the autonomic nervous system from fight-or-flight to rest-and-digest.",
-        "bulletPoints": [
-          "Inhale 4s -> Hold 4s -> Exhale 4s -> Hold 4s.",
-          "Stimulates vagal nerve, lowering cortisol and blood pressure.",
-          "Used by Navy SEALs before high-pressure missions."
-        ],
-        "keyTakeaway": "Breath is the one involuntary system you can voluntarily command."
-      },
-      "quiz": [
-        {
-          "question": "Which nerve is stimulated during slow, controlled exhalation to slow heart rate?",
-          "options": [
-            "Optic nerve",
-            "Vagus nerve",
-            "Trigeminal nerve",
-            "Sciatic nerve"
-          ],
-          "correctIndex": 1,
-          "explanation": "The vagus nerve releases acetylcholine to reduce heart rate."
-        }
-      ],
-      "tasks": [
-        {
-          "id": "t9",
-          "title": "Complete 4 full cycles of box breathing with eyes closed",
-          "estimatedMinutes": 3,
-          "category": "Mindfulness"
-        }
-      ],
-      "studyPlan": [
-        {
-          "day": "Day 1",
-          "action": "Practice 3 minutes of box breathing upon waking",
-          "outcome": "Calm baseline"
-        }
-      ]
-    },
-    "comments": [
-      {
-        "id": "c7",
-        "user": "David Miller",
-        "avatar": "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100",
-        "text": "Had a panic attack before an interview. This saved my day.",
-        "likes": 3100,
-        "timeAgo": "1d ago"
-      }
-    ]
-  },
-  {
-    "id": "reel-7",
-    "title": "Compound Interest in 45 Seconds: How $10/Day Becomes $1,000,000",
-    "creator": {
-      "name": "Rohan Deshmukh",
-      "handle": "@rohan_finance",
-      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
-      "verified": true,
-      "bio": "Certified Financial Analyst"
-    },
-    "videoUrl": "/videos/clip_animation.mp4",
-    "visualTheme": "finance_growth",
-    "description": "Linear thinking kills wealth. Here is the exact math of reinvested dividends and index compounding. #FinancialLiteracy #WealthBuilding #Investing",
-    "duration": 46,
-    "category": "Finance",
-    "intent": "achieve",
-    "goalTags": [
-      "wealth",
-      "investing",
-      "finance"
-    ],
-    "mood": "motivated",
-    "likes": 73800,
-    "commentsCount": 1650,
-    "shares": 21300,
-    "views": 490000,
+    "mood": "calm",
+    "likes": 1200,
+    "commentsCount": 45,
+    "shares": 66,
+    "views": 15000,
     "isAIGenerated": false,
     "safetyScore": 98,
     "realityCheck": {
       "verdict": "Verified",
-      "claim": "Investing $10/day ($300/mo) at historical S&P 500 returns (~10%) compounds to over $1,000,000 in ~33 years.",
-      "explanation": "Verified with standard financial future value formula. 33 years at 10% on $300/mo yields ~$1,020,000.",
+      "claim": "Mindfulness breathing activates the parasympathetic nervous system to decrease acute cortisol.",
+      "explanation": "Multiple randomized controlled trials confirm that controlled rhythmic breathing slows heart rate variability and attenuates stress response (Harvard Health Publishing).",
       "sources": [
         {
-          "name": "Vanguard Index Fund Historical Database",
-          "url": "https://investor.vanguard.com",
-          "credibility": "Asset Management"
+          "name": "Harvard Medical School Health",
+          "url": "https://health.harvard.edu",
+          "credibility": "Medical Academic Center"
         },
         {
-          "name": "SEC Investor Bulletin",
-          "url": "https://sec.gov",
-          "credibility": "Government Regulatory Body"
+          "name": "NIH National Center for Complementary Health",
+          "url": "https://nccih.nih.gov",
+          "credibility": "Government Health Agency"
         }
       ],
-      "aiConfidence": 99
+      "aiConfidence": 97
     },
     "whyAmISeeingThis": {
-      "primaryReason": "You engaged with financial independence reels and saved a budgeting tool.",
+      "primaryReason": "You showed active engagement with Mindfulness & Detox and relevant goal tracks.",
       "matchedInterests": [
-        "Personal Finance",
-        "Stock Market",
-        "Passive Income"
+        "Mindfulness & Detox",
+        "mindfulness",
+        "meditation",
+        "stress-relief"
       ],
       "signalWeight": {
-        "watchHistory": 50,
+        "watchHistory": 45,
         "goalAlignment": 30,
-        "currentMood": 10,
-        "collaborativeFilter": 10
-      },
-      "privacyNote": "Generated from your selected Financial Independence track."
-    },
-    "transcript": "If you save $300 a month in cash under your mattress for 30 years, you have $108,000, and inflation eats half. But if you invest that into a broad index fund averaging 10% annual returns, you contribute $108,000, but compound growth pays you over $680,000 in interest. Time in the market beats timing the market every time.",
-    "usefulOutputs": {
-      "notes": {
-        "summary": "Exponential wealth creation relies on reinvesting capital gains over decades rather than saving cash.",
-        "bulletPoints": [
-          "Compound interest is interest on interest.",
-          "Rule of 72: Divide 72 by interest rate to find years to double money.",
-          "Automate dollar-cost averaging to remove emotional buying."
-        ],
-        "keyTakeaway": "Starting 5 years earlier can double your nest egg."
-      },
-      "quiz": [
-        {
-          "question": "Using the Rule of 72, approximately how many years will it take money to double at an 8% annual return?",
-          "options": [
-            "8 years",
-            "9 years (72 / 8)",
-            "12 years",
-            "72 years"
-          ],
-          "correctIndex": 1,
-          "explanation": "72 divided by 8 equals 9 years to double principal."
-        }
-      ],
-      "tasks": [
-        {
-          "id": "t11",
-          "title": "Check if your emergency fund is in a High-Yield Savings Account",
-          "estimatedMinutes": 10,
-          "category": "Finance Action"
-        }
-      ],
-      "studyPlan": [
-        {
-          "day": "Day 1",
-          "action": "Calculate your net worth and monthly cash flow",
-          "outcome": "Financial clarity"
-        }
-      ]
-    },
-    "comments": [
-      {
-        "id": "c8",
-        "user": "Amara Diallo",
-        "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100",
-        "text": "The Rule of 72 is so simple and powerful!",
-        "likes": 780,
-        "timeAgo": "2d ago"
-      }
-    ]
-  },
-  {
-    "id": "reel-8",
-    "title": "5-Minute Mediterranean Power Bowl for Sustained Energy",
-    "creator": {
-      "name": "Chef Mateo Rossi",
-      "handle": "@mateo_cooks",
-      "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=80",
-      "verified": true,
-      "bio": "Culinary Nutritionist"
-    },
-    "videoUrl": "/videos/clip_movie.mp4",
-    "visualTheme": "cooking_flame",
-    "description": "Tired of the 2 PM food coma? Ditch processed takeout carbs. Here is a zero-cook 35g protein bowl that takes 4 minutes flat. #HealthyCooking #MealPrep #Nutrition",
-    "duration": 50,
-    "category": "Health & Fitness",
-    "intent": "achieve",
-    "goalTags": [
-      "cooking",
-      "nutrition",
-      "fitness"
-    ],
-    "mood": "energetic",
-    "likes": 61200,
-    "commentsCount": 1120,
-    "shares": 18900,
-    "views": 410000,
-    "isAIGenerated": false,
-    "safetyScore": 100,
-    "realityCheck": {
-      "verdict": "Verified",
-      "claim": "Combining complex fiber with lean protein and monounsaturated fatty acids blunts postprandial glycemic spikes.",
-      "explanation": "Nutritional biochemistry demonstrates that protein and healthy fats delay gastric emptying, stabilizing blood glucose.",
-      "sources": [
-        {
-          "name": "Harvard School of Public Health",
-          "url": "https://hsph.harvard.edu",
-          "credibility": "Public Health Nutrition"
-        }
-      ],
-      "aiConfidence": 99
-    },
-    "whyAmISeeingThis": {
-      "primaryReason": "You saved a meal-prep recipe and explored quick healthy cooking.",
-      "matchedInterests": [
-        "Mediterranean Diet",
-        "Quick Meals",
-        "Energy Optimization"
-      ],
-      "signalWeight": {
-        "watchHistory": 35,
-        "goalAlignment": 40,
         "currentMood": 15,
         "collaborativeFilter": 10
       },
-      "privacyNote": "Local preference tracking active."
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
     },
-    "transcript": "Here is how you make lunch faster than ordering delivery. Drain a can of chickpeas, add halved cherry tomatoes, diced cucumber, and olives. Toss in 150 grams of flaked wild tuna or shredded chicken. Drizzle extra virgin olive oil, lemon juice, garlic, and oregano. 35g protein, zero processed junk, and zero 2 PM crash.",
+    "transcript": "सद्गुरु🙏😇\n\n#osho #spirituality #selfawarenessjourney  #consciousness #meditation",
     "usefulOutputs": {
       "notes": {
-        "summary": "Rapid zero-cook Mediterranean bowl engineered for sustained blood glucose stability and high satiety.",
+        "summary": "सद्गुरु🙏😇. Key insights and practical execution points shared by @mahalayayogashala108.",
         "bulletPoints": [
-          "Chickpeas: High prebiotic resistant starch.",
-          "Extra virgin olive oil: Rich in oleic acid and polyphenols.",
-          "Wild tuna/chicken: Complete essential amino acid profile.",
-          "Zero appliances required."
+          "Core technique focuses on steady consistency and proper fundamentals in Mindfulness & Detox.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
         ],
-        "keyTakeaway": "Zero-cook pantry staples make consistency effortless."
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
       },
       "quiz": [
         {
-          "question": "What is the primary physiological benefit of adding extra virgin olive oil to complex carbohydrates?",
+          "question": "What is the primary objective demonstrated in this Mindfulness & Detox reel?",
           "options": [
-            "Increases sugar spike",
-            "Slows gastric emptying and moderates blood glucose absorption",
-            "Destroys amino acids",
-            "Causes sodium retention"
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
           ],
-          "correctIndex": 1,
-          "explanation": "Healthy lipids slow digestion rate, smoothing the insulin response curve."
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Mindfulness & Detox."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
         }
       ],
-      "tasks": [
+      "checklist": [
         {
-          "id": "t12",
-          "title": "Add canned chickpeas, extra virgin olive oil, and lemons to your shopping list",
-          "estimatedMinutes": 3,
-          "category": "Grocery Task"
+          "task": "Review key steps from @mahalayayogashala108's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
         }
       ],
       "studyPlan": [
         {
-          "day": "Day 1",
-          "action": "Stock pantry with 4 cans of chickpeas and quality olive oil",
-          "outcome": "Readiness"
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
         }
       ]
+    }
+  },
+  {
+    "id": "ig-DdMZzzCSeRI",
+    "title": "यह प्रयोग बहुत अचूक और कई बार आजमाया हुआ परीक्षित है इसे पूर...",
+    "creator": {
+      "name": "yogtanra sadhna shaktipath (योगतंत्र साधना शक्तिपथ)",
+      "handle": "@yogtantra_sadhna_shaktipath",
+      "avatar": "https://scontent-iad3-2.cdninstagram.com/v/t51.82787-19/700669321_18051126365740991_5744344618695143559_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-2.cdninstagram.com&_nc_cat=111&_nc_oc=Q6cZ2gHVLCDNEEco4PD2k__352A_cTU3fgVu3BM53F3D7puqqPjoJ2mcPZsPmpXBCPFhZVQ&_nc_ohc=ET0u2WWs60QQ7kNvwGp-G83&_nc_gid=cBPYOWHxZIStluavYqcHLA&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQLbKzMG3d1f1bJDXHVtS7C53-a2ri2j7jNdtH-2C2ta1g&oe=6AB1E82B&_nc_sid=472314",
+      "verified": false,
+      "bio": "Mindfulness & Detox Creator on Instagram"
     },
-    "comments": [
-      {
-        "id": "c9",
-        "user": "Claire Beauchamp",
-        "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100",
-        "text": "Kept me full until dinner!",
-        "likes": 910,
-        "timeAgo": "3d ago"
-      }
-    ]
+    "videoUrl": "/videos/ig_DdMZzzCSeRI.mp4",
+    "visualTheme": "meditation",
+    "description": "यह प्रयोग बहुत अचूक और कई बार आजमाया हुआ परीक्षित है इसे पूर्ण विश्वास के साथ कीजिए रिजल्ट तुरंत के तुरंत मिलेंगे \n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n#spiritualawakening #spirituality #meditation #sadhana",
+    "duration": 10,
+    "category": "Mindfulness & Detox",
+    "intent": "relax",
+    "goalTags": [
+      "mindfulness",
+      "meditation",
+      "stress-relief"
+    ],
+    "mood": "calm",
+    "likes": 1200,
+    "commentsCount": 45,
+    "shares": 251,
+    "views": 139413,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Mindfulness breathing activates the parasympathetic nervous system to decrease acute cortisol.",
+      "explanation": "Multiple randomized controlled trials confirm that controlled rhythmic breathing slows heart rate variability and attenuates stress response (Harvard Health Publishing).",
+      "sources": [
+        {
+          "name": "Harvard Medical School Health",
+          "url": "https://health.harvard.edu",
+          "credibility": "Medical Academic Center"
+        },
+        {
+          "name": "NIH National Center for Complementary Health",
+          "url": "https://nccih.nih.gov",
+          "credibility": "Government Health Agency"
+        }
+      ],
+      "aiConfidence": 97
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Mindfulness & Detox and relevant goal tracks.",
+      "matchedInterests": [
+        "Mindfulness & Detox",
+        "mindfulness",
+        "meditation",
+        "stress-relief"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "यह प्रयोग बहुत अचूक और कई बार आजमाया हुआ परीक्षित है इसे पूर्ण विश्वास के साथ कीजिए रिजल्ट तुरंत के तुरंत मिलेंगे \n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n#spiritualawakening #spirituality #meditation #sadhana",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "यह प्रयोग बहुत अचूक और कई बार आजमाया हुआ परीक्षित है इसे पूर.... Key insights and practical execution points shared by @yogtantra_sadhna_shaktipath.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Mindfulness & Detox.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Mindfulness & Detox reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Mindfulness & Detox."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @yogtantra_sadhna_shaktipath's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
   }
 ]
