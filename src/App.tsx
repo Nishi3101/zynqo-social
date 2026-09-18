@@ -17,6 +17,7 @@ import { MemoryVaultModal } from './components/MemoryVaultModal';
 import { FirewallModal } from './components/FirewallModal';
 import { ThemeModal } from './components/ThemeModal';
 import { ProfileView } from './components/ProfileView';
+import { SettingsAndActivityModal } from './components/SettingsAndActivityModal';
 import { Smartphone, Monitor, Keyboard, Home } from 'lucide-react';
 
 const MainLayout: React.FC = () => {
@@ -184,6 +185,7 @@ const MainLayout: React.FC = () => {
       {activeModal === 'wellbeing' && <DigitalWellbeingModal />}
       {activeModal === 'creatorStudio' && <CreatorStudioModal />}
       {activeModal === 'memoryVault' && <MemoryVaultModal />}
+      {activeModal === 'settingsAndActivity' && <SettingsAndActivityModal />}
 
       {/* Endless Scroll Firewall Modal */}
       <FirewallModal />

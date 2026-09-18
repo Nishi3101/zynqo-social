@@ -20,7 +20,8 @@ import {
   Palette,
   RotateCcw,
   LogOut,
-  ChevronDown
+  ChevronDown,
+  Settings
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { IntentType, LanguageCode } from '../types';
@@ -377,6 +378,20 @@ export const Navigation: React.FC = () => {
                 >
                   <User className="w-4 h-4 text-cyan-400" />
                   <span>{t.profile?.title || 'My Profile & Activity'}</span>
+                </button>
+
+                {/* Settings and Activity (Instagram Style) */}
+                <button
+                  onClick={() => {
+                    setIsUserMenuOpen(false);
+                    openModal('settingsAndActivity');
+                  }}
+                  className={`w-full px-2.5 py-2 rounded-xl text-left text-xs font-semibold flex items-center gap-2 transition ${
+                    isLight ? 'text-slate-800 hover:bg-slate-100' : 'text-slate-200 hover:bg-white/10'
+                  }`}
+                >
+                  <Settings className="w-4 h-4 text-violet-400" />
+                  <span>Settings and activity</span>
                 </button>
 
                 {/* AI Creator Studio (Multi-Language, Dialects & Slang) */}
