@@ -202,7 +202,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [isDetoxMode, setIsDetoxMode] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [firewallTriggered, setFirewallTriggered] = useState(false);

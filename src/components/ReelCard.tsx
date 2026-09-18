@@ -9,7 +9,9 @@ import {
   X, 
   Clock, 
   Flame,
-  AlertTriangle
+  AlertTriangle,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
 import { Reel } from '../types';
 import { ReelVisualizer } from './ReelVisualizer';
@@ -23,7 +25,7 @@ interface ReelCardProps {
 }
 
 export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive }) => {
-  const { isMuted, isPlaying, togglePlay, addComment, t, language } = useApp();
+  const { isMuted, toggleMute, isPlaying, togglePlay, addComment, t, language } = useApp();
   const locReel = getLocalizedReel(reel, language);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [progress, setProgress] = useState(0);
@@ -39,16 +41,21 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive }) => {
     if (!video) return;
 
     if (isActive && isPlaying) {
+      video.muted = isMuted;
       const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {
-          // Autoplay policy fallback
+          // If browser restricts unmuted autoplay before user interaction, temporarily mute to ensure smooth playback
+          if (!video.muted) {
+            video.muted = true;
+            video.play().catch(() => {});
+          }
         });
       }
     } else {
       video.pause();
     }
-  }, [isActive, isPlaying]);
+  }, [isActive, isPlaying, isMuted]);
 
   // Video time update listener for bottom progress bar
   const handleTimeUpdate = () => {
@@ -94,7 +101,12 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive }) => {
 
       {/* Center Tap-to-play/pause area */}
       <div 
-        onClick={togglePlay} 
+        onClick={() => {
+          if (isMuted) {
+            toggleMute();
+          }
+          togglePlay();
+        }} 
         className="absolute inset-0 z-20 cursor-pointer flex items-center justify-center"
       >
         {!isPlaying && isActive && (
@@ -103,6 +115,20 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive }) => {
           </div>
         )}
       </div>
+
+      {/* Prominent Tap to Unmute Banner if muted */}
+      {isMuted && isActive && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleMute();
+          }}
+          className="absolute top-14 sm:top-16 left-1/2 -translate-x-1/2 z-30 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-amber-500/50 text-amber-300 text-xs font-semibold flex items-center gap-2 backdrop-blur-md shadow-2xl hover:scale-105 active:scale-95 transition cursor-pointer"
+        >
+          <VolumeX className="w-4 h-4 text-amber-400 animate-pulse" />
+          <span>Sound is muted • Tap to unmute 🔊</span>
+        </button>
+      )}
 
       {/* Top Header Tags */}
       <div className="absolute top-3 sm:top-4 left-3 sm:left-4 right-14 sm:right-16 z-30 flex items-center gap-1.5 sm:gap-2 flex-wrap pointer-events-none pt-safe">
