@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
 import { 
   Reel, 
   UserProfile, 
@@ -69,6 +69,10 @@ interface AppContextType {
   activeModal: string | null;
   timeSession: TimeSessionState;
   firewallTriggered: boolean;
+  firewallEnabled: boolean;
+  setFirewallEnabled: (enabled: boolean) => void;
+  firewallIntervalMinutes: number;
+  setFirewallIntervalMinutes: (mins: number) => void;
   setCurrentReelIndex: (idx: number) => void;
   setIntent: (intent: IntentType) => void;
   setSelectedCategory: (cat: string) => void;
@@ -203,6 +207,46 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [firewallTriggered, setFirewallTriggered] = useState(false);
   const [consecutivePassiveCount, setConsecutivePassiveCount] = useState(0);
+
+  const [firewallEnabled, setFirewallEnabledState] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem('pulseai_firewall_enabled');
+      return saved !== null ? saved === 'true' : true;
+    } catch (e) {
+      return true;
+    }
+  });
+
+  const [firewallIntervalMinutes, setFirewallIntervalMinutesState] = useState<number>(() => {
+    try {
+      const saved = localStorage.getItem('pulseai_firewall_interval');
+      return saved ? parseInt(saved, 10) : 10;
+    } catch (e) {
+      return 10;
+    }
+  });
+
+  const sessionStartRef = useRef<number>(Date.now());
+  const lastFirewallDismissedAtRef = useRef<number>(Date.now());
+
+  const setFirewallEnabled = (enabled: boolean) => {
+    sounds.playClick();
+    setFirewallEnabledState(enabled);
+    try {
+      localStorage.setItem('pulseai_firewall_enabled', String(enabled));
+    } catch (e) {}
+    if (!enabled) {
+      setFirewallTriggered(false);
+    }
+  };
+
+  const setFirewallIntervalMinutes = (mins: number) => {
+    sounds.playClick();
+    setFirewallIntervalMinutesState(mins);
+    try {
+      localStorage.setItem('pulseai_firewall_interval', String(mins));
+    } catch (e) {}
+  };
 
   const [timeSession, setTimeSession] = useState<TimeSessionState>({
     isActive: false,
@@ -349,6 +393,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     });
     setFirewallTriggered(false);
     setConsecutivePassiveCount(0);
+    lastFirewallDismissedAtRef.current = Date.now();
   };
 
   // Fetch initial profile, content, and activity
@@ -450,6 +495,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Handle scroll index update & endless scroll firewall
   const handleSetCurrentReelIndex = (idx: number) => {
+    // Prevent duplicate triggers if the index has not changed
+    if (idx === currentReelIndex) return;
+
     sounds.playClick();
     setCurrentReelIndex(idx);
 
@@ -460,8 +508,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const nextCount = consecutivePassiveCount + 1;
     setConsecutivePassiveCount(nextCount);
 
-    // AI Endless Scroll Firewall triggers after 4 continuous passive reels without an action
-    if (nextCount >= 4 && !firewallTriggered && !timeSession.isActive) {
+    // AI Endless Scroll Firewall:
+    // Only triggers after user has actively scrolled continuously for at least `firewallIntervalMinutes` (default 10 mins)
+    // AND has passively watched at least 20 reels without any interaction (like, comment, quiz, etc.)
+    const now = Date.now();
+    const elapsedMinutesFromDismiss = (now - lastFirewallDismissedAtRef.current) / 60000;
+    const elapsedMinutesFromStart = (now - sessionStartRef.current) / 60000;
+
+    if (
+      firewallEnabled &&
+      !firewallTriggered &&
+      !timeSession.isActive &&
+      nextCount >= 20 &&
+      elapsedMinutesFromDismiss >= firewallIntervalMinutes &&
+      elapsedMinutesFromStart >= firewallIntervalMinutes
+    ) {
       setFirewallTriggered(true);
       setIsPlaying(false);
     }
@@ -477,6 +538,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const toggleLike = async (reelId: string, itemMeta?: Partial<ActivityItem>) => {
     sounds.playClick();
+    setConsecutivePassiveCount(0); // active engagement
     const targetReel = reels.find(r => r.id === reelId);
     const isCurrentlyLiked = likedActivities.some(a => a.contentId === reelId);
 
@@ -531,6 +593,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const toggleSave = async (itemMeta: Partial<ActivityItem>): Promise<boolean> => {
     sounds.playClick();
+    setConsecutivePassiveCount(0); // active engagement
     if (!itemMeta.contentId) return false;
     const contentId = itemMeta.contentId;
     const isCurrentlySaved = savedActivities.some(a => a.contentId === contentId);
@@ -623,6 +686,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const addComment = async (reelId: string, text: string): Promise<boolean> => {
     sounds.playClick();
+    setConsecutivePassiveCount(0); // active engagement
     const targetReel = reels.find(r => r.id === reelId);
     try {
       const res = await fetch(`/api/reels/${reelId}/comment`, {
@@ -787,6 +851,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     sounds.playClick();
     setFirewallTriggered(false);
     setConsecutivePassiveCount(0);
+    lastFirewallDismissedAtRef.current = Date.now(); // 10-15 minute cooldown starts now
     setIsPlaying(true);
   };
 
@@ -835,6 +900,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         activeModal,
         timeSession,
         firewallTriggered,
+        firewallEnabled,
+        setFirewallEnabled,
+        firewallIntervalMinutes,
+        setFirewallIntervalMinutes,
         setCurrentReelIndex: handleSetCurrentReelIndex,
         setIntent,
         setSelectedCategory,

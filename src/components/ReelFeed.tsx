@@ -53,6 +53,8 @@ export const ReelFeed: React.FC = () => {
 
   const wheelCooldownRef = useRef(false);
   const dragStartYRef = useRef<number | null>(null);
+  const isProgrammaticScrollRef = useRef(false);
+  const scrollTimeoutRef = useRef<any>(null);
 
   const scrollToReel = (index: number) => {
     if (index < 0 || index >= reels.length) return;
@@ -60,11 +62,16 @@ export const ReelFeed: React.FC = () => {
     if (!container) return;
 
     const itemHeight = container.clientHeight;
+    isProgrammaticScrollRef.current = true;
     container.scrollTo({
       top: index * itemHeight,
       behavior: 'smooth'
     });
     setCurrentReelIndex(index);
+    clearTimeout(scrollTimeoutRef.current);
+    scrollTimeoutRef.current = setTimeout(() => {
+      isProgrammaticScrollRef.current = false;
+    }, 500);
   };
 
   // Wheel scrolling (Desktop mousewheel & trackpad)
@@ -123,6 +130,7 @@ export const ReelFeed: React.FC = () => {
 
   // Scroll listener to update active reel index
   const handleScroll = () => {
+    if (isProgrammaticScrollRef.current) return;
     const container = containerRef.current;
     if (!container) return;
 

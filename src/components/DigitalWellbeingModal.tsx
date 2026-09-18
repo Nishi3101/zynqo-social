@@ -20,6 +20,10 @@ export const DigitalWellbeingModal: React.FC = () => {
     isDetoxMode, 
     toggleDetoxMode, 
     resetAttentionLimit,
+    firewallEnabled,
+    setFirewallEnabled,
+    firewallIntervalMinutes,
+    setFirewallIntervalMinutes,
     t,
     colorMode 
   } = useApp();
@@ -234,21 +238,55 @@ export const DigitalWellbeingModal: React.FC = () => {
           </div>
 
           {/* AI Endless Scroll Firewall (Concept 186) */}
-          <div className={`p-4 rounded-2xl border flex items-center justify-between ${
+          <div className={`p-4 rounded-2xl border space-y-3 ${
             isLight ? 'bg-slate-50 border-slate-200' : 'bg-slate-800/60 border-white/10'
           }`}>
-            <div className="space-y-0.5">
-              <span className={`text-xs font-bold flex items-center gap-1.5 ${isLight ? 'text-slate-900' : 'text-white'}`}>
-                <Shield className="w-4 h-4 text-violet-500" />
-                Endless Scroll Firewall
-              </span>
-              <p className={`text-[11px] max-w-[260px] ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
-                Pauses after 4 consecutive passive reels to protect attention span.
-              </p>
+            <div className="flex items-center justify-between">
+              <div className="space-y-0.5">
+                <span className={`text-xs font-bold flex items-center gap-1.5 ${isLight ? 'text-slate-900' : 'text-white'}`}>
+                  <Shield className="w-4 h-4 text-violet-500" />
+                  Endless Scroll Mindful Firewall
+                </span>
+                <p className={`text-[11px] max-w-[260px] ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                  Prompts a mindful pause after continuous scrolling to protect your attention span.
+                </p>
+              </div>
+              <button
+                onClick={() => setFirewallEnabled(!firewallEnabled)}
+                className={`px-3 py-1.5 rounded-full text-xs font-bold transition border ${
+                  firewallEnabled
+                    ? 'bg-violet-500/20 text-violet-400 border-violet-500/40 hover:bg-violet-500/30'
+                    : 'bg-slate-700/40 text-slate-400 border-white/10 hover:bg-slate-700/60'
+                }`}
+              >
+                {firewallEnabled ? 'Active' : 'Disabled'}
+              </button>
             </div>
-            <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-violet-500/20 text-violet-600 dark:text-violet-300 border border-violet-500/40">
-              Active
-            </span>
+
+            {firewallEnabled && (
+              <div className="pt-2 border-t border-white/5 flex items-center justify-between">
+                <span className={`text-[11px] font-medium ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
+                  Mindful Break Interval:
+                </span>
+                <div className="flex items-center gap-1.5">
+                  {[10, 15, 20, 30].map(mins => (
+                    <button
+                      key={mins}
+                      onClick={() => setFirewallIntervalMinutes(mins)}
+                      className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition border ${
+                        firewallIntervalMinutes === mins
+                          ? 'bg-violet-600 text-white border-violet-500 shadow-sm shadow-violet-600/30'
+                          : isLight
+                          ? 'bg-white text-slate-600 border-slate-200 hover:bg-slate-100'
+                          : 'bg-slate-900/60 text-slate-400 border-white/10 hover:text-white'
+                      }`}
+                    >
+                      {mins}m
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Content Detox Mode (Concept 187) */}
