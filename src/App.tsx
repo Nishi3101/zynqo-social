@@ -79,72 +79,75 @@ const MainLayout: React.FC = () => {
 
   // If user is on the Reels Feed page
   return (
-    <div className={`flex flex-col h-[100dvh] w-full max-w-full overflow-hidden font-sans transition-colors duration-200 ${
+    <div className={`flex flex-row h-[100dvh] w-full max-w-full overflow-hidden font-sans transition-colors duration-200 ${
       isLight ? 'bg-[#f1f5f9] text-slate-900' : 'bg-[#07090e] text-slate-100'
     }`}>
-      {/* Top Universal Navbar */}
+      {/* Vertical Navigation Sidebar on Left */}
       <Navigation />
 
-      {/* Viewport Switcher Banner (Mobile Frame Preview vs Immersive Desktop Studio) */}
-      <div className={`hidden md:flex items-center justify-between px-6 py-1 border-b text-[11px] transition-colors ${
-        isLight 
-          ? 'bg-white/80 border-slate-200 text-slate-600 shadow-sm'
-          : 'bg-slate-950/60 border-white/5 text-slate-400'
-      }`}>
-        <div className="flex items-center gap-2">
-          <span>{t.nav?.displayMode || 'Display Mode:'}</span>
-          <button
-            onClick={() => setDeviceFrameMode('mobile')}
-            className={`px-2 py-0.5 rounded-md flex items-center gap-1 transition ${
-              deviceFrameMode === 'mobile'
-                ? 'bg-cyan-500/20 text-cyan-500 font-bold border border-cyan-500/40'
-                : isLight ? 'text-slate-600 hover:text-slate-900' : 'hover:text-white'
-            }`}
-          >
-            <Smartphone className="w-3 h-3" />
-            <span>{t.nav?.mobileView || 'Mobile Reel View'}</span>
-          </button>
-          <button
-            onClick={() => setDeviceFrameMode('studio')}
-            className={`px-2 py-0.5 rounded-md flex items-center gap-1 transition ${
-              deviceFrameMode === 'studio'
-                ? 'bg-violet-500/20 text-violet-500 font-bold border border-violet-500/40'
-                : isLight ? 'text-slate-600 hover:text-slate-900' : 'hover:text-white'
-            }`}
-          >
-            <Monitor className="w-3 h-3" />
-            <span>{t.nav?.studioView || 'Immersive Studio View'}</span>
-          </button>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => setCurrentPage('home')}
-            className={`flex items-center gap-1 transition ${isLight ? 'hover:text-cyan-600' : 'hover:text-cyan-300'}`}
-          >
-            <Home className="w-3.5 h-3.5 text-cyan-500" />
-            <span>{t.nav?.landingPage || 'Landing Page'}</span>
-          </button>
-          <button
-            onClick={() => setShowKeyboardHelp(prev => !prev)}
-            className={`flex items-center gap-1 transition ${isLight ? 'hover:text-cyan-600' : 'hover:text-cyan-300'}`}
-          >
-            <Keyboard className="w-3.5 h-3.5 text-cyan-500" />
-            <span>{t.nav?.keyboardShortcuts || 'Keyboard Shortcuts (↑/↓, Space, M, L, U)'}</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Main Content Area */}
-      <main className={`flex-1 relative flex items-center justify-center overflow-hidden p-0 md:p-3 ${
-        isLight ? 'bg-slate-100/80' : 'bg-transparent'
-      }`}>
-        <div className={`w-full h-full flex items-center justify-center ${
-          deviceFrameMode === 'mobile' ? 'max-w-[430px]' : 'max-w-4xl'
+      {/* Main Content Area (Right Side) */}
+      <div className="flex-1 flex flex-col h-full min-w-0 overflow-hidden">
+        {/* Viewport Switcher Banner (Mobile Frame Preview vs Immersive Desktop Studio) */}
+        <div className={`hidden md:flex items-center justify-between px-6 py-1.5 border-b text-[11px] transition-colors flex-shrink-0 ${
+          isLight 
+            ? 'bg-white/80 border-slate-200 text-slate-600 shadow-sm'
+            : 'bg-slate-950/60 border-white/5 text-slate-400'
         }`}>
-          <ReelFeed />
+          <div className="flex items-center gap-2">
+            <span>{t.nav?.displayMode || 'Display Mode:'}</span>
+            <button
+              onClick={() => setDeviceFrameMode('mobile')}
+              className={`px-2 py-0.5 rounded-md flex items-center gap-1 transition ${
+                deviceFrameMode === 'mobile'
+                  ? 'bg-cyan-500/20 text-cyan-500 font-bold border border-cyan-500/40'
+                  : isLight ? 'text-slate-600 hover:text-slate-900' : 'hover:text-white'
+              }`}
+            >
+              <Smartphone className="w-3 h-3" />
+              <span>{t.nav?.mobileView || 'Mobile Reel View'}</span>
+            </button>
+            <button
+              onClick={() => setDeviceFrameMode('studio')}
+              className={`px-2 py-0.5 rounded-md flex items-center gap-1 transition ${
+                deviceFrameMode === 'studio'
+                  ? 'bg-violet-500/20 text-violet-500 font-bold border border-violet-500/40'
+                  : isLight ? 'text-slate-600 hover:text-slate-900' : 'hover:text-white'
+              }`}
+            >
+              <Monitor className="w-3 h-3" />
+              <span>{t.nav?.studioView || 'Immersive Studio View'}</span>
+            </button>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setCurrentPage('home')}
+              className={`flex items-center gap-1 transition ${isLight ? 'hover:text-cyan-600' : 'hover:text-cyan-300'}`}
+            >
+              <Home className="w-3.5 h-3.5 text-cyan-500" />
+              <span>{t.nav?.landingPage || 'Landing Page'}</span>
+            </button>
+            <button
+              onClick={() => setShowKeyboardHelp(prev => !prev)}
+              className={`flex items-center gap-1 transition ${isLight ? 'hover:text-cyan-600' : 'hover:text-cyan-300'}`}
+            >
+              <Keyboard className="w-3.5 h-3.5 text-cyan-500" />
+              <span>{t.nav?.keyboardShortcuts || 'Keyboard Shortcuts (↑/↓, Space, M, L, U)'}</span>
+            </button>
+          </div>
         </div>
-      </main>
+
+        {/* Main Content Area */}
+        <main className={`flex-1 relative flex items-center justify-center overflow-hidden p-0 md:p-3 ${
+          isLight ? 'bg-slate-100/80' : 'bg-transparent'
+        }`}>
+          <div className={`w-full h-full flex items-center justify-center ${
+            deviceFrameMode === 'mobile' ? 'max-w-[430px]' : 'max-w-4xl'
+          }`}>
+            <ReelFeed />
+          </div>
+        </main>
+      </div>
 
       {/* Keyboard Shortcuts Overlay Banner */}
       {showKeyboardHelp && (
