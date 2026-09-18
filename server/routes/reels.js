@@ -72,11 +72,11 @@ router.get('/', (req, res) => {
       if (analysis.detectedSlangs.some(s => s.term === 'chill' || s.term === 'vibe') || q.includes('chill') || q.includes('vibe')) {
         intentKeywords.push('breathing', 'cortisol', 'detox', 'calm');
       }
-      if (analysis.detectedDialect === 'kathiawadi' || q.includes('moj') || q.includes('bapu')) {
-        intentKeywords.push('compound', 'interest', 'growth');
+      if (analysis.detectedDialect === 'kathiawadi' || q.includes('moj') || q.includes('bapu') || q.includes('halo') || q.includes('garba') || q.includes('navratri')) {
+        intentKeywords.push('garba', 'navratri', 'gujarat', 'dodhiya', 'titodo', 'sanedo', 'dholida', 'raas');
       }
       if (analysis.detectedDialect === 'bambaiya' || q.includes('jhakaas') || q.includes('bantai')) {
-        intentKeywords.push('neural', 'network');
+        intentKeywords.push('neural', 'network', 'tmkoc', 'comedy');
       }
 
       const matchReel = (r) => {

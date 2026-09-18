@@ -1,58 +1,59 @@
 [
   {
-    "id": "ig-tmkoc-Dc0d1dtu1ug",
-    "title": "Gokuldham Society Special: Jethalal & Bapuji Fun Moments",
+    "id": "ig-navratri-united-way-garba",
+    "title": "United Way Vadodara: 30,000+ Dancers in Hypnotic Circular Raas",
     "creator": {
-      "name": "TMKOC Official (Neela Film)",
-      "handle": "@taarakmehtakaooltahchashmahnfp",
-      "avatar": "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=150&auto=format&fit=crop&q=80",
+      "name": "United Way Baroda Official",
+      "handle": "@unitedwaybaroda_garba",
+      "avatar": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=150&auto=format&fit=crop&q=80",
       "verified": true,
-      "bio": "Taarak Mehta Ka Ooltah Chashmah Official & Fan Comedy Reels"
+      "bio": "Official Vadodara Navratri Mahotsav — Largest Garba Gathering in the World"
     },
-    "videoUrl": "/videos/ig_tmkoc_Dc0d1dtu1ug.mp4",
-    "visualTheme": "comedy_tmkoc",
-    "description": "Gokuldham Society Special: Jethalal & Bapuji Fun Moments - Watch the comedy of Gokuldham Society! #TMKOC #Jethalal #TaarakMehtaKaOoltahChashmah #Comedy #IndianSitcom",
-    "duration": 30,
-    "category": "Entertainment & Comedy",
+    "videoUrl": "/videos/ig_navratri_united_way.mp4",
+    "visualTheme": "festival_garba",
+    "description": "Over 30,000 dancers moving in mesmerizing concentric circles under the Sharad Poonam night sky at United Way Vadodara. The spiritual energy, traditional beats, and synchronized footwork of Gujarat's grandest Navratri festival. #Navratri #Garba #UnitedWay #Baroda #Gujarat #Dandiya #CulturalHeritage",
+    "duration": 53,
+    "category": "Culture & Dance",
     "intent": "entertain",
     "goalTags": [
-      "comedy",
-      "tmkoc",
-      "jethalal",
-      "gokuldham"
+      "garba",
+      "navratri",
+      "culture",
+      "dance",
+      "gujarat"
     ],
-    "mood": "humorous",
-    "likes": 84500,
-    "commentsCount": 1250,
-    "shares": 23660,
-    "views": 420000,
+    "mood": "energetic",
+    "likes": 142000,
+    "commentsCount": 3820,
+    "shares": 41200,
+    "views": 890000,
     "isAIGenerated": false,
     "safetyScore": 99,
     "realityCheck": {
-      "verdict": "Verified Sitcom Classic",
-      "claim": "Iconic Indian television comedy produced by Asit Kumarr Modi based on Tarak Mehta's literature.",
-      "explanation": "Taarak Mehta Ka Ooltah Chashmah holds the Limca Book of World Records as India's longest-running comedy show, promoting social unity and family entertainment across generations.",
+      "verdict": "Verified Cultural Heritage",
+      "claim": "United Way Baroda is recognized globally as one of the largest synchronized community folk dance gatherings.",
+      "explanation": "United Way of Baroda hosts over 30,000 registered dancers nightly during Navratri, dancing in concentric circles around the central Garbi shrine, recognized in global cultural festival archives.",
       "sources": [
         {
-          "name": "Sony SAB TV Official Archive",
-          "url": "https://sonyliv.com",
-          "credibility": "Official Broadcaster"
+          "name": "Gujarat Tourism Official Portal",
+          "url": "https://www.gujarattourism.com",
+          "credibility": "State Tourism Authority"
         },
         {
-          "name": "Limca Book of Records",
-          "url": "https://limcabookofrecords.in",
-          "credibility": "National Record Registry"
+          "name": "United Way Baroda Cultural Archive",
+          "url": "https://unitedwaybaroda.org",
+          "credibility": "Official Festival Foundation"
         }
       ],
       "aiConfidence": 99
     },
     "whyAmISeeingThis": {
-      "primaryReason": "You selected Entertainment or searched for TMKOC / Jethalal comedy moments.",
+      "primaryReason": "Recommended based on popular trending cultural dance, festive Navratri music, and community celebrations.",
       "matchedInterests": [
-        "Comedy",
-        "TMKOC",
-        "Jethalal",
-        "Entertainment"
+        "Navratri",
+        "Garba",
+        "Culture & Dance",
+        "Festivals"
       ],
       "signalWeight": {
         "watchHistory": 40,
@@ -60,68 +61,68 @@
         "currentMood": 20,
         "collaborativeFilter": 10
       },
-      "privacyNote": "Locally ranked based on your comedy preferences. No data shared with advertisers."
+      "privacyNote": "Ranked locally for your cultural and dance discovery. No tracking cookies or commercial ad exchange."
     },
-    "transcript": "Gokuldham Society Special: Jethalal & Bapuji Fun Moments. Jethalal, Champaklal, Babita ji, and the residents of Gokuldham Society in their iconic situational comedy moment.",
+    "transcript": "Aerial view of United Way Vadodara Garba ground. Tens of thousands of dancers in traditional attire move seamlessly in synchronized concentric rings to the beat of authentic Gujarati folk music.",
     "usefulOutputs": {
       "notes": {
-        "summary": "Gokuldham Society Special: Jethalal & Bapuji Fun Moments - Classic situational comedy from Gokuldham Society.",
+        "summary": "United Way Vadodara - The world's grandest community Garba celebration.",
         "bulletPoints": [
-          "Laughter stimulates endorphin release and naturally lowers stress hormones (cortisol).",
-          "Relational humor and community connection strengthen emotional wellbeing.",
-          "A brief 5-minute comedy break rejuvenates mental stamina for subsequent productive tasks."
+          "Garba symbolizes the cyclical nature of time and creation, performed in concentric circles around the sacred Garbi lamp.",
+          "Synchronized folk dancing fosters immense community solidarity, social bonding, and cardiovascular fitness.",
+          "United Way Baroda channels proceeds towards education, healthcare, and humanitarian community empowerment across Gujarat."
         ],
-        "keyTakeaway": "Laughter is the best medicine — keep smiling with Gokuldham Society!"
+        "keyTakeaway": "Garba brings people together in collective joy, fitness, and timeless cultural harmony."
       },
       "quiz": [
         {
-          "question": "What is Jethalal's famous electronics showroom called?",
+          "question": "In which Gujarat city is the world-renowned United Way Garba held?",
           "options": [
-            "Gada Electronics",
-            "Jethalal Appliances",
-            "Gokuldham Gadgets",
-            "Champaklal Electronics"
+            "Vadodara (Baroda)",
+            "Surat",
+            "Rajkot",
+            "Bhavnagar"
           ],
           "correctIndex": 0,
-          "explanation": "Jethalal Champaklal Gada runs Gada Electronics with Nattu Kaka and Bagha!"
+          "explanation": "Vadodara is known as the cultural capital of Gujarat, hosting the famous United Way Garba!"
         },
         {
-          "question": "What is Bapuji's most famous morning advice to Jethalal?",
+          "question": "What geometric pattern is traditionally formed by dancers during Garba?",
           "options": [
-            "Chai piyo, biscuit khao!",
-            "So jao!",
-            "Dukaan mat jao!",
-            "Jalebi Fafda bandh karo!"
+            "Concentric Circles",
+            "Straight Parallel Lines",
+            "Triangular Grids",
+            "Zig-zag columns"
           ],
           "correctIndex": 0,
-          "explanation": "Bapuji's iconic line 'Chai piyo, biscuit khao' is one of the most famous dialogues in Indian television history!"
+          "explanation": "Garba is performed in concentric circles, symbolizing the circle of life and infinite divine energy."
         }
       ],
       "checklist": [
         {
-          "task": "Enjoy a healthy laughter break with TMKOC",
-          "minutes": 2
+          "task": "Learn basic 2-step and 3-step Garba claps and footwork",
+          "minutes": 10
         },
         {
-          "task": "Share a funny Jethalal moment with family or friends",
-          "minutes": 1
+          "task": "Listen to traditional dhol rhythm to practice synchronization",
+          "minutes": 5
         }
       ],
       "studyPlan": [
         {
-          "day": 1,
-          "focus": "De-stress & Chuckle",
-          "action": "Watch classic Jethalal comedic expressions to release workday tension."
+          "day": "Day 1",
+          "focus": "Rhythm & Pulse",
+          "action": "Listen to Garba dhol beats and practice basic foot-tapping in tempo."
         },
         {
-          "day": 2,
-          "focus": "Lighthearted Focus",
-          "action": "Use 5-minute humor intervals between intensive study/coding sessions."
+          "day": "Day 2",
+          "focus": "Circular Coordination",
+          "action": "Practice 2-step Garba while maintaining steady rotational movement."
         },
         {
-          "day": 3,
-          "focus": "Social Joy",
-          "action": "Watch Gokuldham festival celebrations with family."
+          "day": "Day 3",
+          "focus": "Group Synchronization",
+          "action": "Dance with friends or family in a circle to build festive harmony."
         }
       ]
     }
@@ -257,6 +258,133 @@
     }
   },
   {
+    "id": "ig-tmkoc-Dc0d1dtu1ug",
+    "title": "Gokuldham Society Special: Jethalal & Bapuji Fun Moments",
+    "creator": {
+      "name": "TMKOC Official (Neela Film)",
+      "handle": "@taarakmehtakaooltahchashmahnfp",
+      "avatar": "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=150&auto=format&fit=crop&q=80",
+      "verified": true,
+      "bio": "Taarak Mehta Ka Ooltah Chashmah Official & Fan Comedy Reels"
+    },
+    "videoUrl": "/videos/ig_tmkoc_Dc0d1dtu1ug.mp4",
+    "visualTheme": "comedy_tmkoc",
+    "description": "Gokuldham Society Special: Jethalal & Bapuji Fun Moments - Watch the comedy of Gokuldham Society! #TMKOC #Jethalal #TaarakMehtaKaOoltahChashmah #Comedy #IndianSitcom",
+    "duration": 30,
+    "category": "Entertainment & Comedy",
+    "intent": "entertain",
+    "goalTags": [
+      "comedy",
+      "tmkoc",
+      "jethalal",
+      "gokuldham"
+    ],
+    "mood": "humorous",
+    "likes": 84500,
+    "commentsCount": 1250,
+    "shares": 23660,
+    "views": 420000,
+    "isAIGenerated": false,
+    "safetyScore": 99,
+    "realityCheck": {
+      "verdict": "Verified Sitcom Classic",
+      "claim": "Iconic Indian television comedy produced by Asit Kumarr Modi based on Tarak Mehta's literature.",
+      "explanation": "Taarak Mehta Ka Ooltah Chashmah holds the Limca Book of World Records as India's longest-running comedy show, promoting social unity and family entertainment across generations.",
+      "sources": [
+        {
+          "name": "Sony SAB TV Official Archive",
+          "url": "https://sonyliv.com",
+          "credibility": "Official Broadcaster"
+        },
+        {
+          "name": "Limca Book of Records",
+          "url": "https://limcabookofrecords.in",
+          "credibility": "National Record Registry"
+        }
+      ],
+      "aiConfidence": 99
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You selected Entertainment or searched for TMKOC / Jethalal comedy moments.",
+      "matchedInterests": [
+        "Comedy",
+        "TMKOC",
+        "Jethalal",
+        "Entertainment"
+      ],
+      "signalWeight": {
+        "watchHistory": 40,
+        "goalAlignment": 30,
+        "currentMood": 20,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Locally ranked based on your comedy preferences. No data shared with advertisers."
+    },
+    "transcript": "Gokuldham Society Special: Jethalal & Bapuji Fun Moments. Jethalal, Champaklal, Babita ji, and the residents of Gokuldham Society in their iconic situational comedy moment.",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Gokuldham Society Special: Jethalal & Bapuji Fun Moments - Classic situational comedy from Gokuldham Society.",
+        "bulletPoints": [
+          "Laughter stimulates endorphin release and naturally lowers stress hormones (cortisol).",
+          "Relational humor and community connection strengthen emotional wellbeing.",
+          "A brief 5-minute comedy break rejuvenates mental stamina for subsequent productive tasks."
+        ],
+        "keyTakeaway": "Laughter is the best medicine — keep smiling with Gokuldham Society!"
+      },
+      "quiz": [
+        {
+          "question": "What is Jethalal's famous electronics showroom called?",
+          "options": [
+            "Gada Electronics",
+            "Jethalal Appliances",
+            "Gokuldham Gadgets",
+            "Champaklal Electronics"
+          ],
+          "correctIndex": 0,
+          "explanation": "Jethalal Champaklal Gada runs Gada Electronics with Nattu Kaka and Bagha!"
+        },
+        {
+          "question": "What is Bapuji's most famous morning advice to Jethalal?",
+          "options": [
+            "Chai piyo, biscuit khao!",
+            "So jao!",
+            "Dukaan mat jao!",
+            "Jalebi Fafda bandh karo!"
+          ],
+          "correctIndex": 0,
+          "explanation": "Bapuji's iconic line 'Chai piyo, biscuit khao' is one of the most famous dialogues in Indian television history!"
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Enjoy a healthy laughter break with TMKOC",
+          "minutes": 2
+        },
+        {
+          "task": "Share a funny Jethalal moment with family or friends",
+          "minutes": 1
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "De-stress & Chuckle",
+          "action": "Watch classic Jethalal comedic expressions to release workday tension."
+        },
+        {
+          "day": 2,
+          "focus": "Lighthearted Focus",
+          "action": "Use 5-minute humor intervals between intensive study/coding sessions."
+        },
+        {
+          "day": 3,
+          "focus": "Social Joy",
+          "action": "Watch Gokuldham festival celebrations with family."
+        }
+      ]
+    }
+  },
+  {
     "id": "ig-DdWqxO-sR9e",
     "title": "Morning activation  - -",
     "creator": {
@@ -387,6 +515,118 @@
     }
   },
   {
+    "id": "ig-navratri-dodhiya-14step",
+    "title": "Traditional 14-Step Dodhiya: Master the Footwork & Claps",
+    "creator": {
+      "name": "Dharini Shah Dance Academy",
+      "handle": "@garba_queen_dharini",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "verified": true,
+      "bio": "Traditional Gujarat Garba & Dodhiya Instructor | National Dance Performer"
+    },
+    "videoUrl": "/videos/ig_navratri_dodhiya_steps.mp4",
+    "visualTheme": "fitness_pulse",
+    "description": "Learn the classic 14-step Dodhiya! Breakdown of leg movements, directional transitions, and rhythm claps for your Navratri night. #Dodhiya #GarbaSteps #NavratriDance #DanceTutorial #GujaratiDance #GarbaLover",
+    "duration": 17,
+    "category": "Culture & Dance",
+    "intent": "teach",
+    "goalTags": [
+      "dodhiya",
+      "garba-tutorial",
+      "dance",
+      "navratri",
+      "fitness"
+    ],
+    "mood": "energetic",
+    "likes": 96400,
+    "commentsCount": 1450,
+    "shares": 28300,
+    "views": 540000,
+    "isAIGenerated": false,
+    "safetyScore": 99,
+    "realityCheck": {
+      "verdict": "Educational Consensus",
+      "claim": "Dodhiya is an authentic multi-step folk dance progression originating from Gujarat's folk dance traditions.",
+      "explanation": "Dodhiya variations range from 2-step, 3-step up to 14-step and 32-step patterns, blending anaerobic endurance, coordination, and rhythmic clapping.",
+      "sources": [
+        {
+          "name": "Sangeet Natak Akademi Folk Dance Research",
+          "url": "https://sangeetnatak.gov.in",
+          "credibility": "National Academy for Music & Dance"
+        }
+      ],
+      "aiConfidence": 98
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "Matched your interest in dance tutorials, fitness footwork, and cultural skill learning.",
+      "matchedInterests": [
+        "Garba",
+        "Dance Tutorial",
+        "Dodhiya",
+        "Fitness"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 35,
+        "currentMood": 10,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Personalized on device based on dance technique interest."
+    },
+    "transcript": "14 step Dodhiya tutorial breakdown. Step forward with the right foot, cross, pivot with clap, and step backward in 14 rhythmic counts.",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Mastering 14-step Dodhiya footwork for Navratri.",
+        "bulletPoints": [
+          "Dodhiya demands core stability and balanced weight distribution on the balls of your feet.",
+          "Keep knees slightly bent to absorb impact and enable swift direction changes.",
+          "Sync clapping with the fourth and eighth counts to maintain group cadence."
+        ],
+        "keyTakeaway": "Smooth footwork and rhythm timing make Dodhiya effortless and exhilarating!"
+      },
+      "quiz": [
+        {
+          "question": "What is the key to executing smooth turns during a 14-step Dodhiya?",
+          "options": [
+            "Staying on the balls of your feet with soft knees",
+            "Stiffening your legs completely",
+            "Looking down at the floor",
+            "Stopping every two steps"
+          ],
+          "correctIndex": 0,
+          "explanation": "Staying light on the balls of your feet with bent knees allows agile, injury-free pivots!"
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Practice 14 counts slowly without music to memorize the pattern",
+          "minutes": 5
+        },
+        {
+          "task": "Accelerate to full tempo with traditional dhol track",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": "Day 1",
+          "focus": "Count 1 to 7",
+          "action": "Master the forward transition and first pivot."
+        },
+        {
+          "day": "Day 2",
+          "focus": "Count 8 to 14",
+          "action": "Perfect the return sequence and synchronized clap."
+        },
+        {
+          "day": "Day 3",
+          "focus": "Full Flow",
+          "action": "Perform 5 continuous cycles without breaking rhythm."
+        }
+      ]
+    }
+  },
+  {
     "id": "ig-DdVTdiOPDtt",
     "title": "खुद से मिलने निकला हूँ… ❤️      IncredibleIndia NatureLovers...",
     "creator": {
@@ -486,396 +726,6 @@
       "checklist": [
         {
           "task": "Review key steps from @thegaonwaleofficial's demonstration",
-          "minutes": 3
-        },
-        {
-          "task": "Practice first execution round under controlled conditions",
-          "minutes": 10
-        },
-        {
-          "task": "Log notes and track improvements in your personal study ledger",
-          "minutes": 5
-        }
-      ],
-      "studyPlan": [
-        {
-          "day": 1,
-          "focus": "Foundation & Observation",
-          "action": "Watch twice, breakdown mechanics, and prepare setup."
-        },
-        {
-          "day": 2,
-          "focus": "Deliberate Practice",
-          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
-        },
-        {
-          "day": 3,
-          "focus": "Review & Integration",
-          "action": "Evaluate progress, address friction points, and solidify routine."
-        }
-      ]
-    }
-  },
-  {
-    "id": "ig-DdZIPD-RVve",
-    "title": "Switching to an automatic home espresso setup was the best d...",
-    "creator": {
-      "name": "Ruus Kharadze",
-      "handle": "@ruus_kh",
-      "avatar": "https://scontent-iad6-1.cdninstagram.com/v/t51.2885-19/397227495_1043534293733930_4117451292471898346_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad6-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2gHPWg1RhgKhG6bgIkfbmy6QT8GtSLVKiQy8Fc35oG6pLrB1YM3j-OZFMGwOQWZZYMY&_nc_ohc=uElCMrqmCVYQ7kNvwGMYGze&_nc_gid=RJB0Fsov1Jj4YYgoKZcA5A&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQKDaxGT-9JGYh3lhuq8FSM5fqyRDzJq409RiO9PqsdVPw&oe=6AB1E6A0&_nc_sid=472314",
-      "verified": false,
-      "bio": "Food & Lifestyle Creator on Instagram"
-    },
-    "videoUrl": "/videos/ig_DdZIPD-RVve.mp4",
-    "visualTheme": "coffee",
-    "description": "Switching to an automatic home espresso setup was the best decision ever. ☕️✨ Would you trade your daily coffee shop run for this? #coffee #homebarista #espresso #delonghi #cozyvibes",
-    "duration": 31,
-    "category": "Food & Lifestyle",
-    "intent": "entertain",
-    "goalTags": [
-      "coffee",
-      "lifestyle",
-      "creativity"
-    ],
-    "mood": "chill",
-    "likes": 8958,
-    "commentsCount": 45,
-    "shares": 1971,
-    "views": 15000,
-    "isAIGenerated": false,
-    "safetyScore": 98,
-    "realityCheck": {
-      "verdict": "Verified",
-      "claim": "Technique and demonstration verified for food & lifestyle.",
-      "explanation": "This demonstration aligns with established industry best practices in Food & Lifestyle. Visual and audio cues confirm authentic real-world execution.",
-      "sources": [
-        {
-          "name": "Public Creator Verification",
-          "url": "https://instagram.com/ruus_kh",
-          "credibility": "Social Media Creator"
-        },
-        {
-          "name": "Food & Lifestyle Knowledge Base",
-          "url": "https://wikipedia.org",
-          "credibility": "Reference Encyclopedia"
-        }
-      ],
-      "aiConfidence": 96
-    },
-    "whyAmISeeingThis": {
-      "primaryReason": "You showed active engagement with Food & Lifestyle and relevant goal tracks.",
-      "matchedInterests": [
-        "Food & Lifestyle",
-        "coffee",
-        "lifestyle",
-        "creativity"
-      ],
-      "signalWeight": {
-        "watchHistory": 45,
-        "goalAlignment": 30,
-        "currentMood": 15,
-        "collaborativeFilter": 10
-      },
-      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
-    },
-    "transcript": "Switching to an automatic home espresso setup was the best decision ever. ☕️✨ Would you trade your daily coffee shop run for this? #coffee #homebarista #espresso #delonghi #cozyvibes",
-    "usefulOutputs": {
-      "notes": {
-        "summary": "Switching to an automatic home espresso setup was the best d.... Key insights and practical execution points shared by @ruus_kh.",
-        "bulletPoints": [
-          "Core technique focuses on steady consistency and proper fundamentals in Food & Lifestyle.",
-          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
-          "Avoid rushing the process; focus on high leverage, incremental mastery."
-        ],
-        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
-      },
-      "quiz": [
-        {
-          "question": "What is the primary objective demonstrated in this Food & Lifestyle reel?",
-          "options": [
-            "To demonstrate accurate execution and practical technique",
-            "To encourage skipping fundamentals for quick hacks",
-            "To show unverified claims without practice",
-            "To replace structured learning with random guessing"
-          ],
-          "correctIndex": 0,
-          "explanation": "The creator emphasizes consistent execution and real-world application in Food & Lifestyle."
-        },
-        {
-          "question": "What is the best immediate action step after watching this reel?",
-          "options": [
-            "Test and apply the demonstrated technique immediately in your routine",
-            "Save the video and never practice it",
-            "Assume one viewing creates complete mastery",
-            "Ignore the fundamentals shown"
-          ],
-          "correctIndex": 0,
-          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
-        }
-      ],
-      "checklist": [
-        {
-          "task": "Review key steps from @ruus_kh's demonstration",
-          "minutes": 3
-        },
-        {
-          "task": "Practice first execution round under controlled conditions",
-          "minutes": 10
-        },
-        {
-          "task": "Log notes and track improvements in your personal study ledger",
-          "minutes": 5
-        }
-      ],
-      "studyPlan": [
-        {
-          "day": 1,
-          "focus": "Foundation & Observation",
-          "action": "Watch twice, breakdown mechanics, and prepare setup."
-        },
-        {
-          "day": 2,
-          "focus": "Deliberate Practice",
-          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
-        },
-        {
-          "day": 3,
-          "focus": "Review & Integration",
-          "action": "Evaluate progress, address friction points, and solidify routine."
-        }
-      ]
-    }
-  },
-  {
-    "id": "ig-DdUcTDvzIrk",
-    "title": "Day 3/∞ A little study",
-    "creator": {
-      "name": "deek_0608",
-      "handle": "@deek_0608",
-      "avatar": "https://scontent-iad3-1.cdninstagram.com/v/t51.82787-19/791942909_18009344606954200_2152433788349568926_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_cat=104&_nc_oc=Q6cZ2gEDDOA1jVwGaBJvVHvvkizbxi3C2DUaZUtjKB_6aeilnoGqgBySZnS2H7E4P4jtjj4&_nc_ohc=gEEOXGVCkI0Q7kNvwEMmr8z&_nc_gid=P6PXF5i1DvXslphx_urFhQ&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQL6SU5MzJXYbEtOsgf2AgVBSGgxVDn1JJXS3BundX28WA&oe=6AB20B47&_nc_sid=472314",
-      "verified": false,
-      "bio": "Productivity & Growth Creator on Instagram"
-    },
-    "videoUrl": "/videos/ig_DdUcTDvzIrk.mp4",
-    "visualTheme": "studygram",
-    "description": "Day 3/∞\nA little study.\nA little progress.\nRepeat.\n\n#studyreels \n#studygram \n#studymotivation \n#studywithme \n#studyvlog",
-    "duration": 24,
-    "category": "Productivity & Growth",
-    "intent": "teach",
-    "goalTags": [
-      "deep-work",
-      "study",
-      "atomic-habits"
-    ],
-    "mood": "focus",
-    "likes": 1810,
-    "commentsCount": 45,
-    "shares": 398,
-    "views": 19920,
-    "isAIGenerated": false,
-    "safetyScore": 98,
-    "realityCheck": {
-      "verdict": "Verified",
-      "claim": "Technique and demonstration verified for productivity & growth.",
-      "explanation": "This demonstration aligns with established industry best practices in Productivity & Growth. Visual and audio cues confirm authentic real-world execution.",
-      "sources": [
-        {
-          "name": "Public Creator Verification",
-          "url": "https://instagram.com/deek_0608",
-          "credibility": "Social Media Creator"
-        },
-        {
-          "name": "Productivity & Growth Knowledge Base",
-          "url": "https://wikipedia.org",
-          "credibility": "Reference Encyclopedia"
-        }
-      ],
-      "aiConfidence": 96
-    },
-    "whyAmISeeingThis": {
-      "primaryReason": "You showed active engagement with Productivity & Growth and relevant goal tracks.",
-      "matchedInterests": [
-        "Productivity & Growth",
-        "deep-work",
-        "study",
-        "atomic-habits"
-      ],
-      "signalWeight": {
-        "watchHistory": 45,
-        "goalAlignment": 30,
-        "currentMood": 15,
-        "collaborativeFilter": 10
-      },
-      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
-    },
-    "transcript": "Day 3/∞\nA little study.\nA little progress.\nRepeat.\n\n#studyreels \n#studygram \n#studymotivation \n#studywithme \n#studyvlog",
-    "usefulOutputs": {
-      "notes": {
-        "summary": "Day 3/∞ A little study. Key insights and practical execution points shared by @deek_0608.",
-        "bulletPoints": [
-          "Core technique focuses on steady consistency and proper fundamentals in Productivity & Growth.",
-          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
-          "Avoid rushing the process; focus on high leverage, incremental mastery."
-        ],
-        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
-      },
-      "quiz": [
-        {
-          "question": "What is the primary objective demonstrated in this Productivity & Growth reel?",
-          "options": [
-            "To demonstrate accurate execution and practical technique",
-            "To encourage skipping fundamentals for quick hacks",
-            "To show unverified claims without practice",
-            "To replace structured learning with random guessing"
-          ],
-          "correctIndex": 0,
-          "explanation": "The creator emphasizes consistent execution and real-world application in Productivity & Growth."
-        },
-        {
-          "question": "What is the best immediate action step after watching this reel?",
-          "options": [
-            "Test and apply the demonstrated technique immediately in your routine",
-            "Save the video and never practice it",
-            "Assume one viewing creates complete mastery",
-            "Ignore the fundamentals shown"
-          ],
-          "correctIndex": 0,
-          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
-        }
-      ],
-      "checklist": [
-        {
-          "task": "Review key steps from @deek_0608's demonstration",
-          "minutes": 3
-        },
-        {
-          "task": "Practice first execution round under controlled conditions",
-          "minutes": 10
-        },
-        {
-          "task": "Log notes and track improvements in your personal study ledger",
-          "minutes": 5
-        }
-      ],
-      "studyPlan": [
-        {
-          "day": 1,
-          "focus": "Foundation & Observation",
-          "action": "Watch twice, breakdown mechanics, and prepare setup."
-        },
-        {
-          "day": 2,
-          "focus": "Deliberate Practice",
-          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
-        },
-        {
-          "day": 3,
-          "focus": "Review & Integration",
-          "action": "Evaluate progress, address friction points, and solidify routine."
-        }
-      ]
-    }
-  },
-  {
-    "id": "ig-DdWE6TpPpqu",
-    "title": "The new Titanium 9:1 pulley system for slackliners is here",
-    "creator": {
-      "name": "raed slacklines",
-      "handle": "@raedslacklines",
-      "avatar": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-19/612136548_18552872560062468_4813192249717019880_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad6-1.cdninstagram.com&_nc_cat=100&_nc_oc=Q6cZ2gHVLCDNEEco4PD2k__352A_cTU3fgVu3BM53F3D7puqqPjoJ2mcPZsPmpXBCPFhZVQ&_nc_ohc=GKkhbHL4TT0Q7kNvwExjqxV&_nc_gid=cBPYOWHxZIStluavYqcHLA&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQIJrxBLnDco1mTB_H5lAnaChx3CpexntzinJiuW52_Bpg&oe=6AB2070E&_nc_sid=472314",
-      "verified": false,
-      "bio": "Mindfulness & Detox Creator on Instagram"
-    },
-    "videoUrl": "/videos/ig_DdWE6TpPpqu.mp4",
-    "visualTheme": "meditation",
-    "description": "The new Titanium 9:1 pulley system for slackliners is here! Because you don't want 5 guys to pull for your longline. Because you want to have fun on the line - not rigging it. Because you don't want to carry heavy gear to your slackspot. Our TiPS 9:1 titanium slackline pulley system is the strongest affordable slackline pulley system on this planet. \n\nKey specs: \n\n9 x mechanical advantage\n27 x / 45 x with PRO Multiplier\nhigh efficiency ball bearings\nhigh efficiency, releasable brake mechanism\ntitanium for max load resistance - MBS: 50 kN\nWLL: 10 kN\nfront pin for controlled release of tension\nrepairable design\ncompatible to TiLock Weblock\ncompatible to soft shackles\n588g excl. rope\n\nGet it here: https://raed-sports.com/de/products/tips-9-1-titanium-pulley-system \n\n#raedslacklines #raedical #slackline #slaeckline #keepthebalance #highline #longline #midline #slacklife #slackvida #слэклайн #highlinefreestyle #freestylehighline #slackgirl #slackgirls #balance #equilibrio #meditation #fun #waterline #bouldering #climbing #bouncekult #sport #circus #mountainlife #mountains #adventure #extreme #extremesports",
-    "duration": 60,
-    "category": "Mindfulness & Detox",
-    "intent": "relax",
-    "goalTags": [
-      "mindfulness",
-      "meditation",
-      "stress-relief"
-    ],
-    "mood": "calm",
-    "likes": 1200,
-    "commentsCount": 45,
-    "shares": 117,
-    "views": 15000,
-    "isAIGenerated": false,
-    "safetyScore": 98,
-    "realityCheck": {
-      "verdict": "Verified",
-      "claim": "Mindfulness breathing activates the parasympathetic nervous system to decrease acute cortisol.",
-      "explanation": "Multiple randomized controlled trials confirm that controlled rhythmic breathing slows heart rate variability and attenuates stress response (Harvard Health Publishing).",
-      "sources": [
-        {
-          "name": "Harvard Medical School Health",
-          "url": "https://health.harvard.edu",
-          "credibility": "Medical Academic Center"
-        },
-        {
-          "name": "NIH National Center for Complementary Health",
-          "url": "https://nccih.nih.gov",
-          "credibility": "Government Health Agency"
-        }
-      ],
-      "aiConfidence": 97
-    },
-    "whyAmISeeingThis": {
-      "primaryReason": "You showed active engagement with Mindfulness & Detox and relevant goal tracks.",
-      "matchedInterests": [
-        "Mindfulness & Detox",
-        "mindfulness",
-        "meditation",
-        "stress-relief"
-      ],
-      "signalWeight": {
-        "watchHistory": 45,
-        "goalAlignment": 30,
-        "currentMood": 15,
-        "collaborativeFilter": 10
-      },
-      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
-    },
-    "transcript": "The new Titanium 9:1 pulley system for slackliners is here! Because you don't want 5 guys to pull for your longline. Because you want to have fun on the line - not rigging it. Because you don't want to carry heavy gear to your slackspot. Our TiPS 9:1 titanium slackline pulley system is the strongest affordable slackline pulley system on this planet. \n\nKey specs: \n\n9 x mechanical advantage\n27 x / 45 x with PRO Multiplier\nhigh efficiency ball bearings\nhigh efficiency, releasable brake mechanism\ntitanium for max load resistance - MBS: 50 kN\nWLL: 10 kN\nfront pin for controlled release of tension\nrepairable design\ncompatible to TiLock Weblock\ncompatible to soft shackles\n588g excl. rope\n\nGet it here: https://raed-sports.com/de/products/tips-9-1-titanium-pulley-system \n\n#raedslacklines #raedical #slackline #slaeckline #keepthebalance #highline #longline #midline #slacklife #slackvida #слэклайн #highlinefreestyle #freestylehighline #slackgirl #slackgirls #balance #equilibrio #meditation #fun #waterline #bouldering #climbing #bouncekult #sport #circus #mountainlife #mountains #adventure #extreme #extremesports",
-    "usefulOutputs": {
-      "notes": {
-        "summary": "The new Titanium 9:1 pulley system for slackliners is here. Key insights and practical execution points shared by @raedslacklines.",
-        "bulletPoints": [
-          "Core technique focuses on steady consistency and proper fundamentals in Mindfulness & Detox.",
-          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
-          "Avoid rushing the process; focus on high leverage, incremental mastery."
-        ],
-        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
-      },
-      "quiz": [
-        {
-          "question": "What is the primary objective demonstrated in this Mindfulness & Detox reel?",
-          "options": [
-            "To demonstrate accurate execution and practical technique",
-            "To encourage skipping fundamentals for quick hacks",
-            "To show unverified claims without practice",
-            "To replace structured learning with random guessing"
-          ],
-          "correctIndex": 0,
-          "explanation": "The creator emphasizes consistent execution and real-world application in Mindfulness & Detox."
-        },
-        {
-          "question": "What is the best immediate action step after watching this reel?",
-          "options": [
-            "Test and apply the demonstrated technique immediately in your routine",
-            "Save the video and never practice it",
-            "Assume one viewing creates complete mastery",
-            "Ignore the fundamentals shown"
-          ],
-          "correctIndex": 0,
-          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
-        }
-      ],
-      "checklist": [
-        {
-          "task": "Review key steps from @raedslacklines's demonstration",
           "minutes": 3
         },
         {
@@ -1034,6 +884,747 @@
     }
   },
   {
+    "id": "ig-DdZIPD-RVve",
+    "title": "Switching to an automatic home espresso setup was the best d...",
+    "creator": {
+      "name": "Ruus Kharadze",
+      "handle": "@ruus_kh",
+      "avatar": "https://scontent-iad6-1.cdninstagram.com/v/t51.2885-19/397227495_1043534293733930_4117451292471898346_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad6-1.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2gHPWg1RhgKhG6bgIkfbmy6QT8GtSLVKiQy8Fc35oG6pLrB1YM3j-OZFMGwOQWZZYMY&_nc_ohc=uElCMrqmCVYQ7kNvwGMYGze&_nc_gid=RJB0Fsov1Jj4YYgoKZcA5A&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQKDaxGT-9JGYh3lhuq8FSM5fqyRDzJq409RiO9PqsdVPw&oe=6AB1E6A0&_nc_sid=472314",
+      "verified": false,
+      "bio": "Food & Lifestyle Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdZIPD-RVve.mp4",
+    "visualTheme": "coffee",
+    "description": "Switching to an automatic home espresso setup was the best decision ever. ☕️✨ Would you trade your daily coffee shop run for this? #coffee #homebarista #espresso #delonghi #cozyvibes",
+    "duration": 31,
+    "category": "Food & Lifestyle",
+    "intent": "entertain",
+    "goalTags": [
+      "coffee",
+      "lifestyle",
+      "creativity"
+    ],
+    "mood": "chill",
+    "likes": 8958,
+    "commentsCount": 45,
+    "shares": 1971,
+    "views": 15000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Technique and demonstration verified for food & lifestyle.",
+      "explanation": "This demonstration aligns with established industry best practices in Food & Lifestyle. Visual and audio cues confirm authentic real-world execution.",
+      "sources": [
+        {
+          "name": "Public Creator Verification",
+          "url": "https://instagram.com/ruus_kh",
+          "credibility": "Social Media Creator"
+        },
+        {
+          "name": "Food & Lifestyle Knowledge Base",
+          "url": "https://wikipedia.org",
+          "credibility": "Reference Encyclopedia"
+        }
+      ],
+      "aiConfidence": 96
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Food & Lifestyle and relevant goal tracks.",
+      "matchedInterests": [
+        "Food & Lifestyle",
+        "coffee",
+        "lifestyle",
+        "creativity"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "Switching to an automatic home espresso setup was the best decision ever. ☕️✨ Would you trade your daily coffee shop run for this? #coffee #homebarista #espresso #delonghi #cozyvibes",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Switching to an automatic home espresso setup was the best d.... Key insights and practical execution points shared by @ruus_kh.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Food & Lifestyle.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Food & Lifestyle reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Food & Lifestyle."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @ruus_kh's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-navratri-titodo-sanedo-beats",
+    "title": "Energetic Titodo & Sanedo: Authentic Kathiawadi High-Tempo Beats",
+    "creator": {
+      "name": "Folk Raas Rhythm Club",
+      "handle": "@folkraas_gujarat",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+      "verified": false,
+      "bio": "Celebrating Authentic Sanedo, Titodo, and Kathiawadi Folk Rhythms"
+    },
+    "videoUrl": "/videos/ig_navratri_titodo_sanedo.mp4",
+    "visualTheme": "zen_flow",
+    "description": "When the dhol strikes the Titodo beat! The electrifying pulse of Kathiawadi folk music that keeps everyone dancing until 4 AM. #Titodo #Sanedo #Kathiyawadi #NavratriVibes #GarbaFever #GujaratiFolk",
+    "duration": 30,
+    "category": "Culture & Dance",
+    "intent": "entertain",
+    "goalTags": [
+      "titodo",
+      "sanedo",
+      "garba",
+      "kathiawadi",
+      "folk-music"
+    ],
+    "mood": "excited",
+    "likes": 118000,
+    "commentsCount": 2100,
+    "shares": 34000,
+    "views": 720000,
+    "isAIGenerated": false,
+    "safetyScore": 99,
+    "realityCheck": {
+      "verdict": "Verified Folk Tradition",
+      "claim": "Sanedo and Titodo are indigenous folk forms rooted in Gujarat's rural traditions.",
+      "explanation": "Sanedo is a historic Gujarati folk song and dance genre from Saurashtra/Kathiawad featuring four-line couplets and energetic rhythmic jumps.",
+      "sources": [
+        {
+          "name": "Gujarat Sahitya Akademi",
+          "url": "https://sahityaakademi.gujarat.gov.in",
+          "credibility": "Folk Literature & Culture Council"
+        }
+      ],
+      "aiConfidence": 97
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "Trending folk dance performance and regional Indian music celebration.",
+      "matchedInterests": [
+        "Folk Music",
+        "Sanedo",
+        "Titodo",
+        "Navratri"
+      ],
+      "signalWeight": {
+        "watchHistory": 35,
+        "goalAlignment": 30,
+        "currentMood": 25,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Locally matched for cultural music lovers."
+    },
+    "transcript": "Titodo and Sanedo high-tempo beats with rapid clapping, rhythmic twirls, and enthusiastic shouts of Ae Halo!",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "High energy Kathiawadi Titodo and Sanedo folk expressions.",
+        "bulletPoints": [
+          "Titodo is characterized by brisk, high-cadence steps that peak towards the climax of a Garba set.",
+          "Sanedo couplets traditionally express romance, rural wit, and communal camaraderie.",
+          "Folk music cadence elevates cardiovascular heart rate while keeping cognitive focus sharp."
+        ],
+        "keyTakeaway": "The pure acoustic power of dhol and shehnai drives unforgettable celebration."
+      },
+      "quiz": [
+        {
+          "question": "What region of Gujarat is most famously associated with the Sanedo folk tradition?",
+          "options": [
+            "Saurashtra / Kathiawad",
+            "Goa",
+            "Kashmir",
+            "Punjab"
+          ],
+          "correctIndex": 0,
+          "explanation": "Sanedo originated in Saurashtra (Patan and Kathiawad region) and is beloved across Gujarat!"
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Learn the 3-clap Titodo progression",
+          "minutes": 5
+        },
+        {
+          "task": "Practice rapid foot switch in sync with dhol tempo",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": "Day 1",
+          "focus": "Tempo Adaptation",
+          "action": "Listen to accelerating dhol cues to train reaction speed."
+        },
+        {
+          "day": "Day 2",
+          "focus": "Jump & Clap Timing",
+          "action": "Practice landing softly while maintaining simultaneous clap cadence."
+        },
+        {
+          "day": "Day 3",
+          "focus": "Endurance Stamina",
+          "action": "Sustain a 3-minute continuous Titodo set."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdUcTDvzIrk",
+    "title": "Day 3/∞ A little study",
+    "creator": {
+      "name": "deek_0608",
+      "handle": "@deek_0608",
+      "avatar": "https://scontent-iad3-1.cdninstagram.com/v/t51.82787-19/791942909_18009344606954200_2152433788349568926_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad3-1.cdninstagram.com&_nc_cat=104&_nc_oc=Q6cZ2gEDDOA1jVwGaBJvVHvvkizbxi3C2DUaZUtjKB_6aeilnoGqgBySZnS2H7E4P4jtjj4&_nc_ohc=gEEOXGVCkI0Q7kNvwEMmr8z&_nc_gid=P6PXF5i1DvXslphx_urFhQ&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQL6SU5MzJXYbEtOsgf2AgVBSGgxVDn1JJXS3BundX28WA&oe=6AB20B47&_nc_sid=472314",
+      "verified": false,
+      "bio": "Productivity & Growth Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdUcTDvzIrk.mp4",
+    "visualTheme": "studygram",
+    "description": "Day 3/∞\nA little study.\nA little progress.\nRepeat.\n\n#studyreels \n#studygram \n#studymotivation \n#studywithme \n#studyvlog",
+    "duration": 24,
+    "category": "Productivity & Growth",
+    "intent": "teach",
+    "goalTags": [
+      "deep-work",
+      "study",
+      "atomic-habits"
+    ],
+    "mood": "focus",
+    "likes": 1810,
+    "commentsCount": 45,
+    "shares": 398,
+    "views": 19920,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Technique and demonstration verified for productivity & growth.",
+      "explanation": "This demonstration aligns with established industry best practices in Productivity & Growth. Visual and audio cues confirm authentic real-world execution.",
+      "sources": [
+        {
+          "name": "Public Creator Verification",
+          "url": "https://instagram.com/deek_0608",
+          "credibility": "Social Media Creator"
+        },
+        {
+          "name": "Productivity & Growth Knowledge Base",
+          "url": "https://wikipedia.org",
+          "credibility": "Reference Encyclopedia"
+        }
+      ],
+      "aiConfidence": 96
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Productivity & Growth and relevant goal tracks.",
+      "matchedInterests": [
+        "Productivity & Growth",
+        "deep-work",
+        "study",
+        "atomic-habits"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "Day 3/∞\nA little study.\nA little progress.\nRepeat.\n\n#studyreels \n#studygram \n#studymotivation \n#studywithme \n#studyvlog",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Day 3/∞ A little study. Key insights and practical execution points shared by @deek_0608.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Productivity & Growth.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Productivity & Growth reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Productivity & Growth."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @deek_0608's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-tmkoc-DdYUJs9h43a",
+    "title": "Jethalal vs Iyer & Babita Ji Hilarious Encounter",
+    "creator": {
+      "name": "Gokuldham Comedy Club",
+      "handle": "@comedy_tmkoc_16",
+      "avatar": "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=150&auto=format&fit=crop&q=80",
+      "verified": false,
+      "bio": "Taarak Mehta Ka Ooltah Chashmah Official & Fan Comedy Reels"
+    },
+    "videoUrl": "/videos/ig_tmkoc_DdYUJs9h43a.mp4",
+    "visualTheme": "comedy_tmkoc",
+    "description": "Jethalal vs Iyer & Babita Ji Hilarious Encounter - Watch the comedy of Gokuldham Society! #TMKOC #Jethalal #TaarakMehtaKaOoltahChashmah #Comedy #IndianSitcom",
+    "duration": 30,
+    "category": "Entertainment & Comedy",
+    "intent": "entertain",
+    "goalTags": [
+      "comedy",
+      "tmkoc",
+      "jethalal",
+      "gokuldham"
+    ],
+    "mood": "humorous",
+    "likes": 52100,
+    "commentsCount": 890,
+    "shares": 14588,
+    "views": 310000,
+    "isAIGenerated": false,
+    "safetyScore": 99,
+    "realityCheck": {
+      "verdict": "Verified Sitcom Classic",
+      "claim": "Iconic Indian television comedy produced by Asit Kumarr Modi based on Tarak Mehta's literature.",
+      "explanation": "Taarak Mehta Ka Ooltah Chashmah holds the Limca Book of World Records as India's longest-running comedy show, promoting social unity and family entertainment across generations.",
+      "sources": [
+        {
+          "name": "Sony SAB TV Official Archive",
+          "url": "https://sonyliv.com",
+          "credibility": "Official Broadcaster"
+        },
+        {
+          "name": "Limca Book of Records",
+          "url": "https://limcabookofrecords.in",
+          "credibility": "National Record Registry"
+        }
+      ],
+      "aiConfidence": 99
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You selected Entertainment or searched for TMKOC / Jethalal comedy moments.",
+      "matchedInterests": [
+        "Comedy",
+        "TMKOC",
+        "Jethalal",
+        "Entertainment"
+      ],
+      "signalWeight": {
+        "watchHistory": 40,
+        "goalAlignment": 30,
+        "currentMood": 20,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Locally ranked based on your comedy preferences. No data shared with advertisers."
+    },
+    "transcript": "Jethalal vs Iyer & Babita Ji Hilarious Encounter. Jethalal, Champaklal, Babita ji, and the residents of Gokuldham Society in their iconic situational comedy moment.",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Jethalal vs Iyer & Babita Ji Hilarious Encounter - Classic situational comedy from Gokuldham Society.",
+        "bulletPoints": [
+          "Laughter stimulates endorphin release and naturally lowers stress hormones (cortisol).",
+          "Relational humor and community connection strengthen emotional wellbeing.",
+          "A brief 5-minute comedy break rejuvenates mental stamina for subsequent productive tasks."
+        ],
+        "keyTakeaway": "Laughter is the best medicine — keep smiling with Gokuldham Society!"
+      },
+      "quiz": [
+        {
+          "question": "What is Jethalal's famous electronics showroom called?",
+          "options": [
+            "Gada Electronics",
+            "Jethalal Appliances",
+            "Gokuldham Gadgets",
+            "Champaklal Electronics"
+          ],
+          "correctIndex": 0,
+          "explanation": "Jethalal Champaklal Gada runs Gada Electronics with Nattu Kaka and Bagha!"
+        },
+        {
+          "question": "What is Bapuji's most famous morning advice to Jethalal?",
+          "options": [
+            "Chai piyo, biscuit khao!",
+            "So jao!",
+            "Dukaan mat jao!",
+            "Jalebi Fafda bandh karo!"
+          ],
+          "correctIndex": 0,
+          "explanation": "Bapuji's iconic line 'Chai piyo, biscuit khao' is one of the most famous dialogues in Indian television history!"
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Enjoy a healthy laughter break with TMKOC",
+          "minutes": 2
+        },
+        {
+          "task": "Share a funny Jethalal moment with family or friends",
+          "minutes": 1
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "De-stress & Chuckle",
+          "action": "Watch classic Jethalal comedic expressions to release workday tension."
+        },
+        {
+          "day": 2,
+          "focus": "Lighthearted Focus",
+          "action": "Use 5-minute humor intervals between intensive study/coding sessions."
+        },
+        {
+          "day": 3,
+          "focus": "Social Joy",
+          "action": "Watch Gokuldham festival celebrations with family."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-DdWE6TpPpqu",
+    "title": "The new Titanium 9:1 pulley system for slackliners is here",
+    "creator": {
+      "name": "raed slacklines",
+      "handle": "@raedslacklines",
+      "avatar": "https://scontent-iad6-1.cdninstagram.com/v/t51.82787-19/612136548_18552872560062468_4813192249717019880_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-iad6-1.cdninstagram.com&_nc_cat=100&_nc_oc=Q6cZ2gHVLCDNEEco4PD2k__352A_cTU3fgVu3BM53F3D7puqqPjoJ2mcPZsPmpXBCPFhZVQ&_nc_ohc=GKkhbHL4TT0Q7kNvwExjqxV&_nc_gid=cBPYOWHxZIStluavYqcHLA&edm=AMKDjl4BAAAA&ccb=7-5&oh=00_AQIJrxBLnDco1mTB_H5lAnaChx3CpexntzinJiuW52_Bpg&oe=6AB2070E&_nc_sid=472314",
+      "verified": false,
+      "bio": "Mindfulness & Detox Creator on Instagram"
+    },
+    "videoUrl": "/videos/ig_DdWE6TpPpqu.mp4",
+    "visualTheme": "meditation",
+    "description": "The new Titanium 9:1 pulley system for slackliners is here! Because you don't want 5 guys to pull for your longline. Because you want to have fun on the line - not rigging it. Because you don't want to carry heavy gear to your slackspot. Our TiPS 9:1 titanium slackline pulley system is the strongest affordable slackline pulley system on this planet. \n\nKey specs: \n\n9 x mechanical advantage\n27 x / 45 x with PRO Multiplier\nhigh efficiency ball bearings\nhigh efficiency, releasable brake mechanism\ntitanium for max load resistance - MBS: 50 kN\nWLL: 10 kN\nfront pin for controlled release of tension\nrepairable design\ncompatible to TiLock Weblock\ncompatible to soft shackles\n588g excl. rope\n\nGet it here: https://raed-sports.com/de/products/tips-9-1-titanium-pulley-system \n\n#raedslacklines #raedical #slackline #slaeckline #keepthebalance #highline #longline #midline #slacklife #slackvida #слэклайн #highlinefreestyle #freestylehighline #slackgirl #slackgirls #balance #equilibrio #meditation #fun #waterline #bouldering #climbing #bouncekult #sport #circus #mountainlife #mountains #adventure #extreme #extremesports",
+    "duration": 60,
+    "category": "Mindfulness & Detox",
+    "intent": "relax",
+    "goalTags": [
+      "mindfulness",
+      "meditation",
+      "stress-relief"
+    ],
+    "mood": "calm",
+    "likes": 1200,
+    "commentsCount": 45,
+    "shares": 117,
+    "views": 15000,
+    "isAIGenerated": false,
+    "safetyScore": 98,
+    "realityCheck": {
+      "verdict": "Verified",
+      "claim": "Mindfulness breathing activates the parasympathetic nervous system to decrease acute cortisol.",
+      "explanation": "Multiple randomized controlled trials confirm that controlled rhythmic breathing slows heart rate variability and attenuates stress response (Harvard Health Publishing).",
+      "sources": [
+        {
+          "name": "Harvard Medical School Health",
+          "url": "https://health.harvard.edu",
+          "credibility": "Medical Academic Center"
+        },
+        {
+          "name": "NIH National Center for Complementary Health",
+          "url": "https://nccih.nih.gov",
+          "credibility": "Government Health Agency"
+        }
+      ],
+      "aiConfidence": 97
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You showed active engagement with Mindfulness & Detox and relevant goal tracks.",
+      "matchedInterests": [
+        "Mindfulness & Detox",
+        "mindfulness",
+        "meditation",
+        "stress-relief"
+      ],
+      "signalWeight": {
+        "watchHistory": 45,
+        "goalAlignment": 30,
+        "currentMood": 15,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Computed on-device based on your session intent. Never shared with data brokers."
+    },
+    "transcript": "The new Titanium 9:1 pulley system for slackliners is here! Because you don't want 5 guys to pull for your longline. Because you want to have fun on the line - not rigging it. Because you don't want to carry heavy gear to your slackspot. Our TiPS 9:1 titanium slackline pulley system is the strongest affordable slackline pulley system on this planet. \n\nKey specs: \n\n9 x mechanical advantage\n27 x / 45 x with PRO Multiplier\nhigh efficiency ball bearings\nhigh efficiency, releasable brake mechanism\ntitanium for max load resistance - MBS: 50 kN\nWLL: 10 kN\nfront pin for controlled release of tension\nrepairable design\ncompatible to TiLock Weblock\ncompatible to soft shackles\n588g excl. rope\n\nGet it here: https://raed-sports.com/de/products/tips-9-1-titanium-pulley-system \n\n#raedslacklines #raedical #slackline #slaeckline #keepthebalance #highline #longline #midline #slacklife #slackvida #слэклайн #highlinefreestyle #freestylehighline #slackgirl #slackgirls #balance #equilibrio #meditation #fun #waterline #bouldering #climbing #bouncekult #sport #circus #mountainlife #mountains #adventure #extreme #extremesports",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "The new Titanium 9:1 pulley system for slackliners is here. Key insights and practical execution points shared by @raedslacklines.",
+        "bulletPoints": [
+          "Core technique focuses on steady consistency and proper fundamentals in Mindfulness & Detox.",
+          "Pay close attention to the setup, pacing, and visual form demonstrated in this reel.",
+          "Avoid rushing the process; focus on high leverage, incremental mastery."
+        ],
+        "keyTakeaway": "Master the fundamentals first; speed and fluency naturally follow with deliberate practice."
+      },
+      "quiz": [
+        {
+          "question": "What is the primary objective demonstrated in this Mindfulness & Detox reel?",
+          "options": [
+            "To demonstrate accurate execution and practical technique",
+            "To encourage skipping fundamentals for quick hacks",
+            "To show unverified claims without practice",
+            "To replace structured learning with random guessing"
+          ],
+          "correctIndex": 0,
+          "explanation": "The creator emphasizes consistent execution and real-world application in Mindfulness & Detox."
+        },
+        {
+          "question": "What is the best immediate action step after watching this reel?",
+          "options": [
+            "Test and apply the demonstrated technique immediately in your routine",
+            "Save the video and never practice it",
+            "Assume one viewing creates complete mastery",
+            "Ignore the fundamentals shown"
+          ],
+          "correctIndex": 0,
+          "explanation": "Immediate active practice cements motor retention and conceptual understanding."
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Review key steps from @raedslacklines's demonstration",
+          "minutes": 3
+        },
+        {
+          "task": "Practice first execution round under controlled conditions",
+          "minutes": 10
+        },
+        {
+          "task": "Log notes and track improvements in your personal study ledger",
+          "minutes": 5
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "Foundation & Observation",
+          "action": "Watch twice, breakdown mechanics, and prepare setup."
+        },
+        {
+          "day": 2,
+          "focus": "Deliberate Practice",
+          "action": "Execute 3 controlled sets/sessions focusing on form and quality."
+        },
+        {
+          "day": 3,
+          "focus": "Review & Integration",
+          "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-navratri-chaniya-choli-styling",
+    "title": "Royal Kutch Chaniya Choli: Handcrafted Mirror Work & Dandiya Styling",
+    "creator": {
+      "name": "Heritage Choli & Couture",
+      "handle": "@navratri_ethnic_couture",
+      "avatar": "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80",
+      "verified": false,
+      "bio": "Kutch Mirror Work, Bandhani & Authentic Navratri Chaniya Choli Styling"
+    },
+    "videoUrl": "/videos/ig_navratri_chaniya_choli.mp4",
+    "visualTheme": "cooking_flame",
+    "description": "Handmade Abhla (mirror) embroidery, 10-meter flare gher, and oxidized silver jewelry! Complete styling guide for 9 nights of glamour. #ChaniyaCholi #NavratriFashion #KutchEmbroidery #EthnicWear #Navratri2026 #TraditionalLook",
+    "duration": 35,
+    "category": "Culture & Dance",
+    "intent": "inspire",
+    "goalTags": [
+      "chaniya-choli",
+      "fashion",
+      "kutch-embroidery",
+      "navratri-look",
+      "styling"
+    ],
+    "mood": "creative",
+    "likes": 88900,
+    "commentsCount": 920,
+    "shares": 19400,
+    "views": 460000,
+    "isAIGenerated": false,
+    "safetyScore": 99,
+    "realityCheck": {
+      "verdict": "Verified Artisanal Craft",
+      "claim": "Kutch mirror-work (Abhla Bharat) and Bandhani tie-dye are GI-tagged indigenous crafts of Gujarat.",
+      "explanation": "Artisans in Kutch use traditional hand embroidery with mirrors and hand-dyed Bandhani textiles dating back centuries, preserved by indigenous artisan cooperatives.",
+      "sources": [
+        {
+          "name": "Geographical Indications Registry of India",
+          "url": "https://ipindia.gov.in",
+          "credibility": "Government IP Authority"
+        }
+      ],
+      "aiConfidence": 99
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "Matched interest in traditional textiles, Indian fashion design, and festive styling.",
+      "matchedInterests": [
+        "Textiles",
+        "Traditional Fashion",
+        "Styling",
+        "Navratri"
+      ],
+      "signalWeight": {
+        "watchHistory": 40,
+        "goalAlignment": 30,
+        "currentMood": 20,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Curated on-device. No advertiser profiling."
+    },
+    "transcript": "Showcasing an authentic 10-meter flare Kutch Chaniya Choli featuring real glass mirror embroidery, brass tassels, and oxidized silver coin jewelry.",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Artisan craftsmanship of authentic Navratri Chaniya Choli.",
+        "bulletPoints": [
+          "Abhla Bharat (mirror work) reflects candlelight and festive illumination during nocturnal dances.",
+          "Pure cotton fabrics with natural vegetable dyes provide breathability during rigorous 5-hour dancing sessions.",
+          "Pairing with lightweight oxidized silver jewelry prevents neck fatigue while preserving royal traditional aesthetics."
+        ],
+        "keyTakeaway": "Traditional handmade textiles combine sustainable craft, breathability, and stunning festive elegance."
+      },
+      "quiz": [
+        {
+          "question": "What is the traditional Gujarati term for mirror-work embroidery on Chaniya Cholis?",
+          "options": [
+            "Abhla Bharat",
+            "Zardozi",
+            "Chikankari",
+            "Phulkari"
+          ],
+          "correctIndex": 0,
+          "explanation": "Abhla Bharat is the famous Gujarati mirror-work embroidery crafted by Kutch and Saurashtra artisans!"
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Check garment breathability and weight before long dance nights",
+          "minutes": 3
+        },
+        {
+          "task": "Secure oxidized jewelry with safety pins and silicone backings",
+          "minutes": 2
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": "Day 1",
+          "focus": "Textile Heritage",
+          "action": "Learn about the difference between Bandhani, Patola, and Kutch embroidery."
+        },
+        {
+          "day": "Day 2",
+          "focus": "Comfort & Movement",
+          "action": "Test dance mobility and skirt flare rotation."
+        },
+        {
+          "day": "Day 3",
+          "focus": "Accessorizing",
+          "action": "Coordinate oxidized jewelry to balance weight and visual shine."
+        }
+      ]
+    }
+  },
+  {
     "id": "ig-DdU_XfZREJJ",
     "title": "Imagine all your friends give you digital presents",
     "creator": {
@@ -1164,6 +1755,133 @@
     }
   },
   {
+    "id": "ig-tmkoc-DdY3X2Csi2q",
+    "title": "Chai Piyo Biscuit Khao! Bapuji & Jethalal Classic Scene",
+    "creator": {
+      "name": "TMKOC Daily Laughs",
+      "handle": "@official_tmkoc_102",
+      "avatar": "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=150&auto=format&fit=crop&q=80",
+      "verified": false,
+      "bio": "Taarak Mehta Ka Ooltah Chashmah Official & Fan Comedy Reels"
+    },
+    "videoUrl": "/videos/ig_tmkoc_DdY3X2Csi2q.mp4",
+    "visualTheme": "comedy_tmkoc",
+    "description": "Chai Piyo Biscuit Khao! Bapuji & Jethalal Classic Scene - Watch the comedy of Gokuldham Society! #TMKOC #Jethalal #TaarakMehtaKaOoltahChashmah #Comedy #IndianSitcom",
+    "duration": 30,
+    "category": "Entertainment & Comedy",
+    "intent": "entertain",
+    "goalTags": [
+      "comedy",
+      "tmkoc",
+      "jethalal",
+      "gokuldham"
+    ],
+    "mood": "humorous",
+    "likes": 64300,
+    "commentsCount": 1120,
+    "shares": 18004,
+    "views": 390000,
+    "isAIGenerated": false,
+    "safetyScore": 99,
+    "realityCheck": {
+      "verdict": "Verified Sitcom Classic",
+      "claim": "Iconic Indian television comedy produced by Asit Kumarr Modi based on Tarak Mehta's literature.",
+      "explanation": "Taarak Mehta Ka Ooltah Chashmah holds the Limca Book of World Records as India's longest-running comedy show, promoting social unity and family entertainment across generations.",
+      "sources": [
+        {
+          "name": "Sony SAB TV Official Archive",
+          "url": "https://sonyliv.com",
+          "credibility": "Official Broadcaster"
+        },
+        {
+          "name": "Limca Book of Records",
+          "url": "https://limcabookofrecords.in",
+          "credibility": "National Record Registry"
+        }
+      ],
+      "aiConfidence": 99
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "You selected Entertainment or searched for TMKOC / Jethalal comedy moments.",
+      "matchedInterests": [
+        "Comedy",
+        "TMKOC",
+        "Jethalal",
+        "Entertainment"
+      ],
+      "signalWeight": {
+        "watchHistory": 40,
+        "goalAlignment": 30,
+        "currentMood": 20,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Locally ranked based on your comedy preferences. No data shared with advertisers."
+    },
+    "transcript": "Chai Piyo Biscuit Khao! Bapuji & Jethalal Classic Scene. Jethalal, Champaklal, Babita ji, and the residents of Gokuldham Society in their iconic situational comedy moment.",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Chai Piyo Biscuit Khao! Bapuji & Jethalal Classic Scene - Classic situational comedy from Gokuldham Society.",
+        "bulletPoints": [
+          "Laughter stimulates endorphin release and naturally lowers stress hormones (cortisol).",
+          "Relational humor and community connection strengthen emotional wellbeing.",
+          "A brief 5-minute comedy break rejuvenates mental stamina for subsequent productive tasks."
+        ],
+        "keyTakeaway": "Laughter is the best medicine — keep smiling with Gokuldham Society!"
+      },
+      "quiz": [
+        {
+          "question": "What is Jethalal's famous electronics showroom called?",
+          "options": [
+            "Gada Electronics",
+            "Jethalal Appliances",
+            "Gokuldham Gadgets",
+            "Champaklal Electronics"
+          ],
+          "correctIndex": 0,
+          "explanation": "Jethalal Champaklal Gada runs Gada Electronics with Nattu Kaka and Bagha!"
+        },
+        {
+          "question": "What is Bapuji's most famous morning advice to Jethalal?",
+          "options": [
+            "Chai piyo, biscuit khao!",
+            "So jao!",
+            "Dukaan mat jao!",
+            "Jalebi Fafda bandh karo!"
+          ],
+          "correctIndex": 0,
+          "explanation": "Bapuji's iconic line 'Chai piyo, biscuit khao' is one of the most famous dialogues in Indian television history!"
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Enjoy a healthy laughter break with TMKOC",
+          "minutes": 2
+        },
+        {
+          "task": "Share a funny Jethalal moment with family or friends",
+          "minutes": 1
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": 1,
+          "focus": "De-stress & Chuckle",
+          "action": "Watch classic Jethalal comedic expressions to release workday tension."
+        },
+        {
+          "day": 2,
+          "focus": "Lighthearted Focus",
+          "action": "Use 5-minute humor intervals between intensive study/coding sessions."
+        },
+        {
+          "day": 3,
+          "focus": "Social Joy",
+          "action": "Watch Gokuldham festival celebrations with family."
+        }
+      ]
+    }
+  },
+  {
     "id": "ig-DdXH_4Gtttc",
     "title": "Как безопасней и легче поднять ноги, если только начал осваи...",
     "creator": {
@@ -1289,6 +2007,118 @@
           "day": 3,
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
+        }
+      ]
+    }
+  },
+  {
+    "id": "ig-navratri-dholida-raas-performance",
+    "title": "Dholida Raas: Fast-Paced Dhol Beats & High Energy Clapping",
+    "creator": {
+      "name": "Dholida Raas Crew",
+      "handle": "@dholida_beats_official",
+      "avatar": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80",
+      "verified": true,
+      "bio": "Dhol Beats, Fast-Paced Gujarati Raas & Festival Energy"
+    },
+    "videoUrl": "/videos/ig_navratri_dholida_performance.mp4",
+    "visualTheme": "finance_growth",
+    "description": "When the live dhol players accelerate the beat! Non-stop Raas Garba choreography with lightning-fast turns and synchronized partner claps. #Dholida #GarbaRaas #DholBeats #NavratriNights #GujaratFestival #FolkEnergy",
+    "duration": 61,
+    "category": "Culture & Dance",
+    "intent": "achieve",
+    "goalTags": [
+      "dholida",
+      "garba",
+      "raas",
+      "dhol-beats",
+      "dance-cardio"
+    ],
+    "mood": "energetic",
+    "likes": 156000,
+    "commentsCount": 2450,
+    "shares": 39000,
+    "views": 980000,
+    "isAIGenerated": false,
+    "safetyScore": 99,
+    "realityCheck": {
+      "verdict": "Verified Physical Wellness",
+      "claim": "Intense folk dance like high-tempo Garba acts as high-intensity interval training (HIIT).",
+      "explanation": "Cardiovascular studies show that 60 minutes of high-tempo Garba burns between 400 to 600 calories, enhancing aerobic endurance and core stability.",
+      "sources": [
+        {
+          "name": "International Journal of Physical Education & Sports",
+          "url": "https://ijpes.org",
+          "credibility": "Peer-Reviewed Sports Journal"
+        }
+      ],
+      "aiConfidence": 98
+    },
+    "whyAmISeeingThis": {
+      "primaryReason": "Popular high-energy dance workout and festival choreography recommendation.",
+      "matchedInterests": [
+        "Dance Cardio",
+        "Garba",
+        "HIIT",
+        "Festival Energy"
+      ],
+      "signalWeight": {
+        "watchHistory": 40,
+        "goalAlignment": 30,
+        "currentMood": 20,
+        "collaborativeFilter": 10
+      },
+      "privacyNote": "Calculated locally without ad trackers."
+    },
+    "transcript": "Fast tempo Dholida beats accelerating, dancers executing spinning jumps, double claps, and high-energy circular sweeps.",
+    "usefulOutputs": {
+      "notes": {
+        "summary": "Cardiovascular and endurance benefits of high-energy Garba Raas.",
+        "bulletPoints": [
+          "Accelerating percussion naturally triggers adrenaline and endorphin release.",
+          "Fast footwork challenges agility, balance, and bilateral coordination.",
+          "Remember to hydrate with electrolytes during sustained 3-hour dancing sessions."
+        ],
+        "keyTakeaway": "Garba is an incredible full-body cardio workout disguised as joyful celebration!"
+      },
+      "quiz": [
+        {
+          "question": "How many calories can an hour of energetic Garba dance typically burn?",
+          "options": [
+            "400 to 600 calories",
+            "50 calories",
+            "1500 calories",
+            "None"
+          ],
+          "correctIndex": 0,
+          "explanation": "Research indicates an hour of energetic Garba burns approximately 400 to 600 calories!"
+        }
+      ],
+      "checklist": [
+        {
+          "task": "Warm up ankles, calves, and hamstrings before fast Garba",
+          "minutes": 5
+        },
+        {
+          "task": "Hydrate with water and coconut water / lemon water",
+          "minutes": 2
+        }
+      ],
+      "studyPlan": [
+        {
+          "day": "Day 1",
+          "focus": "Cardio Base",
+          "action": "Dance through 15 minutes of moderate Garba songs without stopping."
+        },
+        {
+          "day": "Day 2",
+          "focus": "Interval Sprints",
+          "action": "Perform 30-second rapid spin bursts during song crescendos."
+        },
+        {
+          "day": "Day 3",
+          "focus": "Cool Down & Recovery",
+          "action": "Gentle stretching and hydration routine after dance."
         }
       ]
     }
@@ -1809,133 +2639,6 @@
           "day": 3,
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
-        }
-      ]
-    }
-  },
-  {
-    "id": "ig-tmkoc-DdYUJs9h43a",
-    "title": "Jethalal vs Iyer & Babita Ji Hilarious Encounter",
-    "creator": {
-      "name": "Gokuldham Comedy Club",
-      "handle": "@comedy_tmkoc_16",
-      "avatar": "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=150&auto=format&fit=crop&q=80",
-      "verified": false,
-      "bio": "Taarak Mehta Ka Ooltah Chashmah Official & Fan Comedy Reels"
-    },
-    "videoUrl": "/videos/ig_tmkoc_DdYUJs9h43a.mp4",
-    "visualTheme": "comedy_tmkoc",
-    "description": "Jethalal vs Iyer & Babita Ji Hilarious Encounter - Watch the comedy of Gokuldham Society! #TMKOC #Jethalal #TaarakMehtaKaOoltahChashmah #Comedy #IndianSitcom",
-    "duration": 30,
-    "category": "Entertainment & Comedy",
-    "intent": "entertain",
-    "goalTags": [
-      "comedy",
-      "tmkoc",
-      "jethalal",
-      "gokuldham"
-    ],
-    "mood": "humorous",
-    "likes": 52100,
-    "commentsCount": 890,
-    "shares": 14588,
-    "views": 310000,
-    "isAIGenerated": false,
-    "safetyScore": 99,
-    "realityCheck": {
-      "verdict": "Verified Sitcom Classic",
-      "claim": "Iconic Indian television comedy produced by Asit Kumarr Modi based on Tarak Mehta's literature.",
-      "explanation": "Taarak Mehta Ka Ooltah Chashmah holds the Limca Book of World Records as India's longest-running comedy show, promoting social unity and family entertainment across generations.",
-      "sources": [
-        {
-          "name": "Sony SAB TV Official Archive",
-          "url": "https://sonyliv.com",
-          "credibility": "Official Broadcaster"
-        },
-        {
-          "name": "Limca Book of Records",
-          "url": "https://limcabookofrecords.in",
-          "credibility": "National Record Registry"
-        }
-      ],
-      "aiConfidence": 99
-    },
-    "whyAmISeeingThis": {
-      "primaryReason": "You selected Entertainment or searched for TMKOC / Jethalal comedy moments.",
-      "matchedInterests": [
-        "Comedy",
-        "TMKOC",
-        "Jethalal",
-        "Entertainment"
-      ],
-      "signalWeight": {
-        "watchHistory": 40,
-        "goalAlignment": 30,
-        "currentMood": 20,
-        "collaborativeFilter": 10
-      },
-      "privacyNote": "Locally ranked based on your comedy preferences. No data shared with advertisers."
-    },
-    "transcript": "Jethalal vs Iyer & Babita Ji Hilarious Encounter. Jethalal, Champaklal, Babita ji, and the residents of Gokuldham Society in their iconic situational comedy moment.",
-    "usefulOutputs": {
-      "notes": {
-        "summary": "Jethalal vs Iyer & Babita Ji Hilarious Encounter - Classic situational comedy from Gokuldham Society.",
-        "bulletPoints": [
-          "Laughter stimulates endorphin release and naturally lowers stress hormones (cortisol).",
-          "Relational humor and community connection strengthen emotional wellbeing.",
-          "A brief 5-minute comedy break rejuvenates mental stamina for subsequent productive tasks."
-        ],
-        "keyTakeaway": "Laughter is the best medicine — keep smiling with Gokuldham Society!"
-      },
-      "quiz": [
-        {
-          "question": "What is Jethalal's famous electronics showroom called?",
-          "options": [
-            "Gada Electronics",
-            "Jethalal Appliances",
-            "Gokuldham Gadgets",
-            "Champaklal Electronics"
-          ],
-          "correctIndex": 0,
-          "explanation": "Jethalal Champaklal Gada runs Gada Electronics with Nattu Kaka and Bagha!"
-        },
-        {
-          "question": "What is Bapuji's most famous morning advice to Jethalal?",
-          "options": [
-            "Chai piyo, biscuit khao!",
-            "So jao!",
-            "Dukaan mat jao!",
-            "Jalebi Fafda bandh karo!"
-          ],
-          "correctIndex": 0,
-          "explanation": "Bapuji's iconic line 'Chai piyo, biscuit khao' is one of the most famous dialogues in Indian television history!"
-        }
-      ],
-      "checklist": [
-        {
-          "task": "Enjoy a healthy laughter break with TMKOC",
-          "minutes": 2
-        },
-        {
-          "task": "Share a funny Jethalal moment with family or friends",
-          "minutes": 1
-        }
-      ],
-      "studyPlan": [
-        {
-          "day": 1,
-          "focus": "De-stress & Chuckle",
-          "action": "Watch classic Jethalal comedic expressions to release workday tension."
-        },
-        {
-          "day": 2,
-          "focus": "Lighthearted Focus",
-          "action": "Use 5-minute humor intervals between intensive study/coding sessions."
-        },
-        {
-          "day": 3,
-          "focus": "Social Joy",
-          "action": "Watch Gokuldham festival celebrations with family."
         }
       ]
     }
@@ -2716,133 +3419,6 @@
           "day": 3,
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
-        }
-      ]
-    }
-  },
-  {
-    "id": "ig-tmkoc-DdY3X2Csi2q",
-    "title": "Chai Piyo Biscuit Khao! Bapuji & Jethalal Classic Scene",
-    "creator": {
-      "name": "TMKOC Daily Laughs",
-      "handle": "@official_tmkoc_102",
-      "avatar": "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=150&auto=format&fit=crop&q=80",
-      "verified": false,
-      "bio": "Taarak Mehta Ka Ooltah Chashmah Official & Fan Comedy Reels"
-    },
-    "videoUrl": "/videos/ig_tmkoc_DdY3X2Csi2q.mp4",
-    "visualTheme": "comedy_tmkoc",
-    "description": "Chai Piyo Biscuit Khao! Bapuji & Jethalal Classic Scene - Watch the comedy of Gokuldham Society! #TMKOC #Jethalal #TaarakMehtaKaOoltahChashmah #Comedy #IndianSitcom",
-    "duration": 30,
-    "category": "Entertainment & Comedy",
-    "intent": "entertain",
-    "goalTags": [
-      "comedy",
-      "tmkoc",
-      "jethalal",
-      "gokuldham"
-    ],
-    "mood": "humorous",
-    "likes": 64300,
-    "commentsCount": 1120,
-    "shares": 18004,
-    "views": 390000,
-    "isAIGenerated": false,
-    "safetyScore": 99,
-    "realityCheck": {
-      "verdict": "Verified Sitcom Classic",
-      "claim": "Iconic Indian television comedy produced by Asit Kumarr Modi based on Tarak Mehta's literature.",
-      "explanation": "Taarak Mehta Ka Ooltah Chashmah holds the Limca Book of World Records as India's longest-running comedy show, promoting social unity and family entertainment across generations.",
-      "sources": [
-        {
-          "name": "Sony SAB TV Official Archive",
-          "url": "https://sonyliv.com",
-          "credibility": "Official Broadcaster"
-        },
-        {
-          "name": "Limca Book of Records",
-          "url": "https://limcabookofrecords.in",
-          "credibility": "National Record Registry"
-        }
-      ],
-      "aiConfidence": 99
-    },
-    "whyAmISeeingThis": {
-      "primaryReason": "You selected Entertainment or searched for TMKOC / Jethalal comedy moments.",
-      "matchedInterests": [
-        "Comedy",
-        "TMKOC",
-        "Jethalal",
-        "Entertainment"
-      ],
-      "signalWeight": {
-        "watchHistory": 40,
-        "goalAlignment": 30,
-        "currentMood": 20,
-        "collaborativeFilter": 10
-      },
-      "privacyNote": "Locally ranked based on your comedy preferences. No data shared with advertisers."
-    },
-    "transcript": "Chai Piyo Biscuit Khao! Bapuji & Jethalal Classic Scene. Jethalal, Champaklal, Babita ji, and the residents of Gokuldham Society in their iconic situational comedy moment.",
-    "usefulOutputs": {
-      "notes": {
-        "summary": "Chai Piyo Biscuit Khao! Bapuji & Jethalal Classic Scene - Classic situational comedy from Gokuldham Society.",
-        "bulletPoints": [
-          "Laughter stimulates endorphin release and naturally lowers stress hormones (cortisol).",
-          "Relational humor and community connection strengthen emotional wellbeing.",
-          "A brief 5-minute comedy break rejuvenates mental stamina for subsequent productive tasks."
-        ],
-        "keyTakeaway": "Laughter is the best medicine — keep smiling with Gokuldham Society!"
-      },
-      "quiz": [
-        {
-          "question": "What is Jethalal's famous electronics showroom called?",
-          "options": [
-            "Gada Electronics",
-            "Jethalal Appliances",
-            "Gokuldham Gadgets",
-            "Champaklal Electronics"
-          ],
-          "correctIndex": 0,
-          "explanation": "Jethalal Champaklal Gada runs Gada Electronics with Nattu Kaka and Bagha!"
-        },
-        {
-          "question": "What is Bapuji's most famous morning advice to Jethalal?",
-          "options": [
-            "Chai piyo, biscuit khao!",
-            "So jao!",
-            "Dukaan mat jao!",
-            "Jalebi Fafda bandh karo!"
-          ],
-          "correctIndex": 0,
-          "explanation": "Bapuji's iconic line 'Chai piyo, biscuit khao' is one of the most famous dialogues in Indian television history!"
-        }
-      ],
-      "checklist": [
-        {
-          "task": "Enjoy a healthy laughter break with TMKOC",
-          "minutes": 2
-        },
-        {
-          "task": "Share a funny Jethalal moment with family or friends",
-          "minutes": 1
-        }
-      ],
-      "studyPlan": [
-        {
-          "day": 1,
-          "focus": "De-stress & Chuckle",
-          "action": "Watch classic Jethalal comedic expressions to release workday tension."
-        },
-        {
-          "day": 2,
-          "focus": "Lighthearted Focus",
-          "action": "Use 5-minute humor intervals between intensive study/coding sessions."
-        },
-        {
-          "day": 3,
-          "focus": "Social Joy",
-          "action": "Watch Gokuldham festival celebrations with family."
         }
       ]
     }
