@@ -294,8 +294,8 @@ export const AICompanion: React.FC = () => {
 
   return (
     <>
-      {/* Floating Orb Trigger in Bottom Left */}
-      <div className="fixed bottom-4 sm:bottom-6 left-4 sm:left-6 z-40 pb-safe">
+      {/* Floating Orb Trigger - Outside Navigation Bar at Lower Left Corner */}
+      <div className="fixed bottom-4 sm:bottom-6 left-20 sm:left-24 md:left-[272px] lg:left-[304px] z-40 pb-safe transition-all duration-200">
         <button
           onClick={() => setIsOpen(prev => !prev)}
           className="group relative p-3.5 rounded-full bg-gradient-to-tr from-cyan-500 via-indigo-600 to-violet-600 text-white shadow-2xl shadow-cyan-500/30 hover:scale-110 active:scale-95 transition-all duration-300 flex items-center gap-2 border border-white/20"
@@ -312,9 +312,9 @@ export const AICompanion: React.FC = () => {
         </button>
       </div>
 
-      {/* Expanded Chat Drawer */}
+      {/* Expanded Chat Drawer - Outside Navigation Bar */}
       {isOpen && (
-        <div className="fixed bottom-16 sm:bottom-20 left-2 sm:left-4 md:left-6 z-50 w-[calc(100vw-16px)] sm:w-96 max-h-[calc(100dvh-100px)] h-[75vh] bg-slate-900/95 backdrop-blur-2xl border border-white/15 rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-scale-in pb-safe">
+        <div className="fixed bottom-16 sm:bottom-20 left-20 sm:left-24 md:left-[272px] lg:left-[304px] z-50 w-[calc(100vw-96px)] sm:w-96 max-h-[calc(100dvh-100px)] h-[75vh] bg-slate-900/95 backdrop-blur-2xl border border-white/15 rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-scale-in pb-safe">
           {/* Header */}
           <div className="p-4 border-b border-white/10 bg-slate-950/70 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
