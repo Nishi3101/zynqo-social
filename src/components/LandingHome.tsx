@@ -261,9 +261,9 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative px-3 sm:px-6 md:px-10 pt-6 sm:pt-8 pb-10 sm:pb-14 max-w-7xl mx-auto flex flex-col lg:flex-row items-stretch gap-6 lg:gap-8">
+      <section className="relative px-3 sm:px-6 md:px-10 pt-6 sm:pt-8 pb-10 sm:pb-14 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_390px] xl:grid-cols-[1fr_420px] items-stretch gap-6 lg:gap-8">
         {/* Left Hero Card with Aesthetic Studio Workspace Background */}
-        <div className={`flex-1 rounded-3xl border shadow-2xl relative overflow-hidden flex flex-col justify-between p-6 sm:p-8 md:p-10 transition-all duration-300 ${
+        <div className={`w-full h-full rounded-3xl border shadow-2xl relative overflow-hidden flex flex-col justify-between p-6 sm:p-8 md:p-10 transition-all duration-300 ${
           isLight
             ? 'bg-white/95 border-rose-100/90 shadow-rose-950/5'
             : 'bg-[#151024]/95 border-white/10 shadow-black/60'
@@ -374,12 +374,15 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
           </div>
         </div>
 
-        {/* Right Side Live Radar */}
-        <LiveRadar
-          onExplore={() => setCurrentPage('feed')}
-          theme={theme}
-          isLight={isLight}
-        />
+        {/* Right Side Live Radar - Equal Height CSS Grid Cell */}
+        <div className="w-full h-full flex flex-col">
+          <LiveRadar
+            onExplore={() => setCurrentPage('feed')}
+            theme={theme}
+            isLight={isLight}
+            className="h-full flex-1"
+          />
+        </div>
       </section>
 
       {/* Continue Watching Row (#57, #14) */}

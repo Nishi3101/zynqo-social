@@ -6,6 +6,7 @@ interface LiveRadarProps {
   onExplore?: () => void;
   theme?: any;
   isLight?: boolean;
+  className?: string;
 }
 
 interface SignalPoint {
@@ -32,7 +33,8 @@ const RADAR_SIGNALS: SignalPoint[] = [
 export const LiveRadar: React.FC<LiveRadarProps> = ({ 
   onExplore, 
   theme, 
-  isLight = false 
+  isLight = false,
+  className = ''
 }) => {
   const { t, language } = useApp();
   // Live animated telemetry counters
@@ -105,11 +107,11 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
   };
 
   return (
-    <div className={`w-full lg:w-[390px] xl:w-[420px] h-full self-stretch rounded-3xl overflow-hidden border shadow-2xl relative flex flex-col justify-between p-4 sm:p-5 lg:p-6 select-none transition-all duration-300 hover:shadow-[0_20px_50px_rgba(244,63,94,0.18)] group ${
+    <div className={`w-full h-full rounded-3xl overflow-hidden border shadow-2xl relative flex flex-col justify-between p-4 sm:p-5 lg:p-6 select-none transition-all duration-300 hover:shadow-[0_20px_50px_rgba(244,63,94,0.18)] group ${
       isLight 
         ? 'bg-white/95 border-rose-100/90 shadow-rose-950/5 hover:border-rose-300' 
         : 'bg-[#151024]/95 border-white/10 shadow-black/60 hover:border-pink-500/40'
-    }`}>
+    } ${className}`}>
       {/* Embedded High-Performance Radar Animations */}
       <style>{`
         @keyframes radar-sweep {
@@ -151,7 +153,7 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
       {/* ─────────────────────────────────────────────────────────────
           1. HEADER: LIVE RADAR + SCANNING ZYNQO
           ───────────────────────────────────────────────────────────── */}
-      <div className={`relative z-10 flex items-center justify-between pb-2 border-b ${
+      <div className={`relative z-10 flex items-center justify-between pb-2 border-b flex-shrink-0 ${
         isLight ? 'border-rose-100/80' : 'border-white/10'
       }`}>
         <div className="flex items-center gap-2.5">
@@ -202,7 +204,7 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
       {/* ─────────────────────────────────────────────────────────────
           2. LIVE METRICS BAR: ACTIVE TRENDS & LIVE SIGNALS
           ───────────────────────────────────────────────────────────── */}
-      <div className="relative z-10 grid grid-cols-2 gap-2 my-1.5">
+      <div className="relative z-10 grid grid-cols-2 gap-2 my-2 flex-shrink-0">
         <div className={`border rounded-xl px-3 py-1.5 backdrop-blur-md flex items-center justify-between transition-colors ${
           isLight 
             ? 'bg-rose-50/40 border-rose-100/80' 
@@ -257,7 +259,7 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
       {/* ─────────────────────────────────────────────────────────────
           3. CENTRAL CIRCULAR RADAR SCOPE
           ───────────────────────────────────────────────────────────── */}
-      <div className="relative z-10 flex-1 flex items-center justify-center my-auto py-2">
+      <div className="relative z-10 flex-1 flex items-center justify-center my-auto min-h-0 py-2">
         <div className={`relative w-[260px] h-[260px] xs:w-[280px] xs:h-[280px] sm:w-[300px] sm:h-[300px] lg:w-[310px] lg:h-[310px] rounded-full flex items-center justify-center overflow-hidden transition-all ${
           isLight 
             ? 'bg-[#fcf8fa] shadow-[inset_0_0_24px_rgba(244,63,94,0.06)] border border-rose-200/70' 
@@ -404,7 +406,7 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
       {/* ─────────────────────────────────────────────────────────────
           4. FOOTER: SYSTEM STATUS & ACTION CTA
           ───────────────────────────────────────────────────────────── */}
-      <div className={`relative z-10 pt-2 border-t space-y-2 ${
+      <div className={`relative z-10 pt-2 border-t space-y-2 flex-shrink-0 ${
         isLight ? 'border-rose-100/80' : 'border-white/10'
       }`}>
         <div className="flex items-center justify-between text-[10px] font-mono px-0.5">
