@@ -31,13 +31,15 @@ import {
   Sun,
   Moon,
   Palette,
-  Settings
+  Settings,
+  TrendingUp
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { themes } from '../utils/theme';
 import { Reel, UserVideo, UserPost, ActivityItem, CommentActivity } from '../types';
 import { EditProfileModal } from './EditProfileModal';
 import { AIAssistModal } from './AIAssistModal';
+import { ReelWatchAnalyticsChart } from './ReelWatchAnalyticsChart';
 
 export const ProfileView: React.FC = () => {
   const { 
@@ -58,6 +60,9 @@ export const ProfileView: React.FC = () => {
     colorMode, 
     toggleColorMode,
     openModal,
+    totalReelsWatched,
+    todayReelsWatched,
+    dailyReelHistory,
     t
   } = useApp();
 
@@ -66,7 +71,7 @@ export const ProfileView: React.FC = () => {
 
   // Navigation & Tabs
   const [activeMainTab, setActiveMainTab] = useState<'reels' | 'videos' | 'posts' | 'activity'>('reels');
-  const [activitySubTab, setActivitySubTab] = useState<'liked' | 'saved' | 'comments' | 'milestones'>('liked');
+  const [activitySubTab, setActivitySubTab] = useState<'liked' | 'saved' | 'comments' | 'milestones' | 'analytics'>('analytics');
   const [activityFilter, setActivityFilter] = useState<'all' | 'reels' | 'videos' | 'posts'>('all');
 
   // Modals & Active Viewer State
@@ -424,6 +429,14 @@ export const ProfileView: React.FC = () => {
                   </span>
                   <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
                     {t.profile?.postsTab || 'Posts'}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-base sm:text-lg font-display font-black text-orange-500 block">
+                    {totalReelsWatched}
+                  </span>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+                    Watched
                   </span>
                 </div>
                 <div>
@@ -847,6 +860,18 @@ export const ProfileView: React.FC = () => {
                   <Trophy className="w-3.5 h-3.5" />
                   <span>{t.profile?.milestonesTab || 'Milestones & XP'}</span>
                 </button>
+
+                <button
+                  onClick={() => setActivitySubTab('analytics')}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition ${
+                    activitySubTab === 'analytics'
+                      ? 'bg-orange-500 text-slate-950 font-black shadow-md'
+                      : isLight ? 'text-slate-700 hover:bg-slate-100' : 'text-slate-300 hover:bg-white/5'
+                  }`}
+                >
+                  <TrendingUp className="w-3.5 h-3.5" />
+                  <span>Watch Trends ({totalReelsWatched})</span>
+                </button>
               </div>
 
               {/* Type Filter */}
@@ -1140,55 +1165,67 @@ export const ProfileView: React.FC = () => {
 
             {/* SubTab 4: Milestones & Platform Engagement */}
             {activitySubTab === 'milestones' && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                <div className={`p-4 rounded-2xl border space-y-2 ${
-                  isLight ? 'bg-white border-slate-200' : 'bg-slate-900/70 border-white/10'
-                }`}>
-                  <div className="flex items-center gap-2 text-cyan-400 font-mono text-xs font-bold">
-                    <Trophy className="w-4 h-4" />
-                    <span>XP & LEVEL PROGRESS</span>
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                  <div className={`p-4 rounded-2xl border space-y-2 ${
+                    isLight ? 'bg-white border-slate-200' : 'bg-slate-900/70 border-white/10'
+                  }`}>
+                    <div className="flex items-center gap-2 text-cyan-400 font-mono text-xs font-bold">
+                      <Trophy className="w-4 h-4" />
+                      <span>XP & LEVEL PROGRESS</span>
+                    </div>
+                    <h4 className="text-xl font-black font-display text-white">
+                      {userProfile?.xp || 1420} XP
+                    </h4>
+                    <p className="text-xs text-slate-400">
+                      Level {userProfile?.level || 4} Creator. Next level at 1,500 XP (+80 XP required).
+                    </p>
                   </div>
-                  <h4 className="text-xl font-black font-display text-white">
-                    {userProfile?.xp || 1420} XP
-                  </h4>
-                  <p className="text-xs text-slate-400">
-                    Level {userProfile?.level || 4} Creator. Next level at 1,500 XP (+80 XP required).
-                  </p>
+
+                  <div className={`p-4 rounded-2xl border space-y-2 ${
+                    isLight ? 'bg-white border-slate-200' : 'bg-slate-900/70 border-white/10'
+                  }`}>
+                    <div className="flex items-center gap-2 text-amber-400 font-mono text-xs font-bold">
+                      <Flame className="w-4 h-4" />
+                      <span>ACTIVE LEARNING STREAK</span>
+                    </div>
+                    <h4 className="text-xl font-black font-display text-white">
+                      {userProfile?.streakDays || 6} Days Streak
+                    </h4>
+                    <p className="text-xs text-slate-400">
+                      Completed daily attention sessions consecutively without passive doom-scrolling.
+                    </p>
+                  </div>
+
+                  <div className={`p-4 rounded-2xl border space-y-2 ${
+                    isLight ? 'bg-white border-slate-200' : 'bg-slate-900/70 border-white/10'
+                  }`}>
+                    <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs font-bold">
+                      <Clock className="w-4 h-4" />
+                      <span>ATTENTION NUTRITION</span>
+                    </div>
+                    <h4 className="text-xl font-black font-display text-white">
+                      {userProfile?.minutesUsedToday || 14} / {userProfile?.attentionBudgetMinutes || 30}m
+                    </h4>
+                    <p className="text-xs text-slate-400">
+                      46% of attention budget remaining today. 92% meaningful engagement score.
+                    </p>
+                  </div>
                 </div>
 
-                <div className={`p-4 rounded-2xl border space-y-2 ${
-                  isLight ? 'bg-white border-slate-200' : 'bg-slate-900/70 border-white/10'
-                }`}>
-                  <div className="flex items-center gap-2 text-amber-400 font-mono text-xs font-bold">
-                    <Flame className="w-4 h-4" />
-                    <span>ACTIVE LEARNING STREAK</span>
-                  </div>
-                  <h4 className="text-xl font-black font-display text-white">
-                    {userProfile?.streakDays || 6} Days Streak
-                  </h4>
-                  <p className="text-xs text-slate-400">
-                    Completed daily attention sessions consecutively without passive doom-scrolling.
-                  </p>
-                </div>
-
-                <div className={`p-4 rounded-2xl border space-y-2 ${
-                  isLight ? 'bg-white border-slate-200' : 'bg-slate-900/70 border-white/10'
-                }`}>
-                  <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs font-bold">
-                    <Clock className="w-4 h-4" />
-                    <span>ATTENTION NUTRITION</span>
-                  </div>
-                  <h4 className="text-xl font-black font-display text-white">
-                    {userProfile?.minutesUsedToday || 14} / {userProfile?.attentionBudgetMinutes || 30}m
-                  </h4>
-                  <p className="text-xs text-slate-400">
-                    46% of attention budget remaining today. 92% meaningful engagement score.
-                  </p>
-                </div>
+                {/* Chart under Milestones */}
+                <ReelWatchAnalyticsChart isLight={isLight} />
               </div>
             )}
-          </div>
-        )}
+
+          {/* SubTab 5: Reel Watch Analytics Chart */}
+          {activitySubTab === 'analytics' && (
+            <div className="space-y-4">
+              <ReelWatchAnalyticsChart isLight={isLight} />
+            </div>
+          )}
+        </div>
+      )}
       </section>
 
       {/* ─────────────────────────────────────────────────────────────

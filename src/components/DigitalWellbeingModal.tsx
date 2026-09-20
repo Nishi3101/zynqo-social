@@ -12,6 +12,7 @@ import {
   Leaf
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { ReelWatchAnalyticsChart } from './ReelWatchAnalyticsChart';
 
 export const DigitalWellbeingModal: React.FC = () => {
   const { 
@@ -59,7 +60,7 @@ export const DigitalWellbeingModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xl flex items-center justify-center p-4 animate-fade-in">
-      <div className={`w-full max-w-lg max-h-[90vh] flex flex-col rounded-3xl shadow-2xl overflow-hidden border transition-colors ${
+      <div className={`w-full max-w-2xl max-h-[90vh] flex flex-col rounded-3xl shadow-2xl overflow-hidden border transition-colors ${
         isLight ? 'bg-white border-slate-200 text-slate-900' : 'bg-slate-900 border-white/15 text-white'
       }`}>
         {/* Header */}
@@ -87,6 +88,8 @@ export const DigitalWellbeingModal: React.FC = () => {
 
         {/* Content */}
         <div className="p-5 space-y-4 flex-1 overflow-y-auto">
+          {/* Reel Watch Analytics Chart */}
+          <ReelWatchAnalyticsChart isLight={isLight} />
           {/* RESET LIMIT SECTION - Quick Direct Solution */}
           <div className={`p-4 rounded-2xl border space-y-3 ${
             isLight

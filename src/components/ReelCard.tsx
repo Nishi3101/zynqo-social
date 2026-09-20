@@ -26,7 +26,7 @@ interface ReelCardProps {
 }
 
 export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) => {
-  const { isMuted, toggleMute, isPlaying, togglePlay, addComment, t, language } = useApp();
+  const { isMuted, toggleMute, isPlaying, togglePlay, addComment, t, language, recordReelWatch } = useApp();
   const locReel = getLocalizedReel(reel, language);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [progress, setProgress] = useState(0);
@@ -35,6 +35,14 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) =
   const [newCommentText, setNewCommentText] = useState('');
   const [commentWarning, setCommentWarning] = useState<string | null>(null);
   const [isFollowing, setIsFollowing] = useState(false);
+  const hasLoggedWatchRef = useRef(false);
+
+  // Reset watch flag when active reel switches
+  useEffect(() => {
+    if (!isActive) {
+      hasLoggedWatchRef.current = false;
+    }
+  }, [isActive, reel.id]);
 
   // Synchronize HTML5 video element with active state
   useEffect(() => {
@@ -62,16 +70,27 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) =
     }
   }, [isActive, isPlaying, isMuted]);
 
-  // Video time update listener for bottom progress bar
+  // Video time update listener for bottom progress bar and 50% watch tracking
   const handleTimeUpdate = () => {
     const video = videoRef.current;
     if (video && video.duration) {
-      setProgress((video.currentTime / video.duration) * 100);
+      const currentPct = (video.currentTime / video.duration) * 100;
+      setProgress(currentPct);
+
+      // Auto-record reel watch when user has watched >= 50% of the reel
+      if (currentPct >= 50 && !hasLoggedWatchRef.current) {
+        hasLoggedWatchRef.current = true;
+        recordReelWatch(reel.id);
+      }
     }
   };
 
-  // Auto-advance to next reel as soon as video finishes
+  // Auto-advance to next reel as soon as video finishes & record watch
   const handleVideoEnded = () => {
+    if (!hasLoggedWatchRef.current) {
+      hasLoggedWatchRef.current = true;
+      recordReelWatch(reel.id);
+    }
     if (onEnded) {
       onEnded();
     }
@@ -80,14 +99,24 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) =
   // Fallback timer for visualizer reels without videoUrl
   useEffect(() => {
     if (!reel.videoUrl && isActive && isPlaying && reel.duration) {
+      const halfTimer = setTimeout(() => {
+        if (!hasLoggedWatchRef.current) {
+          hasLoggedWatchRef.current = true;
+          recordReelWatch(reel.id);
+        }
+      }, (reel.duration * 1000) / 2);
+
       const timer = setTimeout(() => {
         if (onEnded) {
           onEnded();
         }
       }, reel.duration * 1000);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(halfTimer);
+        clearTimeout(timer);
+      };
     }
-  }, [isActive, isPlaying, reel.videoUrl, reel.duration, onEnded]);
+  }, [isActive, isPlaying, reel.videoUrl, reel.duration, reel.id, onEnded, recordReelWatch]);
 
   const handleSendComment = async (e: React.FormEvent) => {
     e.preventDefault();
