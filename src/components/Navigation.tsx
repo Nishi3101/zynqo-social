@@ -241,7 +241,7 @@ export const Navigation: React.FC = () => {
               onClick={item.action}
               className={`w-full p-2.5 md:px-3 md:py-2.5 rounded-xl text-xs font-semibold flex items-center gap-3 transition-all duration-300 justify-center md:justify-start relative group overflow-hidden ${
                 item.isActive
-                  ? 'liquid-glass-bubble prismatic-rim animate-chromatic-shimmer text-white font-bold shadow-lg'
+                  ? `liquid-glass-bubble prismatic-rim animate-chromatic-shimmer ${isLight ? 'text-slate-900 font-extrabold' : 'text-white font-bold'} shadow-lg`
                   : isLight
                   ? 'text-slate-700 hover:bg-slate-100/80 hover:text-slate-950'
                   : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
@@ -250,12 +250,16 @@ export const Navigation: React.FC = () => {
             >
               {item.isActive && <span className="specular-lens" />}
               <item.icon className={`w-4 h-4 flex-shrink-0 transition-transform duration-300 group-hover:scale-110 relative z-10 ${
-                item.isActive ? 'text-white drop-shadow-[0_0_8px_rgba(6,182,212,0.9)]' : item.iconColor
+                item.isActive 
+                  ? (isLight ? `${item.iconColor.replace('400', '500')} drop-shadow-sm` : 'text-white drop-shadow-[0_0_8px_rgba(6,182,212,0.9)]') 
+                  : item.iconColor
               }`} />
-              <span className="hidden md:inline truncate relative z-10">{item.label}</span>
+              <span className={`hidden md:inline truncate relative z-10 ${isLight && item.isActive ? 'text-slate-900 font-extrabold' : ''}`}>
+                {item.label}
+              </span>
               {item.isActive ? (
                 <span className="hidden md:flex ml-auto items-center relative z-10">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981] animate-pulse" />
                 </span>
               ) : item.badge ? (
                 <span className="hidden md:inline-block ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 relative z-10">
@@ -333,7 +337,7 @@ export const Navigation: React.FC = () => {
                 onClick={mod.action}
                 className={`w-full p-2 md:px-2.5 md:py-2 rounded-xl text-xs font-semibold flex items-center gap-3 transition-all duration-300 justify-center md:justify-start relative group overflow-hidden ${
                   mod.isActive
-                    ? 'liquid-glass-bubble prismatic-rim animate-chromatic-shimmer text-white font-bold shadow-md'
+                    ? `liquid-glass-bubble prismatic-rim animate-chromatic-shimmer ${isLight ? 'text-slate-900 font-extrabold' : 'text-white font-bold'} shadow-md`
                     : isLight
                     ? 'text-slate-700 hover:bg-slate-100/80 hover:text-slate-950'
                     : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
@@ -342,9 +346,13 @@ export const Navigation: React.FC = () => {
               >
                 {mod.isActive && <span className="specular-lens" />}
                 <mod.icon className={`w-4 h-4 flex-shrink-0 transition-transform duration-300 group-hover:scale-110 relative z-10 ${
-                  mod.isActive ? 'text-white drop-shadow-[0_0_8px_rgba(6,182,212,0.9)]' : mod.iconColor
+                  mod.isActive 
+                    ? (isLight ? `${mod.iconColor.replace('400', '500')} drop-shadow-sm` : 'text-white drop-shadow-[0_0_8px_rgba(6,182,212,0.9)]') 
+                    : mod.iconColor
                 }`} />
-                <span className="hidden md:inline truncate relative z-10">{mod.label}</span>
+                <span className={`hidden md:inline truncate relative z-10 ${isLight && mod.isActive ? 'text-slate-900 font-extrabold' : ''}`}>
+                  {mod.label}
+                </span>
                 {mod.badge && (
                   <span className="hidden md:inline-block ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-amber-500 text-slate-950 shadow-sm animate-pulse relative z-10">
                     {mod.badge}
