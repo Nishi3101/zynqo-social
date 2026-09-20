@@ -506,14 +506,41 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const savedBio = localStorage.getItem('pulseai_user_bio');
           const savedHandle = localStorage.getItem('pulseai_user_handle');
           const savedAvatar = localStorage.getItem('pulseai_user_avatar');
-          if (savedName) {
-            data.profile.name = savedName;
-            data.profile.handle = `@${savedName.toLowerCase().replace(/\s+/g, '_')}`;
-          }
-          if (savedBio) data.profile.bio = savedBio;
-          if (savedHandle) data.profile.handle = savedHandle;
-          if (savedAvatar) data.profile.avatar = savedAvatar;
-          setUserProfile(data.profile);
+          
+          setUserProfile(prev => {
+            const base: UserProfile = prev || {
+              id: data.profile.id || 'local-profile',
+              name: savedName || data.profile.name || 'Nishi Thakkar',
+              handle: savedHandle || data.profile.handle || '@nishi_thakkar',
+              avatar: savedAvatar || data.profile.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
+              bio: savedBio || data.profile.bio || 'Living life one reel at a time ✨',
+              attentionBudgetMinutes: data.profile.attentionBudgetMinutes || 30,
+              minutesUsedToday: data.profile.minutesUsedToday || 0,
+              xp: data.profile.xp || 150,
+              level: data.profile.level || 2,
+              streakDays: data.profile.streakDays || 3,
+              badges: Array.isArray(data.profile.badges) ? data.profile.badges : [],
+              privacySettings: data.profile.privacySettings || {
+                useWatchHistory: true,
+                useMoodSignals: true,
+                allowCollaborativeFiltering: true,
+                privateMode: false
+              },
+              memoryVault: Array.isArray(data.profile.memoryVault) ? data.profile.memoryVault : []
+            };
+
+            return {
+              ...base,
+              ...data.profile,
+              name: savedName || data.profile.name || base.name,
+              handle: savedHandle || data.profile.handle || base.handle,
+              bio: savedBio || data.profile.bio || base.bio,
+              avatar: savedAvatar || data.profile.avatar || base.avatar,
+              badges: Array.isArray(data.profile.badges) ? data.profile.badges : base.badges,
+              memoryVault: Array.isArray(data.profile.memoryVault) ? data.profile.memoryVault : (base.memoryVault || []),
+              privacySettings: data.profile.privacySettings || base.privacySettings
+            };
+          });
         } else {
           // Local profile fallback
           const savedName = localStorage.getItem('pulseai_user_name') || 'Nishi Thakkar';

@@ -54,9 +54,23 @@ export default function handler(req, res) {
         id: 'user-profile-default',
         name: 'Nishi Thakkar',
         handle: '@nishi_thakkar',
-        bio: 'Exploring AI Reels on Zynqo',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
+        bio: 'Exploring AI Reels on Zynqo ✨',
         category: 'Student',
-        current_mood: 'Happy'
+        current_mood: 'Happy',
+        attentionBudgetMinutes: 30,
+        minutesUsedToday: 0,
+        xp: 150,
+        level: 2,
+        streakDays: 3,
+        badges: [],
+        privacySettings: {
+          useWatchHistory: true,
+          useMoodSignals: true,
+          allowCollaborativeFiltering: true,
+          privateMode: false
+        },
+        memoryVault: []
       }
     });
   }

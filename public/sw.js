@@ -1,5 +1,5 @@
 // Zynqo Social Progressive Web App Service Worker
-const CACHE_NAME = 'zynqo-social-v1';
+const CACHE_NAME = 'zynqo-social-v2';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -39,23 +39,35 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Network-First for HTML/navigation requests so deployments and fixes take effect immediately
+  if (event.request.mode === 'navigate' || url.pathname === '/' || url.pathname.endsWith('index.html')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const clone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          }
+          return networkResponse;
+        })
+        .catch(() => caches.match('/index.html'))
+    );
+    return;
+  }
+
+  // Cache-first with network fallback for other static assets
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // Fetch in background to update cache (stale-while-revalidate)
-        fetch(event.request).then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
-          }
-        }).catch(() => {});
         return cachedResponse;
       }
-      return fetch(event.request).catch(() => {
-        // If navigation request fails, return cached index.html
-        if (event.request.mode === 'navigate') {
-          return caches.match('/index.html');
+      return fetch(event.request).then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          const clone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
         }
-      });
+        return networkResponse;
+      }).catch(() => {});
     })
   );
 });

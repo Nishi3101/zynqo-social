@@ -27,24 +27,51 @@ export class ErrorBoundary extends Component<Props, State> {
     this.setState({ error, errorInfo });
   }
 
-  private handleResetAndReload = () => {
+  private handleResetAndReload = async () => {
     try {
       localStorage.removeItem('pulseai_theme');
       localStorage.removeItem('pulseai_color_mode');
       localStorage.removeItem('pulseai_lang');
+      localStorage.removeItem('pulseai_user_name');
+      localStorage.removeItem('pulseai_user_email');
+      localStorage.removeItem('pulseai_user_dob');
+      localStorage.removeItem('pulseai_user_category');
+      localStorage.removeItem('pulseai_user_mood');
+      localStorage.removeItem('pulseai_logged_in');
+      if ('caches' in window) {
+        const keys = await caches.keys();
+        await Promise.all(keys.map(k => caches.delete(k)));
+      }
+      if ('serviceWorker' in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        for (const reg of registrations) {
+          await reg.unregister();
+        }
+      }
     } catch (e) {
-      console.warn('Could not clear localStorage:', e);
+      console.warn('Could not clear storage:', e);
     }
-    window.location.reload();
+    window.location.replace(window.location.origin + window.location.pathname + '?reset=' + Date.now());
   };
 
-  private handleClearAllAndReload = () => {
+  private handleClearAllAndReload = async () => {
     try {
       localStorage.clear();
+      sessionStorage.clear();
+      if ('caches' in window) {
+        const keys = await caches.keys();
+        await Promise.all(keys.map(k => caches.delete(k)));
+      }
+      if ('serviceWorker' in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        for (const reg of registrations) {
+          await reg.unregister();
+        }
+      }
     } catch (e) {
       console.warn('Could not clear all storage:', e);
     }
-    window.location.reload();
+    window.location.replace(window.location.origin + window.location.pathname + '?fresh=' + Date.now());
   };
 
   public render() {
