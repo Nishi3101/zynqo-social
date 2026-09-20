@@ -47,6 +47,8 @@ export const Navigation: React.FC = () => {
     searchQuery,
     setSearchQuery,
     setCurrentPage,
+    currentPage,
+    activeModal,
     openAuthModal,
     currentTheme,
     openThemeModal,
@@ -197,51 +199,71 @@ export const Navigation: React.FC = () => {
           3. SCROLLABLE VERTICAL NAVIGATION ITEMS
           ───────────────────────────────────────────────────────────── */}
       <div className="flex-1 overflow-y-auto custom-scrollbar p-2 md:p-3 space-y-4">
-        {/* Section: Primary Navigation */}
-        <div className="space-y-1">
-          <button
-            onClick={() => setCurrentPage('home')}
-            className={`w-full p-2.5 md:px-3 md:py-2 rounded-xl text-xs font-semibold flex items-center gap-3 transition justify-center md:justify-start ${
-              isLight ? 'text-slate-700 hover:bg-slate-100' : 'text-slate-300 hover:bg-white/10'
-            }`}
-            title="Landing Home"
-          >
-            <Home className="w-4 h-4 text-cyan-500 flex-shrink-0" />
-            <span className="hidden md:inline">{t.nav?.landingPage || 'Landing Home'}</span>
-          </button>
-
-          <button
-            onClick={() => setCurrentPage('feed')}
-            className={`w-full p-2.5 md:px-3 md:py-2 rounded-xl text-xs font-bold flex items-center gap-3 transition justify-center md:justify-start ${
-              themeConfig.buttonClass
-            } text-white shadow-md`}
-            title="Reels Feed"
-          >
-            <Flame className="w-4 h-4 flex-shrink-0" />
-            <span className="hidden md:inline">Reels Feed</span>
-          </button>
-
-          <button
-            onClick={() => setCurrentPage('profile')}
-            className={`w-full p-2.5 md:px-3 md:py-2 rounded-xl text-xs font-semibold flex items-center gap-3 transition justify-center md:justify-start ${
-              isLight ? 'text-slate-700 hover:bg-slate-100' : 'text-slate-300 hover:bg-white/10'
-            }`}
-            title="My Profile & Activity"
-          >
-            <User className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-            <span className="hidden md:inline">{t.profile?.title || 'Profile & Activity'}</span>
-          </button>
-
-          <button
-            onClick={() => openModal('settingsAndActivity')}
-            className={`w-full p-2.5 md:px-3 md:py-2 rounded-xl text-xs font-semibold flex items-center gap-3 transition justify-center md:justify-start ${
-              isLight ? 'text-slate-700 hover:bg-slate-100' : 'text-slate-300 hover:bg-white/10'
-            }`}
-            title="Settings and activity"
-          >
-            <Settings className="w-4 h-4 text-violet-400 flex-shrink-0" />
-            <span className="hidden md:inline">Settings and activity</span>
-          </button>
+        {/* Section: Primary Navigation Dock with Liquid Glass Bubble */}
+        <div className="p-1 rounded-2xl liquid-glass-dock space-y-1">
+          {[
+            {
+              id: 'home',
+              label: t.nav?.landingPage || 'Landing Home',
+              icon: Home,
+              iconColor: 'text-cyan-400',
+              action: () => setCurrentPage('home'),
+              isActive: currentPage === 'home' && !activeModal
+            },
+            {
+              id: 'feed',
+              label: 'Reels Feed',
+              icon: Flame,
+              iconColor: 'text-amber-400',
+              action: () => setCurrentPage('feed'),
+              isActive: currentPage === 'feed' && !activeModal,
+              badge: 'Live'
+            },
+            {
+              id: 'profile',
+              label: t.profile?.title || 'Profile & Activity',
+              icon: User,
+              iconColor: 'text-emerald-400',
+              action: () => setCurrentPage('profile'),
+              isActive: currentPage === 'profile' && !activeModal
+            },
+            {
+              id: 'settings',
+              label: 'Settings and activity',
+              icon: Settings,
+              iconColor: 'text-violet-400',
+              action: () => openModal('settingsAndActivity'),
+              isActive: activeModal === 'settingsAndActivity'
+            }
+          ].map(item => (
+            <button
+              key={item.id}
+              onClick={item.action}
+              className={`w-full p-2.5 md:px-3 md:py-2.5 rounded-xl text-xs font-semibold flex items-center gap-3 transition-all duration-300 justify-center md:justify-start relative group overflow-hidden ${
+                item.isActive
+                  ? 'liquid-glass-bubble prismatic-rim animate-chromatic-shimmer text-white font-bold shadow-lg'
+                  : isLight
+                  ? 'text-slate-700 hover:bg-slate-100/80 hover:text-slate-950'
+                  : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
+              }`}
+              title={item.label}
+            >
+              {item.isActive && <span className="specular-lens" />}
+              <item.icon className={`w-4 h-4 flex-shrink-0 transition-transform duration-300 group-hover:scale-110 relative z-10 ${
+                item.isActive ? 'text-white drop-shadow-[0_0_8px_rgba(6,182,212,0.9)]' : item.iconColor
+              }`} />
+              <span className="hidden md:inline truncate relative z-10">{item.label}</span>
+              {item.isActive ? (
+                <span className="hidden md:flex ml-auto items-center relative z-10">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399] animate-pulse" />
+                </span>
+              ) : item.badge ? (
+                <span className="hidden md:inline-block ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 relative z-10">
+                  {item.badge}
+                </span>
+              ) : null}
+            </button>
+          ))}
         </div>
 
         {/* Section: AI Modules */}
@@ -254,88 +276,83 @@ export const Navigation: React.FC = () => {
             </span>
           </div>
 
-          {/* I Have X Minutes */}
-          <button
-            onClick={() => openModal('timeSession')}
-            className={`w-full p-2.5 md:px-3 md:py-2 rounded-xl text-xs font-semibold flex items-center gap-3 transition justify-center md:justify-start ${
-              timeSession.isActive
-                ? 'bg-amber-500 text-slate-950 font-bold animate-pulse'
-                : isLight
-                ? 'bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200'
-                : 'bg-slate-900/60 hover:bg-slate-800 text-slate-300 border border-white/5'
-            }`}
-            title={t.actions.timeSession}
-          >
-            <Clock className="w-4 h-4 text-amber-500 flex-shrink-0" />
-            <div className="hidden md:flex flex-col text-left">
-              <span>{t.actions.timeSession}</span>
-              {timeSession.isActive && (
-                <span className="text-[10px] text-slate-950 font-bold">
-                  {sessionMinutesLeft}:{sessionSecondsLeft < 10 ? '0' : ''}{sessionSecondsLeft} left
-                </span>
-              )}
-            </div>
-          </button>
-
-          {/* Goal Pathways */}
-          <button
-            onClick={() => openModal('goalPaths')}
-            className={`w-full p-2.5 md:px-3 md:py-2 rounded-xl text-xs font-semibold flex items-center gap-3 transition justify-center md:justify-start ${
-              isLight ? 'hover:bg-slate-100 text-slate-700' : 'hover:bg-white/10 text-slate-300'
-            }`}
-            title={t.actions.goalPaths}
-          >
-            <Compass className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-            <span className="hidden md:inline">{t.actions.goalPaths}</span>
-          </button>
-
-          {/* Watch Together */}
-          <button
-            onClick={() => openModal('watchTogether')}
-            className={`w-full p-2.5 md:px-3 md:py-2 rounded-xl text-xs font-semibold flex items-center gap-3 transition justify-center md:justify-start ${
-              isLight ? 'hover:bg-slate-100 text-slate-700' : 'hover:bg-white/10 text-slate-300'
-            }`}
-            title={t.actions.watchTogether}
-          >
-            <Users className="w-4 h-4 text-violet-500 flex-shrink-0" />
-            <span className="hidden md:inline">{t.actions.watchTogether}</span>
-          </button>
-
-          {/* Creator Studio */}
-          <button
-            onClick={() => openModal('creatorStudio')}
-            className={`w-full p-2.5 md:px-3 md:py-2 rounded-xl text-xs font-semibold flex items-center gap-3 transition justify-center md:justify-start ${
-              isLight ? 'hover:bg-slate-100 text-slate-700' : 'hover:bg-white/10 text-slate-300'
-            }`}
-            title={t.actions.creatorStudio || 'AI Creator Studio'}
-          >
-            <Video className="w-4 h-4 text-pink-500 flex-shrink-0" />
-            <span className="hidden md:inline">{t.actions.creatorStudio || 'Creator Studio'}</span>
-          </button>
-
-          {/* Digital Wellbeing */}
-          <button
-            onClick={() => openModal('wellbeing')}
-            className={`w-full p-2.5 md:px-3 md:py-2 rounded-xl text-xs font-semibold flex items-center gap-3 transition justify-center md:justify-start ${
-              isLight ? 'hover:bg-slate-100 text-slate-700' : 'hover:bg-white/10 text-slate-300'
-            }`}
-            title={t.actions.wellbeing}
-          >
-            <PieChart className="w-4 h-4 text-cyan-500 flex-shrink-0" />
-            <span className="hidden md:inline">{t.actions.wellbeing}</span>
-          </button>
-
-          {/* Memory Vault */}
-          <button
-            onClick={() => openModal('memoryVault')}
-            className={`w-full p-2.5 md:px-3 md:py-2 rounded-xl text-xs font-semibold flex items-center gap-3 transition justify-center md:justify-start ${
-              isLight ? 'hover:bg-slate-100 text-slate-700' : 'hover:bg-white/10 text-slate-300'
-            }`}
-            title={t.nav?.memory || 'Memory Vault'}
-          >
-            <Brain className="w-4 h-4 text-teal-400 flex-shrink-0" />
-            <span className="hidden md:inline">{t.nav?.memory || 'Memory Vault'}</span>
-          </button>
+          <div className="p-1 rounded-2xl liquid-glass-dock space-y-1">
+            {[
+              {
+                id: 'timeSession',
+                label: t.actions.timeSession,
+                icon: Clock,
+                iconColor: 'text-amber-400',
+                action: () => openModal('timeSession'),
+                isActive: activeModal === 'timeSession' || timeSession.isActive,
+                badge: timeSession.isActive ? `${sessionMinutesLeft}:${sessionSecondsLeft < 10 ? '0' : ''}${sessionSecondsLeft}` : undefined
+              },
+              {
+                id: 'goalPaths',
+                label: t.actions.goalPaths,
+                icon: Compass,
+                iconColor: 'text-emerald-400',
+                action: () => openModal('goalPaths'),
+                isActive: activeModal === 'goalPaths'
+              },
+              {
+                id: 'watchTogether',
+                label: t.actions.watchTogether,
+                icon: Users,
+                iconColor: 'text-violet-400',
+                action: () => openModal('watchTogether'),
+                isActive: activeModal === 'watchTogether'
+              },
+              {
+                id: 'creatorStudio',
+                label: t.actions.creatorStudio || 'Creator Studio',
+                icon: Video,
+                iconColor: 'text-pink-400',
+                action: () => openModal('creatorStudio'),
+                isActive: activeModal === 'creatorStudio'
+              },
+              {
+                id: 'wellbeing',
+                label: t.actions.wellbeing,
+                icon: PieChart,
+                iconColor: 'text-cyan-400',
+                action: () => openModal('wellbeing'),
+                isActive: activeModal === 'wellbeing'
+              },
+              {
+                id: 'memoryVault',
+                label: t.nav?.memory || 'Memory Vault',
+                icon: Brain,
+                iconColor: 'text-teal-400',
+                action: () => openModal('memoryVault'),
+                isActive: activeModal === 'memoryVault'
+              }
+            ].map(mod => (
+              <button
+                key={mod.id}
+                onClick={mod.action}
+                className={`w-full p-2 md:px-2.5 md:py-2 rounded-xl text-xs font-semibold flex items-center gap-3 transition-all duration-300 justify-center md:justify-start relative group overflow-hidden ${
+                  mod.isActive
+                    ? 'liquid-glass-bubble prismatic-rim animate-chromatic-shimmer text-white font-bold shadow-md'
+                    : isLight
+                    ? 'text-slate-700 hover:bg-slate-100/80 hover:text-slate-950'
+                    : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
+                }`}
+                title={mod.label}
+              >
+                {mod.isActive && <span className="specular-lens" />}
+                <mod.icon className={`w-4 h-4 flex-shrink-0 transition-transform duration-300 group-hover:scale-110 relative z-10 ${
+                  mod.isActive ? 'text-white drop-shadow-[0_0_8px_rgba(6,182,212,0.9)]' : mod.iconColor
+                }`} />
+                <span className="hidden md:inline truncate relative z-10">{mod.label}</span>
+                {mod.badge && (
+                  <span className="hidden md:inline-block ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-amber-500 text-slate-950 shadow-sm animate-pulse relative z-10">
+                    {mod.badge}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Section: Mindset & Intent Filters */}

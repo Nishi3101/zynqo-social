@@ -40,6 +40,9 @@ export const AICompanion: React.FC = () => {
   const speechLangMap: Record<string, string> = {
     gu: 'gu-IN',
     hi: 'hi-IN',
+    sa: 'sa-IN',
+    mr: 'mr-IN',
+    te: 'te-IN',
     es: 'es-ES',
     fr: 'fr-FR',
     ja: 'ja-JP',
@@ -294,22 +297,64 @@ export const AICompanion: React.FC = () => {
 
   return (
     <>
-      {/* Floating Orb Trigger - Outside Navigation Bar at Lower Left Corner */}
-      <div className="fixed bottom-4 sm:bottom-6 left-20 sm:left-24 md:left-[272px] lg:left-[304px] z-40 pb-safe transition-all duration-200">
-        <button
-          onClick={() => setIsOpen(prev => !prev)}
-          className="group relative p-3.5 rounded-full bg-gradient-to-tr from-cyan-500 via-indigo-600 to-violet-600 text-white shadow-2xl shadow-cyan-500/30 hover:scale-110 active:scale-95 transition-all duration-300 flex items-center gap-2 border border-white/20"
-          title={t.companion?.name || "Nova AI Companion"}
-        >
-          <Bot className="w-6 h-6 animate-pulse" />
-          <span className="hidden sm:inline text-xs font-bold tracking-wide pr-1">
-            {t.companion?.name ? t.companion.name.split(' ')[0] : 'Nova AI'}
-          </span>
-          <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-cyan-300"></span>
-          </span>
-        </button>
+      {/* Option 3: Floating Liquid Glass Bubble Capsule Trigger - Outside Navigation Bar at Lower Left Corner */}
+      <div className="fixed bottom-4 sm:bottom-6 left-20 sm:left-24 md:left-[272px] lg:left-[304px] z-40 pb-safe transition-all duration-300 select-none">
+        <div className="liquid-glass-dock rounded-full p-1.5 flex items-center gap-1.5 shadow-2xl backdrop-blur-2xl">
+          {/* Main Nova Active Liquid Bubble */}
+          <button
+            onClick={() => setIsOpen(prev => !prev)}
+            className={`group relative px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full flex items-center gap-2 transition-all duration-300 cursor-pointer overflow-hidden ${
+              isOpen
+                ? 'liquid-glass-bubble prismatic-rim animate-chromatic-shimmer text-white shadow-lg'
+                : 'liquid-glass-bubble prismatic-rim hover:scale-105 active:scale-95 text-white'
+            }`}
+            title={t.companion?.name || "Nova AI Companion"}
+          >
+            <span className="specular-lens" />
+            <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-cyan-400 to-violet-500 flex items-center justify-center flex-shrink-0 shadow-sm shadow-cyan-400/50 relative z-10">
+              <Bot className="w-3.5 h-3.5 text-slate-950 animate-pulse" />
+            </div>
+            <span className="text-xs font-bold tracking-wide hidden sm:inline text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] relative z-10">
+              {t.companion?.name ? t.companion.name.split(' ')[0] : 'Nova'}
+            </span>
+
+            {/* Glowing Green Notification Badge - Matching reference screenshot */}
+            <span className="flex items-center justify-center w-5 h-5 rounded-full bg-emerald-500 text-[10px] font-black text-white shadow-[0_0_10px_#10b981] ml-0.5 relative z-10 animate-pulse">
+              1
+            </span>
+          </button>
+
+          {/* Quick Voice Mode Bubble */}
+          <button
+            onClick={toggleSpeechRecognition}
+            className={`p-2 rounded-full transition-all duration-300 flex items-center justify-center relative overflow-hidden ${
+              isListening
+                ? 'liquid-glass-bubble prismatic-rim animate-chromatic-shimmer text-cyan-300 scale-110 shadow-[0_0_12px_#06b6d4]'
+                : 'hover:bg-white/10 text-slate-400 hover:text-white'
+            }`}
+            title={isListening ? "Listening... Click to stop" : "Talk to Nova (Voice)"}
+          >
+            {isListening && <span className="specular-lens" />}
+            {isListening ? (
+              <Mic className="w-4 h-4 text-cyan-400 animate-bounce relative z-10" />
+            ) : (
+              <Mic className="w-4 h-4" />
+            )}
+          </button>
+
+          {/* Quick Superpower Quiz Mini-Bubble */}
+          <button
+            onClick={() => {
+              if (!isOpen) setIsOpen(true);
+              handleSendMessage(t.companion?.quizMe || 'Quiz Me', true);
+            }}
+            className="hidden lg:flex px-2.5 py-1.5 rounded-full text-[11px] font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition items-center gap-1"
+            title="Ask for a 3-question speed quiz"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <span>Quiz</span>
+          </button>
+        </div>
       </div>
 
       {/* Expanded Chat Drawer - Outside Navigation Bar */}
