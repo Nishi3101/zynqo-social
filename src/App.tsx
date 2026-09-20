@@ -15,7 +15,6 @@ import { DigitalWellbeingModal } from './components/DigitalWellbeingModal';
 import { CreatorStudioModal } from './components/CreatorStudioModal';
 import { MemoryVaultModal } from './components/MemoryVaultModal';
 import { FirewallModal } from './components/FirewallModal';
-import { ThemeModal } from './components/ThemeModal';
 import { ProfileView } from './components/ProfileView';
 import { SettingsAndActivityModal } from './components/SettingsAndActivityModal';
 import { LeaderboardModal } from './components/LeaderboardModal';
@@ -30,8 +29,6 @@ const MainLayout: React.FC = () => {
     authInitialStep, 
     openAuthModal, 
     closeAuthModal, 
-    isThemeModalOpen,
-    closeThemeModal,
     activeModal,
     colorMode,
     t
@@ -53,9 +50,6 @@ const MainLayout: React.FC = () => {
           onClose={closeAuthModal}
           initialStep={authInitialStep}
         />
-        {isThemeModalOpen && (
-          <ThemeModal isOpen={isThemeModalOpen} onClose={closeThemeModal} />
-        )}
       </div>
     );
   }
@@ -72,9 +66,6 @@ const MainLayout: React.FC = () => {
           onClose={closeAuthModal}
           initialStep={authInitialStep}
         />
-        {isThemeModalOpen && (
-          <ThemeModal isOpen={isThemeModalOpen} onClose={closeThemeModal} />
-        )}
       </div>
     );
   }
@@ -212,10 +203,6 @@ const MainLayout: React.FC = () => {
       {/* Endless Scroll Firewall Modal */}
       <FirewallModal />
 
-      {/* Theme Switcher Modal */}
-      {isThemeModalOpen && (
-        <ThemeModal isOpen={isThemeModalOpen} onClose={closeThemeModal} />
-      )}
     </div>
   );
 };

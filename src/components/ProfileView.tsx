@@ -221,7 +221,7 @@ export const ProfileView: React.FC = () => {
             <img
               src="/zynqo-symbol.png"
               alt="Zynqo Logo"
-              className="w-full h-full object-contain drop-shadow-[0_2px_8px_rgba(6,182,212,0.4)]"
+              className="w-full h-full object-contain drop-shadow-[0_2px_8px_rgba(244,63,94,0.4)]"
             />
           </div>
           <span className={`font-display text-sm sm:text-base font-bold tracking-tight ${isLight ? 'text-slate-900' : 'text-white'}`}>
@@ -229,7 +229,7 @@ export const ProfileView: React.FC = () => {
           </span>
         </div>
 
-        {/* Right Tools: Mode, Theme, Upload Action */}
+        {/* Right Tools: Mode, Upload Action */}
         <div className="flex items-center gap-1.5 sm:gap-2">
           {/* Light / Dark Mode Toggle */}
           <button
@@ -242,19 +242,6 @@ export const ProfileView: React.FC = () => {
             title={isLight ? (t.nav?.darkMode || "Switch to Dark Mode") : (t.nav?.lightMode || "Switch to Light Mode")}
           >
             {isLight ? <Moon className="w-4 h-4 text-indigo-600" /> : <Sun className="w-4 h-4 text-amber-400" />}
-          </button>
-
-          {/* Theme Switcher */}
-          <button
-            onClick={openThemeModal}
-            className={`p-2 rounded-xl border text-xs transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 ${
-              isLight
-                ? 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-300'
-                : 'bg-slate-800/90 hover:bg-slate-700 text-slate-200 border-white/15'
-            }`}
-            title={t.nav?.switchTheme || "Switch Color Theme"}
-          >
-            <Palette className="w-4 h-4" style={{ color: theme.previewColors[0] }} />
           </button>
 
           {/* Settings & Activity (Instagram Style) */}

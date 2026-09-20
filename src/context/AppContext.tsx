@@ -127,15 +127,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authInitialStep, setAuthInitialStep] = useState<'login' | 'mood' | 'onboarding'>('login');
   
-  // Theme state with fallback protection
-  const [currentTheme, setCurrentTheme] = useState<ThemeType>(() => {
-    try {
-      const saved = localStorage.getItem('pulseai_theme') as ThemeType;
-      if (saved && themes[saved]) return saved;
-    } catch (e) {}
-    return 'rose';
-  });
-  const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
+  // Theme is permanently fixed to Zynqo Velvet Rose & Neon Plum brand identity
+  const currentTheme: ThemeType = 'rose';
+  const setTheme = (_t: ThemeType) => {};
+  const isThemeModalOpen = false;
+  const openThemeModal = () => {};
+  const closeThemeModal = () => {};
 
   // Color Mode state (Dark / Light)
   const [colorMode, setColorModeState] = useState<ColorMode>(() => {
@@ -359,25 +356,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const setCurrentPage = (page: PageType) => {
     sounds.playClick();
     setCurrentPageState(page);
-  };
-
-  const setTheme = (newTheme: ThemeType) => {
-    sounds.playSuccess();
-    const safeTheme = themes[newTheme] ? newTheme : 'emerald';
-    setCurrentTheme(safeTheme);
-    try {
-      localStorage.setItem('pulseai_theme', safeTheme);
-    } catch (e) {}
-  };
-
-  const openThemeModal = () => {
-    sounds.playClick();
-    setIsThemeModalOpen(true);
-  };
-
-  const closeThemeModal = () => {
-    sounds.playClick();
-    setIsThemeModalOpen(false);
   };
 
   const openAuthModal = (step: 'login' | 'mood' | 'onboarding' = 'login') => {

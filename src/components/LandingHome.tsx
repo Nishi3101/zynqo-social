@@ -126,30 +126,6 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
             )}
           </button>
 
-          {/* Theme Palette Switcher Button */}
-          <button
-            onClick={openThemeModal}
-            className={`flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 rounded-xl border text-xs font-sans font-medium transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 ${
-              isLight
-                ? 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-300 hover:border-slate-400'
-                : 'bg-slate-900/90 hover:bg-slate-800 text-slate-200 border-white/15 hover:border-white/30'
-            }`}
-            title="Switch color palette"
-          >
-            <Palette className={`w-3.5 h-3.5 ${theme.textAccent}`} />
-            <span className="hidden md:inline text-[11px] opacity-75">Palette:</span>
-            <span className={`hidden sm:inline text-xs font-semibold ${isLight ? 'text-slate-900' : 'text-white'}`}>{theme.name.split(' ')[0]}</span>
-            <div className="hidden md:flex -space-x-1 ml-0.5">
-              {theme.previewColors.map((col, idx) => (
-                <span
-                  key={idx}
-                  className="w-2.5 h-2.5 rounded-full border border-black/30 inline-block"
-                  style={{ backgroundColor: col }}
-                />
-              ))}
-            </div>
-          </button>
-
           {/* Language Switcher */}
           <div className="relative">
             <button
@@ -507,104 +483,6 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
           </div>
         </section>
       )}
-
-      <section className={`px-4 md:px-12 py-10 border-t border-b backdrop-blur-md transition-colors ${
-        isLight ? 'bg-white/60 border-rose-100/80' : 'bg-slate-950/70 border-white/10'
-      }`}>
-        <div className="max-w-6xl mx-auto space-y-4">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-            <div>
-              <div className="flex items-center gap-2">
-                <Palette className={`w-4 h-4 ${theme.textAccent}`} />
-                <span className={`font-display text-xs font-bold uppercase tracking-wider ${isLight ? 'text-slate-900' : 'text-white'}`}>
-                  Corporate-Grade Visual Themes & Light/Dark Modes
-                </span>
-              </div>
-              <p className={`font-sans text-xs font-normal ${isLight ? 'text-slate-600' : 'text-slate-400'}`}>
-                Switch between Dark Mode / Light Mode and test 5 executive brand identities live with one click:
-              </p>
-            </div>
-
-            <div className="flex items-center gap-2">
-              {/* Quick Toggle in Banner */}
-              <button
-                onClick={toggleColorMode}
-                className={`px-3 py-1 rounded-lg border text-xs font-sans font-medium transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 flex items-center gap-1.5 ${
-                  isLight
-                    ? 'bg-white hover:bg-slate-50 text-slate-800 border-slate-300 shadow-sm hover:border-slate-400'
-                    : 'bg-white/5 hover:bg-white/10 text-slate-300 border-white/15 hover:border-white/30'
-                }`}
-              >
-                {isLight ? <Moon className="w-3.5 h-3.5 text-indigo-600" /> : <Sun className="w-3.5 h-3.5 text-amber-400" />}
-                <span>{isLight ? 'Switch to Dark' : 'Switch to Light'}</span>
-              </button>
-
-              <button
-                onClick={openThemeModal}
-                className={`px-3 py-1 rounded-lg border text-xs font-sans font-medium transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 flex items-center gap-1.5 ${
-                  isLight
-                    ? 'bg-white hover:bg-slate-50 text-slate-700 border-slate-300 shadow-sm hover:border-slate-400'
-                    : 'bg-white/5 hover:bg-white/10 text-slate-300 border-white/15 hover:border-white/30'
-                }`}
-              >
-                <SlidersHorizontal className="w-3 h-3" />
-                <span>Palette Details</span>
-              </button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-            {(Object.keys(themes) as ThemeType[]).map((paletteKey) => {
-              const pal = themes[paletteKey];
-              const isActive = currentTheme === paletteKey;
-              return (
-                <button
-                  key={paletteKey}
-                  onClick={() => setTheme(paletteKey)}
-                  className={`p-3.5 rounded-2xl text-left border transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:translate-y-0 relative flex flex-col justify-between group ${
-                    isActive
-                      ? isLight
-                        ? 'bg-white border-slate-400 ring-2 ring-slate-400 shadow-md'
-                        : `bg-white/10 ${pal.borderAccent} ring-1 ring-white/30 shadow-lg`
-                      : isLight
-                      ? 'bg-white/70 border-slate-200 hover:border-slate-400 hover:bg-white shadow-sm'
-                      : 'bg-slate-900/40 border-white/10 hover:border-white/30 hover:bg-slate-900/70'
-                  }`}
-                >
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between">
-                      <span className={`font-display text-xs font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>{pal.name}</span>
-                      {isActive && (
-                        <span className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                          isLight ? 'bg-slate-900 text-white' : 'bg-white text-slate-950'
-                        }`}>
-                          <Check className="w-2.5 h-2.5 stroke-[3]" />
-                        </span>
-                      )}
-                    </div>
-                    <p className={`font-sans text-[10px] font-normal line-clamp-1 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>{pal.tagline}</p>
-                  </div>
-
-                  <div className="mt-3 flex items-center justify-between">
-                    <div className="flex gap-1.5">
-                      {pal.previewColors.map((color, i) => (
-                        <span
-                          key={i}
-                          className="w-3.5 h-3.5 rounded-full border border-black/30 transition-transform duration-200 group-hover:scale-110"
-                          style={{ backgroundColor: color }}
-                        />
-                      ))}
-                    </div>
-                    <span className="font-mono text-[9px] uppercase tracking-wider text-slate-400 font-semibold">
-                      {paletteKey}
-                    </span>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
 
       {/* Comparison: Traditional Platforms vs PulseAI */}
       <section className="px-4 md:px-12 py-16 max-w-6xl mx-auto space-y-8">

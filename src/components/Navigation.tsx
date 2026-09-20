@@ -582,19 +582,6 @@ export const Navigation: React.FC = () => {
             {isLight ? <Moon className="w-3.5 h-3.5 text-indigo-600" /> : <Sun className="w-3.5 h-3.5 text-amber-400" />}
           </button>
 
-          {/* Theme Palette Switcher */}
-          <button
-            onClick={openThemeModal}
-            className={`p-2 rounded-xl text-xs transition border flex items-center justify-center flex-1 ${
-              isLight
-                ? 'bg-white hover:bg-rose-50/80 text-slate-800 border-rose-100/80 shadow-sm'
-                : 'bg-slate-900/80 hover:bg-slate-800 text-slate-200 border-white/10'
-            }`}
-            title={t.nav?.switchTheme || "Switch Theme"}
-          >
-            <Palette className="w-3.5 h-3.5" style={{ color: themeConfig?.previewColors?.[0] || '#10b981' }} />
-          </button>
-
           {/* Content Detox Toggle */}
           <button
             onClick={toggleDetoxMode}

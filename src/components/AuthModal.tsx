@@ -282,7 +282,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               <img
                 src="/zynqo-symbol.png"
                 alt="Zynqo Logo"
-                className="w-full h-full object-contain drop-shadow-[0_2px_8px_rgba(6,182,212,0.4)]"
+                className="w-full h-full object-contain drop-shadow-[0_2px_8px_rgba(244,63,94,0.4)]"
               />
             </div>
             <div>

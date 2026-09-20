@@ -60,11 +60,11 @@ export class ErrorBoundary extends Component<Props, State> {
                 <img
                   src="/zynqo-symbol.png"
                   alt="Zynqo Logo"
-                  className="w-full h-full object-contain drop-shadow-[0_2px_10px_rgba(6,182,212,0.4)]"
+                  className="w-full h-full object-contain drop-shadow-[0_2px_10px_rgba(244,63,94,0.4)]"
                 />
               </div>
               <span className="text-xl font-black text-white">
-                Zynqo<span className="text-cyan-400">Social</span>
+                Zynqo<span className="text-rose-500">Social</span>
               </span>
             </div>
 
@@ -83,7 +83,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
             {/* Error Message Snippet */}
             <div className="bg-black/50 border border-white/5 rounded-2xl p-3 text-left">
-              <div className="flex items-center gap-1.5 text-[11px] font-mono text-cyan-400 mb-1">
+              <div className="flex items-center gap-1.5 text-[11px] font-mono text-rose-400 mb-1">
                 <Terminal className="w-3 h-3" />
                 <span>Diagnostics:</span>
               </div>
@@ -96,10 +96,10 @@ export class ErrorBoundary extends Component<Props, State> {
             <div className="space-y-2 pt-2">
               <button
                 onClick={this.handleResetAndReload}
-                className="w-full py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-slate-950 font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 transition active:scale-95"
+                className="w-full py-3 rounded-2xl bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-400 hover:to-pink-400 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-rose-500/25 transition active:scale-95"
               >
                 <RotateCcw className="w-4 h-4 stroke-[2.5]" />
-                <span>Reset Theme & Reload Cleanly</span>
+                <span>Reset Platform & Reload Cleanly</span>
               </button>
 
               <button
