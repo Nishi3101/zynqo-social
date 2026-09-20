@@ -105,7 +105,7 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
   };
 
   return (
-    <div className={`w-full max-w-[380px] min-h-[500px] sm:h-[520px] rounded-3xl overflow-hidden border shadow-2xl relative flex flex-col justify-between p-3.5 sm:p-4.5 select-none transition-all duration-300 hover:shadow-[0_20px_50px_rgba(244,63,94,0.18)] group ${
+    <div className={`w-full lg:w-[390px] xl:w-[420px] h-full self-stretch rounded-3xl overflow-hidden border shadow-2xl relative flex flex-col justify-between p-4 sm:p-5 lg:p-6 select-none transition-all duration-300 hover:shadow-[0_20px_50px_rgba(244,63,94,0.18)] group ${
       isLight 
         ? 'bg-white/95 border-rose-100/90 shadow-rose-950/5 hover:border-rose-300' 
         : 'bg-[#151024]/95 border-white/10 shadow-black/60 hover:border-pink-500/40'
@@ -257,8 +257,8 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
       {/* ─────────────────────────────────────────────────────────────
           3. CENTRAL CIRCULAR RADAR SCOPE
           ───────────────────────────────────────────────────────────── */}
-      <div className="relative z-10 flex-1 flex items-center justify-center my-1">
-        <div className={`relative w-[250px] h-[250px] xs:w-[270px] xs:h-[270px] sm:w-[280px] sm:h-[280px] rounded-full flex items-center justify-center overflow-hidden transition-all ${
+      <div className="relative z-10 flex-1 flex items-center justify-center my-auto py-2">
+        <div className={`relative w-[260px] h-[260px] xs:w-[280px] xs:h-[280px] sm:w-[300px] sm:h-[300px] lg:w-[310px] lg:h-[310px] rounded-full flex items-center justify-center overflow-hidden transition-all ${
           isLight 
             ? 'bg-[#fcf8fa] shadow-[inset_0_0_24px_rgba(244,63,94,0.06)] border border-rose-200/70' 
             : 'bg-[#0e0a17]/95 shadow-[inset_0_0_30px_rgba(236,72,153,0.18)] border border-pink-500/25'
