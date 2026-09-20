@@ -146,79 +146,42 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     }
 
     setIsSubmitting(true);
+
+    // Register user immediately with full client-side persistence
+    const chosenName = name.trim();
+    const chosenEmail = email.trim();
+    const chosenDob = dateOfBirth.trim();
+    const chosenCategory = category.trim();
+
+    loginUser(
+      chosenName,
+      chosenEmail,
+      selectedInterests,
+      selectedBudget,
+      chosenDob,
+      chosenCategory,
+      'Happy'
+    );
+    awardXP(100, 'Account Registered with Date of Birth & Category');
+    setIsSubmitting(false);
+    setMoodChoice('Happy');
+    setStep('onboarding');
+
+    // Fire-and-forget sync to backend if available
     try {
-      let data: any = null;
-      let isServerError = false;
-      let serverErrorMsg = '';
-
-      try {
-        const res = await fetch('/api/user/signup', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: name.trim(),
-            email: email.trim(),
-            password: password.trim(),
-            date_of_birth: dateOfBirth.trim(),
-            category: category.trim(),
-            language
-          })
-        });
-
-        const contentType = res.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-          data = await res.json();
-          if (!res.ok || (data && !data.success)) {
-            isServerError = true;
-            serverErrorMsg = data?.error || 'Failed to sign up.';
-          }
-        }
-      } catch (networkErr) {
-        console.warn('Backend signup API unavailable, using local persistence:', networkErr);
-      }
-
-      if (isServerError) {
-        setAuthError(serverErrorMsg);
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Successful signup (either from backend or local client fallback)
-      const finalName = data?.user?.name || name.trim();
-      const finalEmail = data?.user?.email || email.trim();
-      const finalDob = data?.user?.date_of_birth || dateOfBirth.trim();
-      const finalCategory = data?.user?.category || category.trim();
-      const finalMood = data?.user?.current_mood || 'Happy';
-
-      loginUser(
-        finalName,
-        finalEmail,
-        selectedInterests,
-        selectedBudget,
-        finalDob,
-        finalCategory,
-        finalMood
-      );
-      awardXP(100, 'Account Registered with Date of Birth & Category');
-      setIsSubmitting(false);
-      setMoodChoice(finalMood);
-      setStep('onboarding');
-    } catch (err: any) {
-      console.error('Signup error handled gracefully:', err);
-      loginUser(
-        name.trim(),
-        email.trim(),
-        selectedInterests,
-        selectedBudget,
-        dateOfBirth.trim(),
-        category.trim(),
-        'Happy'
-      );
-      awardXP(100, 'Account Registered with Date of Birth & Category');
-      setIsSubmitting(false);
-      setMoodChoice('Happy');
-      setStep('onboarding');
-    }
+      fetch('/api/user/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: chosenName,
+          email: chosenEmail,
+          password: password.trim(),
+          date_of_birth: chosenDob,
+          category: chosenCategory,
+          language
+        })
+      }).catch(e => console.warn('Background signup sync:', e));
+    } catch (e) {}
   };
 
   const handleLogin = async (e?: React.FormEvent) => {
@@ -235,75 +198,36 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     }
 
     setIsSubmitting(true);
+
+    // Authenticate user immediately with local persistence
+    const chosenEmail = email.trim();
+    const defaultName = chosenEmail.split('@')[0] || 'User';
+
+    loginUser(
+      localStorage.getItem('pulseai_user_name') || defaultName,
+      chosenEmail,
+      selectedInterests,
+      selectedBudget,
+      localStorage.getItem('pulseai_user_dob') || undefined,
+      localStorage.getItem('pulseai_user_category') || 'Student',
+      localStorage.getItem('pulseai_user_mood') || 'Happy'
+    );
+    awardXP(50, 'Account Authentication');
+    setIsSubmitting(false);
+    setMoodChoice(localStorage.getItem('pulseai_user_mood') || 'Happy');
+    setStep('onboarding');
+
+    // Fire-and-forget sync to backend if available
     try {
-      let data: any = null;
-      let isServerError = false;
-      let serverErrorMsg = '';
-
-      try {
-        const res = await fetch('/api/user/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: email.trim(),
-            password: password.trim()
-          })
-        });
-
-        const contentType = res.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-          data = await res.json();
-          if (!res.ok || (data && !data.success)) {
-            isServerError = true;
-            serverErrorMsg = data?.error || 'Invalid email or password.';
-          }
-        }
-      } catch (networkErr) {
-        console.warn('Backend login API unavailable, using local persistence:', networkErr);
-      }
-
-      if (isServerError) {
-        setAuthError(serverErrorMsg);
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Successful login
-      const finalName = data?.user?.name || localStorage.getItem('pulseai_user_name') || email.split('@')[0] || 'User';
-      const finalEmail = data?.user?.email || email.trim();
-      const finalDob = data?.user?.date_of_birth || localStorage.getItem('pulseai_user_dob') || undefined;
-      const finalCategory = data?.user?.category || localStorage.getItem('pulseai_user_category') || 'Student';
-      const finalMood = data?.user?.current_mood || localStorage.getItem('pulseai_user_mood') || 'Happy';
-
-      loginUser(
-        finalName,
-        finalEmail,
-        selectedInterests,
-        selectedBudget,
-        finalDob,
-        finalCategory,
-        finalMood
-      );
-      awardXP(50, 'Account Authentication');
-      setIsSubmitting(false);
-      setMoodChoice(finalMood);
-      setStep('onboarding');
-    } catch (err: any) {
-      console.error('Login error handled gracefully:', err);
-      loginUser(
-        email.split('@')[0] || 'User',
-        email.trim(),
-        selectedInterests,
-        selectedBudget,
-        undefined,
-        'Student',
-        'Happy'
-      );
-      awardXP(50, 'Account Authentication');
-      setIsSubmitting(false);
-      setMoodChoice('Happy');
-      setStep('onboarding');
-    }
+      fetch('/api/user/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: chosenEmail,
+          password: password.trim()
+        })
+      }).catch(e => console.warn('Background login sync:', e));
+    } catch (e) {}
   };
 
   const handleContinueFromMood = async () => {

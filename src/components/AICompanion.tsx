@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { getLocalizedReel } from '../utils/translations';
+import { clientCompanionChat } from '../utils/aiClientEngine';
 
 interface Message {
   id: string;
@@ -181,23 +182,40 @@ export const AICompanion: React.FC = () => {
     const localizedReel = currentReel ? getLocalizedReel(currentReel, language) : null;
 
     try {
-      const res = await fetch('/api/ai/companion', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: text,
-          context: {
-            currentReel: localizedReel || currentReel,
-            intent,
-            remainingMinutes: 5,
-            language
-          }
-        })
-      });
-      const data = await res.json();
+      let data: any = null;
+      try {
+        const res = await fetch('/api/ai/companion', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: text,
+            context: {
+              currentReel: localizedReel || currentReel,
+              intent,
+              remainingMinutes: 5,
+              language
+            }
+          })
+        });
+        if (res.headers.get('content-type')?.includes('application/json')) {
+          data = await res.json();
+        }
+      } catch (networkErr) {
+        console.warn('Backend Nova companion notice:', networkErr);
+      }
+
+      if (!data || !data.success) {
+        data = await clientCompanionChat(text, {
+          currentReel: localizedReel || currentReel,
+          intent,
+          remainingMinutes: 5,
+          language
+        });
+      }
+
       setIsTyping(false);
 
-      if (data.success) {
+      if (data && data.success) {
         const novaMsg: Message = {
           id: `nova-${Date.now()}`,
           sender: 'nova',

@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { themes } from '../utils/theme';
+import { clientGenerateContentSuggestions } from '../utils/aiClientEngine';
 
 export interface AIAssistModalProps {
   isOpen: boolean;
@@ -156,27 +157,36 @@ export const AIAssistModal: React.FC<AIAssistModalProps> = ({
     setIsLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/ai/suggest-content', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contentType: params?.type || selectedType,
-          title: params?.title !== undefined ? params.title : titleInput,
-          description: params?.desc !== undefined ? params.desc : descInput,
-          category: params?.cat || category,
-          userPrompt,
-          language,
-          dialect,
-          tone,
-          audience
-        })
-      });
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || 'Failed to generate suggestions');
+      let data: any = null;
+      try {
+        const res = await fetch('/api/ai/suggest-content', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contentType: params?.type || selectedType,
+            title: params?.title !== undefined ? params.title : titleInput,
+            description: params?.desc !== undefined ? params.desc : descInput,
+            category: params?.cat || category,
+            userPrompt,
+            language,
+            dialect,
+            tone,
+            audience
+          })
+        });
+        if (res.headers.get('content-type')?.includes('application/json')) {
+          data = await res.json();
+        }
+      } catch (netErr) {
+        console.warn('Backend AI suggest-content notice:', netErr);
       }
 
-      const sug = data.suggestions;
+      const effectiveTitle = params?.title !== undefined ? params.title : titleInput;
+      const effectiveCat = params?.cat || category;
+      const sug = (data && data.success && data.suggestions) 
+        ? data.suggestions 
+        : clientGenerateContentSuggestions(effectiveTitle, effectiveCat, tone);
+
       setCaptions(sug.captions || []);
       if (sug.captions?.length > 0) {
         setSelectedCaptionId(sug.captions[0].id);
@@ -201,8 +211,12 @@ export const AIAssistModal: React.FC<AIAssistModalProps> = ({
         setCustomOverlayTexts(overlayMap);
       }
     } catch (err: any) {
-      console.error('Generation failed:', err);
-      setError(err.message || 'Unable to contact AI suggestion engine. You can still write content manually.');
+      console.warn('Generation fallback activated:', err);
+      const fallbackSug = clientGenerateContentSuggestions(titleInput, category, tone);
+      setCaptions(fallbackSug.captions);
+      if (fallbackSug.captions.length > 0) setSelectedCaptionId(fallbackSug.captions[0].id);
+      setThumbnails(fallbackSug.thumbnails);
+      if (fallbackSug.thumbnails.length > 0) setSelectedThumbnailId(fallbackSug.thumbnails[0].id);
     } finally {
       setIsLoading(false);
     }
