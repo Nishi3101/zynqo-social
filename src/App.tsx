@@ -18,6 +18,8 @@ import { FirewallModal } from './components/FirewallModal';
 import { ThemeModal } from './components/ThemeModal';
 import { ProfileView } from './components/ProfileView';
 import { SettingsAndActivityModal } from './components/SettingsAndActivityModal';
+import { LeaderboardModal } from './components/LeaderboardModal';
+import { AIPlaylistsModal } from './components/AIPlaylistsModal';
 import { Smartphone, Monitor, Keyboard, Home } from 'lucide-react';
 
 const MainLayout: React.FC = () => {
@@ -189,6 +191,8 @@ const MainLayout: React.FC = () => {
       {activeModal === 'creatorStudio' && <CreatorStudioModal />}
       {activeModal === 'memoryVault' && <MemoryVaultModal />}
       {activeModal === 'settingsAndActivity' && <SettingsAndActivityModal />}
+      {activeModal === 'leaderboard' && <LeaderboardModal />}
+      {activeModal === 'aiPlaylists' && <AIPlaylistsModal />}
 
       {/* Endless Scroll Firewall Modal */}
       <FirewallModal />

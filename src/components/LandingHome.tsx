@@ -20,7 +20,8 @@ import {
   SlidersHorizontal,
   Check,
   Sun,
-  Moon
+  Moon,
+  RotateCcw
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { themes } from '../utils/theme';
@@ -36,6 +37,7 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
   const { 
     setCurrentPage, 
     reels, 
+    setCurrentReelIndex,
     openModal, 
     currentTheme, 
     setTheme, 
@@ -357,6 +359,119 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
           isLight={isLight}
         />
       </section>
+
+      {/* Continue Watching Row (#57, #14) */}
+      {reels && reels.length > 0 && (
+        <section className={`px-4 sm:px-6 md:px-12 py-8 border-t transition-colors ${
+          isLight ? 'bg-white/80 border-slate-200' : 'bg-slate-950/60 border-white/10'
+        }`}>
+          <div className="max-w-7xl mx-auto space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 shadow-sm">
+                  <RotateCcw className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className={`font-display text-sm sm:text-base font-bold flex items-center gap-2 ${isLight ? 'text-slate-900' : 'text-white'}`}>
+                    Continue Watching
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 font-semibold">
+                      Auto-Resumed
+                    </span>
+                  </h3>
+                  <p className={`text-xs ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                    Resume unfinished reels right where you left off across all devices
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setCurrentPage('feed')}
+                className={`text-xs font-semibold flex items-center gap-1 hover:underline ${
+                  isLight ? 'text-cyan-700' : 'text-cyan-400'
+                }`}
+              >
+                <span>Full Reel Player</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+              {reels.slice(0, 6).map((reel, idx) => {
+                const simulatedProgress = [68, 42, 85, 50, 92, 35][idx % 6];
+                const simulatedElapsed = Math.round((reel.duration || 30) * (simulatedProgress / 100));
+                return (
+                  <div
+                    key={reel.id}
+                    onClick={() => {
+                      setCurrentReelIndex(idx);
+                      setCurrentPage('feed');
+                    }}
+                    className={`group relative rounded-2xl border overflow-hidden cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-xl ${
+                      isLight
+                        ? 'bg-slate-50 border-slate-200 hover:border-cyan-500/60 shadow-sm'
+                        : 'bg-slate-900/80 border-white/10 hover:border-cyan-500/60'
+                    }`}
+                  >
+                    {/* Visualizer / Video preview box */}
+                    <div className="h-32 sm:h-36 w-full bg-slate-950 relative overflow-hidden flex items-center justify-center">
+                      {reel.videoUrl ? (
+                        <video
+                          src={reel.videoUrl}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-80"
+                          muted
+                          playsInline
+                          preload="metadata"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-tr from-cyan-950 via-slate-900 to-indigo-950 flex items-center justify-center">
+                          <Play className="w-8 h-8 text-cyan-400/50 group-hover:scale-110 transition-transform" />
+                        </div>
+                      )}
+
+                      {/* Play Hover Overlay */}
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <div className="p-2.5 rounded-full bg-cyan-500 text-slate-950 shadow-lg transform group-hover:scale-110 transition-transform">
+                          <Play className="w-5 h-5 fill-current ml-0.5" />
+                        </div>
+                      </div>
+
+                      {/* Progress bar overlay at bottom of thumbnail */}
+                      <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-black/60">
+                        <div
+                          className="h-full bg-gradient-to-r from-cyan-400 to-indigo-500"
+                          style={{ width: `${simulatedProgress}%` }}
+                        />
+                      </div>
+
+                      {/* Time and progress pills */}
+                      <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded bg-black/80 backdrop-blur-sm text-[10px] font-mono text-cyan-300 border border-white/10">
+                        {simulatedElapsed}s / {reel.duration || 30}s
+                      </div>
+                    </div>
+
+                    {/* Reel card metadata */}
+                    <div className="p-2.5 space-y-1">
+                      <h4 className={`text-xs font-bold line-clamp-1 group-hover:text-cyan-400 transition-colors ${
+                        isLight ? 'text-slate-900' : 'text-white'
+                      }`}>
+                        {reel.title}
+                      </h4>
+                      <div className="flex items-center justify-between text-[10px]">
+                        <span className={`truncate max-w-[85px] ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                          {reel.creator.name}
+                        </span>
+                        <span className="text-cyan-400 font-semibold font-mono">
+                          {simulatedProgress}%
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Corporate Palette & Mode Picker Banner */}
       <section className={`px-4 md:px-12 py-10 border-t border-b transition-colors ${

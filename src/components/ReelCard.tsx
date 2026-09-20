@@ -11,7 +11,11 @@ import {
   Flame,
   AlertTriangle,
   Volume2,
-  VolumeX
+  VolumeX,
+  ShoppingBag,
+  Tag,
+  ExternalLink,
+  Users
 } from 'lucide-react';
 import { Reel } from '../types';
 import { ReelVisualizer } from './ReelVisualizer';
@@ -196,6 +200,28 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) =
           <ShieldCheck className="w-3 h-3" />
           {reel.safetyScore}% {t.reel?.safeBadge || 'Safe'}
         </span>
+
+        {/* Sponsored Partnership Badge (#71) */}
+        {reel.isSponsored && (
+          <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-500/20 border border-amber-500/40 text-amber-300 backdrop-blur-md flex items-center gap-1.5 shadow-lg pointer-events-auto">
+            <Tag className="w-3 h-3 text-amber-400" />
+            Paid partnership {reel.sponsorName ? `• ${reel.sponsorName}` : ''}
+          </span>
+        )}
+
+        {/* Source Attribution & License Transparency (#80–#84) */}
+        {reel.originalSource && (
+          <a
+            href={reel.originalSource.url || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-blue-500/20 border border-blue-500/40 text-blue-300 backdrop-blur-md flex items-center gap-1.5 shadow-lg pointer-events-auto hover:bg-blue-500/30 transition cursor-pointer"
+            title={`Source: ${reel.originalSource.platform} (${reel.originalSource.license})`}
+          >
+            <ExternalLink className="w-3 h-3 text-blue-400" />
+            {reel.originalSource.platform} • {reel.originalSource.license}
+          </a>
+        )}
       </div>
 
       {/* Subtitles Overlay in Localized Language */}
@@ -227,9 +253,18 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) =
                 <CheckCircle2 className="w-4 h-4 text-cyan-400 fill-cyan-400/20" />
               )}
             </div>
-            <span className="text-xs text-slate-300 drop-shadow">
-              {reel.creator.handle}
-            </span>
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-xs text-slate-300 drop-shadow">
+                {reel.creator.handle}
+              </span>
+              {/* Collaborator Badge (#73) */}
+              {reel.collaborator && (
+                <span className="inline-flex items-center gap-1 text-[10px] text-cyan-300 bg-cyan-950/70 px-1.5 py-0.5 rounded-md border border-cyan-800/40">
+                  <Users className="w-2.5 h-2.5" />
+                  collab with {reel.collaborator.handle}
+                </span>
+              )}
+            </div>
           </div>
 
           {/* Follow Button */}
@@ -244,6 +279,39 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) =
             {isFollowing ? (t.reel?.following || 'Following') : (t.reel?.follow || 'Follow')}
           </button>
         </div>
+
+        {/* Product Launch Card (#72) */}
+        {reel.productLaunch && (
+          <div className="p-2 rounded-xl bg-slate-900/90 border border-cyan-500/40 backdrop-blur-md flex items-center justify-between gap-3 shadow-xl max-w-sm pointer-events-auto">
+            <div className="flex items-center gap-2 min-w-0">
+              <div className="p-1.5 rounded-lg bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 shrink-0">
+                <ShoppingBag className="w-4 h-4" />
+              </div>
+              <div className="min-w-0">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-500/20 px-1.5 py-0.2 rounded border border-amber-500/30">
+                    {reel.productLaunch.badge || 'New Drop'}
+                  </span>
+                  <span className="text-xs font-bold text-white truncate">
+                    {reel.productLaunch.title}
+                  </span>
+                </div>
+                <div className="text-[11px] font-semibold text-cyan-300">
+                  {reel.productLaunch.price}
+                </div>
+              </div>
+            </div>
+            <a
+              href={reel.productLaunch.link || '#'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-2.5 py-1 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold flex items-center gap-1 transition shadow shrink-0 whitespace-nowrap"
+            >
+              <span>Buy</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
+        )}
 
         {/* Title */}
         <h2 className="text-base md:text-lg font-bold text-white drop-shadow-md leading-tight mt-1">

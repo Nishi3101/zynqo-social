@@ -32,7 +32,13 @@ import {
   Moon,
   Palette,
   Settings,
-  TrendingUp
+  TrendingUp,
+  Building2,
+  Briefcase,
+  Users2,
+  CalendarDays,
+  FileEdit,
+  FolderOpen
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { themes } from '../utils/theme';
@@ -70,9 +76,16 @@ export const ProfileView: React.FC = () => {
   const isLight = colorMode === 'light';
 
   // Navigation & Tabs
-  const [activeMainTab, setActiveMainTab] = useState<'reels' | 'videos' | 'posts' | 'activity'>('reels');
+  const [activeMainTab, setActiveMainTab] = useState<'reels' | 'videos' | 'posts' | 'community' | 'drafts' | 'activity'>('reels');
   const [activitySubTab, setActivitySubTab] = useState<'liked' | 'saved' | 'comments' | 'milestones' | 'analytics'>('analytics');
   const [activityFilter, setActivityFilter] = useState<'all' | 'reels' | 'videos' | 'posts'>('all');
+  const [isBusinessProfile, setIsBusinessProfile] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('pulseai_is_business_profile') === 'true';
+    } catch (e) {
+      return false;
+    }
+  });
 
   // Modals & Active Viewer State
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -389,6 +402,40 @@ export const ProfileView: React.FC = () => {
                 {userProfile?.bio || 'AI Creator & Digital Explorer. Crafting interactive educational reels, verified science breakdowns, and productivity workflows. 🚀'}
               </p>
 
+              {/* Business Account Banner & Toggle (#69, #70) */}
+              <div className="flex items-center gap-2 pt-1 flex-wrap">
+                <button
+                  onClick={() => {
+                    const next = !isBusinessProfile;
+                    setIsBusinessProfile(next);
+                    try {
+                      localStorage.setItem('pulseai_is_business_profile', String(next));
+                    } catch (e) {}
+                  }}
+                  className={`px-3 py-1 rounded-xl text-xs font-semibold border flex items-center gap-1.5 transition shadow-sm ${
+                    isBusinessProfile
+                      ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
+                      : isLight
+                      ? 'bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200'
+                      : 'bg-slate-800 text-slate-300 border-white/10 hover:bg-slate-700'
+                  }`}
+                >
+                  <Building2 className={`w-3.5 h-3.5 ${isBusinessProfile ? 'text-amber-400' : 'text-slate-400'}`} />
+                  <span>{isBusinessProfile ? 'Business Profile (Verified Brand)' : 'Switch to Business Profile'}</span>
+                </button>
+
+                {isBusinessProfile && (
+                  <div className="flex items-center gap-2.5 text-xs text-slate-400 flex-wrap">
+                    <span className="flex items-center gap-1 text-emerald-400 font-semibold font-mono">
+                      <TrendingUp className="w-3.5 h-3.5" />
+                      +28.4% Leads
+                    </span>
+                    <span>• Industry: <strong className="text-slate-200">Tech & EdTech Agency</strong></span>
+                    <span>• Website: <a href="https://zynqo.social" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline font-mono">zynqo.social/agency</a></span>
+                  </div>
+                )}
+              </div>
+
               {/* Stats Bar */}
               <div className="pt-2 flex items-center justify-center md:justify-start gap-4 sm:gap-6 text-center md:text-left flex-wrap">
                 <div>
@@ -508,6 +555,38 @@ export const ProfileView: React.FC = () => {
             >
               <FileText className="w-4 h-4 text-emerald-400" />
               <span>{t.profile?.postsTab || 'Posts'} ({userPosts.length})</span>
+            </button>
+
+            <button
+              onClick={() => setActiveMainTab('community')}
+              className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold font-sans flex items-center gap-1.5 transition-all duration-200 ${
+                activeMainTab === 'community'
+                  ? isLight
+                    ? 'bg-slate-900 text-white shadow-md'
+                    : 'bg-white text-slate-950 shadow-md'
+                  : isLight
+                  ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  : 'text-slate-300 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <Users2 className="w-4 h-4 text-violet-400" />
+              <span>Community & Events</span>
+            </button>
+
+            <button
+              onClick={() => setActiveMainTab('drafts')}
+              className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold font-sans flex items-center gap-1.5 transition-all duration-200 ${
+                activeMainTab === 'drafts'
+                  ? isLight
+                    ? 'bg-slate-900 text-white shadow-md'
+                    : 'bg-white text-slate-950 shadow-md'
+                  : isLight
+                  ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  : 'text-slate-300 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <FolderOpen className="w-4 h-4 text-amber-400" />
+              <span>Drafts (2)</span>
             </button>
           </div>
 
@@ -799,6 +878,223 @@ export const ProfileView: React.FC = () => {
                 ))}
               </div>
             )}
+          </div>
+        )}
+
+        {/* ─────────────────────────────────────────────────────────────
+            TAB: COMMUNITY & EVENTS (#65, #67)
+            ───────────────────────────────────────────────────────────── */}
+        {activeMainTab === 'community' && (
+          <div className="space-y-6 animate-fade-in">
+            {/* Community Announcements & Events Header */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Event Card 1 */}
+              <div className={`p-5 rounded-3xl border space-y-3 transition shadow-sm ${
+                isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-white/10'
+              }`}>
+                <div className="flex items-center justify-between">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-violet-500/20 text-violet-400 border border-violet-500/30">
+                    Live Workshop
+                  </span>
+                  <span className="text-[11px] font-mono text-cyan-400">Oct 2, 6:00 PM</span>
+                </div>
+                <h4 className={`text-sm font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
+                  AI Prompt Engineering & Neural Audio Workflows
+                </h4>
+                <p className="text-xs text-slate-400 line-clamp-2">
+                  Interactive screen-share and live Q&A exploring procedural sound design and LLM study plans.
+                </p>
+                <div className="pt-2 flex items-center justify-between border-t border-white/10">
+                  <span className="text-[11px] text-slate-400 font-mono">142 RSVPs</span>
+                  <button className="px-3 py-1 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold transition">
+                    RSVP
+                  </button>
+                </div>
+              </div>
+
+              {/* Event Card 2 */}
+              <div className={`p-5 rounded-3xl border space-y-3 transition shadow-sm ${
+                isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-white/10'
+              }`}>
+                <div className="flex items-center justify-between">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-pink-500/20 text-pink-400 border border-pink-500/30">
+                    Community AMA
+                  </span>
+                  <span className="text-[11px] font-mono text-cyan-400">Oct 5, 8:30 PM</span>
+                </div>
+                <h4 className={`text-sm font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
+                  Vadodara United Way Virtual Cultural Garba Night
+                </h4>
+                <p className="text-xs text-slate-400 line-clamp-2">
+                  Watch synchronized folk dance reels with 30,000+ dancers in our Watch Together Lounge with live voice audio.
+                </p>
+                <div className="pt-2 flex items-center justify-between border-t border-white/10">
+                  <span className="text-[11px] text-slate-400 font-mono">1,280 RSVPs</span>
+                  <button className="px-3 py-1 rounded-xl bg-pink-600 hover:bg-pink-500 text-white text-xs font-semibold transition">
+                    RSVP
+                  </button>
+                </div>
+              </div>
+
+              {/* Creator Guild Card */}
+              <div className={`p-5 rounded-3xl border space-y-3 transition shadow-sm ${
+                isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-white/10'
+              }`}>
+                <div className="flex items-center justify-between">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    Creator Guild
+                  </span>
+                  <span className="text-[11px] font-mono text-emerald-400">Active</span>
+                </div>
+                <h4 className={`text-sm font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
+                  Zynqo Innovators Circle
+                </h4>
+                <p className="text-xs text-slate-400 line-clamp-2">
+                  Private guild space for top 5% verified educators to test upcoming AI models and collaborate on multi-part reels.
+                </p>
+                <div className="pt-2 flex items-center justify-between border-t border-white/10">
+                  <span className="text-[11px] text-slate-400 font-mono">28 Members</span>
+                  <button className="px-3 py-1 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition">
+                    View Guild
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Community Wall Messages */}
+            <div className={`p-6 rounded-3xl border space-y-4 ${
+              isLight ? 'bg-white border-slate-200' : 'bg-slate-900/60 border-white/10'
+            }`}>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className={`font-bold text-sm sm:text-base ${isLight ? 'text-slate-900' : 'text-white'}`}>
+                    Creator Community Wall
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    Public discussions, questions, and shoutouts from fellow creators & viewers
+                  </p>
+                </div>
+                <span className="text-xs text-cyan-400 font-semibold font-mono">
+                  3 Discussions Active
+                </span>
+              </div>
+
+              <div className="space-y-3">
+                {[
+                  {
+                    author: 'Priya Patel',
+                    role: 'Student & Creator',
+                    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100',
+                    time: '3h ago',
+                    content: 'The quiz generated on your Backpropagation reel was so useful for my university exam yesterday! Scored 100%. Thank you!'
+                  },
+                  {
+                    author: 'Marcus Vance',
+                    role: 'Fullstack Dev',
+                    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100',
+                    time: 'Yesterday',
+                    content: 'Can you do a follow-up reel on Transformer Attention mechanisms and Multi-Head self-attention next week?'
+                  }
+                ].map((post, i) => (
+                  <div key={i} className={`p-4 rounded-2xl border ${
+                    isLight ? 'bg-slate-50 border-slate-200' : 'bg-slate-800/60 border-white/5'
+                  }`}>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2.5">
+                        <img src={post.avatar} alt={post.author} className="w-8 h-8 rounded-full object-cover" />
+                        <div>
+                          <span className={`text-xs font-bold block ${isLight ? 'text-slate-900' : 'text-white'}`}>{post.author}</span>
+                          <span className="text-[10px] text-slate-400">{post.role}</span>
+                        </div>
+                      </div>
+                      <span className="text-[10px] font-mono text-slate-500">{post.time}</span>
+                    </div>
+                    <p className={`text-xs leading-relaxed ${isLight ? 'text-slate-700' : 'text-slate-300'}`}>{post.content}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ─────────────────────────────────────────────────────────────
+            TAB: DRAFTS (#45)
+            ───────────────────────────────────────────────────────────── */}
+        {activeMainTab === 'drafts' && (
+          <div className="space-y-4 animate-fade-in">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className={`font-bold text-sm sm:text-base ${isLight ? 'text-slate-900' : 'text-white'}`}>
+                  Saved Studio Drafts
+                </h3>
+                <p className="text-xs text-slate-400">
+                  Continue editing unfinished reels, video scripts, and AI-assisted storyboards
+                </p>
+              </div>
+              <button
+                onClick={() => openModal('creatorStudio')}
+                className={`px-3.5 py-1.5 rounded-xl ${theme.buttonClass} text-xs font-semibold shadow-md flex items-center gap-1.5 transition`}
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>New Studio Draft</span>
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                {
+                  id: 'draft-1',
+                  title: 'Deep Learning: CNN Architecture in 45s',
+                  modified: 'Today at 9:45 AM',
+                  progress: '85% Complete',
+                  duration: '45s',
+                  notes: 'Intro voiceover recorded, script finalized, needs visual sync.'
+                },
+                {
+                  id: 'draft-2',
+                  title: 'Vadodara Navratri Step Breakdown for Beginners',
+                  modified: 'Yesterday at 4:20 PM',
+                  progress: '60% Complete',
+                  duration: '30s',
+                  notes: 'Video clips imported, adding AI subtitles and background dhol audio.'
+                }
+              ].map(draft => (
+                <div
+                  key={draft.id}
+                  className={`p-5 rounded-3xl border flex flex-col justify-between space-y-4 transition ${
+                    isLight ? 'bg-white border-slate-200 shadow-sm' : 'bg-slate-900/80 border-white/10'
+                  }`}
+                >
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-400 bg-amber-500/20 px-2 py-0.5 rounded-full border border-amber-500/30">
+                        {draft.progress}
+                      </span>
+                      <span className="text-[11px] font-mono text-slate-400">{draft.duration}</span>
+                    </div>
+                    <h4 className={`text-sm font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
+                      {draft.title}
+                    </h4>
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      {draft.notes}
+                    </p>
+                    <span className="text-[10px] text-slate-500 block pt-1 font-mono">
+                      Last modified: {draft.modified}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2 pt-3 border-t border-white/10">
+                    <button
+                      onClick={() => openModal('creatorStudio')}
+                      className="flex-1 px-3 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-1.5 transition shadow"
+                    >
+                      <FileEdit className="w-3.5 h-3.5" />
+                      <span>Resume in Studio</span>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 

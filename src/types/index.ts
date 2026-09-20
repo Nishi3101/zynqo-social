@@ -99,6 +99,13 @@ export interface Reel {
   transcript: string;
   usefulOutputs: UsefulOutputs;
   comments: CommentItem[];
+  isSponsored?: boolean;
+  sponsorName?: string;
+  collaborator?: { name: string; handle: string; avatar: string };
+  productLaunch?: { title: string; price: string; link: string; badge?: string };
+  originalSource?: { platform: string; url: string; license: string };
+  watchProgress?: number;
+  feedCategory?: 'universal' | 'discovery' | 'trending' | 'following' | 'friends' | 'communities' | 'creators' | 'business' | 'continue';
 }
 
 export interface GoalCurriculumItem {
@@ -160,6 +167,11 @@ export interface UserProfile {
     allowCollaborativeFiltering: boolean;
     privateMode: boolean;
   };
+  isBusiness?: boolean;
+  businessName?: string;
+  searchHistory?: string[];
+  drafts?: Array<{ id: string; title: string; date: string; videoUrl?: string; description?: string }>;
+  campaigns?: Array<{ id: string; title: string; budget: string; status: string }>;
 }
 
 export interface UserVideo {

@@ -233,6 +233,13 @@ export const SettingsAndActivityModal: React.FC = () => {
           icon: Tablet,
           title: 'Zynqo for tablets & desktop',
           action: () => setActiveSubView('tablets')
+        },
+        {
+          id: 'cross_device_sync',
+          icon: Smartphone,
+          title: 'Cross-Device Cloud Sync',
+          badge: 'Live (3 Devices)',
+          action: () => setActiveSubView('crossDeviceSync')
         }
       ]
     },
@@ -844,6 +851,7 @@ function getSubViewTitle(id: string): string {
     case 'accountStatus': return 'Account Status';
     case 'threads': return 'Threads Community';
     case 'tablets': return 'Tablets & Desktop Experience';
+    case 'crossDeviceSync': return 'Cross-Device Cloud Sync';
     case 'moreFromZynqo': return 'More from Zynqo';
     default: return 'Settings';
   }
@@ -1321,6 +1329,67 @@ function renderSubViewContent(props: {
               <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
             </div>
           ))}
+        </div>
+      </div>
+    );
+  }
+
+  // CROSS-DEVICE CLOUD SYNC (#92)
+  if (viewId === 'crossDeviceSync') {
+    return (
+      <div className="space-y-4 animate-fade-in">
+        <div className={`p-4 rounded-2xl border space-y-2 ${
+          isLight ? 'bg-slate-50 border-slate-200' : 'bg-slate-900/80 border-white/10'
+        }`}>
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+              Real-Time Cloud Synchronization Active
+            </span>
+            <span className="text-[10px] font-mono text-slate-400">Latency: 18ms</span>
+          </div>
+          <p className="text-xs text-slate-400 leading-relaxed">
+            Your watch progress, liked reels, study plans, drafts, and preferences sync seamlessly between all your active sessions and devices.
+          </p>
+        </div>
+
+        <div className="space-y-2">
+          <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Connected Devices (3)</h4>
+          {[
+            { name: 'Chrome on Windows (Current)', type: 'Web Desktop', lastActive: 'Active Now', icon: '💻', status: 'In Sync' },
+            { name: 'Zynqo Mobile App (Android 14)', type: 'Pixel 8 Pro', lastActive: '2m ago', icon: '📱', status: 'In Sync' },
+            { name: 'Zynqo Tablet Edition (iPadOS 17)', type: 'iPad Pro 11"', lastActive: '1h ago', icon: '📟', status: 'In Sync' }
+          ].map(dev => (
+            <div
+              key={dev.name}
+              className={`p-3.5 rounded-2xl border flex items-center justify-between ${
+                isLight ? 'bg-white border-slate-200' : 'bg-slate-800/60 border-white/10'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-xl">{dev.icon}</span>
+                <div>
+                  <h5 className={`text-xs font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>{dev.name}</h5>
+                  <span className="text-[10px] text-slate-400">{dev.type} • Last active: {dev.lastActive}</span>
+                </div>
+              </div>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                {dev.status}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className="pt-2">
+          <button
+            onClick={() => {
+              sounds.playSuccess();
+              confetti({ particleCount: 30, spread: 45 });
+            }}
+            className="w-full py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-1.5"
+          >
+            <span>Force Instant Cloud Sync Across All Devices</span>
+          </button>
         </div>
       </div>
     );

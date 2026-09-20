@@ -1,5 +1,16 @@
-import React, { useEffect, useRef } from 'react';
-import { RotateCcw, Sparkles } from 'lucide-react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { 
+  RotateCcw, 
+  Sparkles, 
+  Flame, 
+  Users, 
+  UserCheck, 
+  Building2, 
+  PlayCircle, 
+  Globe, 
+  Compass,
+  Layers
+} from 'lucide-react';
 import { ReelCard } from './ReelCard';
 import { useApp } from '../context/AppContext';
 
@@ -15,10 +26,47 @@ export const ReelFeed: React.FC = () => {
     openModal,
     setIntent,
     setSelectedCategory,
+    colorMode,
     t
   } = useApp();
 
+  const isLight = colorMode === 'light';
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const [activeFeedTab, setActiveFeedTab] = useState<'universal' | 'discovery' | 'trending' | 'following' | 'friends' | 'communities' | 'creators' | 'business' | 'continue'>('universal');
+
+  const feedTabs = [
+    { id: 'universal', label: 'Universal', icon: Globe },
+    { id: 'discovery', label: 'AI Discovery', icon: Sparkles },
+    { id: 'trending', label: 'Trending', icon: Flame },
+    { id: 'following', label: 'Following', icon: UserCheck },
+    { id: 'friends', label: 'Friends', icon: Users },
+    { id: 'communities', label: 'Communities', icon: Layers },
+    { id: 'creators', label: 'Creators', icon: Compass },
+    { id: 'business', label: 'Business', icon: Building2 },
+    { id: 'continue', label: 'Continue', icon: PlayCircle }
+  ];
+
+  const displayedReels = useMemo(() => {
+    let list = reels;
+    if (activeFeedTab === 'discovery') {
+      list = reels.filter(r => r.isAIGenerated || r.safetyScore >= 98);
+    } else if (activeFeedTab === 'trending') {
+      list = reels.filter(r => (r.views && r.views > 15000) || r.likes > 600);
+    } else if (activeFeedTab === 'following') {
+      list = reels.filter(r => r.creator.verified || r.creator.handle.includes('ai'));
+    } else if (activeFeedTab === 'friends') {
+      list = reels.filter(r => r.intent === 'connect' || r.category === 'Personal AI');
+    } else if (activeFeedTab === 'communities') {
+      list = reels.filter(r => ['Productivity', 'Mindfulness', 'Science', 'Design'].includes(r.category));
+    } else if (activeFeedTab === 'creators') {
+      list = reels.filter(r => r.creator.verified);
+    } else if (activeFeedTab === 'business') {
+      list = reels.filter(r => r.isSponsored || ['Technology', 'Finance', 'Productivity'].includes(r.category));
+    } else if (activeFeedTab === 'continue') {
+      list = reels.slice(0, 3);
+    }
+    return list.length > 0 ? list : reels;
+  }, [reels, activeFeedTab]);
 
   // Keyboard navigation shortcuts
   useEffect(() => {
@@ -182,6 +230,31 @@ export const ReelFeed: React.FC = () => {
     <div className="relative flex-1 h-full w-full flex items-center justify-center overflow-hidden">
       {/* Phone Mockup Frame (Clips corners without blocking inner scroll) */}
       <div className="relative w-full h-full max-w-[430px] md:rounded-3xl md:border md:border-white/10 shadow-2xl bg-black overflow-hidden flex flex-col">
+        {/* Discovery Feeds Switcher Bar (#48–#57) */}
+        <div className="absolute top-2 left-2 right-2 z-40 flex items-center gap-1 overflow-x-auto no-scrollbar py-1 px-1.5 rounded-2xl bg-black/75 backdrop-blur-md border border-white/15 select-none">
+          {feedTabs.map(tab => {
+            const TabIcon = tab.icon;
+            const isActive = activeFeedTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => {
+                  setActiveFeedTab(tab.id as any);
+                  scrollToReel(0);
+                }}
+                className={`px-2.5 py-1 rounded-xl text-[10px] font-semibold flex items-center gap-1.5 transition whitespace-nowrap flex-shrink-0 ${
+                  isActive
+                    ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/30'
+                    : 'text-slate-300 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <TabIcon className="w-3 h-3" />
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
+
         {/* Reel Scroll Container */}
         <div
           ref={containerRef}
@@ -193,13 +266,13 @@ export const ReelFeed: React.FC = () => {
           onMouseUp={handleMouseUp}
           className="reel-container w-full h-full flex-1"
         >
-          {reels.map((reel, idx) => (
+          {displayedReels.map((reel, idx) => (
             <div key={reel.id} className="reel-item w-full h-full relative">
               <ReelCard 
                 reel={reel} 
                 isActive={idx === currentReelIndex}
                 onEnded={() => {
-                  if (idx < reels.length - 1) {
+                  if (idx < displayedReels.length - 1) {
                     scrollToReel(idx + 1);
                   } else {
                     scrollToReel(0);

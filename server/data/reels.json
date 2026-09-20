@@ -125,7 +125,26 @@
           "action": "Dance with friends or family in a circle to build festive harmony."
         }
       ]
-    }
+    },
+    "isSponsored": true,
+    "sponsorName": "Gujarat Tourism Board",
+    "collaborator": {
+      "name": "Baroda Cultural Guild",
+      "handle": "@vadodara_heritage",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"
+    },
+    "productLaunch": {
+      "title": "Authentic Kutchi Choli & Dandiya Set",
+      "price": "₹2,499",
+      "link": "https://zynqo.social/shop/garba",
+      "badge": "Festival Special"
+    },
+    "originalSource": {
+      "platform": "Instagram",
+      "url": "https://instagram.com/unitedwaybaroda_garba",
+      "license": "CC-BY 4.0"
+    },
+    "feedCategory": "communities"
   },
   {
     "id": "ig-DdPNT9Yyp8H",

@@ -9,7 +9,13 @@ import {
   Pause, 
   Share2, 
   Radio,
-  Check
+  Check,
+  Mic,
+  MicOff,
+  Video as VideoIcon,
+  VideoOff,
+  Headphones,
+  Wand2
 } from 'lucide-react';
 import { io, Socket } from 'socket.io-client';
 import { useApp } from '../context/AppContext';
@@ -60,7 +66,27 @@ export const WatchTogetherRoom: React.FC = () => {
   ]);
   const [inputText, setInputText] = useState('');
   const [copied, setCopied] = useState(false);
+  const [isMicOn, setIsMicOn] = useState(false);
+  const [isCameraOn, setIsCameraOn] = useState(false);
+  const [isVoiceLoungeMode, setIsVoiceLoungeMode] = useState(false);
+  const [isRecommending, setIsRecommending] = useState(false);
   const chatEndRef = useRef<HTMLDivElement | null>(null);
+
+  const handleGroupRec = () => {
+    setIsRecommending(true);
+    setTimeout(() => {
+      setIsRecommending(false);
+      const aiRecMsg: RoomMessage = {
+        id: `rec-${Date.now()}`,
+        user: 'Sophia (AI Room Assistant)',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100',
+        isAI: true,
+        text: `✨ Group Synergy Pick: Based on everyone's taste profiles (AI Tech + Culture & Beats), I recommend queuing: "United Way Vadodara: 30,000+ Dancers in Hypnotic Circular Raas" next!`,
+        timestamp: 'Just now'
+      };
+      setMessages(prev => [...prev, aiRecMsg]);
+    }, 800);
+  };
 
   useEffect(() => {
     // Connect to Socket.IO backend
@@ -164,7 +190,82 @@ export const WatchTogetherRoom: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            {/* Mic Toggle with Live Waveform (#32) */}
+            <button
+              onClick={() => setIsMicOn(prev => !prev)}
+              className={`px-2.5 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 ${
+                isMicOn
+                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 shadow'
+                  : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-white/10'
+              }`}
+              title={isMicOn ? 'Mute Voice' : 'Join Voice Call'}
+            >
+              {isMicOn ? (
+                <>
+                  <Mic className="w-3.5 h-3.5 text-emerald-400" />
+                  <div className="flex items-center gap-0.5 h-2.5">
+                    <span className="w-0.5 bg-emerald-400 rounded-full animate-bounce h-2" style={{ animationDelay: '0ms' }} />
+                    <span className="w-0.5 bg-emerald-400 rounded-full animate-bounce h-3" style={{ animationDelay: '150ms' }} />
+                    <span className="w-0.5 bg-emerald-400 rounded-full animate-bounce h-1.5" style={{ animationDelay: '300ms' }} />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <MicOff className="w-3.5 h-3.5 text-slate-400" />
+                  <span className="hidden sm:inline">Voice</span>
+                </>
+              )}
+            </button>
+
+            {/* Video Call Camera Toggle (#33) */}
+            <button
+              onClick={() => setIsCameraOn(prev => !prev)}
+              className={`px-2.5 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 ${
+                isCameraOn
+                  ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40 shadow'
+                  : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-white/10'
+              }`}
+              title={isCameraOn ? 'Turn Off Camera' : 'Start Video Call'}
+            >
+              {isCameraOn ? (
+                <>
+                  <VideoIcon className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+                  <span className="hidden sm:inline">Cam On</span>
+                </>
+              ) : (
+                <>
+                  <VideoOff className="w-3.5 h-3.5 text-slate-400" />
+                  <span className="hidden sm:inline">Video</span>
+                </>
+              )}
+            </button>
+
+            {/* Voice Lounge Mode Toggle (#34) */}
+            <button
+              onClick={() => setIsVoiceLoungeMode(prev => !prev)}
+              className={`px-2.5 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 ${
+                isVoiceLoungeMode
+                  ? 'bg-violet-500/20 text-violet-300 border-violet-500/40 shadow'
+                  : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-white/10'
+              }`}
+              title="Toggle Voice-First Lounge Mode"
+            >
+              <Headphones className={`w-3.5 h-3.5 ${isVoiceLoungeMode ? 'text-violet-400' : 'text-slate-400'}`} />
+              <span className="hidden md:inline">Lounge</span>
+            </button>
+
+            {/* AI Group Recommendations Button (#36) */}
+            <button
+              onClick={handleGroupRec}
+              disabled={isRecommending}
+              className="px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500/20 to-pink-500/20 hover:from-amber-500/30 hover:to-pink-500/30 text-amber-300 text-xs font-semibold border border-amber-500/30 flex items-center gap-1.5 transition shadow"
+              title="AI Recommend Next Reel For Group"
+            >
+              <Wand2 className={`w-3.5 h-3.5 text-amber-400 ${isRecommending ? 'animate-spin' : ''}`} />
+              <span className="hidden lg:inline">{isRecommending ? 'Analyzing...' : 'AI Synergy'}</span>
+            </button>
+
             <button
               onClick={copyRoomCode}
               className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-white/10 flex items-center gap-1.5 transition"
@@ -184,51 +285,98 @@ export const WatchTogetherRoom: React.FC = () => {
 
         {/* Split Screen: Left Synchronized Reel Player / Right Live Room Chat & Spectators */}
         <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
-          {/* Left Player */}
+          {/* Left Player / Voice Lounge */}
           <div className="relative w-full md:w-1/2 h-64 md:h-auto bg-black flex items-center justify-center overflow-hidden border-b md:border-b-0 md:border-r border-white/10">
-            {currentReel && (
-              <>
-                <ReelVisualizer theme={currentReel.visualTheme} isPlaying={isPlaying} />
-                {currentReel.videoUrl && (
-                  <video
-                    src={currentReel.videoUrl}
-                    className="absolute inset-0 w-full h-full object-cover opacity-75 mix-blend-screen pointer-events-none"
-                    loop
-                    muted
-                    autoPlay
-                  />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80 pointer-events-none" />
-
-                {/* Video Info Overlay */}
-                <div className="absolute bottom-4 left-4 right-4 z-20 pointer-events-auto">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-400 block mb-1">
-                    Synchronized Stream
-                  </span>
-                  <h3 className="text-sm font-bold text-white leading-tight">
-                    {currentReel.title}
-                  </h3>
-                  <p className="text-xs text-slate-300 mt-1 line-clamp-1">
-                    {currentReel.creator.name} • {currentReel.category}
-                  </p>
-
-                  <div className="flex items-center gap-2 mt-2">
-                    <button
-                      onClick={handleToggleSyncPlayback}
-                      className="px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-lg transition"
-                    >
-                      {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-                      <span>{isPlaying ? 'Pause All' : 'Play All'}</span>
-                    </button>
+            {isVoiceLoungeMode ? (
+              /* Voice Lounge Ambient Audio Mode (#34) */
+              <div className="w-full h-full p-6 flex flex-col items-center justify-center bg-gradient-to-b from-indigo-950/60 via-slate-950 to-black relative">
+                <div className="relative mb-6">
+                  {/* Glowing audio rings */}
+                  <div className="absolute inset-0 rounded-full bg-violet-500/20 blur-xl animate-ping" />
+                  <div className="relative w-24 h-24 rounded-full bg-gradient-to-tr from-violet-600 to-indigo-500 p-1 flex items-center justify-center shadow-2xl">
+                    <Headphones className="w-10 h-10 text-white animate-pulse" />
                   </div>
                 </div>
-              </>
+
+                <h3 className="text-base font-bold text-white mb-1">Voice Lounge Active</h3>
+                <p className="text-xs text-violet-300/80 text-center max-w-xs mb-4">
+                  Audio-first synchronous discussion mode. Bandwidth optimized with live spatial sound.
+                </p>
+
+                {/* Active audio speakers grid */}
+                <div className="flex items-center gap-3">
+                  {members.map(m => (
+                    <div key={m.id} className="flex flex-col items-center gap-1">
+                      <div className="relative">
+                        <img src={m.avatar} alt={m.name} className="w-10 h-10 rounded-full border-2 border-violet-400/80 object-cover" />
+                        <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-slate-900" />
+                      </div>
+                      <span className="text-[10px] text-slate-300 font-medium">{m.name.split(' ')[0]}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              /* Standard Video Synced Mode */
+              currentReel && (
+                <>
+                  <ReelVisualizer theme={currentReel.visualTheme} isPlaying={isPlaying} />
+                  {currentReel.videoUrl && (
+                    <video
+                      src={currentReel.videoUrl}
+                      className="absolute inset-0 w-full h-full object-cover opacity-75 mix-blend-screen pointer-events-none"
+                      loop
+                      muted
+                      autoPlay
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80 pointer-events-none" />
+
+                  {/* Picture-in-Picture Webcam Preview (#33) */}
+                  {isCameraOn && (
+                    <div className="absolute top-3 right-3 z-30 w-24 h-32 rounded-2xl overflow-hidden border-2 border-cyan-400/80 shadow-2xl bg-slate-900 flex flex-col justify-end">
+                      <img
+                        src={userProfile?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'}
+                        alt="You"
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                      <div className="relative z-10 px-1.5 py-0.5 bg-black/70 backdrop-blur-sm text-[9px] font-bold text-cyan-300 flex items-center justify-between">
+                        <span>You</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Video Info Overlay */}
+                  <div className="absolute bottom-4 left-4 right-4 z-20 pointer-events-auto">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-400 block mb-1">
+                      Synchronized Stream
+                    </span>
+                    <h3 className="text-sm font-bold text-white leading-tight">
+                      {currentReel.title}
+                    </h3>
+                    <p className="text-xs text-slate-300 mt-1 line-clamp-1">
+                      {currentReel.creator.name} • {currentReel.category}
+                    </p>
+
+                    <div className="flex items-center gap-2 mt-2">
+                      <button
+                        onClick={handleToggleSyncPlayback}
+                        className="px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-lg transition"
+                      >
+                        {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
+                        <span>{isPlaying ? 'Pause All' : 'Play All'}</span>
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )
             )}
           </div>
 
           {/* Right Chat & Participants */}
           <div className="w-full md:w-1/2 flex flex-col flex-1 bg-slate-950/60 overflow-hidden">
-            {/* Participants Bar */}
+            {/* Participants Bar with Waveform (#32) */}
             <div className="p-3 border-b border-white/10 flex items-center gap-2 overflow-x-auto no-scrollbar">
               <span className="text-[11px] font-bold text-slate-400 whitespace-nowrap mr-1">
                 Watching ({members.length}):
@@ -247,6 +395,14 @@ export const WatchTogetherRoom: React.FC = () => {
                   <span className={`text-[11px] font-medium ${member.isAI ? 'text-cyan-300' : 'text-slate-200'}`}>
                     {member.name.split(' ')[0]}
                   </span>
+                  {/* Waveform indicator if speaking / mic is on */}
+                  {(member.id === 'u1' ? isMicOn : false) && (
+                    <div className="flex items-center gap-0.5 h-2">
+                      <span className="w-0.5 bg-emerald-400 rounded-full animate-pulse h-2" />
+                      <span className="w-0.5 bg-emerald-400 rounded-full animate-pulse h-3" />
+                      <span className="w-0.5 bg-emerald-400 rounded-full animate-pulse h-1.5" />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
