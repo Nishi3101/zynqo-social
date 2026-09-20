@@ -27,8 +27,14 @@ interface Message {
 }
 
 export const AICompanion: React.FC = () => {
-  const { currentReel, intent, openModal, setIntent, t, language, reels, setCurrentReelIndex, setCurrentPage } = useApp();
+  const { currentReel, intent, openModal, closeModal, activeModal, setIntent, t, language, reels, setCurrentReelIndex, setCurrentPage } = useApp();
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (activeModal === 'aiCompanion') {
+      setIsOpen(true);
+    }
+  }, [activeModal]);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isListening, setIsListening] = useState(false);
@@ -315,13 +321,13 @@ export const AICompanion: React.FC = () => {
 
   return (
     <>
-      {/* Option 3: Floating Liquid Glass Bubble Capsule Trigger - Outside Navigation Bar at Lower Left Corner */}
-      <div className="fixed bottom-4 sm:bottom-6 left-20 sm:left-24 md:left-[272px] lg:left-[304px] z-40 pb-safe transition-all duration-300 select-none">
-        <div className="liquid-glass-dock rounded-full p-1.5 flex items-center gap-1.5 shadow-2xl backdrop-blur-2xl">
+      {/* Floating Liquid Glass Bubble Capsule Trigger - Prominently Visible Above Mobile Nav & Desktop Sidebar */}
+      <div className="fixed bottom-20 left-3 md:bottom-6 md:left-[272px] lg:left-[304px] z-50 pb-safe transition-all duration-300 select-none">
+        <div className="liquid-glass-dock rounded-full p-1.5 flex items-center gap-1.5 shadow-2xl backdrop-blur-2xl border border-white/20 bg-slate-950/85">
           {/* Main Nova Active Liquid Bubble */}
           <button
             onClick={() => setIsOpen(prev => !prev)}
-            className={`group relative px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full flex items-center gap-2 transition-all duration-300 cursor-pointer overflow-hidden ${
+            className={`group relative px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full flex items-center gap-1.5 sm:gap-2 transition-all duration-300 cursor-pointer overflow-hidden ${
               isOpen
                 ? 'liquid-glass-bubble prismatic-rim animate-chromatic-shimmer text-white shadow-lg'
                 : 'liquid-glass-bubble prismatic-rim hover:scale-105 active:scale-95 text-white'
@@ -332,12 +338,12 @@ export const AICompanion: React.FC = () => {
             <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-cyan-400 to-violet-500 flex items-center justify-center flex-shrink-0 shadow-sm shadow-cyan-400/50 relative z-10">
               <Bot className="w-3.5 h-3.5 text-slate-950 animate-pulse" />
             </div>
-            <span className="text-xs font-bold tracking-wide hidden sm:inline text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] relative z-10">
+            <span className="text-xs font-bold tracking-wide inline text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] relative z-10">
               {t.companion?.name ? t.companion.name.split(' ')[0] : 'Nova'}
             </span>
 
-            {/* Glowing Green Notification Badge - Matching reference screenshot */}
-            <span className="flex items-center justify-center w-5 h-5 rounded-full bg-emerald-500 text-[10px] font-black text-white shadow-[0_0_10px_#10b981] ml-0.5 relative z-10 animate-pulse">
+            {/* Glowing Green Notification Badge */}
+            <span className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-emerald-500 text-[10px] font-black text-white shadow-[0_0_10px_#10b981] ml-0.5 relative z-10 animate-pulse">
               1
             </span>
           </button>
@@ -375,9 +381,9 @@ export const AICompanion: React.FC = () => {
         </div>
       </div>
 
-      {/* Expanded Chat Drawer - Outside Navigation Bar */}
+      {/* Expanded Chat Drawer */}
       {isOpen && (
-        <div className="fixed bottom-16 sm:bottom-20 left-20 sm:left-24 md:left-[272px] lg:left-[304px] z-50 w-[calc(100vw-96px)] sm:w-96 max-h-[calc(100dvh-100px)] h-[75vh] bg-slate-900/95 backdrop-blur-2xl border border-white/15 rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-scale-in pb-safe">
+        <div className="fixed inset-x-2 sm:inset-x-4 bottom-20 md:bottom-20 md:left-[272px] lg:left-[304px] md:right-auto md:w-96 z-50 max-h-[calc(100dvh-110px)] h-[72vh] bg-slate-900/95 backdrop-blur-2xl border border-white/15 rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-scale-in pb-safe">
           {/* Header */}
           <div className="p-4 border-b border-white/10 bg-slate-950/70 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
@@ -421,8 +427,11 @@ export const AICompanion: React.FC = () => {
                 onClick={() => {
                   stopSpeaking();
                   setIsOpen(false);
+                  if (activeModal === 'aiCompanion') {
+                    closeModal();
+                  }
                 }}
-                className="p-1 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition"
+                className="p-1.5 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition"
               >
                 <X className="w-4 h-4" />
               </button>

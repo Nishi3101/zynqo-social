@@ -29,7 +29,8 @@ import {
   MicOff,
   ListMusic,
   History,
-  TrendingUp
+  TrendingUp,
+  Bot
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { IntentType, LanguageCode } from '../types';
@@ -427,6 +428,15 @@ export const Navigation: React.FC = () => {
 
           <div className="p-1 rounded-2xl liquid-glass-dock space-y-1">
             {[
+              {
+                id: 'aiCompanion',
+                label: t.companion?.name || 'Nova AI Companion',
+                icon: Bot,
+                iconColor: 'text-cyan-400',
+                action: () => openModal('aiCompanion'),
+                isActive: activeModal === 'aiCompanion',
+                badge: 'AI'
+              },
               {
                 id: 'timeSession',
                 label: t.actions.timeSession,
