@@ -389,21 +389,46 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (current_mood) localStorage.setItem('pulseai_user_mood', current_mood);
 
     setUserProfile(prev => {
-      if (!prev) return null;
-      return {
-        ...prev,
-        name: name || prev.name,
+      const base: UserProfile = prev || {
+        id: `user-${Date.now()}`,
+        name: name || 'User',
         handle: `@${(name || 'user').toLowerCase().replace(/\s+/g, '_')}`,
-        attentionBudgetMinutes: budget || prev.attentionBudgetMinutes,
-        date_of_birth: date_of_birth || prev.date_of_birth || localStorage.getItem('pulseai_user_dob') || undefined,
-        category: category || prev.category || localStorage.getItem('pulseai_user_category') || undefined,
-        current_mood: current_mood || prev.current_mood || localStorage.getItem('pulseai_user_mood') || 'Happy',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
+        bio: 'Living life one reel at a time ✨',
+        attentionBudgetMinutes: budget || 30,
+        minutesUsedToday: 0,
+        xp: 150,
+        level: 2,
+        streakDays: 3,
+        date_of_birth: date_of_birth || localStorage.getItem('pulseai_user_dob') || undefined,
+        category: category || localStorage.getItem('pulseai_user_category') || 'Student',
+        current_mood: current_mood || localStorage.getItem('pulseai_user_mood') || 'Happy',
+        badges: [],
+        privacySettings: {
+          useWatchHistory: true,
+          useMoodSignals: true,
+          allowCollaborativeFiltering: true,
+          privateMode: false
+        },
+        memoryVault: []
+      };
+
+      const existingVault = Array.isArray(base.memoryVault) ? base.memoryVault : [];
+
+      return {
+        ...base,
+        name: name || base.name,
+        handle: `@${(name || 'user').toLowerCase().replace(/\s+/g, '_')}`,
+        attentionBudgetMinutes: budget || base.attentionBudgetMinutes,
+        date_of_birth: date_of_birth || base.date_of_birth || localStorage.getItem('pulseai_user_dob') || undefined,
+        category: category || base.category || localStorage.getItem('pulseai_user_category') || 'Student',
+        current_mood: current_mood || base.current_mood || localStorage.getItem('pulseai_user_mood') || 'Happy',
         memoryVault: interests && interests.length > 0 
           ? [
               ...interests.map((it, idx) => ({ id: `m-init-${idx}`, type: 'interest' as const, text: it, dateAdded: 'Today' })),
-              ...prev.memoryVault
+              ...existingVault
             ]
-          : prev.memoryVault
+          : existingVault
       };
     });
   };
@@ -970,7 +995,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       if (!prev) return null;
       return {
         ...prev,
-        memoryVault: prev.memoryVault.filter(m => m.id !== id)
+        memoryVault: (prev.memoryVault || []).filter(m => m.id !== id)
       };
     });
     try {

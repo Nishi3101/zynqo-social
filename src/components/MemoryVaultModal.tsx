@@ -88,7 +88,7 @@ export const MemoryVaultModal: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              {userProfile?.memoryVault && userProfile.memoryVault.length > 0 ? (
+              {Array.isArray(userProfile?.memoryVault) && userProfile.memoryVault.length > 0 ? (
                 userProfile.memoryVault.map(item => (
                   <div
                     key={item.id}
