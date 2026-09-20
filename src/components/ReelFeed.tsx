@@ -193,24 +193,24 @@ export const ReelFeed: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center bg-[#07090e] gap-3">
+      <div className={`flex-1 flex flex-col items-center justify-center gap-3 ${isLight ? 'text-slate-800' : 'text-white'}`}>
         <div className="relative w-16 h-16 flex items-center justify-center">
-          <div className="absolute inset-0 rounded-full border-2 border-cyan-500/20 border-t-cyan-400 animate-spin" />
-          <Sparkles className="w-6 h-6 text-cyan-400 animate-pulse" />
+          <div className={`absolute inset-0 rounded-full border-2 animate-spin ${isLight ? 'border-rose-200 border-t-rose-600' : 'border-cyan-500/20 border-t-cyan-400'}`} />
+          <Sparkles className={`w-6 h-6 animate-pulse ${isLight ? 'text-rose-600' : 'text-cyan-400'}`} />
         </div>
-        <p className="text-sm font-medium text-cyan-300">{t.reel?.curating || "Curating your AI Experience..."}</p>
+        <p className={`text-sm font-medium ${isLight ? 'text-rose-900' : 'text-cyan-300'}`}>{t.reel?.curating || "Curating your AI Experience..."}</p>
       </div>
     );
   }
 
   if (reels.length === 0) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center bg-[#07090e] p-6 text-center">
-        <div className="w-16 h-16 rounded-2xl bg-slate-900/80 border border-white/10 flex items-center justify-center text-cyan-400 mb-4 shadow-xl">
+      <div className={`flex-1 flex flex-col items-center justify-center p-6 text-center ${isLight ? 'text-slate-800' : 'text-white'}`}>
+        <div className={`w-16 h-16 rounded-2xl border flex items-center justify-center mb-4 shadow-xl ${isLight ? 'bg-white/90 border-rose-200 text-rose-600' : 'bg-slate-900/80 border-white/10 text-cyan-400'}`}>
           <RotateCcw className="w-8 h-8" />
         </div>
-        <h3 className="text-lg font-bold text-white mb-2">{t.reel?.noReelsMatch || "No reels match this intent"}</h3>
-        <p className="text-xs text-slate-400 max-w-xs mb-4">
+        <h3 className={`text-lg font-bold mb-2 ${isLight ? 'text-slate-900' : 'text-white'}`}>{t.reel?.noReelsMatch || "No reels match this intent"}</h3>
+        <p className={`text-xs max-w-xs mb-4 ${isLight ? 'text-slate-600' : 'text-slate-400'}`}>
           Try switching intents or clearing your category filters to discover fresh AI reels.
         </p>
         <button
@@ -218,7 +218,7 @@ export const ReelFeed: React.FC = () => {
             setIntent('all');
             setSelectedCategory('All');
           }}
-          className="px-4 py-2 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs hover:bg-cyan-400 transition"
+          className={`px-4 py-2 rounded-xl font-bold text-xs shadow-md transition ${isLight ? 'bg-gradient-to-r from-[#9d174d] to-[#be123c] text-white hover:brightness-105' : 'bg-cyan-500 text-slate-950 hover:bg-cyan-400'}`}
         >
           {t.reel?.resetFilters || "Reset All Filters"}
         </button>
@@ -229,7 +229,9 @@ export const ReelFeed: React.FC = () => {
   return (
     <div className="relative flex-1 h-full w-full flex items-center justify-center overflow-hidden">
       {/* Phone Mockup Frame (Clips corners without blocking inner scroll) */}
-      <div className="relative w-full h-full max-w-[430px] md:rounded-3xl md:border md:border-white/10 shadow-2xl bg-black overflow-hidden flex flex-col">
+      <div className={`relative w-full h-full max-w-[430px] md:rounded-3xl md:border shadow-2xl bg-black overflow-hidden flex flex-col ${
+        isLight ? 'md:border-rose-200/80 shadow-rose-950/15' : 'md:border-white/15 shadow-black/80'
+      }`}>
         {/* Discovery Feeds Switcher Bar (#48–#57) */}
         <div className="absolute top-2 left-2 right-2 z-40 flex items-center gap-1 overflow-x-auto no-scrollbar py-1 px-1.5 rounded-2xl bg-black/75 backdrop-blur-md border border-white/15 select-none">
           {feedTabs.map(tab => {

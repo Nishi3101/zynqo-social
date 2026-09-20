@@ -45,7 +45,7 @@ const MainLayout: React.FC = () => {
   if (currentPage === 'home') {
     return (
       <div className={`w-full min-h-[100dvh] h-[100dvh] max-w-full overflow-x-hidden overflow-y-auto transition-colors duration-200 ${
-        isLight ? 'bg-[#fbf5f7] text-slate-900' : 'bg-[#0d0b14] text-slate-100'
+        isLight ? 'zynqo-ambient-bg-light text-slate-900' : 'zynqo-ambient-bg-dark text-slate-100'
       }`}>
         <LandingHome onOpenAuth={openAuthModal} />
         <AuthModal
@@ -64,7 +64,7 @@ const MainLayout: React.FC = () => {
   if (currentPage === 'profile') {
     return (
       <div className={`w-full min-h-[100dvh] h-[100dvh] max-w-full overflow-x-hidden overflow-y-auto transition-colors duration-200 ${
-        isLight ? 'bg-[#fbf5f7] text-slate-900' : 'bg-[#0d0b14] text-slate-100'
+        isLight ? 'zynqo-ambient-bg-light text-slate-900' : 'zynqo-ambient-bg-dark text-slate-100'
       }`}>
         <ProfileView />
         <AuthModal
@@ -81,18 +81,31 @@ const MainLayout: React.FC = () => {
 
   // If user is on the Reels Feed page
   return (
-    <div className={`flex flex-row h-[100dvh] w-full max-w-full overflow-hidden font-sans transition-colors duration-200 ${
-      isLight ? 'bg-[#fbf5f7] text-slate-900' : 'bg-[#0d0b14] text-slate-100'
+    <div className={`flex flex-row h-[100dvh] w-full max-w-full overflow-hidden font-sans transition-colors duration-200 relative ${
+      isLight ? 'zynqo-ambient-bg-light text-slate-900' : 'zynqo-ambient-bg-dark text-slate-100'
     }`}>
+      {/* Ambient Velvet Rose, Peach & Lavender Pastel Glow Blooms for Logged-In Feed View */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0 select-none">
+        <div className={`absolute top-[-10%] right-[-5%] w-[680px] h-[680px] rounded-full blur-[140px] transition-all duration-700 ${
+          isLight ? 'bg-purple-200/60 opacity-90' : 'bg-fuchsia-900/25 opacity-50'
+        }`} />
+        <div className={`absolute bottom-[-10%] left-[-5%] w-[750px] h-[750px] rounded-full blur-[150px] transition-all duration-700 ${
+          isLight ? 'bg-rose-200/70 opacity-95' : 'bg-rose-950/35 opacity-60'
+        }`} />
+        <div className={`absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] rounded-full blur-[150px] transition-all duration-700 ${
+          isLight ? 'bg-pink-100/65 opacity-85' : 'bg-purple-950/25 opacity-40'
+        }`} />
+      </div>
+
       {/* Vertical Navigation Sidebar on Left */}
       <Navigation />
 
       {/* Main Content Area (Right Side) */}
-      <div className="flex-1 flex flex-col h-full min-w-0 overflow-hidden">
+      <div className="flex-1 flex flex-col h-full min-w-0 overflow-hidden relative z-10">
         {/* Viewport Switcher Banner (Mobile Frame Preview vs Immersive Desktop Studio) */}
-        <div className={`hidden md:flex items-center justify-between px-6 py-1.5 border-b text-[11px] transition-colors flex-shrink-0 ${
+        <div className={`hidden md:flex items-center justify-between px-6 py-1.5 border-b text-[11px] transition-colors flex-shrink-0 backdrop-blur-md ${
           isLight 
-            ? 'bg-white/80 border-rose-100/80 text-slate-700 shadow-sm'
+            ? 'bg-white/70 border-rose-100/80 text-slate-700 shadow-sm'
             : 'bg-[#120d1e]/80 border-white/5 text-slate-400'
         }`}>
           <div className="flex items-center gap-2">
@@ -144,9 +157,7 @@ const MainLayout: React.FC = () => {
         </div>
 
         {/* Main Content Area */}
-        <main className={`flex-1 relative flex items-center justify-center overflow-hidden p-0 md:p-3 ${
-          isLight ? 'bg-rose-50/20' : 'bg-transparent'
-        }`}>
+        <main className="flex-1 relative flex items-center justify-center overflow-hidden p-0 md:p-3 bg-transparent">
           <div className={`w-full h-full flex items-center justify-center ${
             deviceFrameMode === 'mobile' ? 'max-w-[430px]' : 'max-w-4xl'
           }`}>

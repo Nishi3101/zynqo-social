@@ -425,20 +425,25 @@ export const HomeAtmosphere: React.FC<HomeAtmosphereProps> = ({ isLight }) => {
 
   return (
     <div ref={containerRef} className="absolute inset-0 w-full pointer-events-none z-0 overflow-hidden select-none">
-      {/* Ambient Velvet Rose & Magenta Glow Blooms */}
+      {/* Ambient Velvet Rose, Peach, Lilac & Lavender Pastel Glow Blooms */}
       <div 
-        className={`absolute top-0 right-0 w-[550px] h-[550px] rounded-full blur-[130px] pointer-events-none transition-all duration-700 ${
-          isLight ? 'bg-rose-200/50 opacity-80' : 'bg-fuchsia-900/25 opacity-60'
+        className={`absolute top-[-5%] right-[-5%] w-[680px] h-[680px] rounded-full blur-[140px] pointer-events-none transition-all duration-700 ${
+          isLight ? 'bg-purple-200/60 opacity-90' : 'bg-fuchsia-900/25 opacity-60'
         }`} 
       />
       <div 
-        className={`absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[140px] pointer-events-none transition-all duration-700 ${
-          isLight ? 'bg-pink-100/70 opacity-90' : 'bg-rose-950/40 opacity-70'
+        className={`absolute top-[18%] left-[-8%] w-[750px] h-[750px] rounded-full blur-[150px] pointer-events-none transition-all duration-700 ${
+          isLight ? 'bg-rose-200/70 opacity-95' : 'bg-rose-950/40 opacity-70'
         }`} 
       />
       <div 
-        className={`absolute top-1/3 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] rounded-full blur-[160px] pointer-events-none transition-all duration-700 ${
-          isLight ? 'bg-rose-50/60 opacity-70' : 'bg-purple-950/25 opacity-50'
+        className={`absolute top-[48%] right-[5%] w-[650px] h-[650px] rounded-full blur-[150px] pointer-events-none transition-all duration-700 ${
+          isLight ? 'bg-pink-200/65 opacity-90' : 'bg-pink-950/25 opacity-50'
+        }`} 
+      />
+      <div 
+        className={`absolute bottom-[10%] left-[12%] w-[700px] h-[700px] rounded-full blur-[160px] pointer-events-none transition-all duration-700 ${
+          isLight ? 'bg-amber-100/60 opacity-80' : 'bg-purple-950/25 opacity-50'
         }`} 
       />
 

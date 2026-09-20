@@ -72,7 +72,7 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
 
   return (
     <div className={`min-h-screen w-full transition-colors duration-200 overflow-y-auto font-sans relative ${
-      isLight ? 'bg-[#fbf5f7] text-slate-900' : 'bg-[#0d0b14] text-slate-100'
+      isLight ? 'zynqo-ambient-bg-light text-slate-900' : 'zynqo-ambient-bg-dark text-slate-100'
     }`}>
       {/* Background Atmosphere & Interactive Floating Doodles */}
       <HomeAtmosphere isLight={isLight} />
@@ -508,9 +508,8 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
         </section>
       )}
 
-      {/* Corporate Palette & Mode Picker Banner */}
-      <section className={`px-4 md:px-12 py-10 border-t border-b transition-colors ${
-        isLight ? 'bg-slate-100/70 border-slate-200' : 'bg-slate-950/70 border-white/10'
+      <section className={`px-4 md:px-12 py-10 border-t border-b backdrop-blur-md transition-colors ${
+        isLight ? 'bg-white/60 border-rose-100/80' : 'bg-slate-950/70 border-white/10'
       }`}>
         <div className="max-w-6xl mx-auto space-y-4">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">

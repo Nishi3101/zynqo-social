@@ -179,13 +179,13 @@ export const ProfileView: React.FC = () => {
 
   return (
     <div className={`w-full min-h-[100dvh] pb-16 overflow-x-hidden font-sans transition-colors duration-200 ${
-      isLight ? 'bg-[#f8fafc] text-slate-900' : 'bg-[#06080e] text-slate-100'
+      isLight ? 'zynqo-ambient-bg-light text-slate-900' : 'zynqo-ambient-bg-dark text-slate-100'
     }`}>
       {/* ─────────────────────────────────────────────────────────────
           1. TOP NAVIGATION HEADER
           ───────────────────────────────────────────────────────────── */}
       <header className={`sticky top-0 z-40 backdrop-blur-2xl border-b px-3 sm:px-6 md:px-12 py-2.5 sm:py-3 flex items-center justify-between transition-colors ${
-        isLight ? 'bg-white/90 border-slate-200 text-slate-900 shadow-sm' : 'bg-[#0a0d14]/85 border-white/10 text-slate-100'
+        isLight ? 'bg-white/90 border-rose-100/80 text-slate-900 shadow-sm' : 'bg-[#0a0d14]/85 border-white/10 text-slate-100'
       }`}>
         <div className="flex items-center gap-2 sm:gap-3">
           <button
