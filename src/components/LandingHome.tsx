@@ -261,87 +261,110 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative px-4 sm:px-6 md:px-12 pt-8 sm:pt-10 pb-12 sm:pb-16 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-10">
-        {/* Left Copy */}
-        <div className="flex-1 space-y-6 text-center lg:text-left">
-          <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-sans font-medium transition-colors ${
-            isLight ? 'bg-white/80 border-rose-200/80 text-rose-900 shadow-sm' : 'bg-pink-950/40 border-pink-500/30 text-pink-300'
-          }`}>
-            <Zap className={`w-3.5 h-3.5 ${isLight ? 'text-rose-600' : 'text-pink-400'}`} />
-            <span>{t.landing?.badge || 'Next-Gen Social Entertainment Platform • 190-Feature Ecosystem'}</span>
+      <section className="relative px-3 sm:px-6 md:px-10 pt-6 sm:pt-8 pb-10 sm:pb-14 max-w-7xl mx-auto flex flex-col lg:flex-row items-stretch gap-6 lg:gap-8">
+        {/* Left Hero Card with Aesthetic Studio Workspace Background */}
+        <div className={`flex-1 rounded-3xl border shadow-2xl relative overflow-hidden flex flex-col justify-between p-6 sm:p-8 md:p-10 transition-all duration-300 ${
+          isLight
+            ? 'bg-white/95 border-rose-100/90 shadow-rose-950/5'
+            : 'bg-[#151024]/95 border-white/10 shadow-black/60'
+        }`}>
+          {/* Background Image of Creative Studio Workspace (Desk, Books, Camera, Lamp, Polaroids & zyncosocial script) */}
+          <div 
+            className="absolute inset-0 w-full h-full bg-cover bg-no-repeat pointer-events-none transition-opacity duration-300"
+            style={{
+              backgroundImage: isLight ? `url('/hero-bg-light.jpg')` : `url('/hero-bg-dark.jpg')`,
+              backgroundPosition: 'right center',
+            }}
+          />
+
+          {/* Gentle Directional Gradient Mask to ensure 100% text readability on the left */}
+          <div className={`absolute inset-0 pointer-events-none transition-colors duration-300 ${
+            isLight
+              ? 'bg-gradient-to-r from-white via-white/85 sm:via-white/70 to-transparent'
+              : 'bg-gradient-to-r from-[#120d1e] via-[#120d1e]/90 sm:via-[#120d1e]/75 to-transparent'
+          }`} />
+
+          {/* Left Copy & Content */}
+          <div className="relative z-10 space-y-6 text-left">
+            <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-sans font-medium transition-colors backdrop-blur-sm ${
+              isLight ? 'bg-white/90 border-rose-200/80 text-rose-900 shadow-sm' : 'bg-pink-950/60 border-pink-500/30 text-pink-300'
+            }`}>
+              <Zap className={`w-3.5 h-3.5 ${isLight ? 'text-rose-600' : 'text-pink-400'}`} />
+              <span>{t.landing?.badge || 'Next-Gen Social Entertainment Platform • 190-Feature Ecosystem'}</span>
+            </div>
+
+            <h1 className={`font-display text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-[-0.03em] leading-[1.12] ${
+              isLight ? 'text-slate-900' : 'text-white'
+            }`}>
+              {t.landing?.heroTitle || 'Entertainment That Respects Your Time & Turns Every Reel Into '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#be123c] via-[#db2777] to-[#ec4899] dark:from-[#f43f5e] dark:via-[#ec4899] dark:to-[#d946ef]">
+                {t.landing?.heroHighlight || 'Real-World Action.'}
+              </span>
+            </h1>
+
+            <p className={`font-sans text-sm md:text-base font-normal leading-relaxed max-w-xl ${
+              isLight ? 'text-slate-700' : 'text-slate-300'
+            }`}>
+              <span className={`italic ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+                {t.landing?.heroSubtitle || 'Traditional platforms ask: "How long can we keep you scrolling?"'}
+              </span>
+              <br />
+              <strong className="font-semibold">Zynqo Social</strong>: <span className={`${theme.textAccent} font-medium`}>
+                {t.landing?.heroSubtitleAuthor || 'asks: "What do you need right now, how much time do you have, and how can we make that time meaningful?"'}
+              </span>
+            </p>
+
+            {/* Action CTAs */}
+            <div className="flex flex-col sm:flex-row items-start gap-3 pt-2">
+              <button
+                onClick={() => setCurrentPage('feed')}
+                className={`w-full sm:w-auto px-8 py-3.5 rounded-2xl ${theme.buttonClass} font-sans font-semibold text-sm shadow-xl transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl hover:brightness-105 active:translate-y-0 flex items-center justify-center gap-2.5 group`}
+              >
+                <Play className="w-4 h-4 fill-current transition-transform duration-200 group-hover:scale-110" />
+                <span>{t.landing?.exploreFeed || 'Explore AI Reels Feed'}</span>
+              </button>
+              <button
+                onClick={() => onOpenAuth('onboarding')}
+                className={`w-full sm:w-auto px-6 py-3.5 rounded-2xl border font-sans font-medium text-xs md:text-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:translate-y-0 flex items-center justify-center gap-2 group backdrop-blur-sm ${
+                  isLight 
+                    ? 'bg-white/90 hover:bg-white text-slate-800 border-rose-200/80 shadow-sm hover:border-rose-300'
+                    : 'bg-[#181328]/90 hover:bg-[#201835] text-slate-200 border-white/15 hover:border-pink-500/40'
+                }`}
+              >
+                <Sparkles className={`w-4 h-4 ${isLight ? 'text-rose-600' : 'text-pink-400'} transition-transform duration-200 group-hover:rotate-12`} />
+                <span>{t.landing?.personalize || 'Personalize Profile (Onboarding)'}</span>
+              </button>
+            </div>
           </div>
 
-          <h1 className={`font-display text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-[-0.03em] leading-[1.12] ${
-            isLight ? 'text-slate-900' : 'text-white'
-          }`}>
-            {t.landing?.heroTitle || 'Entertainment That Respects Your Time & Turns Every Reel Into '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#be123c] via-[#db2777] to-[#ec4899] dark:from-[#f43f5e] dark:via-[#ec4899] dark:to-[#d946ef]">
-              {t.landing?.heroHighlight || 'Real-World Action.'}
-            </span>
-          </h1>
-
-          <p className={`font-sans text-sm md:text-base font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0 ${
-            isLight ? 'text-slate-600' : 'text-slate-300'
-          }`}>
-            <span className={`italic ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
-              {t.landing?.heroSubtitle || 'Traditional platforms ask: "How long can we keep you scrolling?"'}
-            </span>
-            <br />
-            <strong className="font-semibold">Zynqo Social</strong>: <span className={`${theme.textAccent} font-medium`}>
-              {t.landing?.heroSubtitleAuthor || 'asks: "What do you need right now, how much time do you have, and how can we make that time meaningful?"'}
-            </span>
-          </p>
-
-          {/* Action CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-2">
-            <button
-              onClick={() => setCurrentPage('feed')}
-              className={`w-full sm:w-auto px-8 py-3.5 rounded-2xl ${theme.buttonClass} font-sans font-semibold text-sm shadow-xl transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl hover:brightness-105 active:translate-y-0 flex items-center justify-center gap-2.5 group`}
-            >
-              <Play className="w-4 h-4 fill-current transition-transform duration-200 group-hover:scale-110" />
-              <span>{t.landing?.exploreFeed || 'Explore AI Reels Feed'}</span>
-            </button>
-            <button
-              onClick={() => onOpenAuth('onboarding')}
-              className={`w-full sm:w-auto px-6 py-3.5 rounded-2xl border font-sans font-medium text-xs md:text-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:translate-y-0 flex items-center justify-center gap-2 group ${
-                isLight 
-                  ? 'bg-white hover:bg-rose-50/70 text-slate-800 border-rose-200/80 shadow-sm hover:border-rose-300'
-                  : 'bg-[#181328] hover:bg-[#201835] text-slate-200 border-white/15 hover:border-pink-500/40'
-              }`}
-            >
-              <Sparkles className={`w-4 h-4 ${isLight ? 'text-rose-600' : 'text-pink-400'} transition-transform duration-200 group-hover:rotate-12`} />
-              <span>{t.landing?.personalize || 'Personalize Profile (Onboarding)'}</span>
-            </button>
-          </div>
-
-          {/* Quick Pillars Badges */}
-          <div className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
-            <div className={`p-3 rounded-2xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-default ${
-              isLight ? 'bg-white border-rose-100/90 shadow-sm hover:border-rose-300' : 'bg-[#181328]/80 border-white/10 hover:border-pink-500/40'
+          {/* Quick Pillars Badges inside Hero Card */}
+          <div className="relative z-10 pt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
+            <div className={`p-3 rounded-2xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-default backdrop-blur-md ${
+              isLight ? 'bg-white/90 border-rose-100/90 shadow-sm hover:border-rose-300' : 'bg-[#181328]/90 border-white/10 hover:border-pink-500/40'
             }`}>
               <span className="font-mono text-[10px] uppercase font-bold text-[#be123c] dark:text-pink-400 block tracking-wider">Pillar 1</span>
               <span className={`font-display text-xs font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
                 {t.landing?.pillar1Title || 'Personal Entertainment OS'}
               </span>
             </div>
-            <div className={`p-3 rounded-2xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-default ${
-              isLight ? 'bg-white border-rose-100/90 shadow-sm hover:border-rose-300' : 'bg-[#181328]/80 border-white/10 hover:border-amber-500/40'
+            <div className={`p-3 rounded-2xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-default backdrop-blur-md ${
+              isLight ? 'bg-white/90 border-rose-100/90 shadow-sm hover:border-rose-300' : 'bg-[#181328]/90 border-white/10 hover:border-amber-500/40'
             }`}>
               <span className="font-mono text-[10px] uppercase font-bold text-amber-500 dark:text-amber-400 block tracking-wider">Pillar 2</span>
               <span className={`font-display text-xs font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
                 {t.landing?.pillar2Title || '"I Have 5 Mins" Mode'}
               </span>
             </div>
-            <div className={`p-3 rounded-2xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-default ${
-              isLight ? 'bg-white border-rose-100/90 shadow-sm hover:border-rose-300' : 'bg-[#181328]/80 border-white/10 hover:border-purple-500/40'
+            <div className={`p-3 rounded-2xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-default backdrop-blur-md ${
+              isLight ? 'bg-white/90 border-rose-100/90 shadow-sm hover:border-rose-300' : 'bg-[#181328]/90 border-white/10 hover:border-purple-500/40'
             }`}>
               <span className="font-mono text-[10px] uppercase font-bold text-purple-600 dark:text-purple-400 block tracking-wider">Pillar 3</span>
               <span className={`font-display text-xs font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
                 {t.landing?.pillar3Title || 'Make This Useful (Quiz/Notes)'}
               </span>
             </div>
-            <div className={`p-3 rounded-2xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-default ${
-              isLight ? 'bg-white border-rose-100/90 shadow-sm hover:border-rose-300' : 'bg-[#181328]/80 border-white/10 hover:border-rose-500/40'
+            <div className={`p-3 rounded-2xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-default backdrop-blur-md ${
+              isLight ? 'bg-white/90 border-rose-100/90 shadow-sm hover:border-rose-300' : 'bg-[#181328]/90 border-white/10 hover:border-rose-500/40'
             }`}>
               <span className="font-mono text-[10px] uppercase font-bold text-rose-600 dark:text-rose-400 block tracking-wider">Pillar 4</span>
               <span className={`font-display text-xs font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
