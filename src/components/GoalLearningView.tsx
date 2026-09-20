@@ -80,7 +80,7 @@ export const GoalLearningView: React.FC = () => {
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 block">
               Active Goal Tracks
             </span>
-            {goals.map(g => {
+            {(goals || []).map(g => {
               const isSelected = selectedGoal?.id === g.id;
               const progressPct = Math.round((g.completedReels / g.curriculum.length) * 100);
               return (
@@ -130,7 +130,7 @@ export const GoalLearningView: React.FC = () => {
                     Step-by-Step Reel Curriculum
                   </span>
                   <div className="space-y-2.5">
-                    {selectedGoal.curriculum.map((item, idx) => (
+                    {(selectedGoal.curriculum || []).map((item, idx) => (
                       <div
                         key={idx}
                         className="p-3.5 rounded-2xl bg-slate-800/60 border border-white/10 flex items-center justify-between group hover:border-cyan-500/30 transition"

@@ -473,7 +473,7 @@ export const AICompanion: React.FC = () => {
                       )}
                       {msg.languageAnalysis.detectedSlangs?.length > 0 && (
                         <span className="px-1.5 py-0.5 rounded bg-amber-950/60 border border-amber-500/30 text-amber-300 font-mono">
-                          ⚡ Gen-Z: {msg.languageAnalysis.detectedSlangs.map((s: any) => s.term).join(', ')}
+                          ⚡ Gen-Z: {(msg.languageAnalysis.detectedSlangs || []).map((s: any) => s.term).join(', ')}
                         </span>
                       )}
                     </div>

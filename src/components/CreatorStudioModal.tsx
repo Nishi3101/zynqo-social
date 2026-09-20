@@ -347,7 +347,7 @@ export const CreatorStudioModal: React.FC = () => {
                       3 AI-Generated Viral Hooks
                     </span>
                     <div className="space-y-2">
-                      {generatedData.hooks.map((h: any, i: number) => (
+                      {(generatedData.hooks || []).map((h: any, i: number) => (
                         <div
                           key={i}
                           className="p-3 rounded-2xl bg-slate-800/60 border border-white/10 flex items-center justify-between"
@@ -372,7 +372,7 @@ export const CreatorStudioModal: React.FC = () => {
                       60-Second Structured Script
                     </span>
                     <div className="space-y-2 bg-slate-950/60 p-3.5 rounded-2xl border border-white/10">
-                      {generatedData.script.segments.map((seg: any, idx: number) => (
+                      {(generatedData.script?.segments || []).map((seg: any, idx: number) => (
                         <div key={idx} className="text-xs space-y-1 pb-2 border-b border-white/5 last:border-0 last:pb-0">
                           <span className="text-[10px] font-mono text-cyan-300 font-bold">
                             {seg.timestamp}
@@ -549,7 +549,7 @@ export const CreatorStudioModal: React.FC = () => {
                       Audience Retention Curve (Seconds 0 to 55)
                     </span>
                     <div className="flex items-end gap-2 h-32 pt-4">
-                      {analytics.retentionCurve.map((pt: any, i: number) => (
+                      {(analytics?.retentionCurve || []).map((pt: any, i: number) => (
                         <div key={i} className="flex-1 flex flex-col items-center gap-1 h-full justify-end">
                           <div
                             className="w-full bg-gradient-to-t from-cyan-600 to-violet-500 rounded-t-md transition-all duration-500"

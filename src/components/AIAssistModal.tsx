@@ -712,7 +712,7 @@ export const AIAssistModal: React.FC<AIAssistModalProps> = ({
                 </div>
               ) : (
                 <div className="space-y-3">
-                  {captions.map((cap) => {
+                  {(captions || []).map((cap) => {
                     const isSelected = selectedCaptionId === cap.id;
                     const isEditing = editingCaptionId === cap.id;
                     const text = editedCaptions[cap.id] ?? cap.text;
@@ -964,7 +964,7 @@ export const AIAssistModal: React.FC<AIAssistModalProps> = ({
                     </div>
 
                     <div className="flex flex-wrap gap-1.5">
-                      {group.tags.map((tag) => {
+                      {(group.tags || []).map((tag) => {
                         const isSelected = selectedHashtags.has(tag);
                         return (
                           <button
@@ -1013,7 +1013,7 @@ export const AIAssistModal: React.FC<AIAssistModalProps> = ({
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                {thumbnails.map((thumb) => {
+                {(thumbnails || []).map((thumb) => {
                   const isSelected = selectedThumbnailId === thumb.id;
                   const overlayText = customOverlayTexts[thumb.id] ?? thumb.suggestedOverlayText;
 

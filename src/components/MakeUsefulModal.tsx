@@ -34,10 +34,48 @@ export const MakeUsefulModal: React.FC = () => {
 
   if (!currentReel) return null;
 
-  const useful: UsefulOutputs = currentReel.usefulOutputs;
+  const rawUseful = currentReel.usefulOutputs;
+  const useful: UsefulOutputs = {
+    notes: rawUseful?.notes || {
+      summary: currentReel.description || currentReel.title,
+      bulletPoints: ['Key takeaway 1: Actionable premise', 'Key takeaway 2: Practical implementation'],
+      keyTakeaway: currentReel.title
+    },
+    quiz: Array.isArray(rawUseful?.quiz) && rawUseful.quiz.length > 0 ? rawUseful.quiz : [
+      {
+        question: `What is the core focus of ${currentReel.title}?`,
+        options: [currentReel.title, 'Unrelated topic', 'Random noise', 'No action'],
+        correctIndex: 0,
+        explanation: 'Directly stated in the reel.'
+      }
+    ],
+    tasks: Array.isArray(rawUseful?.tasks) && rawUseful.tasks.length > 0 
+      ? rawUseful.tasks 
+      : Array.isArray((rawUseful as any)?.checklist)
+      ? (rawUseful as any).checklist.map((c: any, ci: number) => ({
+          id: `t-${currentReel.id}-${ci}`,
+          title: c.task || `Action item ${ci + 1}`,
+          estimatedMinutes: c.minutes || 5,
+          category: currentReel.category || 'Action'
+        }))
+      : [
+          {
+            id: `t-${currentReel.id}-0`,
+            title: `Review insights from ${currentReel.title}`,
+            estimatedMinutes: 5,
+            category: 'Action'
+          }
+        ],
+    studyPlan: Array.isArray(rawUseful?.studyPlan) && rawUseful.studyPlan.length > 0 ? rawUseful.studyPlan : [
+      { day: 'Day 1', action: 'Apply core principle', outcome: 'Action accomplished' }
+    ]
+  };
 
   const handleCopyNotes = () => {
-    const text = `${useful.notes.summary}\n\nKey Takeaways:\n${useful.notes.bulletPoints.map(b => `- ${b}`).join('\n')}\n\nCore Rule: ${useful.notes.keyTakeaway}`;
+    const summary = useful.notes?.summary || '';
+    const bullets = (useful.notes?.bulletPoints || []).map(b => `- ${b}`).join('\n');
+    const rule = useful.notes?.keyTakeaway || '';
+    const text = `${summary}\n\nKey Takeaways:\n${bullets}\n\nCore Rule: ${rule}`;
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -49,13 +87,13 @@ export const MakeUsefulModal: React.FC = () => {
     setIsAnswerSubmitted(true);
 
     const question = useful.quiz[currentQuestionIdx];
-    if (idx === question.correctIndex) {
+    if (question && idx === question.correctIndex) {
       setScore(prev => prev + 1);
     }
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestionIdx + 1 < useful.quiz.length) {
+    if (currentQuestionIdx + 1 < (useful.quiz || []).length) {
       setCurrentQuestionIdx(prev => prev + 1);
       setSelectedOption(null);
       setIsAnswerSubmitted(false);
@@ -226,8 +264,8 @@ export const MakeUsefulModal: React.FC = () => {
 
                   {/* Options */}
                   <div className="space-y-2.5">
-                    {useful.quiz[currentQuestionIdx].options.map((opt, idx) => {
-                      const isCorrect = idx === useful.quiz[currentQuestionIdx].correctIndex;
+                    {(useful.quiz[currentQuestionIdx]?.options || []).map((opt, idx) => {
+                      const isCorrect = idx === useful.quiz[currentQuestionIdx]?.correctIndex;
                       const isSelected = selectedOption === idx;
 
                       let btnStyle = 'bg-slate-800/60 border-white/10 text-slate-200 hover:border-violet-500/50';
@@ -264,13 +302,13 @@ export const MakeUsefulModal: React.FC = () => {
                         AI Reasoning & Explanation
                       </span>
                       <p className="text-xs text-slate-200">
-                        {useful.quiz[currentQuestionIdx].explanation}
+                        {useful.quiz[currentQuestionIdx]?.explanation}
                       </p>
                       <button
                         onClick={handleNextQuestion}
                         className="mt-2 px-4 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 transition ml-auto"
                       >
-                        <span>{currentQuestionIdx + 1 < useful.quiz.length ? 'Next Question' : 'Finish Quiz'}</span>
+                        <span>{currentQuestionIdx + 1 < (useful.quiz || []).length ? 'Next Question' : 'Finish Quiz'}</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -285,7 +323,7 @@ export const MakeUsefulModal: React.FC = () => {
                   <div>
                     <h3 className="text-lg font-bold text-white">Quiz Mastered!</h3>
                     <p className="text-xs text-slate-400 mt-1">
-                      You scored {score} / {useful.quiz.length} and earned <span className="text-cyan-400 font-bold">+45 XP</span>!
+                      You scored {score} / {(useful.quiz || []).length} and earned <span className="text-cyan-400 font-bold">+45 XP</span>!
                     </p>
                   </div>
                   <div className="flex justify-center gap-2">
@@ -315,7 +353,7 @@ export const MakeUsefulModal: React.FC = () => {
                 Transform passive watching into real execution. Check off tasks as you finish them to earn XP!
               </p>
               <div className="space-y-2">
-                {useful.tasks.map(task => {
+                {(useful.tasks || []).map(task => {
                   const isDone = !!completedTaskIds[task.id];
                   return (
                     <div
@@ -352,7 +390,7 @@ export const MakeUsefulModal: React.FC = () => {
                 3-Day structured micro-roadmap derived from this video's principles:
               </p>
               <div className="space-y-2.5">
-                {useful.studyPlan.map((plan, i) => (
+                {(useful.studyPlan || []).map((plan, i) => (
                   <div key={i} className="p-3.5 rounded-2xl bg-slate-800/60 border border-white/10 flex flex-col gap-1">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-amber-400">{plan.day}</span>

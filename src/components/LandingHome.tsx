@@ -401,7 +401,7 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-              {reels.slice(0, 6).map((reel, idx) => {
+              {(reels || []).slice(0, 6).map((reel, idx) => {
                 const simulatedProgress = [68, 42, 85, 50, 92, 35][idx % 6];
                 const simulatedElapsed = Math.round((reel.duration || 30) * (simulatedProgress / 100));
                 return (
@@ -467,7 +467,7 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
                       </h4>
                       <div className="flex items-center justify-between text-[10px]">
                         <span className={`truncate max-w-[85px] ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
-                          {reel.creator.name}
+                          {reel.creator?.name || 'Creator'}
                         </span>
                         <span className={`font-semibold font-mono ${
                           isLight ? 'text-rose-700' : 'text-pink-400'

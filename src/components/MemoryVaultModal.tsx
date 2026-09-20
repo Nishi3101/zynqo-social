@@ -68,7 +68,7 @@ export const MemoryVaultModal: React.FC = () => {
                 </span>
               </div>
               <ul className="space-y-1.5">
-                {digest.insightsLearned.map((ins: string, i: number) => (
+                {(digest.insightsLearned || []).map((ins: string, i: number) => (
                   <li key={i} className="text-xs text-slate-200 flex items-start gap-2">
                     <span className="text-cyan-400 mt-0.5">•</span>
                     <span>{ins}</span>

@@ -124,6 +124,20 @@
           "focus": "Group Synchronization",
           "action": "Dance with friends or family in a circle to build festive harmony."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-navratri-united-way-garba-0",
+          "title": "Learn basic 2-step and 3-step Garba claps and footwork",
+          "estimatedMinutes": 10,
+          "category": "Culture & Dance"
+        },
+        {
+          "id": "t-ig-navratri-united-way-garba-1",
+          "title": "Listen to traditional dhol rhythm to practice synchronization",
+          "estimatedMinutes": 5,
+          "category": "Culture & Dance"
+        }
       ]
     },
     "isSponsored": true,
@@ -144,7 +158,8 @@
       "url": "https://instagram.com/unitedwaybaroda_garba",
       "license": "CC-BY 4.0"
     },
-    "feedCategory": "communities"
+    "feedCategory": "communities",
+    "comments": []
   },
   {
     "id": "ig-DdPNT9Yyp8H",
@@ -273,8 +288,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdPNT9Yyp8H-0",
+          "title": "Review key steps from @webtrusty's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Tech & AI"
+        },
+        {
+          "id": "t-ig-DdPNT9Yyp8H-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Tech & AI"
+        },
+        {
+          "id": "t-ig-DdPNT9Yyp8H-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Tech & AI"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-tmkoc-Dc0d1dtu1ug",
@@ -299,7 +335,7 @@
       "gokuldham"
     ],
     "mood": "humorous",
-    "likes": 84500,
+    "likes": 84505,
     "commentsCount": 1250,
     "shares": 23660,
     "views": 420000,
@@ -400,8 +436,23 @@
           "focus": "Social Joy",
           "action": "Watch Gokuldham festival celebrations with family."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-tmkoc-Dc0d1dtu1ug-0",
+          "title": "Enjoy a healthy laughter break with TMKOC",
+          "estimatedMinutes": 2,
+          "category": "Entertainment & Comedy"
+        },
+        {
+          "id": "t-ig-tmkoc-Dc0d1dtu1ug-1",
+          "title": "Share a funny Jethalal moment with family or friends",
+          "estimatedMinutes": 1,
+          "category": "Entertainment & Comedy"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdWqxO-sR9e",
@@ -425,7 +476,7 @@
       "workout"
     ],
     "mood": "energetic",
-    "likes": 1200,
+    "likes": 1202,
     "commentsCount": 45,
     "shares": 105,
     "views": 15000,
@@ -530,8 +581,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdWqxO-sR9e-0",
+          "title": "Review key steps from @william.sww's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Fitness & Health"
+        },
+        {
+          "id": "t-ig-DdWqxO-sR9e-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Fitness & Health"
+        },
+        {
+          "id": "t-ig-DdWqxO-sR9e-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Fitness & Health"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-navratri-dodhiya-14step",
@@ -642,8 +714,23 @@
           "focus": "Full Flow",
           "action": "Perform 5 continuous cycles without breaking rhythm."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-navratri-dodhiya-14step-0",
+          "title": "Practice 14 counts slowly without music to memorize the pattern",
+          "estimatedMinutes": 5,
+          "category": "Culture & Dance"
+        },
+        {
+          "id": "t-ig-navratri-dodhiya-14step-1",
+          "title": "Accelerate to full tempo with traditional dhol track",
+          "estimatedMinutes": 5,
+          "category": "Culture & Dance"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdVTdiOPDtt",
@@ -772,8 +859,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdVTdiOPDtt-0",
+          "title": "Review key steps from @thegaonwaleofficial's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Travel & Adventure"
+        },
+        {
+          "id": "t-ig-DdVTdiOPDtt-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Travel & Adventure"
+        },
+        {
+          "id": "t-ig-DdVTdiOPDtt-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Travel & Adventure"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-tmkoc-DdBV_uOhjGp",
@@ -899,8 +1007,23 @@
           "focus": "Social Joy",
           "action": "Watch Gokuldham festival celebrations with family."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-tmkoc-DdBV_uOhjGp-0",
+          "title": "Enjoy a healthy laughter break with TMKOC",
+          "estimatedMinutes": 2,
+          "category": "Entertainment & Comedy"
+        },
+        {
+          "id": "t-ig-tmkoc-DdBV_uOhjGp-1",
+          "title": "Share a funny Jethalal moment with family or friends",
+          "estimatedMinutes": 1,
+          "category": "Entertainment & Comedy"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdZIPD-RVve",
@@ -1029,8 +1152,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdZIPD-RVve-0",
+          "title": "Review key steps from @ruus_kh's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Food & Lifestyle"
+        },
+        {
+          "id": "t-ig-DdZIPD-RVve-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Food & Lifestyle"
+        },
+        {
+          "id": "t-ig-DdZIPD-RVve-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Food & Lifestyle"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-navratri-titodo-sanedo-beats",
@@ -1141,8 +1285,23 @@
           "focus": "Endurance Stamina",
           "action": "Sustain a 3-minute continuous Titodo set."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-navratri-titodo-sanedo-beats-0",
+          "title": "Learn the 3-clap Titodo progression",
+          "estimatedMinutes": 5,
+          "category": "Culture & Dance"
+        },
+        {
+          "id": "t-ig-navratri-titodo-sanedo-beats-1",
+          "title": "Practice rapid foot switch in sync with dhol tempo",
+          "estimatedMinutes": 5,
+          "category": "Culture & Dance"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdUcTDvzIrk",
@@ -1271,8 +1430,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdUcTDvzIrk-0",
+          "title": "Review key steps from @deek_0608's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Productivity & Growth"
+        },
+        {
+          "id": "t-ig-DdUcTDvzIrk-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Productivity & Growth"
+        },
+        {
+          "id": "t-ig-DdUcTDvzIrk-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Productivity & Growth"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-tmkoc-DdYUJs9h43a",
@@ -1398,8 +1578,23 @@
           "focus": "Social Joy",
           "action": "Watch Gokuldham festival celebrations with family."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-tmkoc-DdYUJs9h43a-0",
+          "title": "Enjoy a healthy laughter break with TMKOC",
+          "estimatedMinutes": 2,
+          "category": "Entertainment & Comedy"
+        },
+        {
+          "id": "t-ig-tmkoc-DdYUJs9h43a-1",
+          "title": "Share a funny Jethalal moment with family or friends",
+          "estimatedMinutes": 1,
+          "category": "Entertainment & Comedy"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdWE6TpPpqu",
@@ -1528,8 +1723,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdWE6TpPpqu-0",
+          "title": "Review key steps from @raedslacklines's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Mindfulness & Detox"
+        },
+        {
+          "id": "t-ig-DdWE6TpPpqu-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Mindfulness & Detox"
+        },
+        {
+          "id": "t-ig-DdWE6TpPpqu-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Mindfulness & Detox"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-navratri-chaniya-choli-styling",
@@ -1640,8 +1856,23 @@
           "focus": "Accessorizing",
           "action": "Coordinate oxidized jewelry to balance weight and visual shine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-navratri-chaniya-choli-styling-0",
+          "title": "Check garment breathability and weight before long dance nights",
+          "estimatedMinutes": 3,
+          "category": "Culture & Dance"
+        },
+        {
+          "id": "t-ig-navratri-chaniya-choli-styling-1",
+          "title": "Secure oxidized jewelry with safety pins and silicone backings",
+          "estimatedMinutes": 2,
+          "category": "Culture & Dance"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdU_XfZREJJ",
@@ -1770,8 +2001,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdU_XfZREJJ-0",
+          "title": "Review key steps from @savadostudios's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Tech & AI"
+        },
+        {
+          "id": "t-ig-DdU_XfZREJJ-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Tech & AI"
+        },
+        {
+          "id": "t-ig-DdU_XfZREJJ-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Tech & AI"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-tmkoc-DdY3X2Csi2q",
@@ -1897,8 +2149,23 @@
           "focus": "Social Joy",
           "action": "Watch Gokuldham festival celebrations with family."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-tmkoc-DdY3X2Csi2q-0",
+          "title": "Enjoy a healthy laughter break with TMKOC",
+          "estimatedMinutes": 2,
+          "category": "Entertainment & Comedy"
+        },
+        {
+          "id": "t-ig-tmkoc-DdY3X2Csi2q-1",
+          "title": "Share a funny Jethalal moment with family or friends",
+          "estimatedMinutes": 1,
+          "category": "Entertainment & Comedy"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdXH_4Gtttc",
@@ -2027,8 +2294,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdXH_4Gtttc-0",
+          "title": "Review key steps from @kozak.sport's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Fitness & Health"
+        },
+        {
+          "id": "t-ig-DdXH_4Gtttc-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Fitness & Health"
+        },
+        {
+          "id": "t-ig-DdXH_4Gtttc-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Fitness & Health"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-navratri-dholida-raas-performance",
@@ -2139,8 +2427,23 @@
           "focus": "Cool Down & Recovery",
           "action": "Gentle stretching and hydration routine after dance."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-navratri-dholida-raas-performance-0",
+          "title": "Warm up ankles, calves, and hamstrings before fast Garba",
+          "estimatedMinutes": 5,
+          "category": "Culture & Dance"
+        },
+        {
+          "id": "t-ig-navratri-dholida-raas-performance-1",
+          "title": "Hydrate with water and coconut water / lemon water",
+          "estimatedMinutes": 2,
+          "category": "Culture & Dance"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdV5tUnAUl6",
@@ -2269,8 +2572,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdV5tUnAUl6-0",
+          "title": "Review key steps from @er.hansrajkarela's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Travel & Adventure"
+        },
+        {
+          "id": "t-ig-DdV5tUnAUl6-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Travel & Adventure"
+        },
+        {
+          "id": "t-ig-DdV5tUnAUl6-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Travel & Adventure"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdYOAHWtQtq",
@@ -2399,8 +2723,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdYOAHWtQtq-0",
+          "title": "Review key steps from @itsajoyfulkindoflife's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Food & Lifestyle"
+        },
+        {
+          "id": "t-ig-DdYOAHWtQtq-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Food & Lifestyle"
+        },
+        {
+          "id": "t-ig-DdYOAHWtQtq-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Food & Lifestyle"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdW43OSsgU1",
@@ -2529,8 +2874,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdW43OSsgU1-0",
+          "title": "Review key steps from @eclipw.me's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Productivity & Growth"
+        },
+        {
+          "id": "t-ig-DdW43OSsgU1-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Productivity & Growth"
+        },
+        {
+          "id": "t-ig-DdW43OSsgU1-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Productivity & Growth"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdTB_BlxTvz",
@@ -2659,8 +3025,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdTB_BlxTvz-0",
+          "title": "Review key steps from @earthy_shalini's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Mindfulness & Detox"
+        },
+        {
+          "id": "t-ig-DdTB_BlxTvz-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Mindfulness & Detox"
+        },
+        {
+          "id": "t-ig-DdTB_BlxTvz-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Mindfulness & Detox"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdW6CnyM94H",
@@ -2789,8 +3176,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdW6CnyM94H-0",
+          "title": "Review key steps from @lojain__ashraf_'s demonstration",
+          "estimatedMinutes": 3,
+          "category": "Tech & AI"
+        },
+        {
+          "id": "t-ig-DdW6CnyM94H-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Tech & AI"
+        },
+        {
+          "id": "t-ig-DdW6CnyM94H-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Tech & AI"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdWEbx9T__X",
@@ -2919,8 +3327,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdWEbx9T__X-0",
+          "title": "Review key steps from @sith_toracali's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Fitness & Health"
+        },
+        {
+          "id": "t-ig-DdWEbx9T__X-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Fitness & Health"
+        },
+        {
+          "id": "t-ig-DdWEbx9T__X-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Fitness & Health"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdNzj7yJAIW",
@@ -3049,8 +3478,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdNzj7yJAIW-0",
+          "title": "Review key steps from @mukesh_suaan's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Travel & Adventure"
+        },
+        {
+          "id": "t-ig-DdNzj7yJAIW-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Travel & Adventure"
+        },
+        {
+          "id": "t-ig-DdNzj7yJAIW-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Travel & Adventure"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdWlrQhyUHB",
@@ -3179,8 +3629,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdWlrQhyUHB-0",
+          "title": "Review key steps from @asmasmsm1's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Food & Lifestyle"
+        },
+        {
+          "id": "t-ig-DdWlrQhyUHB-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Food & Lifestyle"
+        },
+        {
+          "id": "t-ig-DdWlrQhyUHB-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Food & Lifestyle"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdRas6aBycc",
@@ -3309,8 +3780,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdRas6aBycc-0",
+          "title": "Review key steps from @studywithsunquyh's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Productivity & Growth"
+        },
+        {
+          "id": "t-ig-DdRas6aBycc-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Productivity & Growth"
+        },
+        {
+          "id": "t-ig-DdRas6aBycc-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Productivity & Growth"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdYLr-AzOcx",
@@ -3439,8 +3931,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdYLr-AzOcx-0",
+          "title": "Review key steps from @mahalayayogashala108's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Mindfulness & Detox"
+        },
+        {
+          "id": "t-ig-DdYLr-AzOcx-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Mindfulness & Detox"
+        },
+        {
+          "id": "t-ig-DdYLr-AzOcx-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Mindfulness & Detox"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdVEomDSc3-",
@@ -3569,8 +4082,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdVEomDSc3--0",
+          "title": "Review key steps from @techresourceshub_ai's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Tech & AI"
+        },
+        {
+          "id": "t-ig-DdVEomDSc3--1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Tech & AI"
+        },
+        {
+          "id": "t-ig-DdVEomDSc3--2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Tech & AI"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdWQwyBtb4S",
@@ -3699,8 +4233,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdWQwyBtb4S-0",
+          "title": "Review key steps from @johnworkout_'s demonstration",
+          "estimatedMinutes": 3,
+          "category": "Fitness & Health"
+        },
+        {
+          "id": "t-ig-DdWQwyBtb4S-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Fitness & Health"
+        },
+        {
+          "id": "t-ig-DdWQwyBtb4S-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Fitness & Health"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdNYCxPyBLt",
@@ -3829,8 +4384,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdNYCxPyBLt-0",
+          "title": "Review key steps from @flygirljo's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Travel & Adventure"
+        },
+        {
+          "id": "t-ig-DdNYCxPyBLt-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Travel & Adventure"
+        },
+        {
+          "id": "t-ig-DdNYCxPyBLt-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Travel & Adventure"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdWmja7slR5",
@@ -3959,8 +4535,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdWmja7slR5-0",
+          "title": "Review key steps from @jesusgrannda's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Food & Lifestyle"
+        },
+        {
+          "id": "t-ig-DdWmja7slR5-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Food & Lifestyle"
+        },
+        {
+          "id": "t-ig-DdWmja7slR5-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Food & Lifestyle"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdYTVzIzE4u",
@@ -4089,8 +4686,29 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdYTVzIzE4u-0",
+          "title": "Review key steps from @dreamarmy_04's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Productivity & Growth"
+        },
+        {
+          "id": "t-ig-DdYTVzIzE4u-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Productivity & Growth"
+        },
+        {
+          "id": "t-ig-DdYTVzIzE4u-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Productivity & Growth"
+        }
       ]
-    }
+    },
+    "comments": []
   },
   {
     "id": "ig-DdMZzzCSeRI",
@@ -4219,7 +4837,28 @@
           "focus": "Review & Integration",
           "action": "Evaluate progress, address friction points, and solidify routine."
         }
+      ],
+      "tasks": [
+        {
+          "id": "t-ig-DdMZzzCSeRI-0",
+          "title": "Review key steps from @yogtantra_sadhna_shaktipath's demonstration",
+          "estimatedMinutes": 3,
+          "category": "Mindfulness & Detox"
+        },
+        {
+          "id": "t-ig-DdMZzzCSeRI-1",
+          "title": "Practice first execution round under controlled conditions",
+          "estimatedMinutes": 10,
+          "category": "Mindfulness & Detox"
+        },
+        {
+          "id": "t-ig-DdMZzzCSeRI-2",
+          "title": "Log notes and track improvements in your personal study ledger",
+          "estimatedMinutes": 5,
+          "category": "Mindfulness & Detox"
+        }
       ]
-    }
+    },
+    "comments": []
   }
 ]

@@ -158,5 +158,15 @@
     "category": "Student",
     "current_mood": "Happy",
     "created_at": "2026-09-11T09:14:40.540Z"
+  },
+  {
+    "id": "user-1789891090388",
+    "name": "Nishi Thakkar",
+    "email": "thakkarpari692@gmail.com",
+    "language": "en",
+    "date_of_birth": "2008-01-31",
+    "category": "Student",
+    "current_mood": "Chill",
+    "created_at": "2026-09-20T07:58:10.388Z"
   }
 ]

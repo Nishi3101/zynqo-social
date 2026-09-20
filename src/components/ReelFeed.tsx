@@ -234,7 +234,7 @@ export const ReelFeed: React.FC = () => {
       }`}>
         {/* Discovery Feeds Switcher Bar (#48–#57) */}
         <div className="absolute top-2 left-2 right-2 z-40 flex items-center gap-1 overflow-x-auto no-scrollbar py-1 px-1.5 rounded-2xl bg-black/75 backdrop-blur-md border border-white/15 select-none">
-          {feedTabs.map(tab => {
+          {(feedTabs || []).map(tab => {
             const TabIcon = tab.icon;
             const isActive = activeFeedTab === tab.id;
             return (
@@ -268,7 +268,7 @@ export const ReelFeed: React.FC = () => {
           onMouseUp={handleMouseUp}
           className="reel-container w-full h-full flex-1"
         >
-          {displayedReels.map((reel, idx) => (
+          {(displayedReels || []).map((reel, idx) => (
             <div key={reel.id} className="reel-item w-full h-full relative">
               <ReelCard 
                 reel={reel} 

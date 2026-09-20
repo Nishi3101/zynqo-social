@@ -77,7 +77,7 @@ export const RealityCheckModal: React.FC = () => {
               {t.modals.sourcesTitle}
             </span>
             <div className="space-y-2">
-              {realityCheck.sources.map((source, idx) => (
+              {(realityCheck.sources || []).map((source, idx) => (
                 <a
                   key={idx}
                   href={source.url}

@@ -167,6 +167,7 @@ export const ProfileView: React.FC = () => {
 
   // Activity filter logic
   const filterActivityList = (items: ActivityItem[]) => {
+    if (!items || !Array.isArray(items)) return [];
     if (activityFilter === 'all') return items;
     if (activityFilter === 'reels') return items.filter(it => it.type === 'reel');
     if (activityFilter === 'videos') return items.filter(it => it.type === 'video');
@@ -174,8 +175,8 @@ export const ProfileView: React.FC = () => {
     return items;
   };
 
-  const filteredLiked = filterActivityList(likedActivities);
-  const filteredSaved = filterActivityList(savedActivities);
+  const filteredLiked = filterActivityList(likedActivities) || [];
+  const filteredSaved = filterActivityList(savedActivities) || [];
 
   return (
     <div className={`w-full min-h-[100dvh] pb-16 overflow-x-hidden font-sans transition-colors duration-200 ${
@@ -622,7 +623,7 @@ export const ProfileView: React.FC = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {userReels.map((reel) => (
+                {(userReels || []).map((reel) => (
                   <div
                     key={reel.id}
                     onClick={() => setActiveMediaItem({
@@ -719,7 +720,7 @@ export const ProfileView: React.FC = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {userVideos.map((vid) => (
+                {(userVideos || []).map((vid) => (
                   <div
                     key={vid.id}
                     onClick={() => setActiveMediaItem({
@@ -815,7 +816,7 @@ export const ProfileView: React.FC = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {userPosts.map((post) => (
+                {(userPosts || []).map((post) => (
                   <div
                     key={post.id}
                     onClick={() => setActiveMediaItem({
@@ -1199,7 +1200,7 @@ export const ProfileView: React.FC = () => {
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                    {filteredLiked.map((item) => (
+                    {(filteredLiked || []).map((item) => (
                       <div
                         key={item.id}
                         className={`p-3 rounded-2xl border flex flex-col justify-between space-y-3 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg ${
@@ -1300,7 +1301,7 @@ export const ProfileView: React.FC = () => {
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                    {filteredSaved.map((item) => (
+                    {(filteredSaved || []).map((item) => (
                       <div
                         key={item.id}
                         className={`p-3 rounded-2xl border flex flex-col justify-between space-y-3 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg ${
@@ -1395,7 +1396,7 @@ export const ProfileView: React.FC = () => {
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    {commentActivities.map((c) => (
+                    {(commentActivities || []).map((c) => (
                       <div
                         key={c.id}
                         className={`p-4 rounded-2xl border flex items-start justify-between gap-4 transition ${

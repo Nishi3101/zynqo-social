@@ -377,7 +377,7 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) =
             {/* Comment list */}
             <div className="flex-1 overflow-y-auto py-3 flex flex-col gap-3 max-h-72">
               {reel.comments && reel.comments.length > 0 ? (
-                reel.comments.map(c => (
+                (reel.comments || []).map(c => (
                   <div key={c.id} className="flex gap-2.5 items-start">
                     <img
                       src={c.avatar}

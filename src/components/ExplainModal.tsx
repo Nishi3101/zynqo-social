@@ -57,7 +57,7 @@ export const ExplainModal: React.FC = () => {
               Matched Interests
             </span>
             <div className="flex flex-wrap gap-2">
-              {whyAmISeeingThis.matchedInterests.map((interest, idx) => (
+              {(whyAmISeeingThis.matchedInterests || []).map((interest, idx) => (
                 <span
                   key={idx}
                   className="px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 border border-white/10 text-cyan-300 flex items-center gap-1.5"
