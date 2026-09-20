@@ -260,7 +260,7 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
           3. CENTRAL CIRCULAR RADAR SCOPE
           ───────────────────────────────────────────────────────────── */}
       <div className="relative z-10 flex-1 flex items-center justify-center my-auto min-h-0 py-2">
-        <div className={`relative w-[260px] h-[260px] xs:w-[280px] xs:h-[280px] sm:w-[300px] sm:h-[300px] lg:w-[310px] lg:h-[310px] rounded-full flex items-center justify-center overflow-hidden transition-all ${
+        <div className={`relative w-[260px] h-[260px] xs:w-[280px] xs:h-[280px] sm:w-[310px] sm:h-[310px] lg:w-[330px] lg:h-[330px] xl:w-[350px] xl:h-[350px] 2xl:w-[370px] 2xl:h-[370px] rounded-full flex items-center justify-center overflow-hidden transition-all ${
           isLight 
             ? 'bg-[#fcf8fa] shadow-[inset_0_0_24px_rgba(244,63,94,0.06)] border border-rose-200/70' 
             : 'bg-[#0e0a17]/95 shadow-[inset_0_0_30px_rgba(236,72,153,0.18)] border border-pink-500/25'

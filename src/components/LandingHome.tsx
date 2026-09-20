@@ -261,7 +261,7 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative px-3 sm:px-6 md:px-10 pt-6 sm:pt-8 pb-10 sm:pb-14 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_390px] xl:grid-cols-[1fr_420px] items-stretch gap-6 lg:gap-8">
+      <section className="relative px-3 sm:px-6 md:px-8 lg:px-10 xl:px-12 pt-6 sm:pt-8 pb-10 sm:pb-14 w-full max-w-[1760px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_450px] xl:grid-cols-[1fr_500px] 2xl:grid-cols-[1fr_540px] items-stretch gap-6 lg:gap-8">
         {/* Left Hero Card with Aesthetic Studio Workspace Background */}
         <div className={`w-full h-full rounded-3xl border shadow-2xl relative overflow-hidden flex flex-col justify-between p-6 sm:p-8 md:p-10 transition-all duration-300 ${
           isLight
@@ -302,7 +302,7 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
               </span>
             </h1>
 
-            <p className={`font-sans text-sm md:text-base font-normal leading-relaxed max-w-xl ${
+            <p className={`font-sans text-sm md:text-base font-normal leading-relaxed max-w-2xl ${
               isLight ? 'text-slate-700' : 'text-slate-300'
             }`}>
               <span className={`italic ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
@@ -390,7 +390,7 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
         <section className={`px-4 sm:px-6 md:px-12 py-8 border-t transition-colors ${
           isLight ? 'bg-white/60 border-rose-100/80' : 'bg-[#120d1e]/70 border-white/10'
         }`}>
-          <div className="max-w-7xl mx-auto space-y-4">
+          <div className="max-w-[1760px] mx-auto space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <div className={`p-2 rounded-xl border shadow-sm ${
