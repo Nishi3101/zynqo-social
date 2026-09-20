@@ -22,9 +22,10 @@ import { getLocalizedReel, getLocalizedCategory } from '../utils/translations';
 interface ReelCardProps {
   reel: Reel;
   isActive: boolean;
+  onEnded?: () => void;
 }
 
-export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive }) => {
+export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) => {
   const { isMuted, toggleMute, isPlaying, togglePlay, addComment, t, language } = useApp();
   const locReel = getLocalizedReel(reel, language);
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -54,6 +55,10 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive }) => {
       }
     } else {
       video.pause();
+      if (!isActive) {
+        video.currentTime = 0;
+        setProgress(0);
+      }
     }
   }, [isActive, isPlaying, isMuted]);
 
@@ -64,6 +69,25 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive }) => {
       setProgress((video.currentTime / video.duration) * 100);
     }
   };
+
+  // Auto-advance to next reel as soon as video finishes
+  const handleVideoEnded = () => {
+    if (onEnded) {
+      onEnded();
+    }
+  };
+
+  // Fallback timer for visualizer reels without videoUrl
+  useEffect(() => {
+    if (!reel.videoUrl && isActive && isPlaying && reel.duration) {
+      const timer = setTimeout(() => {
+        if (onEnded) {
+          onEnded();
+        }
+      }, reel.duration * 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [isActive, isPlaying, reel.videoUrl, reel.duration, onEnded]);
 
   const handleSendComment = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,10 +113,10 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive }) => {
           ref={videoRef}
           src={reel.videoUrl}
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-          loop
           muted={isMuted}
           playsInline
           onTimeUpdate={handleTimeUpdate}
+          onEnded={handleVideoEnded}
         />
       )}
 

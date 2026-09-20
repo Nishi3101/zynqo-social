@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { ChevronUp, ChevronDown, RotateCcw, Sparkles } from 'lucide-react';
+import { RotateCcw, Sparkles } from 'lucide-react';
 import { ReelCard } from './ReelCard';
 import { useApp } from '../context/AppContext';
 
@@ -195,33 +195,20 @@ export const ReelFeed: React.FC = () => {
         >
           {reels.map((reel, idx) => (
             <div key={reel.id} className="reel-item w-full h-full relative">
-              <ReelCard reel={reel} isActive={idx === currentReelIndex} />
+              <ReelCard 
+                reel={reel} 
+                isActive={idx === currentReelIndex}
+                onEnded={() => {
+                  if (idx < reels.length - 1) {
+                    scrollToReel(idx + 1);
+                  } else {
+                    scrollToReel(0);
+                  }
+                }}
+              />
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Desktop Quick Nav Arrows */}
-      <div className="hidden md:flex flex-col items-center gap-2 absolute right-3 lg:right-6 top-1/2 -translate-y-1/2 z-30">
-        <button
-          onClick={() => scrollToReel(currentReelIndex - 1)}
-          disabled={currentReelIndex === 0}
-          className="p-3 rounded-full bg-slate-900/90 hover:bg-cyan-500 hover:text-slate-950 border border-white/15 text-white disabled:opacity-25 disabled:cursor-not-allowed backdrop-blur-md transition shadow-xl hover:scale-110 active:scale-95"
-          title="Previous Reel (↑ or Scroll Up)"
-        >
-          <ChevronUp className="w-5 h-5" />
-        </button>
-        <div className="px-2.5 py-1 rounded-full bg-black/60 border border-white/10 text-center text-[11px] font-mono font-bold text-cyan-300 shadow">
-          {currentReelIndex + 1} / {reels.length}
-        </div>
-        <button
-          onClick={() => scrollToReel(currentReelIndex + 1)}
-          disabled={currentReelIndex === reels.length - 1}
-          className="p-3 rounded-full bg-slate-900/90 hover:bg-cyan-500 hover:text-slate-950 border border-white/15 text-white disabled:opacity-25 disabled:cursor-not-allowed backdrop-blur-md transition shadow-xl hover:scale-110 active:scale-95"
-          title="Next Reel (↓ or Scroll Down)"
-        >
-          <ChevronDown className="w-5 h-5" />
-        </button>
       </div>
     </div>
   );
