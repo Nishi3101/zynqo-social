@@ -34,10 +34,10 @@ jobs:
           cp -r dist/* android/app/src/main/assets/public/
           echo '{"appId":"com.zynqosocial.app","appName":"Zynqo Social","webDir":"dist","server":{"androidScheme":"https"}}' > android/app/src/main/assets/capacitor.config.json
 
-      - name: Setup Java JDK 17
+      - name: Setup Java JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
 
       - name: Make Gradle Executable
