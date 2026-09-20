@@ -19,6 +19,9 @@ import { ProfileView } from './components/ProfileView';
 import { SettingsAndActivityModal } from './components/SettingsAndActivityModal';
 import { LeaderboardModal } from './components/LeaderboardModal';
 import { AIPlaylistsModal } from './components/AIPlaylistsModal';
+import { MobileTopBar } from './components/MobileTopBar';
+import { MobileNavBar } from './components/MobileNavBar';
+import { configureNativeStatusBar, registerNativeBackHandler } from './utils/nativeBridge';
 import { Smartphone, Monitor, Keyboard, Home } from 'lucide-react';
 
 const MainLayout: React.FC = () => {
@@ -30,6 +33,7 @@ const MainLayout: React.FC = () => {
     openAuthModal, 
     closeAuthModal, 
     activeModal,
+    closeModal,
     colorMode,
     t
   } = useApp();
@@ -37,6 +41,31 @@ const MainLayout: React.FC = () => {
   const [deviceFrameMode, setDeviceFrameMode] = useState<'mobile' | 'studio'>('mobile');
   const [showKeyboardHelp, setShowKeyboardHelp] = useState(false);
   const isLight = colorMode === 'light';
+
+  // Sync Native Mobile Status Bar with Color Theme
+  React.useEffect(() => {
+    configureNativeStatusBar(isLight);
+  }, [isLight]);
+
+  // Handle Android Hardware Back Button & Mobile Back Gestures
+  React.useEffect(() => {
+    const unregister = registerNativeBackHandler(() => {
+      if (activeModal) {
+        closeModal();
+        return true;
+      }
+      if (isAuthModalOpen) {
+        closeAuthModal();
+        return true;
+      }
+      if (currentPage !== 'feed') {
+        setCurrentPage('feed');
+        return true;
+      }
+      return false;
+    });
+    return () => unregister();
+  }, [activeModal, isAuthModalOpen, currentPage, closeModal, closeAuthModal, setCurrentPage]);
 
   // If user is on the Landing / Home page
   if (currentPage === 'home') {
@@ -57,10 +86,11 @@ const MainLayout: React.FC = () => {
   // If user is on the Profile & Activity page
   if (currentPage === 'profile') {
     return (
-      <div className={`w-full min-h-[100dvh] h-[100dvh] max-w-full overflow-x-hidden overflow-y-auto transition-colors duration-200 ${
+      <div className={`w-full min-h-[100dvh] h-[100dvh] max-w-full overflow-x-hidden overflow-y-auto pb-16 md:pb-0 transition-colors duration-200 ${
         isLight ? 'zynqo-ambient-bg-light text-slate-900' : 'zynqo-ambient-bg-dark text-slate-100'
       }`}>
         <ProfileView />
+        <MobileNavBar />
         <AuthModal
           isOpen={isAuthModalOpen}
           onClose={closeAuthModal}
@@ -93,6 +123,9 @@ const MainLayout: React.FC = () => {
 
       {/* Main Content Area (Right Side) */}
       <div className="flex-1 flex flex-col h-full min-w-0 overflow-hidden relative z-10">
+        {/* Mobile Top Bar on screens < 768px */}
+        <MobileTopBar />
+
         {/* Viewport Switcher Banner (Mobile Frame Preview vs Immersive Desktop Studio) */}
         <div className={`hidden md:flex items-center justify-between px-6 py-1.5 border-b text-[11px] transition-colors flex-shrink-0 backdrop-blur-md ${
           isLight 
@@ -148,7 +181,7 @@ const MainLayout: React.FC = () => {
         </div>
 
         {/* Main Content Area */}
-        <main className="flex-1 relative flex items-center justify-center overflow-hidden p-0 md:p-3 bg-transparent">
+        <main className="flex-1 relative flex items-center justify-center overflow-hidden p-0 md:p-3 pb-16 md:pb-3 bg-transparent">
           <div className={`w-full h-full flex items-center justify-center ${
             deviceFrameMode === 'mobile' ? 'max-w-[430px]' : 'max-w-4xl'
           }`}>
@@ -202,6 +235,9 @@ const MainLayout: React.FC = () => {
 
       {/* Endless Scroll Firewall Modal */}
       <FirewallModal />
+
+      {/* Mobile Bottom Navigation Bar on screens < 768px */}
+      <MobileNavBar />
 
     </div>
   );

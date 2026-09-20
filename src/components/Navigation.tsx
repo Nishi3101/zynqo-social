@@ -169,7 +169,7 @@ export const Navigation: React.FC = () => {
     : (t.nav?.account || 'Account');
 
   return (
-    <aside className={`h-[100dvh] flex flex-col z-40 border-r flex-shrink-0 transition-all duration-200 select-none w-16 sm:w-20 md:w-64 lg:w-72 ${
+    <aside className={`h-[100dvh] hidden md:flex flex-col z-40 border-r flex-shrink-0 transition-all duration-200 select-none md:w-20 lg:w-72 ${
       isLight 
         ? 'bg-white/95 backdrop-blur-xl border-rose-100/80 text-slate-900 shadow-sm'
         : 'bg-[#0d0b14]/95 backdrop-blur-xl border-white/10 text-slate-100'

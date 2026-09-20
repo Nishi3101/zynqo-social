@@ -422,4 +422,31 @@ html.light .liquid-glass-bubble {
   animation: chromatic-shimmer 8s linear infinite;
 }
 
+/* Mobile & Tablet Cross-Platform Native Enhancements */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@supports (padding: max(0px)) {
+  .safe-area-top {
+    padding-top: max(env(safe-area-inset-top), 12px);
+  }
+  .safe-area-bottom {
+    padding-bottom: max(env(safe-area-inset-bottom), 12px);
+  }
+  .safe-area-inset-x {
+    padding-left: max(env(safe-area-inset-left), 0px);
+    padding-right: max(env(safe-area-inset-right), 0px);
+  }
+}
+
+button, a {
+  touch-action: manipulation;
+}
+
+html, body {
+  overscroll-behavior-y: none;
+}
+
+
 
