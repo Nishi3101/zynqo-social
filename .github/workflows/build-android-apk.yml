@@ -49,28 +49,16 @@ jobs:
         run: chmod +x android/gradlew
 
       - name: Build Debug APK
-        id: gradle_build
         run: |
           cd android
-          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee gradle.log
-        continue-on-error: true
+          ./gradlew assembleDebug --no-daemon --stacktrace
 
-      - name: Report Build Status
+      - name: Locate and Prepare APK
         run: |
-          echo "### Gradle Build Log" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          tail -n 120 android/gradle.log >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          if [ -f android/app/build/outputs/apk/debug/app-debug.apk ]; then
-            echo "APK build succeeded!" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "APK build failed!" >> $GITHUB_STEP_SUMMARY
-            exit 1
-          fi
-
-      - name: Rename and Prepare APK
-        run: |
-          cp android/app/build/outputs/apk/debug/app-debug.apk zynqo-social.apk
+          APK_PATH=$(find android/app/build/outputs/apk -name "*.apk" | head -n 1)
+          echo "Found APK at: $APK_PATH"
+          cp "$APK_PATH" zynqo-social.apk
+          ls -lh zynqo-social.apk
 
       - name: Upload Installable APK Artifact
         uses: actions/upload-artifact@v4
