@@ -49,9 +49,24 @@ jobs:
         run: chmod +x android/gradlew
 
       - name: Build Debug APK
+        id: gradle_build
         run: |
           cd android
-          ./gradlew assembleDebug --no-daemon --stacktrace
+          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tee gradle.log
+        continue-on-error: true
+
+      - name: Report Build Status
+        run: |
+          echo "### Gradle Build Log" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -n 120 android/gradle.log >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          if [ -f android/app/build/outputs/apk/debug/app-debug.apk ]; then
+            echo "APK build succeeded!" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "APK build failed!" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
 
       - name: Rename and Prepare APK
         run: |
