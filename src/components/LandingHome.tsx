@@ -72,22 +72,21 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
 
   return (
     <div className={`min-h-screen w-full transition-colors duration-200 overflow-y-auto font-sans relative ${
-      isLight ? 'bg-[#f8fafc] text-slate-900' : 'bg-[#06080e] text-slate-100'
+      isLight ? 'bg-[#fbf5f7] text-slate-900' : 'bg-[#0d0b14] text-slate-100'
     }`}>
       {/* Background Atmosphere & Interactive Floating Doodles */}
       <HomeAtmosphere isLight={isLight} />
 
       {/* Top Universal Navbar */}
-      {/* Top Universal Navbar */}
       <header className={`sticky top-0 z-50 backdrop-blur-2xl border-b px-3 sm:px-6 md:px-12 py-2.5 sm:py-3 flex items-center justify-between transition-colors ${
-        isLight ? 'bg-white/90 border-slate-200 text-slate-900 shadow-sm' : 'bg-[#0a0d14]/85 border-white/10 text-slate-100'
+        isLight ? 'bg-white/90 border-rose-100/80 text-slate-900 shadow-sm' : 'bg-[#120d1e]/85 border-white/10 text-slate-100'
       }`}>
         <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
           <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center flex-shrink-0">
             <img
               src="/zynqo-symbol.png"
               alt="Zynqo Logo"
-              className="w-full h-full object-contain drop-shadow-[0_2px_10px_rgba(6,182,212,0.4)]"
+              className="w-full h-full object-contain drop-shadow-[0_2px_10px_rgba(244,63,94,0.4)]"
             />
           </div>
           <div>
@@ -265,10 +264,10 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
       <section className="relative px-4 sm:px-6 md:px-12 pt-8 sm:pt-10 pb-12 sm:pb-16 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-10">
         {/* Left Copy */}
         <div className="flex-1 space-y-6 text-center lg:text-left">
-          <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-sans font-medium ${
-            isLight ? 'bg-slate-100 border-slate-300 text-slate-800' : 'bg-white/5 border-white/10 text-slate-200'
+          <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-sans font-medium transition-colors ${
+            isLight ? 'bg-white/80 border-rose-200/80 text-rose-900 shadow-sm' : 'bg-pink-950/40 border-pink-500/30 text-pink-300'
           }`}>
-            <Zap className={`w-3.5 h-3.5 ${theme.textAccent}`} />
+            <Zap className={`w-3.5 h-3.5 ${isLight ? 'text-rose-600' : 'text-pink-400'}`} />
             <span>{t.landing?.badge || 'Next-Gen Social Entertainment Platform • 190-Feature Ecosystem'}</span>
           </div>
 
@@ -276,7 +275,7 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
             isLight ? 'text-slate-900' : 'text-white'
           }`}>
             {t.landing?.heroTitle || 'Entertainment That Respects Your Time & Turns Every Reel Into '}
-            <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.gradient}`}>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#be123c] via-[#db2777] to-[#ec4899] dark:from-[#f43f5e] dark:via-[#ec4899] dark:to-[#d946ef]">
               {t.landing?.heroHighlight || 'Real-World Action.'}
             </span>
           </h1>
@@ -304,13 +303,13 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
             </button>
             <button
               onClick={() => onOpenAuth('onboarding')}
-              className={`w-full sm:w-auto px-6 py-3.5 rounded-2xl border font-sans font-medium text-xs md:text-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:border-cyan-500/40 active:translate-y-0 flex items-center justify-center gap-2 group ${
+              className={`w-full sm:w-auto px-6 py-3.5 rounded-2xl border font-sans font-medium text-xs md:text-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg active:translate-y-0 flex items-center justify-center gap-2 group ${
                 isLight 
-                  ? 'bg-white hover:bg-slate-50 text-slate-800 border-slate-300 shadow-sm'
-                  : 'bg-slate-900/90 hover:bg-slate-800 text-slate-200 border-white/15'
+                  ? 'bg-white hover:bg-rose-50/70 text-slate-800 border-rose-200/80 shadow-sm hover:border-rose-300'
+                  : 'bg-[#181328] hover:bg-[#201835] text-slate-200 border-white/15 hover:border-pink-500/40'
               }`}
             >
-              <Sparkles className={`w-4 h-4 ${theme.textAccent} transition-transform duration-200 group-hover:rotate-12`} />
+              <Sparkles className={`w-4 h-4 ${isLight ? 'text-rose-600' : 'text-pink-400'} transition-transform duration-200 group-hover:rotate-12`} />
               <span>{t.landing?.personalize || 'Personalize Profile (Onboarding)'}</span>
             </button>
           </div>
@@ -318,33 +317,33 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
           {/* Quick Pillars Badges */}
           <div className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
             <div className={`p-3 rounded-2xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-default ${
-              isLight ? 'bg-white border-slate-200 shadow-sm hover:border-slate-400' : 'bg-slate-900/60 border-white/10 hover:border-cyan-500/40'
+              isLight ? 'bg-white border-rose-100/90 shadow-sm hover:border-rose-300' : 'bg-[#181328]/80 border-white/10 hover:border-pink-500/40'
             }`}>
-              <span className={`font-mono text-[10px] uppercase font-semibold ${theme.textAccent} block tracking-wider`}>Pillar 1</span>
+              <span className="font-mono text-[10px] uppercase font-bold text-[#be123c] dark:text-pink-400 block tracking-wider">Pillar 1</span>
               <span className={`font-display text-xs font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
                 {t.landing?.pillar1Title || 'Personal Entertainment OS'}
               </span>
             </div>
             <div className={`p-3 rounded-2xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-default ${
-              isLight ? 'bg-white border-slate-200 shadow-sm hover:border-slate-400' : 'bg-slate-900/60 border-white/10 hover:border-amber-500/40'
+              isLight ? 'bg-white border-rose-100/90 shadow-sm hover:border-rose-300' : 'bg-[#181328]/80 border-white/10 hover:border-amber-500/40'
             }`}>
-              <span className="font-mono text-[10px] uppercase font-semibold text-amber-500 block tracking-wider">Pillar 2</span>
+              <span className="font-mono text-[10px] uppercase font-bold text-amber-500 dark:text-amber-400 block tracking-wider">Pillar 2</span>
               <span className={`font-display text-xs font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
                 {t.landing?.pillar2Title || '"I Have 5 Mins" Mode'}
               </span>
             </div>
             <div className={`p-3 rounded-2xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-default ${
-              isLight ? 'bg-white border-slate-200 shadow-sm hover:border-slate-400' : 'bg-slate-900/60 border-white/10 hover:border-emerald-500/40'
+              isLight ? 'bg-white border-rose-100/90 shadow-sm hover:border-rose-300' : 'bg-[#181328]/80 border-white/10 hover:border-purple-500/40'
             }`}>
-              <span className="font-mono text-[10px] uppercase font-semibold text-emerald-500 block tracking-wider">Pillar 3</span>
+              <span className="font-mono text-[10px] uppercase font-bold text-purple-600 dark:text-purple-400 block tracking-wider">Pillar 3</span>
               <span className={`font-display text-xs font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
                 {t.landing?.pillar3Title || 'Make This Useful (Quiz/Notes)'}
               </span>
             </div>
             <div className={`p-3 rounded-2xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-default ${
-              isLight ? 'bg-white border-slate-200 shadow-sm hover:border-slate-400' : 'bg-slate-900/60 border-white/10 hover:border-violet-500/40'
+              isLight ? 'bg-white border-rose-100/90 shadow-sm hover:border-rose-300' : 'bg-[#181328]/80 border-white/10 hover:border-rose-500/40'
             }`}>
-              <span className="font-mono text-[10px] uppercase font-semibold text-violet-500 block tracking-wider">Pillar 4</span>
+              <span className="font-mono text-[10px] uppercase font-bold text-rose-600 dark:text-rose-400 block tracking-wider">Pillar 4</span>
               <span className={`font-display text-xs font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
                 {t.landing?.pillar4Title || 'AI Reality Check & Shield'}
               </span>
@@ -363,18 +362,22 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
       {/* Continue Watching Row (#57, #14) */}
       {reels && reels.length > 0 && (
         <section className={`px-4 sm:px-6 md:px-12 py-8 border-t transition-colors ${
-          isLight ? 'bg-white/80 border-slate-200' : 'bg-slate-950/60 border-white/10'
+          isLight ? 'bg-white/60 border-rose-100/80' : 'bg-[#120d1e]/70 border-white/10'
         }`}>
           <div className="max-w-7xl mx-auto space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 shadow-sm">
+                <div className={`p-2 rounded-xl border shadow-sm ${
+                  isLight ? 'bg-rose-100/70 text-rose-700 border-rose-200/80' : 'bg-pink-950/50 text-pink-300 border-pink-500/30'
+                }`}>
                   <RotateCcw className="w-4 h-4" />
                 </div>
                 <div>
                   <h3 className={`font-display text-sm sm:text-base font-bold flex items-center gap-2 ${isLight ? 'text-slate-900' : 'text-white'}`}>
                     Continue Watching
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 font-semibold">
+                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full border font-semibold ${
+                      isLight ? 'bg-rose-50 text-rose-700 border-rose-200/60' : 'bg-pink-950/50 text-pink-300 border-pink-500/30'
+                    }`}>
                       Auto-Resumed
                     </span>
                   </h3>
@@ -387,7 +390,7 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
               <button
                 onClick={() => setCurrentPage('feed')}
                 className={`text-xs font-semibold flex items-center gap-1 hover:underline ${
-                  isLight ? 'text-cyan-700' : 'text-cyan-400'
+                  isLight ? 'text-rose-700 hover:text-rose-900' : 'text-pink-400 hover:text-pink-300'
                 }`}
               >
                 <span>Full Reel Player</span>
@@ -408,8 +411,8 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
                     }}
                     className={`group relative rounded-2xl border overflow-hidden cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-xl ${
                       isLight
-                        ? 'bg-slate-50 border-slate-200 hover:border-cyan-500/60 shadow-sm'
-                        : 'bg-slate-900/80 border-white/10 hover:border-cyan-500/60'
+                        ? 'bg-white border-rose-100/80 hover:border-rose-300 shadow-sm'
+                        : 'bg-[#181328]/80 border-white/10 hover:border-pink-500/40'
                     }`}
                   >
                     {/* Visualizer / Video preview box */}
@@ -423,14 +426,16 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
                           preload="metadata"
                         />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-tr from-cyan-950 via-slate-900 to-indigo-950 flex items-center justify-center">
-                          <Play className="w-8 h-8 text-cyan-400/50 group-hover:scale-110 transition-transform" />
+                        <div className="w-full h-full bg-gradient-to-tr from-rose-950 via-slate-900 to-pink-950 flex items-center justify-center">
+                          <Play className="w-8 h-8 text-pink-400/50 group-hover:scale-110 transition-transform" />
                         </div>
                       )}
 
                       {/* Play Hover Overlay */}
                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <div className="p-2.5 rounded-full bg-cyan-500 text-slate-950 shadow-lg transform group-hover:scale-110 transition-transform">
+                        <div className={`p-2.5 rounded-full text-white shadow-lg transform group-hover:scale-110 transition-transform ${
+                          isLight ? 'bg-[#be123c]' : 'bg-[#ec4899]'
+                        }`}>
                           <Play className="w-5 h-5 fill-current ml-0.5" />
                         </div>
                       </div>
@@ -438,21 +443,23 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
                       {/* Progress bar overlay at bottom of thumbnail */}
                       <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-black/60">
                         <div
-                          className="h-full bg-gradient-to-r from-cyan-400 to-indigo-500"
+                          className={`h-full ${
+                            isLight ? 'bg-gradient-to-r from-rose-500 to-pink-500' : 'bg-gradient-to-r from-pink-500 to-rose-400'
+                          }`}
                           style={{ width: `${simulatedProgress}%` }}
                         />
                       </div>
 
                       {/* Time and progress pills */}
-                      <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded bg-black/80 backdrop-blur-sm text-[10px] font-mono text-cyan-300 border border-white/10">
+                      <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded bg-black/80 backdrop-blur-sm text-[10px] font-mono text-rose-300 border border-white/10">
                         {simulatedElapsed}s / {reel.duration || 30}s
                       </div>
                     </div>
 
                     {/* Reel card metadata */}
                     <div className="p-2.5 space-y-1">
-                      <h4 className={`text-xs font-bold line-clamp-1 group-hover:text-cyan-400 transition-colors ${
-                        isLight ? 'text-slate-900' : 'text-white'
+                      <h4 className={`text-xs font-bold line-clamp-1 transition-colors ${
+                        isLight ? 'text-slate-900 group-hover:text-rose-700' : 'text-white group-hover:text-pink-400'
                       }`}>
                         {reel.title}
                       </h4>
@@ -460,7 +467,9 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
                         <span className={`truncate max-w-[85px] ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
                           {reel.creator.name}
                         </span>
-                        <span className="text-cyan-400 font-semibold font-mono">
+                        <span className={`font-semibold font-mono ${
+                          isLight ? 'text-rose-700' : 'text-pink-400'
+                        }`}>
                           {simulatedProgress}%
                         </span>
                       </div>
@@ -614,10 +623,10 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
           </div>
 
           {/* Zynqo Social */}
-          <div className={`p-6 rounded-3xl border space-y-3 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-cyan-500/40 ${
+          <div className={`p-6 rounded-3xl border space-y-3 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${
             isLight
-              ? 'bg-white border-slate-200 text-slate-800'
-              : 'bg-slate-900/80 border-white/15 text-slate-200'
+              ? 'bg-white border-rose-100/90 text-slate-800 hover:border-rose-300'
+              : 'bg-[#181328]/80 border-white/15 text-slate-200 hover:border-pink-500/40'
           }`}>
             <span className={`font-display text-xs font-bold uppercase ${theme.textAccent} block tracking-wider`}>
               {t.landing?.zynqoTitle || 'Zynqo Social Entertainment OS'}
@@ -645,8 +654,8 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
       </section>
 
       {/* Bottom CTA */}
-      <section className={`px-4 md:px-12 py-16 text-center space-y-6 border-t ${
-        isLight ? 'bg-slate-100/50 border-slate-200' : 'bg-slate-950/40 border-white/10'
+      <section className={`px-4 md:px-12 py-16 text-center space-y-6 border-t transition-colors ${
+        isLight ? 'bg-rose-50/30 border-rose-100/80' : 'bg-[#100b1a]/80 border-white/10'
       }`}>
         <h2 className={`font-display text-3xl md:text-4xl font-bold tracking-tight ${isLight ? 'text-slate-900' : 'text-white'}`}>
           {t.landing?.ctaTitle || 'Ready for Intelligent Entertainment?'}

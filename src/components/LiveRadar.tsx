@@ -105,10 +105,10 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
   };
 
   return (
-    <div className={`w-full max-w-[380px] min-h-[500px] sm:h-[520px] rounded-3xl overflow-hidden border shadow-2xl relative flex flex-col justify-between p-3.5 sm:p-4.5 select-none transition-all duration-300 hover:border-cyan-500/50 hover:shadow-[0_20px_50px_rgba(6,182,212,0.12)] group ${
+    <div className={`w-full max-w-[380px] min-h-[500px] sm:h-[520px] rounded-3xl overflow-hidden border shadow-2xl relative flex flex-col justify-between p-3.5 sm:p-4.5 select-none transition-all duration-300 hover:shadow-[0_20px_50px_rgba(244,63,94,0.18)] group ${
       isLight 
-        ? 'bg-[#090d16] border-cyan-500/30 shadow-cyan-950/20' 
-        : 'bg-[#060911] border-cyan-500/25 shadow-cyan-950/40'
+        ? 'bg-white/95 border-rose-100/90 shadow-rose-950/5 hover:border-rose-300' 
+        : 'bg-[#151024]/95 border-white/10 shadow-black/60 hover:border-pink-500/40'
     }`}>
       {/* Embedded High-Performance Radar Animations */}
       <style>{`
@@ -133,7 +133,11 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
       `}</style>
 
       {/* Atmospheric Radial Backlight */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(6,182,212,0.12)_0%,rgba(14,165,233,0.04)_50%,transparent_75%)] pointer-events-none" />
+      <div className={`absolute inset-0 pointer-events-none ${
+        isLight
+          ? 'bg-[radial-gradient(circle_at_50%_45%,rgba(244,63,94,0.06)_0%,rgba(251,113,133,0.02)_50%,transparent_75%)]'
+          : 'bg-[radial-gradient(circle_at_50%_45%,rgba(236,72,153,0.15)_0%,rgba(244,63,94,0.05)_50%,transparent_75%)]'
+      }`} />
 
       {/* Fine Digital Grid Texture */}
       <div 
@@ -147,7 +151,9 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
       {/* ─────────────────────────────────────────────────────────────
           1. HEADER: LIVE RADAR + SCANNING ZYNQO
           ───────────────────────────────────────────────────────────── */}
-      <div className="relative z-10 flex items-center justify-between pb-2 border-b border-white/10">
+      <div className={`relative z-10 flex items-center justify-between pb-2 border-b ${
+        isLight ? 'border-rose-100/80' : 'border-white/10'
+      }`}>
         <div className="flex items-center gap-2.5">
           {/* Pulsing Live Beacon */}
           <span className="relative flex h-2.5 w-2.5">
@@ -157,14 +163,22 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
 
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-black tracking-wider uppercase text-white font-mono flex items-center gap-1.5">
-                {t.landing?.radarTitle || 'LIVE RADAR'}
+              <span className={`text-xs font-black tracking-wider uppercase font-mono flex items-center gap-1.5 ${
+                isLight ? 'text-slate-900' : 'text-white'
+              }`}>
+                {t.landing?.radarTitle || 'LIVE AI RADAR'}
               </span>
-              <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-cyan-300 bg-cyan-950/80 px-2 py-0.5 rounded-full border border-cyan-500/30">
-                {language === 'gu' ? 'ઝિન્કો સ્કેન' : language === 'hi' ? 'ज़िन्को स्कैन' : 'SCANNING ZYNQO'}
+              <span className={`text-[9px] font-mono font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border ${
+                isLight 
+                  ? 'text-[#9f1239] bg-[#fce7ed] border-rose-200/60' 
+                  : 'text-pink-300 bg-[#33183d] border-pink-500/30'
+              }`}>
+                {language === 'gu' ? 'ઝિન્કો સ્કેન' : language === 'hi' ? 'ज़िन्को स्कैन' : 'SCANNING TRENDS'}
               </span>
             </div>
-            <p className="text-[10px] text-slate-400 font-sans tracking-normal pt-0.5">
+            <p className={`text-[10px] font-sans tracking-normal pt-0.5 ${
+              isLight ? 'text-slate-500' : 'text-slate-400'
+            }`}>
               {language === 'gu' ? 'રીઅલ-ટાઇમ સોશિયલ ટ્રેન્ડ ઇન્ટેલિજન્સ' : language === 'hi' ? 'रियल-टाइम सोशल ट्रेंड इंटेलिजेंस' : 'Real-time Social Trend Intelligence'}
             </p>
           </div>
@@ -172,10 +186,14 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
 
         {/* Live Frequency / Sweep Azimuth Telemetry */}
         <div className="text-right font-mono">
-          <span className="text-[10px] text-cyan-400 font-bold block leading-none">
+          <span className={`text-[10px] font-bold block leading-none ${
+            isLight ? 'text-[#be123c]' : 'text-pink-400'
+          }`}>
             AZ {sweepAngle.toString().padStart(3, '0')}°
           </span>
-          <span className="text-[9px] text-slate-500 block pt-0.5">
+          <span className={`text-[9px] block pt-0.5 ${
+            isLight ? 'text-slate-400' : 'text-slate-500'
+          }`}>
             360° SWEEP
           </span>
         </div>
@@ -185,32 +203,52 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
           2. LIVE METRICS BAR: ACTIVE TRENDS & LIVE SIGNALS
           ───────────────────────────────────────────────────────────── */}
       <div className="relative z-10 grid grid-cols-2 gap-2 my-1.5">
-        <div className="bg-slate-900/70 border border-white/10 rounded-xl px-3 py-1.5 backdrop-blur-md flex items-center justify-between">
+        <div className={`border rounded-xl px-3 py-1.5 backdrop-blur-md flex items-center justify-between transition-colors ${
+          isLight 
+            ? 'bg-rose-50/40 border-rose-100/80' 
+            : 'bg-[#1c1530]/80 border-white/10'
+        }`}>
           <div>
-            <span className="text-[9px] font-mono text-slate-400 uppercase tracking-wider block">
+            <span className={`text-[9px] font-mono uppercase tracking-wider block ${
+              isLight ? 'text-slate-500' : 'text-slate-400'
+            }`}>
               {t.landing?.activeTrends || 'ACTIVE TRENDS'}
             </span>
-            <span className="text-xs font-mono font-black text-white flex items-center gap-1">
-              <Activity className="w-3 h-3 text-cyan-400" />
+            <span className={`text-xs font-mono font-black flex items-center gap-1 ${
+              isLight ? 'text-slate-900' : 'text-white'
+            }`}>
+              <Activity className={`w-3 h-3 ${isLight ? 'text-[#be123c]' : 'text-pink-400'}`} />
               {activeTrends.toLocaleString()}
             </span>
           </div>
-          <span className="text-[9px] font-mono text-emerald-400 bg-emerald-950/50 px-1.5 py-0.5 rounded border border-emerald-500/20 font-bold">
+          <span className="text-[9px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-1.5 py-0.5 rounded border border-emerald-300 dark:border-emerald-500/20 font-bold">
             +18%
           </span>
         </div>
 
-        <div className="bg-slate-900/70 border border-white/10 rounded-xl px-3 py-1.5 backdrop-blur-md flex items-center justify-between">
+        <div className={`border rounded-xl px-3 py-1.5 backdrop-blur-md flex items-center justify-between transition-colors ${
+          isLight 
+            ? 'bg-rose-50/40 border-rose-100/80' 
+            : 'bg-[#1c1530]/80 border-white/10'
+        }`}>
           <div>
-            <span className="text-[9px] font-mono text-slate-400 uppercase tracking-wider block">
+            <span className={`text-[9px] font-mono uppercase tracking-wider block ${
+              isLight ? 'text-slate-500' : 'text-slate-400'
+            }`}>
               {t.landing?.liveSignals || 'LIVE SIGNALS'}
             </span>
-            <span className="text-xs font-mono font-black text-white flex items-center gap-1">
-              <Zap className="w-3 h-3 text-amber-400" />
+            <span className={`text-xs font-mono font-black flex items-center gap-1 ${
+              isLight ? 'text-slate-900' : 'text-white'
+            }`}>
+              <Zap className="w-3 h-3 text-amber-500 dark:text-amber-400" />
               {liveSignals}k/s
             </span>
           </div>
-          <span className="text-[9px] font-mono text-cyan-400 bg-cyan-950/50 px-1.5 py-0.5 rounded border border-cyan-500/20 font-bold">
+          <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded border ${
+            isLight 
+              ? 'text-rose-700 bg-rose-100/70 border-rose-200' 
+              : 'text-pink-400 bg-pink-950/50 border-pink-500/20'
+          }`}>
             FAST
           </span>
         </div>
@@ -220,52 +258,68 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
           3. CENTRAL CIRCULAR RADAR SCOPE
           ───────────────────────────────────────────────────────────── */}
       <div className="relative z-10 flex-1 flex items-center justify-center my-1">
-        <div className="relative w-[250px] h-[250px] xs:w-[270px] xs:h-[270px] sm:w-[280px] sm:h-[280px] rounded-full flex items-center justify-center bg-[#050811]/90 shadow-[inset_0_0_30px_rgba(6,182,212,0.15)] border border-cyan-500/30 overflow-hidden">
+        <div className={`relative w-[250px] h-[250px] xs:w-[270px] xs:h-[270px] sm:w-[280px] sm:h-[280px] rounded-full flex items-center justify-center overflow-hidden transition-all ${
+          isLight 
+            ? 'bg-[#fcf8fa] shadow-[inset_0_0_24px_rgba(244,63,94,0.06)] border border-rose-200/70' 
+            : 'bg-[#0e0a17]/95 shadow-[inset_0_0_30px_rgba(236,72,153,0.18)] border border-pink-500/25'
+        }`}>
           
           {/* Subtle Rotating Sweep Beam & Conic Trail */}
           <div 
             className="absolute inset-0 rounded-full pointer-events-none"
             style={{
               animation: 'radar-sweep 4.5s linear infinite',
-              background: 'conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 270deg, rgba(6,182,212,0.02) 290deg, rgba(6,182,212,0.12) 330deg, rgba(34,211,238,0.38) 359deg, rgba(34,211,238,0.9) 360deg)'
+              background: isLight
+                ? 'conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 270deg, rgba(244,63,94,0.02) 290deg, rgba(244,63,94,0.12) 330deg, rgba(225,29,72,0.32) 359deg, rgba(190,18,60,0.85) 360deg)'
+                : 'conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 270deg, rgba(236,72,153,0.02) 290deg, rgba(236,72,153,0.15) 330deg, rgba(244,63,94,0.45) 359deg, rgba(244,63,94,0.95) 360deg)'
             }}
           >
             {/* High-intensity Leading Edge Line */}
-            <div className="absolute top-0 right-1/2 w-[50%] h-[2px] bg-gradient-to-l from-cyan-300 via-cyan-400 to-transparent shadow-[0_0_8px_#22d3ee] origin-right" />
+            <div className={`absolute top-0 right-1/2 w-[50%] h-[2px] origin-right ${
+              isLight 
+                ? 'bg-gradient-to-l from-rose-400 via-rose-500 to-transparent shadow-[0_0_8px_rgba(244,63,94,0.7)]'
+                : 'bg-gradient-to-l from-pink-300 via-rose-400 to-transparent shadow-[0_0_8px_#ec4899]'
+            }`} />
           </div>
 
           {/* SVG Concentric Range Rings and Grid Crosshairs */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 280 280">
             {/* Concentric Rings */}
-            <circle cx="140" cy="140" r="35" fill="none" stroke="rgba(6, 182, 212, 0.2)" strokeWidth="1" strokeDasharray="2 3" />
-            <circle cx="140" cy="140" r="70" fill="none" stroke="rgba(6, 182, 212, 0.22)" strokeWidth="1" />
-            <circle cx="140" cy="140" r="105" fill="none" stroke="rgba(6, 182, 212, 0.25)" strokeWidth="1" strokeDasharray="3 3" />
-            <circle cx="140" cy="140" r="136" fill="none" stroke="rgba(6, 182, 212, 0.4)" strokeWidth="1.5" />
+            <circle cx="140" cy="140" r="35" fill="none" stroke={isLight ? "rgba(244, 63, 94, 0.16)" : "rgba(236, 72, 153, 0.18)"} strokeWidth="1" strokeDasharray="2 3" />
+            <circle cx="140" cy="140" r="70" fill="none" stroke={isLight ? "rgba(244, 63, 94, 0.18)" : "rgba(236, 72, 153, 0.20)"} strokeWidth="1" />
+            <circle cx="140" cy="140" r="105" fill="none" stroke={isLight ? "rgba(244, 63, 94, 0.20)" : "rgba(236, 72, 153, 0.22)"} strokeWidth="1" strokeDasharray="3 3" />
+            <circle cx="140" cy="140" r="136" fill="none" stroke={isLight ? "rgba(244, 63, 94, 0.35)" : "rgba(236, 72, 153, 0.35)"} strokeWidth="1.5" />
 
             {/* Radial Crosshairs */}
-            <line x1="140" y1="4" x2="140" y2="276" stroke="rgba(6, 182, 212, 0.18)" strokeWidth="1" />
-            <line x1="4" y1="140" x2="276" y2="140" stroke="rgba(6, 182, 212, 0.18)" strokeWidth="1" />
+            <line x1="140" y1="4" x2="140" y2="276" stroke={isLight ? "rgba(244, 63, 94, 0.14)" : "rgba(236, 72, 153, 0.15)"} strokeWidth="1" />
+            <line x1="4" y1="140" x2="276" y2="140" stroke={isLight ? "rgba(244, 63, 94, 0.14)" : "rgba(236, 72, 153, 0.15)"} strokeWidth="1" />
             
             {/* 45° Diagonal Guides */}
-            <line x1="45" y1="45" x2="235" y2="235" stroke="rgba(6, 182, 212, 0.08)" strokeWidth="1" strokeDasharray="2 4" />
-            <line x1="235" y1="45" x2="45" y2="235" stroke="rgba(6, 182, 212, 0.08)" strokeWidth="1" strokeDasharray="2 4" />
+            <line x1="45" y1="45" x2="235" y2="235" stroke={isLight ? "rgba(244, 63, 94, 0.07)" : "rgba(236, 72, 153, 0.08)"} strokeWidth="1" strokeDasharray="2 4" />
+            <line x1="235" y1="45" x2="45" y2="235" stroke={isLight ? "rgba(244, 63, 94, 0.07)" : "rgba(236, 72, 153, 0.08)"} strokeWidth="1" strokeDasharray="2 4" />
 
             {/* Cardinal Degree Markers */}
-            <text x="140" y="16" textAnchor="middle" fill="#22d3ee" fontSize="8" fontFamily="monospace" opacity="0.7">000°</text>
-            <text x="268" y="143" textAnchor="middle" fill="#22d3ee" fontSize="8" fontFamily="monospace" opacity="0.7">090°</text>
-            <text x="140" y="270" textAnchor="middle" fill="#22d3ee" fontSize="8" fontFamily="monospace" opacity="0.7">180°</text>
-            <text x="12" y="143" textAnchor="middle" fill="#22d3ee" fontSize="8" fontFamily="monospace" opacity="0.7">270°</text>
+            <text x="140" y="16" textAnchor="middle" fill={isLight ? "#be123c" : "#f472b6"} fontSize="8" fontFamily="monospace" opacity="0.8">000°</text>
+            <text x="268" y="143" textAnchor="middle" fill={isLight ? "#be123c" : "#f472b6"} fontSize="8" fontFamily="monospace" opacity="0.8">090°</text>
+            <text x="140" y="270" textAnchor="middle" fill={isLight ? "#be123c" : "#f472b6"} fontSize="8" fontFamily="monospace" opacity="0.8">180°</text>
+            <text x="12" y="143" textAnchor="middle" fill={isLight ? "#be123c" : "#f472b6"} fontSize="8" fontFamily="monospace" opacity="0.8">270°</text>
 
             {/* Range Ticks */}
-            <text x="145" y="102" fill="#64748b" fontSize="7" fontFamily="monospace" opacity="0.6">50K</text>
-            <text x="145" y="68" fill="#64748b" fontSize="7" fontFamily="monospace" opacity="0.6">150K</text>
-            <text x="145" y="32" fill="#64748b" fontSize="7" fontFamily="monospace" opacity="0.6">MAX</text>
+            <text x="145" y="102" fill={isLight ? "#94a3b8" : "#64748b"} fontSize="7" fontFamily="monospace" opacity="0.7">50K</text>
+            <text x="145" y="68" fill={isLight ? "#94a3b8" : "#64748b"} fontSize="7" fontFamily="monospace" opacity="0.7">150K</text>
+            <text x="145" y="32" fill={isLight ? "#94a3b8" : "#64748b"} fontSize="7" fontFamily="monospace" opacity="0.7">MAX</text>
           </svg>
 
-          {/* Center Hub Core */}
-          <div className="absolute z-20 w-3 h-3 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee] flex items-center justify-center">
-            <div className="w-1.5 h-1.5 rounded-full bg-white" />
-            <div className="absolute w-6 h-6 rounded-full border border-cyan-400/50 animate-ping" />
+          {/* Center Hub Core with Stylized Z Logo */}
+          <div className={`absolute z-20 w-5 h-5 rounded-full flex items-center justify-center ${
+            isLight
+              ? 'bg-gradient-to-tr from-[#9d174d] to-[#be123c] shadow-[0_0_12px_rgba(190,18,60,0.6)]'
+              : 'bg-gradient-to-tr from-[#d946ef] to-[#f43f5e] shadow-[0_0_16px_rgba(244,63,94,0.8)]'
+          }`}>
+            <span className="text-[9px] font-display font-black text-white leading-none select-none">Z</span>
+            <div className={`absolute w-8 h-8 rounded-full border animate-ping ${
+              isLight ? 'border-rose-400/50' : 'border-pink-400/50'
+            }`} />
           </div>
 
           {/* Ambient Background Particles */}
@@ -277,7 +331,9 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
           ].map((pt, i) => (
             <div
               key={i}
-              className="absolute w-1 h-1 rounded-full bg-cyan-400/40 pointer-events-none"
+              className={`absolute w-1 h-1 rounded-full pointer-events-none ${
+                isLight ? 'bg-rose-400/40' : 'bg-pink-400/40'
+              }`}
               style={{
                 top: pt.top,
                 left: pt.left,
@@ -319,7 +375,11 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
                 </div>
 
                 {/* Elegant Micro Tag */}
-                <div className={`absolute ${isRightSide ? 'right-3.5' : 'left-3.5'} -top-2 flex flex-col bg-slate-950/85 backdrop-blur-md px-1.5 py-0.5 rounded-md border border-white/15 shadow-xl pointer-events-none whitespace-nowrap min-w-[50px] transition-all duration-200 group-hover/sig:border-cyan-400/50 group-hover/sig:bg-slate-900`}>
+                <div className={`absolute ${isRightSide ? 'right-3.5' : 'left-3.5'} -top-2 flex flex-col backdrop-blur-md px-1.5 py-0.5 rounded-md border shadow-xl pointer-events-none whitespace-nowrap min-w-[50px] transition-all duration-200 group-hover/sig:scale-105 ${
+                  isLight 
+                    ? 'bg-white/95 border-rose-200/80 text-slate-800' 
+                    : 'bg-[#181228]/95 border-white/15 text-slate-200'
+                }`}>
                   <div className="flex items-center gap-1 leading-none">
                     <span className="text-[10px] select-none">{sig.emoji}</span>
                     <span 
@@ -329,7 +389,9 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
                       {getSignalLabel(sig)}
                     </span>
                   </div>
-                  <span className="text-[8px] font-mono text-slate-300 font-semibold leading-none pt-0.5">
+                  <span className={`text-[8px] font-mono font-semibold leading-none pt-0.5 ${
+                    isLight ? 'text-slate-600' : 'text-slate-300'
+                  }`}>
                     {sig.count}
                   </span>
                 </div>
@@ -342,13 +404,22 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
       {/* ─────────────────────────────────────────────────────────────
           4. FOOTER: SYSTEM STATUS & ACTION CTA
           ───────────────────────────────────────────────────────────── */}
-      <div className="relative z-10 pt-2 border-t border-white/10 space-y-2">
-        <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 px-0.5">
-          <span className="flex items-center gap-1 text-slate-300">
-            <Radio className="w-3 h-3 text-cyan-400 animate-pulse" />
+      <div className={`relative z-10 pt-2 border-t space-y-2 ${
+        isLight ? 'border-rose-100/80' : 'border-white/10'
+      }`}>
+        <div className="flex items-center justify-between text-[10px] font-mono px-0.5">
+          <span className={`flex items-center gap-1 ${
+            isLight ? 'text-slate-600' : 'text-slate-300'
+          }`}>
+            <Radio className={`w-3 h-3 animate-pulse ${
+              isLight ? 'text-rose-600' : 'text-pink-400'
+            }`} />
             {language === 'gu' ? '૭ ચેનલ સ્કેનિંગ' : language === 'hi' ? '७ चैनल स्कैनिंग' : 'SCANNING 7 CHANNELS'}
           </span>
-          <span className="text-cyan-400 font-semibold">
+          <span className={`font-semibold flex items-center gap-1 ${
+            isLight ? 'text-rose-700' : 'text-pink-400'
+          }`}>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse" />
             {language === 'gu' ? 'સ્થિતિ: સક્રિય' : language === 'hi' ? 'स्थिति: सक्रिय' : 'STATUS: ACTIVE'}
           </span>
         </div>
@@ -356,9 +427,9 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
         {/* Action Button: Explore Live Feed */}
         <button
           onClick={onExplore}
-          className={`w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-500 hover:opacity-95 text-slate-950 font-sans text-xs font-semibold shadow-lg shadow-cyan-500/20 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-cyan-500/40 hover:brightness-105 active:translate-y-0 flex items-center justify-center gap-2 cursor-pointer group`}
+          className={`w-full py-2.5 px-3 rounded-xl ${theme?.buttonClass || (isLight ? 'bg-gradient-to-r from-[#701a75] via-[#9d174d] to-[#be123c] text-white' : 'bg-gradient-to-r from-[#d946ef] via-[#ec4899] to-[#f43f5e] text-white')} font-sans text-xs font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:brightness-105 active:translate-y-0 flex items-center justify-center gap-2 cursor-pointer group`}
         >
-          <span>{t.landing?.exploreFeed || 'Explore Live Trends & Reels'}</span>
+          <span>{t.landing?.exploreFeed || 'Explore All Reels Feed →'}</span>
           <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
         </button>
       </div>

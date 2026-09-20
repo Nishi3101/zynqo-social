@@ -133,7 +133,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       const saved = localStorage.getItem('pulseai_theme') as ThemeType;
       if (saved && themes[saved]) return saved;
     } catch (e) {}
-    return 'emerald';
+    return 'rose';
   });
   const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
 

@@ -15,6 +15,19 @@ export interface ThemeConfig {
 }
 
 export const themes: Record<ThemeType, ThemeConfig> = {
+  rose: {
+    id: 'rose',
+    name: 'Zynqo Velvet Rose & Neon Magenta',
+    tagline: 'Deep Berry, Magenta Radiance & Rose Obsidian',
+    vibe: 'Signature Zynqo brand theme matching official light and dark specifications',
+    previewColors: ['#be123c', '#ec4899', '#f43f5e'],
+    gradient: 'from-rose-500 via-pink-500 to-fuchsia-600',
+    textAccent: 'text-rose-600 dark:text-rose-400',
+    borderAccent: 'border-rose-300 dark:border-rose-500/40',
+    bgGlow: 'rgba(244, 63, 94, 0.28)',
+    buttonClass: 'bg-gradient-to-r from-[#701a75] via-[#9d174d] to-[#be123c] dark:from-[#d946ef] dark:via-[#ec4899] dark:to-[#f43f5e] hover:brightness-105 text-white font-bold shadow-lg shadow-rose-950/20 dark:shadow-rose-500/30',
+    badgeClass: 'bg-rose-100 dark:bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-500/40'
+  },
   emerald: {
     id: 'emerald',
     name: 'Emerald Bionic',
@@ -53,19 +66,6 @@ export const themes: Record<ThemeType, ThemeConfig> = {
     bgGlow: 'rgba(59, 130, 246, 0.25)',
     buttonClass: 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold shadow-blue-500/25',
     badgeClass: 'bg-blue-500/15 text-blue-300 border-blue-500/40'
-  },
-  rose: {
-    id: 'rose',
-    name: 'Neo-Crimson & Rose',
-    tagline: 'Smoked Carbon & Radiant Coral',
-    vibe: 'High-energy entertainment, bold creator aesthetic, vibrant contrast (Netflix & RedBull style)',
-    previewColors: ['#f43f5e', '#fb7185', '#881337'],
-    gradient: 'from-rose-500 via-pink-500 to-violet-500',
-    textAccent: 'text-rose-400',
-    borderAccent: 'border-rose-500/40',
-    bgGlow: 'rgba(244, 63, 94, 0.25)',
-    buttonClass: 'bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-400 hover:to-pink-400 text-white font-bold shadow-rose-500/25',
-    badgeClass: 'bg-rose-500/15 text-rose-300 border-rose-500/40'
   },
   cyan: {
     id: 'cyan',

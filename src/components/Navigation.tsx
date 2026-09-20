@@ -171,14 +171,14 @@ export const Navigation: React.FC = () => {
   return (
     <aside className={`h-[100dvh] flex flex-col z-40 border-r flex-shrink-0 transition-all duration-200 select-none w-16 sm:w-20 md:w-64 lg:w-72 ${
       isLight 
-        ? 'bg-white/95 backdrop-blur-xl border-slate-200 text-slate-900 shadow-sm'
-        : 'bg-[#0a0d14]/95 backdrop-blur-xl border-white/10 text-slate-100'
+        ? 'bg-white/95 backdrop-blur-xl border-rose-100/80 text-slate-900 shadow-sm'
+        : 'bg-[#0d0b14]/95 backdrop-blur-xl border-white/10 text-slate-100'
     }`}>
       {/* ─────────────────────────────────────────────────────────────
           1. TOP BRAND HEADER
           ───────────────────────────────────────────────────────────── */}
       <div className={`p-3 md:p-4 border-b flex items-center justify-between gap-2 flex-shrink-0 ${
-        isLight ? 'border-slate-100' : 'border-white/5'
+        isLight ? 'border-rose-100/60' : 'border-white/5'
       }`}>
         <div 
           onClick={() => setCurrentPage('home')}
@@ -189,7 +189,9 @@ export const Navigation: React.FC = () => {
             <img
               src="/zynqo-symbol.png"
               alt="Zynqo Logo"
-              className="w-full h-full object-contain drop-shadow-[0_2px_8px_rgba(6,182,212,0.4)]"
+              className={`w-full h-full object-contain ${
+                isLight ? 'drop-shadow-[0_2px_8px_rgba(244,63,94,0.35)]' : 'drop-shadow-[0_2px_8px_rgba(236,72,153,0.4)]'
+              }`}
             />
           </div>
           <div className="hidden md:flex flex-col">
@@ -212,10 +214,12 @@ export const Navigation: React.FC = () => {
           2. SEARCH INPUT
           ───────────────────────────────────────────────────────────── */}
       <div className={`p-2 md:p-3 border-b flex-shrink-0 relative ${
-        isLight ? 'border-slate-100' : 'border-white/5'
+        isLight ? 'border-rose-100/60' : 'border-white/5'
       }`}>
         {/* Desktop Search Input with Voice & History */}
-        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl border transition focus-within:border-cyan-500 bg-slate-500/5 relative">
+        <div className={`hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl border transition focus-within:border-rose-400 relative ${
+          isLight ? 'bg-rose-50/30 border-rose-200/70' : 'bg-[#181328]/80 border-white/10'
+        }`}>
           <Search className="w-4 h-4 text-slate-400 flex-shrink-0" />
           <input
             type="text"
@@ -388,7 +392,7 @@ export const Navigation: React.FC = () => {
               {item.isActive && <span className="specular-lens" />}
               <item.icon className={`w-4 h-4 flex-shrink-0 transition-transform duration-300 group-hover:scale-110 relative z-10 ${
                 item.isActive 
-                  ? (isLight ? `${item.iconColor.replace('400', '500')} drop-shadow-sm` : 'text-white drop-shadow-[0_0_8px_rgba(6,182,212,0.9)]') 
+                  ? (isLight ? `${item.iconColor.replace('400', '500')} drop-shadow-sm` : 'text-white drop-shadow-[0_0_8px_rgba(244,63,94,0.85)]') 
                   : item.iconColor
               }`} />
               <span className={`hidden md:inline truncate relative z-10 ${isLight && item.isActive ? 'text-slate-900 font-extrabold' : ''}`}>
@@ -399,7 +403,11 @@ export const Navigation: React.FC = () => {
                   <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981] animate-pulse" />
                 </span>
               ) : item.badge ? (
-                <span className="hidden md:inline-block ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 relative z-10">
+                <span className={`hidden md:inline-block ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold relative z-10 ${
+                  isLight 
+                    ? 'bg-rose-100 text-rose-700 border border-rose-200' 
+                    : 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
+                }`}>
                   {item.badge}
                 </span>
               ) : null}
@@ -500,7 +508,7 @@ export const Navigation: React.FC = () => {
                 {mod.isActive && <span className="specular-lens" />}
                 <mod.icon className={`w-4 h-4 flex-shrink-0 transition-transform duration-300 group-hover:scale-110 relative z-10 ${
                   mod.isActive 
-                    ? (isLight ? `${mod.iconColor.replace('400', '500')} drop-shadow-sm` : 'text-white drop-shadow-[0_0_8px_rgba(6,182,212,0.9)]') 
+                    ? (isLight ? `${mod.iconColor.replace('400', '500')} drop-shadow-sm` : 'text-white drop-shadow-[0_0_8px_rgba(244,63,94,0.85)]') 
                     : mod.iconColor
                 }`} />
                 <span className={`hidden md:inline truncate relative z-10 ${isLight && mod.isActive ? 'text-slate-900 font-extrabold' : ''}`}>
@@ -535,9 +543,11 @@ export const Navigation: React.FC = () => {
                   onClick={() => setIntent(item.id)}
                   className={`w-full p-2 md:px-3 md:py-1.5 rounded-xl text-xs font-medium flex items-center gap-2.5 transition justify-center md:justify-start ${
                     isActive
-                      ? 'bg-cyan-500/20 text-cyan-400 font-bold border border-cyan-500/40'
+                      ? isLight
+                        ? 'bg-rose-100/70 text-rose-800 font-bold border border-rose-200 shadow-sm'
+                        : 'bg-[#2a1736] text-pink-300 font-bold border border-pink-500/40 shadow-sm'
                       : isLight
-                      ? 'hover:bg-slate-100 text-slate-600'
+                      ? 'hover:bg-rose-50/70 text-slate-600 hover:text-slate-900'
                       : 'hover:bg-white/5 text-slate-400 hover:text-slate-200'
                   }`}
                   title={item.label}
@@ -555,7 +565,7 @@ export const Navigation: React.FC = () => {
           4. BOTTOM FIXED TOOLS & USER FOOTER
           ───────────────────────────────────────────────────────────── */}
       <div className={`p-2 md:p-3 border-t flex flex-col gap-2 flex-shrink-0 ${
-        isLight ? 'border-slate-100 bg-slate-50/50' : 'border-white/5 bg-black/20'
+        isLight ? 'border-rose-100/70 bg-white/70' : 'border-white/5 bg-[#0e0a16]/70'
       }`}>
         {/* Quick Tools Row: Mode, Theme, Detox, Lang */}
         <div className="flex items-center justify-between gap-1">
@@ -564,7 +574,7 @@ export const Navigation: React.FC = () => {
             onClick={toggleColorMode}
             className={`p-2 rounded-xl text-xs transition border flex items-center justify-center flex-1 ${
               isLight
-                ? 'bg-white hover:bg-slate-100 text-slate-800 border-slate-200'
+                ? 'bg-white hover:bg-rose-50/80 text-slate-800 border-rose-100/80 shadow-sm'
                 : 'bg-slate-900/80 hover:bg-slate-800 text-amber-300 border-white/10'
             }`}
             title={isLight ? (t.nav?.darkMode || "Dark Mode") : (t.nav?.lightMode || "Light Mode")}
@@ -577,7 +587,7 @@ export const Navigation: React.FC = () => {
             onClick={openThemeModal}
             className={`p-2 rounded-xl text-xs transition border flex items-center justify-center flex-1 ${
               isLight
-                ? 'bg-white hover:bg-slate-100 text-slate-800 border-slate-200'
+                ? 'bg-white hover:bg-rose-50/80 text-slate-800 border-rose-100/80 shadow-sm'
                 : 'bg-slate-900/80 hover:bg-slate-800 text-slate-200 border-white/10'
             }`}
             title={t.nav?.switchTheme || "Switch Theme"}
@@ -592,7 +602,7 @@ export const Navigation: React.FC = () => {
               isDetoxMode
                 ? 'bg-emerald-500/20 text-emerald-500 border-emerald-500/40'
                 : isLight
-                ? 'bg-white text-slate-600 border-slate-200 hover:bg-slate-100'
+                ? 'bg-white text-slate-600 border-rose-100/80 hover:bg-rose-50/80 shadow-sm'
                 : 'bg-slate-900/80 text-slate-400 border-white/10 hover:text-white'
             }`}
             title={isDetoxMode ? "Detox Active" : "Content Detox"}
@@ -606,12 +616,12 @@ export const Navigation: React.FC = () => {
               onClick={() => setIsLangMenuOpen(prev => !prev)}
               className={`w-full p-2 rounded-xl text-xs font-bold transition border flex items-center justify-center gap-1 ${
                 isLight
-                  ? 'bg-white hover:bg-slate-100 text-slate-800 border-slate-200'
+                  ? 'bg-white hover:bg-rose-50/80 text-slate-800 border-rose-100/80 shadow-sm'
                   : 'bg-slate-900/80 hover:bg-slate-800 text-slate-200 border-white/10'
               }`}
               title="Language"
             >
-              <Globe className="w-3.5 h-3.5 text-cyan-500" />
+              <Globe className={`w-3.5 h-3.5 ${isLight ? 'text-rose-600' : 'text-pink-400'}`} />
               <span className="hidden md:inline uppercase text-[10px]">{language}</span>
             </button>
 
@@ -647,8 +657,8 @@ export const Navigation: React.FC = () => {
             onClick={() => setIsUserMenuOpen(prev => !prev)}
             className={`w-full p-2 rounded-2xl border flex items-center justify-between gap-2 transition ${
               isLight
-                ? 'bg-white hover:bg-slate-100 border-slate-200 text-slate-900'
-                : 'bg-slate-900/90 hover:bg-slate-800 border-white/10 text-white'
+                ? 'bg-white hover:bg-rose-50/70 border-rose-100/80 text-slate-900 shadow-sm'
+                : 'bg-[#181328]/90 hover:bg-[#201835] border-white/10 text-white'
             }`}
           >
             <div className="flex items-center gap-2 min-w-0">
@@ -661,7 +671,9 @@ export const Navigation: React.FC = () => {
               </div>
               <div className="hidden md:flex flex-col text-left min-w-0">
                 <span className="text-xs font-bold truncate block">{localizedAccountName}</span>
-                <span className="text-[10px] text-cyan-500 font-mono font-medium truncate block">
+                <span className={`text-[10px] font-mono font-medium truncate block ${
+                  isLight ? 'text-rose-600' : 'text-pink-400'
+                }`}>
                   {userProfile?.handle || '@alex_explorer'}
                 </span>
               </div>
@@ -672,11 +684,11 @@ export const Navigation: React.FC = () => {
           {/* User Profile Popover Menu */}
           {isUserMenuOpen && (
             <div className={`absolute bottom-full left-0 mb-2 w-56 rounded-2xl border shadow-2xl p-2 z-50 animate-fade-in backdrop-blur-2xl space-y-1 ${
-              isLight ? 'bg-white border-slate-200 text-slate-900' : 'bg-slate-900 border-white/15 text-white'
+              isLight ? 'bg-white/95 border-rose-100/90 text-slate-900' : 'bg-[#181328]/95 border-white/15 text-white'
             }`}>
-              <div className={`p-2 border-b ${isLight ? 'border-slate-200' : 'border-white/10'}`}>
+              <div className={`p-2 border-b ${isLight ? 'border-rose-100/80' : 'border-white/10'}`}>
                 <span className="text-xs font-bold block">{localizedAccountName}</span>
-                <span className="text-[10px] text-slate-400 block">{userProfile?.handle || '@alex_explorer'}</span>
+                <span className={`text-[10px] block ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>{userProfile?.handle || '@alex_explorer'}</span>
                 <div className="mt-1.5">
                   <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30 font-bold inline-block">
                     {userProfile?.xp || 420} XP • Lvl {userProfile?.level || 1}

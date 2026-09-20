@@ -45,7 +45,7 @@ const MainLayout: React.FC = () => {
   if (currentPage === 'home') {
     return (
       <div className={`w-full min-h-[100dvh] h-[100dvh] max-w-full overflow-x-hidden overflow-y-auto transition-colors duration-200 ${
-        isLight ? 'bg-[#f8fafc] text-slate-900' : 'bg-[#06080e] text-slate-100'
+        isLight ? 'bg-[#fbf5f7] text-slate-900' : 'bg-[#0d0b14] text-slate-100'
       }`}>
         <LandingHome onOpenAuth={openAuthModal} />
         <AuthModal
@@ -64,7 +64,7 @@ const MainLayout: React.FC = () => {
   if (currentPage === 'profile') {
     return (
       <div className={`w-full min-h-[100dvh] h-[100dvh] max-w-full overflow-x-hidden overflow-y-auto transition-colors duration-200 ${
-        isLight ? 'bg-[#f8fafc] text-slate-900' : 'bg-[#06080e] text-slate-100'
+        isLight ? 'bg-[#fbf5f7] text-slate-900' : 'bg-[#0d0b14] text-slate-100'
       }`}>
         <ProfileView />
         <AuthModal
@@ -82,7 +82,7 @@ const MainLayout: React.FC = () => {
   // If user is on the Reels Feed page
   return (
     <div className={`flex flex-row h-[100dvh] w-full max-w-full overflow-hidden font-sans transition-colors duration-200 ${
-      isLight ? 'bg-[#f1f5f9] text-slate-900' : 'bg-[#07090e] text-slate-100'
+      isLight ? 'bg-[#fbf5f7] text-slate-900' : 'bg-[#0d0b14] text-slate-100'
     }`}>
       {/* Vertical Navigation Sidebar on Left */}
       <Navigation />
@@ -92,8 +92,8 @@ const MainLayout: React.FC = () => {
         {/* Viewport Switcher Banner (Mobile Frame Preview vs Immersive Desktop Studio) */}
         <div className={`hidden md:flex items-center justify-between px-6 py-1.5 border-b text-[11px] transition-colors flex-shrink-0 ${
           isLight 
-            ? 'bg-white/80 border-slate-200 text-slate-600 shadow-sm'
-            : 'bg-slate-950/60 border-white/5 text-slate-400'
+            ? 'bg-white/80 border-rose-100/80 text-slate-700 shadow-sm'
+            : 'bg-[#120d1e]/80 border-white/5 text-slate-400'
         }`}>
           <div className="flex items-center gap-2">
             <span>{t.nav?.displayMode || 'Display Mode:'}</span>
@@ -101,7 +101,9 @@ const MainLayout: React.FC = () => {
               onClick={() => setDeviceFrameMode('mobile')}
               className={`px-2 py-0.5 rounded-md flex items-center gap-1 transition ${
                 deviceFrameMode === 'mobile'
-                  ? 'bg-cyan-500/20 text-cyan-500 font-bold border border-cyan-500/40'
+                  ? isLight
+                    ? 'bg-rose-100/80 text-rose-800 font-bold border border-rose-200'
+                    : 'bg-pink-950/50 text-pink-300 font-bold border border-pink-500/40'
                   : isLight ? 'text-slate-600 hover:text-slate-900' : 'hover:text-white'
               }`}
             >
@@ -112,7 +114,9 @@ const MainLayout: React.FC = () => {
               onClick={() => setDeviceFrameMode('studio')}
               className={`px-2 py-0.5 rounded-md flex items-center gap-1 transition ${
                 deviceFrameMode === 'studio'
-                  ? 'bg-violet-500/20 text-violet-500 font-bold border border-violet-500/40'
+                  ? isLight
+                    ? 'bg-purple-100/80 text-purple-800 font-bold border border-purple-200'
+                    : 'bg-purple-950/50 text-purple-300 font-bold border border-purple-500/40'
                   : isLight ? 'text-slate-600 hover:text-slate-900' : 'hover:text-white'
               }`}
             >
@@ -124,16 +128,16 @@ const MainLayout: React.FC = () => {
           <div className="flex items-center gap-4">
             <button
               onClick={() => setCurrentPage('home')}
-              className={`flex items-center gap-1 transition ${isLight ? 'hover:text-cyan-600' : 'hover:text-cyan-300'}`}
+              className={`flex items-center gap-1 transition ${isLight ? 'hover:text-rose-700' : 'hover:text-pink-300'}`}
             >
-              <Home className="w-3.5 h-3.5 text-cyan-500" />
+              <Home className={`w-3.5 h-3.5 ${isLight ? 'text-rose-600' : 'text-pink-400'}`} />
               <span>{t.nav?.landingPage || 'Landing Page'}</span>
             </button>
             <button
               onClick={() => setShowKeyboardHelp(prev => !prev)}
-              className={`flex items-center gap-1 transition ${isLight ? 'hover:text-cyan-600' : 'hover:text-cyan-300'}`}
+              className={`flex items-center gap-1 transition ${isLight ? 'hover:text-rose-700' : 'hover:text-pink-300'}`}
             >
-              <Keyboard className="w-3.5 h-3.5 text-cyan-500" />
+              <Keyboard className={`w-3.5 h-3.5 ${isLight ? 'text-rose-600' : 'text-pink-400'}`} />
               <span>{t.nav?.keyboardShortcuts || 'Keyboard Shortcuts (↑/↓, Space, M, L, U)'}</span>
             </button>
           </div>
@@ -141,7 +145,7 @@ const MainLayout: React.FC = () => {
 
         {/* Main Content Area */}
         <main className={`flex-1 relative flex items-center justify-center overflow-hidden p-0 md:p-3 ${
-          isLight ? 'bg-slate-100/80' : 'bg-transparent'
+          isLight ? 'bg-rose-50/20' : 'bg-transparent'
         }`}>
           <div className={`w-full h-full flex items-center justify-center ${
             deviceFrameMode === 'mobile' ? 'max-w-[430px]' : 'max-w-4xl'
