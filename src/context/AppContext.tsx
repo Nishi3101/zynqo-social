@@ -17,6 +17,7 @@ import { translations, getTranslations } from '../utils/translations';
 import { themes } from '../utils/theme';
 import { sounds } from '../utils/sound';
 import confetti from 'canvas-confetti';
+import defaultReelsData from '../data/defaultReels.json';
 
 interface TimeSessionState {
   isActive: boolean;
@@ -185,7 +186,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   });
 
-  const [reels, setReels] = useState<Reel[]>([]);
+  const [reels, setReels] = useState<Reel[]>((defaultReelsData as unknown) as Reel[]);
   const [userReels, setUserReels] = useState<Reel[]>([]);
   const [userVideos, setUserVideos] = useState<UserVideo[]>([]);
   const [userPosts, setUserPosts] = useState<UserPost[]>([]);
@@ -473,9 +474,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Fetch initial profile, content, and activity
   useEffect(() => {
     fetch('/api/user/profile')
-      .then(res => res.json())
+      .then(res => res.headers.get('content-type')?.includes('application/json') ? res.json() : null)
       .then(data => {
-        if (data.success) {
+        if (data && data.success && data.profile) {
           const savedName = localStorage.getItem('pulseai_user_name');
           const savedBio = localStorage.getItem('pulseai_user_bio');
           const savedHandle = localStorage.getItem('pulseai_user_handle');
@@ -488,15 +489,45 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           if (savedHandle) data.profile.handle = savedHandle;
           if (savedAvatar) data.profile.avatar = savedAvatar;
           setUserProfile(data.profile);
+        } else {
+          // Local profile fallback
+          const savedName = localStorage.getItem('pulseai_user_name') || 'Nishi Thakkar';
+          const savedHandle = localStorage.getItem('pulseai_user_handle') || `@${savedName.toLowerCase().replace(/\s+/g, '_')}`;
+          const savedDob = localStorage.getItem('pulseai_user_dob') || undefined;
+          const savedCat = localStorage.getItem('pulseai_user_category') || 'Student';
+          const savedMood = localStorage.getItem('pulseai_user_mood') || 'Happy';
+          setUserProfile(prev => prev || {
+            id: 'local-profile',
+            name: savedName,
+            handle: savedHandle,
+            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
+            bio: 'Living life one reel at a time ✨',
+            attentionBudgetMinutes: 30,
+            minutesUsedToday: 0,
+            xp: 150,
+            level: 2,
+            streakDays: 3,
+            date_of_birth: savedDob,
+            category: savedCat,
+            current_mood: savedMood,
+            badges: [],
+            privacySettings: {
+              useWatchHistory: true,
+              useMoodSignals: true,
+              allowCollaborativeFiltering: true,
+              privateMode: false
+            },
+            memoryVault: []
+          });
         }
       })
-      .catch(err => console.error('Error fetching profile:', err));
+      .catch(err => console.warn('Profile fetch notice:', err));
 
     // Fetch user uploaded content (Reels, Videos, Posts)
     fetch('/api/user/content')
-      .then(res => res.json())
+      .then(res => res.headers.get('content-type')?.includes('application/json') ? res.json() : null)
       .then(data => {
-        if (data.success) {
+        if (data && data.success) {
           if (data.reels) setUserReels(data.reels);
           if (data.videos) setUserVideos(data.videos);
           if (data.posts) setUserPosts(data.posts);
@@ -506,9 +537,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     // Fetch user activities (Liked, Saved, Comments)
     fetch('/api/user/activity')
-      .then(res => res.json())
+      .then(res => res.headers.get('content-type')?.includes('application/json') ? res.json() : null)
       .then(data => {
-        if (data.success) {
+        if (data && data.success) {
           if (data.liked) setLikedActivities(data.liked);
           if (data.saved) setSavedActivities(data.saved);
           if (data.comments) setCommentActivities(data.comments);
@@ -531,14 +562,32 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
 
     fetch(`/api/reels?${params.toString()}`)
-      .then(res => res.json())
+      .then(res => res.headers.get('content-type')?.includes('application/json') ? res.json() : null)
       .then(data => {
-        if (data.success && data.reels) {
+        if (data && data.success && data.reels && data.reels.length > 0) {
           setReels(data.reels);
           setCurrentReelIndex(0);
+        } else {
+          // Local fallback filtering from defaultReelsData
+          let filtered = (defaultReelsData as unknown) as Reel[];
+          if (isDetoxMode) {
+            filtered = filtered.filter(r => r.category === 'Mindfulness & Mental Wellness' || r.category === 'Science & Cosmos');
+          } else {
+            if (intent !== 'all') filtered = filtered.filter(r => r.intent === intent);
+            if (selectedCategory !== 'All') filtered = filtered.filter(r => r.category === selectedCategory);
+            if (selectedMood !== 'all') filtered = filtered.filter(r => r.mood === selectedMood);
+            if (searchQuery) {
+              const q = searchQuery.toLowerCase();
+              filtered = filtered.filter(r => r.title.toLowerCase().includes(q) || r.description.toLowerCase().includes(q));
+            }
+          }
+          if (filtered.length > 0) {
+            setReels(filtered);
+            setCurrentReelIndex(0);
+          }
         }
       })
-      .catch(err => console.error('Error fetching reels:', err))
+      .catch(err => console.warn('Reels fetch notice:', err))
       .finally(() => setLoading(false));
   };
 
@@ -762,62 +811,74 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     sounds.playClick();
     setConsecutivePassiveCount(0); // active engagement
     const targetReel = reels.find(r => r.id === reelId);
+    let newComment = {
+      id: `c-${Date.now()}`,
+      user: userProfile?.name || 'You',
+      avatar: userProfile?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100',
+      text,
+      timeAgo: 'Just now',
+      likes: 0
+    };
+
     try {
       const res = await fetch(`/api/reels/${reelId}/comment`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text, user: userProfile?.name || 'You' })
       });
-      const data = await res.json();
-      if (data.success && data.comment) {
-        setReels(prev =>
-          prev.map(r =>
-            r.id === reelId
-              ? {
-                  ...r,
-                  commentsCount: data.totalComments,
-                  comments: [data.comment, ...(r.comments || [])]
-                }
-              : r
-          )
-        );
+      if (res.headers.get('content-type')?.includes('application/json')) {
+        const data = await res.json();
+        if (data.success && data.comment) {
+          newComment = data.comment;
+        }
+      }
+    } catch (e) {
+      console.warn('Comment sync notice:', e);
+    }
 
-        // Record to commentActivities
-        const newCommentAct: CommentActivity = {
-          id: `act-comm-${Date.now()}`,
+    setReels(prev =>
+      prev.map(r =>
+        r.id === reelId
+          ? {
+              ...r,
+              commentsCount: (r.commentsCount || 0) + 1,
+              comments: [newComment, ...(r.comments || [])]
+            }
+          : r
+      )
+    );
+
+    // Record to commentActivities
+    const newCommentAct: CommentActivity = {
+      id: `act-comm-${Date.now()}`,
+      contentId: reelId,
+      contentType: 'reel',
+      contentTitle: targetReel?.title || 'Reel',
+      thumbnail: targetReel?.thumbnail || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&q=80',
+      videoUrl: targetReel?.videoUrl,
+      commentText: text,
+      timeAgo: 'Just now',
+      timestamp: new Date().toISOString()
+    };
+    setCommentActivities(prev => [newCommentAct, ...prev]);
+
+    try {
+      await fetch('/api/user/activity/comment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           contentId: reelId,
           contentType: 'reel',
           contentTitle: targetReel?.title || 'Reel',
           thumbnail: targetReel?.thumbnail || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&q=80',
           videoUrl: targetReel?.videoUrl,
-          commentText: text,
-          timeAgo: 'Just now',
-          timestamp: new Date().toISOString()
-        };
-        setCommentActivities(prev => [newCommentAct, ...prev]);
+          text
+        })
+      });
+    } catch (e) {}
 
-        try {
-          await fetch('/api/user/activity/comment', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              contentId: reelId,
-              contentType: 'reel',
-              contentTitle: targetReel?.title || 'Reel',
-              thumbnail: targetReel?.thumbnail || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&q=80',
-              videoUrl: targetReel?.videoUrl,
-              text
-            })
-          });
-        } catch (e) {}
-
-        awardXP(10, 'Thoughtful Comment');
-        return true;
-      }
-      return false;
-    } catch (e) {
-      return false;
-    }
+    awardXP(10, 'Thoughtful Comment');
+    return true;
   };
 
   const awardXP = async (amount: number, reason = 'Action Completed') => {
