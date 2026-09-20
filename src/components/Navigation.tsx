@@ -77,6 +77,9 @@ export const Navigation: React.FC = () => {
     { code: 'es', label: 'Español', flag: '🇪🇸' },
     { code: 'hi', label: 'हिन्दी', flag: '🇮🇳' },
     { code: 'gu', label: 'ગુજરાતી', flag: '🇮🇳' },
+    { code: 'sa', label: 'संस्कृतम्', flag: '🇮🇳' },
+    { code: 'mr', label: 'मराठी', flag: '🇮🇳' },
+    { code: 'te', label: 'తెలుగు', flag: '🇮🇳' },
     { code: 'fr', label: 'Français', flag: '🇫🇷' },
     { code: 'ja', label: '日本語', flag: '🇯🇵' },
     { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
@@ -86,16 +89,16 @@ export const Navigation: React.FC = () => {
   const sessionSecondsLeft = timeSession.remainingSeconds % 60;
 
   const localizedThemeNames: Record<string, Record<string, string>> = {
-    emerald: { gu: 'પન્ના લીલો', hi: 'पन्ना हरा', es: 'Esmeralda', fr: 'Émeraude', ja: 'エメラルド', de: 'Smaragd', en: 'Emerald' },
-    sunset: { gu: 'સૂર્યાસ્ત', hi: 'सूर्यास्त', es: 'Atardecer', fr: 'Couchant', ja: 'サンセット', de: 'Sonnenuntergang', en: 'Sunset' },
-    cyberpunk: { gu: 'સાયબર', hi: 'साइबर', es: 'Cíber', fr: 'Cyber', ja: 'サイバー', de: 'Cyber', en: 'Cyber' },
-    ocean: { gu: 'સાગર', hi: 'सागर', es: 'Océano', fr: 'Océan', ja: 'オーシャン', de: 'Ozean', en: 'Ocean' },
-    rose: { gu: 'ગુલાબી', hi: 'गुलाबी', es: 'Rosa', fr: 'Rose', ja: 'ローズ', de: 'Rose', en: 'Rose' }
+    emerald: { gu: 'પન્ના લીલો', hi: 'पन्ना हरा', sa: 'मरकतम्', mr: 'पाचू हिरवा', te: 'మరకతం', es: 'Esmeralda', fr: 'Émeraude', ja: 'エメラルド', de: 'Smaragd', en: 'Emerald' },
+    sunset: { gu: 'સૂર્યાસ્ત', hi: 'सूर्यास्त', sa: 'सूर्यास्तः', mr: 'सूर्यास्त', te: 'సూర్యాస్తమయం', es: 'Atardecer', fr: 'Couchant', ja: 'サンセット', de: 'Sonnenuntergang', en: 'Sunset' },
+    cyberpunk: { gu: 'સાયબર', hi: 'साइबर', sa: 'साइबर', mr: 'सायबर', te: 'సైబర్', es: 'Cíber', fr: 'Cyber', ja: 'サイバー', de: 'Cyber', en: 'Cyber' },
+    ocean: { gu: 'સાગર', hi: 'सागर', sa: 'सागरः', mr: 'सागर', te: 'సముద్రం', es: 'Océano', fr: 'Océan', ja: 'オーシャン', de: 'Ozean', en: 'Ocean' },
+    rose: { gu: 'ગુલાબી', hi: 'गुलाबी', sa: 'गुलाबः', mr: 'गुलाबी', te: 'గులాబీ', es: 'Rosa', fr: 'Rose', ja: 'ローズ', de: 'Rose', en: 'Rose' }
   };
   const displayThemeName = localizedThemeNames[currentTheme]?.[language] || themeConfig?.name?.split(' ')[0] || 'Emerald';
 
   const localizedAccountName = userProfile?.name 
-    ? (language === 'gu' ? 'એલેક્સ' : language === 'hi' ? 'एलेक्स' : userProfile.name.split(' ')[0])
+    ? (['gu', 'hi', 'sa', 'mr'].includes(language) ? 'एलेक्स' : language === 'te' ? 'అలెక్స్' : userProfile.name.split(' ')[0])
     : (t.nav?.account || 'Account');
 
   return (
@@ -435,7 +438,7 @@ export const Navigation: React.FC = () => {
             </button>
 
             {isLangMenuOpen && (
-              <div className={`absolute bottom-full left-0 mb-2 w-36 rounded-2xl border shadow-2xl p-1.5 z-50 animate-fade-in backdrop-blur-2xl ${
+              <div className={`absolute bottom-full left-0 mb-2 w-44 max-h-72 overflow-y-auto rounded-2xl border shadow-2xl p-1.5 z-50 animate-fade-in backdrop-blur-2xl ${
                 isLight ? 'bg-white border-slate-200 text-slate-900' : 'bg-slate-900 border-white/15 text-white'
               }`}>
                 {languages.map(lang => (

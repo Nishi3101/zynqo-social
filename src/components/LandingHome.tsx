@@ -60,6 +60,9 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
     { code: 'es', label: 'Español', flag: '🇪🇸' },
     { code: 'hi', label: 'हिन्दी', flag: '🇮🇳' },
     { code: 'gu', label: 'ગુજરાતી', flag: '🇮🇳' },
+    { code: 'sa', label: 'संस्कृतम्', flag: '🇮🇳' },
+    { code: 'mr', label: 'मराठी', flag: '🇮🇳' },
+    { code: 'te', label: 'తెలుగు', flag: '🇮🇳' },
     { code: 'fr', label: 'Français', flag: '🇫🇷' },
     { code: 'ja', label: '日本語', flag: '🇯🇵' },
     { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
@@ -161,7 +164,7 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
             </button>
 
             {isLangMenuOpen && (
-              <div className={`absolute right-0 mt-2 w-36 rounded-2xl border shadow-2xl p-1.5 z-50 animate-fade-in backdrop-blur-2xl ${
+              <div className={`absolute right-0 mt-2 w-44 max-h-72 overflow-y-auto rounded-2xl border shadow-2xl p-1.5 z-50 animate-fade-in backdrop-blur-2xl ${
                 isLight ? 'bg-white border-slate-200 text-slate-900' : 'bg-slate-900 border-white/15 text-white'
               }`}>
                 {languages.map(lang => (

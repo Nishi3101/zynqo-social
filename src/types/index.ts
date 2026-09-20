@@ -231,7 +231,7 @@ export type UserMood =
 
 export type IntentType = 'all' | 'teach' | 'achieve' | 'relax' | 'entertain' | 'inspire' | 'connect';
 export type MoodType = 'all' | 'curious' | 'motivated' | 'stressed' | 'energetic' | 'calm';
-export type LanguageCode = 'en' | 'es' | 'hi' | 'gu' | 'fr' | 'ja' | 'de' | 'mr' | 'ta' | 'te' | 'bn' | 'pa' | 'ml' | 'kn';
+export type LanguageCode = 'en' | 'es' | 'hi' | 'gu' | 'sa' | 'mr' | 'ta' | 'te' | 'bn' | 'pa' | 'ml' | 'kn' | 'fr' | 'ja' | 'de';
 export type ThemeType = 'emerald' | 'amber' | 'cobalt' | 'rose' | 'cyan';
 export type ColorMode = 'dark' | 'light';
 
