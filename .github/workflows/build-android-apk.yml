@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build-apk:
     runs-on: ubuntu-latest
@@ -25,13 +28,16 @@ jobs:
       - name: Build Web Application
         run: npm run build
 
-      - name: Copy Web Assets to Android
-        run: npx cap copy android
+      - name: Prepare Android Web Assets
+        run: |
+          mkdir -p android/app/src/main/assets/public
+          cp -r dist/* android/app/src/main/assets/public/
+          echo '{"appId":"com.zynqosocial.app","appName":"Zynqo Social","webDir":"dist","server":{"androidScheme":"https"}}' > android/app/src/main/assets/capacitor.config.json
 
-      - name: Setup Java JDK 21
+      - name: Setup Java JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
+          java-version: '17'
           distribution: 'temurin'
 
       - name: Setup Android SDK
@@ -45,9 +51,24 @@ jobs:
           cd android
           ./gradlew assembleDebug --no-daemon --stacktrace
 
-      - name: Upload Installable APK
+      - name: Rename and Prepare APK
+        run: |
+          cp android/app/build/outputs/apk/debug/app-debug.apk zynqo-social.apk
+
+      - name: Upload Installable APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Zynqo-Social-Android-App-APK
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: zynqo-social.apk
           retention-days: 30
+
+      - name: Publish Direct Download Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          tag_name: v1.0.0-android
+          name: "Zynqo Social v1.0.0 (Android APK)"
+          body: "Official Android APK build for Zynqo Social. Download `zynqo-social.apk` below and install directly on any Android phone or tablet."
+          files: zynqo-social.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
