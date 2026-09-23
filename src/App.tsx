@@ -127,13 +127,13 @@ const MainLayout: React.FC = () => {
         <MobileTopBar />
 
         {/* Viewport Switcher Banner (Mobile Frame Preview vs Immersive Desktop Studio) */}
-        <div className={`hidden md:flex items-center justify-between px-6 py-1.5 border-b text-[11px] transition-colors flex-shrink-0 backdrop-blur-md ${
+        <div className={`hidden md:flex items-center justify-between px-3 md:px-4 lg:px-6 py-1.5 border-b text-[11px] transition-colors flex-shrink-0 backdrop-blur-md ${
           isLight 
             ? 'bg-white/70 border-rose-100/80 text-slate-700 shadow-sm'
             : 'bg-[#120d1e]/80 border-white/5 text-slate-400'
         }`}>
-          <div className="flex items-center gap-2">
-            <span>{t.nav?.displayMode || 'Display Mode:'}</span>
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="hidden sm:inline">{t.nav?.displayMode || 'Display Mode:'}</span>
             <button
               onClick={() => setDeviceFrameMode('mobile')}
               className={`px-2 py-0.5 rounded-md flex items-center gap-1 transition ${
@@ -158,24 +158,26 @@ const MainLayout: React.FC = () => {
               }`}
             >
               <Monitor className="w-3 h-3" />
-              <span>{t.nav?.studioView || 'Immersive Studio View'}</span>
+              <span className="hidden lg:inline">{t.nav?.studioView || 'Immersive Studio View'}</span>
+              <span className="lg:hidden">Studio View</span>
             </button>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <button
               onClick={() => setCurrentPage('home')}
               className={`flex items-center gap-1 transition ${isLight ? 'hover:text-rose-700' : 'hover:text-pink-300'}`}
             >
               <Home className={`w-3.5 h-3.5 ${isLight ? 'text-rose-600' : 'text-pink-400'}`} />
-              <span>{t.nav?.landingPage || 'Landing Page'}</span>
+              <span className="hidden sm:inline">{t.nav?.landingPage || 'Landing Page'}</span>
             </button>
             <button
               onClick={() => setShowKeyboardHelp(prev => !prev)}
               className={`flex items-center gap-1 transition ${isLight ? 'hover:text-rose-700' : 'hover:text-pink-300'}`}
             >
               <Keyboard className={`w-3.5 h-3.5 ${isLight ? 'text-rose-600' : 'text-pink-400'}`} />
-              <span>{t.nav?.keyboardShortcuts || 'Keyboard Shortcuts (↑/↓, Space, M, L, U)'}</span>
+              <span className="hidden xl:inline">{t.nav?.keyboardShortcuts || 'Keyboard Shortcuts (↑/↓, Space, M, L, U)'}</span>
+              <span className="xl:hidden">Shortcuts</span>
             </button>
           </div>
         </div>

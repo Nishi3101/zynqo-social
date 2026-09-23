@@ -322,7 +322,7 @@ export const AICompanion: React.FC = () => {
   return (
     <>
       {/* Floating Liquid Glass Bubble Capsule Trigger - Prominently Visible Above Mobile Nav & Desktop Sidebar */}
-      <div className="fixed bottom-20 left-3 md:bottom-6 md:left-[272px] lg:left-[304px] z-50 pb-safe transition-all duration-300 select-none">
+      <div className="fixed bottom-20 left-3 md:bottom-6 md:left-24 lg:left-[304px] z-50 pb-safe transition-all duration-300 select-none">
         <div className="liquid-glass-dock rounded-full p-1.5 flex items-center gap-1.5 shadow-2xl backdrop-blur-2xl border border-white/20 bg-slate-950/85">
           {/* Main Nova Active Liquid Bubble */}
           <button
@@ -383,7 +383,7 @@ export const AICompanion: React.FC = () => {
 
       {/* Expanded Chat Drawer */}
       {isOpen && (
-        <div className="fixed inset-x-2 sm:inset-x-4 bottom-20 md:bottom-20 md:left-[272px] lg:left-[304px] md:right-auto md:w-96 z-50 max-h-[calc(100dvh-110px)] h-[72vh] bg-slate-900/95 backdrop-blur-2xl border border-white/15 rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-scale-in pb-safe">
+        <div className="fixed inset-x-2 sm:inset-x-4 bottom-20 md:bottom-20 md:left-24 lg:left-[304px] md:right-auto md:w-96 z-50 max-h-[calc(100dvh-110px)] h-[72vh] bg-slate-900/95 backdrop-blur-2xl border border-white/15 rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-scale-in pb-safe">
           {/* Header */}
           <div className="p-4 border-b border-white/10 bg-slate-950/70 flex items-center justify-between">
             <div className="flex items-center gap-2.5">

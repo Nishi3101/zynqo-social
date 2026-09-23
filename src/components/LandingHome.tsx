@@ -314,7 +314,7 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
           </div>
 
           {/* Quick Pillars Badges inside Hero Card */}
-          <div className="relative z-10 pt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
+          <div className="relative z-10 pt-8 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-3 text-left">
             <div className={`p-3 rounded-2xl border transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-default backdrop-blur-md ${
               isLight ? 'bg-white/90 border-rose-100/90 shadow-sm hover:border-rose-300' : 'bg-[#181328]/90 border-white/10 hover:border-pink-500/40'
             }`}>

@@ -183,7 +183,7 @@ export const Navigation: React.FC = () => {
       }`}>
         <div 
           onClick={() => setCurrentPage('home')}
-          className="flex items-center gap-2.5 cursor-pointer group w-full justify-center md:justify-start"
+          className="flex items-center gap-2.5 cursor-pointer group w-full justify-center lg:justify-start"
           title="Back to Landing Home"
         >
           <div className="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition">
@@ -195,7 +195,7 @@ export const Navigation: React.FC = () => {
               }`}
             />
           </div>
-          <div className="hidden md:flex flex-col">
+          <div className="hidden lg:flex flex-col">
             <div className="flex items-center gap-1.5">
               <span className={`font-display text-base lg:text-lg font-bold tracking-tight ${isLight ? 'text-slate-900' : 'text-white'}`}>
                 Zynqo<span className={`text-transparent bg-clip-text bg-gradient-to-r ${themeConfig.gradient}`}>Social</span>
@@ -217,8 +217,8 @@ export const Navigation: React.FC = () => {
       <div className={`p-2 md:p-3 border-b flex-shrink-0 relative ${
         isLight ? 'border-rose-100/60' : 'border-white/5'
       }`}>
-        {/* Desktop Search Input with Voice & History */}
-        <div className={`hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl border transition focus-within:border-rose-400 relative ${
+        {/* Desktop Search Input with Voice & History (lg: 1024px+) */}
+        <div className={`hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-xl border transition focus-within:border-rose-400 relative ${
           isLight ? 'bg-rose-50/30 border-rose-200/70' : 'bg-[#181328]/80 border-white/10'
         }`}>
           <Search className="w-4 h-4 text-slate-400 flex-shrink-0" />
@@ -259,9 +259,9 @@ export const Navigation: React.FC = () => {
           </button>
         </div>
 
-        {/* Search History Dropdown (#17) */}
+        {/* Search History Dropdown (#17) for Desktop */}
         {showSearchHistory && recentSearches.length > 0 && (
-          <div className={`absolute left-3 right-3 top-full mt-1.5 p-2 rounded-2xl border shadow-xl z-50 backdrop-blur-xl ${
+          <div className={`hidden lg:block absolute left-3 right-3 top-full mt-1.5 p-2 rounded-2xl border shadow-xl z-50 backdrop-blur-xl ${
             isLight ? 'bg-white/95 border-slate-200 text-slate-900' : 'bg-slate-900/95 border-white/15 text-white'
           }`}>
             <div className="flex items-center justify-between px-2 pb-1.5 border-b border-white/5">
@@ -297,44 +297,48 @@ export const Navigation: React.FC = () => {
           </div>
         )}
 
-        {/* Mobile Search Button with Voice */}
-        <div className="md:hidden flex items-center gap-1">
+        {/* Tablet Search Icon Button (md: 768px - 1023px rail, hidden on mobile and desktop) */}
+        <div className="hidden md:flex lg:hidden flex-col items-center">
           <button
             onClick={() => setIsSearchOpenMobile(prev => !prev)}
-            className={`flex-1 p-2 rounded-xl flex items-center justify-center transition ${
+            className={`w-full p-2 rounded-xl flex items-center justify-center transition ${
               isSearchOpenMobile
                 ? 'bg-cyan-500/20 text-cyan-500'
                 : isLight ? 'hover:bg-slate-100 text-slate-700' : 'hover:bg-white/10 text-slate-300'
             }`}
-            title="Search"
+            title="Search reels"
           >
             <Search className="w-4 h-4" />
           </button>
-          <button
-            onClick={handleVoiceSearch}
-            className={`p-2 rounded-xl flex items-center justify-center transition ${
-              isListening ? 'bg-rose-500 text-white' : isLight ? 'text-slate-700' : 'text-slate-300'
-            }`}
-            title="Voice Search"
-          >
-            <Mic className="w-4 h-4" />
-          </button>
-        </div>
 
-        {isSearchOpenMobile && (
-          <div className="md:hidden mt-2">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Search..."
-              className={`w-full px-2.5 py-1.5 rounded-xl text-xs border outline-none ${
-                isLight ? 'bg-slate-100 border-slate-300' : 'bg-slate-900 border-white/20'
-              }`}
-              autoFocus
-            />
-          </div>
-        )}
+          {isSearchOpenMobile && (
+            <div className={`absolute left-full top-1 ml-2 w-64 p-2.5 rounded-2xl border shadow-2xl z-50 backdrop-blur-2xl ${
+              isLight ? 'bg-white/95 border-rose-100/90 text-slate-900' : 'bg-slate-900/95 border-white/15 text-white'
+            }`}>
+              <div className={`flex items-center gap-2 px-2.5 py-1.5 rounded-xl border ${
+                isLight ? 'bg-rose-50/40 border-rose-200' : 'bg-slate-950/80 border-white/10'
+              }`}>
+                <Search className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' && searchQuery.trim()) {
+                      saveSearchQuery(searchQuery);
+                      setIsSearchOpenMobile(false);
+                      setCurrentPage('feed');
+                    }
+                  }}
+                  placeholder="Search reels..."
+                  className="w-full text-xs bg-transparent outline-none placeholder:text-slate-400"
+                  autoFocus
+                />
+                <button onClick={() => setIsSearchOpenMobile(false)} className="text-slate-400 hover:text-white text-xs">✕</button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* ─────────────────────────────────────────────────────────────
@@ -381,7 +385,7 @@ export const Navigation: React.FC = () => {
             <button
               key={item.id}
               onClick={item.action}
-              className={`w-full p-2.5 md:px-3 md:py-2.5 rounded-xl text-xs font-semibold flex items-center gap-3 transition-all duration-300 justify-center md:justify-start relative group overflow-hidden ${
+              className={`w-full p-2.5 md:px-3 md:py-2.5 rounded-xl text-xs font-semibold flex items-center gap-3 transition-all duration-300 justify-center lg:justify-start relative group overflow-hidden ${
                 item.isActive
                   ? `liquid-glass-bubble prismatic-rim animate-chromatic-shimmer ${isLight ? 'text-slate-900 font-extrabold' : 'text-white font-bold'} shadow-lg`
                   : isLight
@@ -396,15 +400,15 @@ export const Navigation: React.FC = () => {
                   ? (isLight ? `${item.iconColor.replace('400', '500')} drop-shadow-sm` : 'text-white drop-shadow-[0_0_8px_rgba(244,63,94,0.85)]') 
                   : item.iconColor
               }`} />
-              <span className={`hidden md:inline truncate relative z-10 ${isLight && item.isActive ? 'text-slate-900 font-extrabold' : ''}`}>
+              <span className={`hidden lg:inline truncate relative z-10 ${isLight && item.isActive ? 'text-slate-900 font-extrabold' : ''}`}>
                 {item.label}
               </span>
               {item.isActive ? (
-                <span className="hidden md:flex ml-auto items-center relative z-10">
+                <span className="hidden lg:flex ml-auto items-center relative z-10">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981] animate-pulse" />
                 </span>
               ) : item.badge ? (
-                <span className={`hidden md:inline-block ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold relative z-10 ${
+                <span className={`hidden lg:inline-block ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold relative z-10 ${
                   isLight 
                     ? 'bg-rose-100 text-rose-700 border border-rose-200' 
                     : 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
@@ -418,7 +422,7 @@ export const Navigation: React.FC = () => {
 
         {/* Section: AI Modules */}
         <div className="space-y-1">
-          <div className="hidden md:block px-3 pt-1 pb-1">
+          <div className="hidden lg:block px-3 pt-1 pb-1">
             <span className={`text-[10px] font-bold uppercase tracking-wider ${
               isLight ? 'text-slate-400' : 'text-slate-500'
             }`}>
@@ -506,7 +510,7 @@ export const Navigation: React.FC = () => {
               <button
                 key={mod.id}
                 onClick={mod.action}
-                className={`w-full p-2 md:px-2.5 md:py-2 rounded-xl text-xs font-semibold flex items-center gap-3 transition-all duration-300 justify-center md:justify-start relative group overflow-hidden ${
+                className={`w-full p-2 md:px-2.5 md:py-2 rounded-xl text-xs font-semibold flex items-center gap-3 transition-all duration-300 justify-center lg:justify-start relative group overflow-hidden ${
                   mod.isActive
                     ? `liquid-glass-bubble prismatic-rim animate-chromatic-shimmer ${isLight ? 'text-slate-900 font-extrabold' : 'text-white font-bold'} shadow-md`
                     : isLight
@@ -521,11 +525,11 @@ export const Navigation: React.FC = () => {
                     ? (isLight ? `${mod.iconColor.replace('400', '500')} drop-shadow-sm` : 'text-white drop-shadow-[0_0_8px_rgba(244,63,94,0.85)]') 
                     : mod.iconColor
                 }`} />
-                <span className={`hidden md:inline truncate relative z-10 ${isLight && mod.isActive ? 'text-slate-900 font-extrabold' : ''}`}>
+                <span className={`hidden lg:inline truncate relative z-10 ${isLight && mod.isActive ? 'text-slate-900 font-extrabold' : ''}`}>
                   {mod.label}
                 </span>
                 {mod.badge && (
-                  <span className="hidden md:inline-block ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-amber-500 text-slate-950 shadow-sm animate-pulse relative z-10">
+                  <span className="hidden lg:inline-block ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-amber-500 text-slate-950 shadow-sm animate-pulse relative z-10">
                     {mod.badge}
                   </span>
                 )}
@@ -536,7 +540,7 @@ export const Navigation: React.FC = () => {
 
         {/* Section: Mindset & Intent Filters */}
         <div className="space-y-1">
-          <div className="hidden md:block px-3 pt-1 pb-1">
+          <div className="hidden lg:block px-3 pt-1 pb-1">
             <span className={`text-[10px] font-bold uppercase tracking-wider ${
               isLight ? 'text-slate-400' : 'text-slate-500'
             }`}>
@@ -551,7 +555,7 @@ export const Navigation: React.FC = () => {
                 <button
                   key={item.id}
                   onClick={() => setIntent(item.id)}
-                  className={`w-full p-2 md:px-3 md:py-1.5 rounded-xl text-xs font-medium flex items-center gap-2.5 transition justify-center md:justify-start ${
+                  className={`w-full p-2 md:px-3 md:py-1.5 rounded-xl text-xs font-medium flex items-center gap-2.5 transition justify-center lg:justify-start ${
                     isActive
                       ? isLight
                         ? 'bg-rose-100/70 text-rose-800 font-bold border border-rose-200 shadow-sm'
@@ -563,7 +567,7 @@ export const Navigation: React.FC = () => {
                   title={item.label}
                 >
                   <span className="text-sm">{item.icon}</span>
-                  <span className="hidden md:inline truncate">{item.label}</span>
+                  <span className="hidden lg:inline truncate">{item.label}</span>
                 </button>
               );
             })}
@@ -578,11 +582,11 @@ export const Navigation: React.FC = () => {
         isLight ? 'border-rose-100/70 bg-white/70' : 'border-white/5 bg-[#0e0a16]/70'
       }`}>
         {/* Quick Tools Row: Mode, Theme, Detox, Lang */}
-        <div className="flex items-center justify-between gap-1">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-1.5">
           {/* Light / Dark Mode */}
           <button
             onClick={toggleColorMode}
-            className={`p-2 rounded-xl text-xs transition border flex items-center justify-center flex-1 ${
+            className={`w-full lg:w-auto p-2 rounded-xl text-xs transition border flex items-center justify-center flex-1 ${
               isLight
                 ? 'bg-white hover:bg-rose-50/80 text-slate-800 border-rose-100/80 shadow-sm'
                 : 'bg-slate-900/80 hover:bg-slate-800 text-amber-300 border-white/10'
@@ -595,7 +599,7 @@ export const Navigation: React.FC = () => {
           {/* Content Detox Toggle */}
           <button
             onClick={toggleDetoxMode}
-            className={`p-2 rounded-xl text-xs transition border flex items-center justify-center flex-1 ${
+            className={`w-full lg:w-auto p-2 rounded-xl text-xs transition border flex items-center justify-center flex-1 ${
               isDetoxMode
                 ? 'bg-emerald-500/20 text-emerald-500 border-emerald-500/40'
                 : isLight
@@ -608,7 +612,7 @@ export const Navigation: React.FC = () => {
           </button>
 
           {/* Language Switcher */}
-          <div className="relative flex-1">
+          <div className="relative w-full lg:w-auto flex-1">
             <button
               onClick={() => setIsLangMenuOpen(prev => !prev)}
               className={`w-full p-2 rounded-xl text-xs font-bold transition border flex items-center justify-center gap-1 ${
@@ -619,11 +623,11 @@ export const Navigation: React.FC = () => {
               title="Language"
             >
               <Globe className={`w-3.5 h-3.5 ${isLight ? 'text-rose-600' : 'text-pink-400'}`} />
-              <span className="hidden md:inline uppercase text-[10px]">{language}</span>
+              <span className="hidden lg:inline uppercase text-[10px]">{language}</span>
             </button>
 
             {isLangMenuOpen && (
-              <div className={`absolute bottom-full left-0 mb-2 w-44 max-h-72 overflow-y-auto rounded-2xl border shadow-2xl p-1.5 z-50 animate-fade-in backdrop-blur-2xl ${
+              <div className={`absolute bottom-full left-0 md:left-2 lg:left-0 mb-2 w-44 max-h-72 overflow-y-auto rounded-2xl border shadow-2xl p-1.5 z-50 animate-fade-in backdrop-blur-2xl ${
                 isLight ? 'bg-white border-slate-200 text-slate-900' : 'bg-slate-900 border-white/15 text-white'
               }`}>
                 {languages.map(lang => (
@@ -652,13 +656,13 @@ export const Navigation: React.FC = () => {
         <div className="relative">
           <button
             onClick={() => setIsUserMenuOpen(prev => !prev)}
-            className={`w-full p-2 rounded-2xl border flex items-center justify-between gap-2 transition ${
+            className={`w-full p-2 rounded-2xl border flex items-center justify-center lg:justify-between gap-2 transition ${
               isLight
                 ? 'bg-white hover:bg-rose-50/70 border-rose-100/80 text-slate-900 shadow-sm'
                 : 'bg-[#181328]/90 hover:bg-[#201835] border-white/10 text-white'
             }`}
           >
-            <div className="flex items-center gap-2 min-w-0">
+            <div className="flex items-center justify-center lg:justify-start gap-2 min-w-0">
               <div className="w-7 h-7 rounded-xl overflow-hidden flex-shrink-0 bg-slate-950">
                 <img
                   src={userProfile?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'}
@@ -666,7 +670,7 @@ export const Navigation: React.FC = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="hidden md:flex flex-col text-left min-w-0">
+              <div className="hidden lg:flex flex-col text-left min-w-0">
                 <span className="text-xs font-bold truncate block">{localizedAccountName}</span>
                 <span className={`text-[10px] font-mono font-medium truncate block ${
                   isLight ? 'text-rose-600' : 'text-pink-400'
@@ -675,7 +679,7 @@ export const Navigation: React.FC = () => {
                 </span>
               </div>
             </div>
-            <MoreVertical className="hidden md:block w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+            <MoreVertical className="hidden lg:block w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
           </button>
 
           {/* User Profile Popover Menu */}
