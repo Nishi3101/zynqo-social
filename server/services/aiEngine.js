@@ -997,3 +997,183 @@ export async function companionChat(userMessage, context = {}) {
     action: 'GENERAL_CHAT'
   };
 }
+
+/**
+ * Natural-Language Search Intent Extraction Engine (Gemini AI + Fallback)
+ */
+export async function parseSearchIntentWithAI(rawQuery) {
+  const query = (rawQuery || '').trim();
+  if (!query) {
+    return {
+      rawQuery: '',
+      normalizedQuery: '',
+      keywords: [],
+      isNaturalLanguage: false,
+      confidence: 0,
+      reasoning: 'Empty search query.'
+    };
+  }
+
+  // 1. Try Google Gemini API if configured
+  if (geminiApiKey) {
+    try {
+      const prompt = `Analyze this search query for a short-form video platform: "${query}".
+Return a strictly valid JSON object with the following fields:
+{
+  "category": "One of: Culture & Dance, Tech & AI, Entertainment & Comedy, Fitness & Health, Travel & Adventure, Food & Lifestyle, Productivity & Growth, Mindfulness & Detox, or null",
+  "intent": "One of: entertain, teach, achieve, inspire, relax, or null",
+  "mood": "One of: energetic, focus, humorous, curious, chill, excited, calm, creative, or null",
+  "keywords": ["array", "of", "search", "keywords", "and", "synonyms"],
+  "language": "en, gu, or hi",
+  "maxDuration": number of seconds or null,
+  "reasoning": "brief explanation"
+}`;
+      const systemInstruction = 'You are a search intent parsing engine for Zynqo Social short-form reels. Return JSON only, no markdown wrapping, no conversational text.';
+      const geminiText = await queryGemini(prompt, systemInstruction);
+      if (geminiText) {
+        const cleanJson = geminiText.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim();
+        const parsed = JSON.parse(cleanJson);
+        return {
+          rawQuery: query,
+          normalizedQuery: query.toLowerCase(),
+          category: parsed.category || undefined,
+          intent: parsed.intent || undefined,
+          mood: parsed.mood || undefined,
+          keywords: Array.isArray(parsed.keywords) ? parsed.keywords : [query],
+          language: parsed.language || 'en',
+          maxDuration: parsed.maxDuration || undefined,
+          isNaturalLanguage: true,
+          confidence: 0.98,
+          reasoning: parsed.reasoning || `Gemini AI parsed query: "${query}"`
+        };
+      }
+    } catch (err) {
+      console.warn('[AI Engine] Gemini search intent parse notice, falling back to local NLP:', err.message);
+    }
+  }
+
+  // 2. Built-in Local NLP Intent Extraction Fallback
+  const lower = query.toLowerCase();
+  const conversationalRegex = /^(?:show\s+me|can\s+you\s+show\s+me|i\s+want\s+to\s+watch|i\s+want|i'm\s+looking\s+for|give\s+me|find\s+me|search\s+for|videos\s+of|reels\s+about|reels\s+of|something\s+about|something\s+for|display|play)\s+/i;
+  const isConversational = conversationalRegex.test(query);
+
+  let normalized = lower.replace(conversationalRegex, '').trim();
+  normalized = normalized.replace(/\b(?:please|videos?|reels?|shorts?|clips?|content)\b/gi, ' ').replace(/\s+/g, ' ').trim();
+
+  let maxDuration;
+  const durationMatch = lower.match(/(?:for\s+|in\s+)?(\d+)\s*(?:mins?|minutes?)/i);
+  if (durationMatch) {
+    maxDuration = parseInt(durationMatch[1], 10) * 60;
+  } else {
+    const secMatch = lower.match(/(\d+)\s*(?:secs?|seconds?)/i);
+    if (secMatch) {
+      maxDuration = parseInt(secMatch[1], 10);
+    }
+  }
+
+  let category;
+  let intent;
+  let mood;
+  const semanticKeywords = [];
+
+  if (/\b(?:comedy|funny|humor|laugh|joke|memes?|hilarious|jethalal|bapuji|tmkoc|babita|iyer|gokuldham)\b/i.test(lower)) {
+    category = 'Entertainment & Comedy';
+    intent = 'entertain';
+    mood = 'humorous';
+    semanticKeywords.push('comedy', 'funny', 'humor', 'jethalal', 'bapuji', 'tmkoc', 'laugh', 'gokuldham');
+  }
+
+  if (/\b(?:travel|travelling|journey|trip|mountains?|hills?|nature|explore|scenic|destination|sunrise|flight|airport|india)\b/i.test(lower)) {
+    category = 'Travel & Adventure';
+    semanticKeywords.push('travel', 'nature', 'mountains', 'hills', 'scenic', 'journey', 'explore');
+    if (/\b(?:relax|relaxing|calm|peace|peaceful|soothing|chill)\b/i.test(lower)) {
+      intent = 'relax';
+      mood = 'chill';
+      semanticKeywords.push('relaxing', 'peaceful', 'calm', 'chill');
+    }
+  }
+
+  if (/\b(?:ai|artificial\s+intelligence|tech|technology|code|coding|python|javascript|developer|software|robotics?|neural|engineer|programming|github)\b/i.test(lower)) {
+    category = 'Tech & AI';
+    intent = 'teach';
+    mood = 'curious';
+    semanticKeywords.push('ai', 'tech', 'software', 'engineer', 'developer', 'coding', 'neural');
+  }
+
+  if (/\b(?:cook|cooking|recipe|food|kitchen|bake|espresso|coffee|delicious|eat|chef|dish|meal|breakfast|fails?)\b/i.test(lower)) {
+    if (!category) {
+      category = 'Food & Lifestyle';
+      intent = 'entertain';
+      mood = 'humorous';
+    }
+    semanticKeywords.push('cooking', 'food', 'kitchen', 'recipe', 'espresso', 'coffee');
+    if (/\b(?:fails?|funny|laugh|hilarious)\b/i.test(lower)) {
+      semanticKeywords.push('fail', 'funny', 'humor');
+    }
+  }
+
+  if (/\b(?:garba|navratri|dance|dancing|dodhiya|sanedo|titodo|dholida|raas|dandiya|vadodara|baroda|heritage)\b/i.test(lower)) {
+    if (!category) {
+      category = 'Culture & Dance';
+      intent = 'entertain';
+      mood = 'energetic';
+    }
+    semanticKeywords.push('garba', 'navratri', 'dance', 'culture', 'raas', 'dodhiya');
+  }
+
+  if (/\b(?:relax|relaxing|meditation|mindfulness|detox|calm|peaceful|breathing|zen|mental|slackline|stress)\b/i.test(lower)) {
+    if (!category) {
+      category = 'Mindfulness & Detox';
+      intent = 'relax';
+      mood = 'calm';
+    }
+    semanticKeywords.push('meditation', 'calm', 'peaceful', 'detox', 'mindfulness', 'relaxing');
+  }
+
+  if (/\b(?:fitness|workout|gym|exercise|training|health|muscle|activation|stretching)\b/i.test(lower)) {
+    category = 'Fitness & Health';
+    intent = 'achieve';
+    mood = 'energetic';
+    semanticKeywords.push('fitness', 'workout', 'exercise', 'training', 'health');
+  }
+
+  if (/\b(?:productivity|study|studying|focus|growth|career|habit|routine|learning|interesting|lesson)\b/i.test(lower)) {
+    if (!category) {
+      category = 'Productivity & Growth';
+      intent = 'achieve';
+      mood = 'focus';
+    }
+    semanticKeywords.push('productivity', 'study', 'growth', 'focus', 'learning');
+  }
+
+  let detectedLang = 'en';
+  if (/[\u0A80-\u0AFF]/.test(query) || /\b(?:gujarat|gujarati|garba|navratri|jethalal|sanedo|titodo|dodhiya|baka|jalso)\b/i.test(lower)) {
+    detectedLang = 'gu';
+    semanticKeywords.push('gujarat', 'gujarati');
+  } else if (/[\u0900-\u097F]/.test(query) || /\b(?:deshi|desi|khud\s+se|jodhpur|sadhguru|apna|bhai)\b/i.test(lower)) {
+    detectedLang = 'hi';
+  }
+
+  const stopwords = new Set(['the', 'is', 'at', 'which', 'on', 'a', 'an', 'and', 'or', 'in', 'to', 'for', 'about', 'with', 'of', 'me', 'you', 'something', 'videos', 'reels', 'show']);
+  const tokenWords = normalized
+    .replace(/[^\w\s\u0A80-\u0AFF\u0900-\u097F]/g, ' ')
+    .split(/\s+/)
+    .filter(w => w.length >= 2 && !stopwords.has(w));
+
+  const allKeywords = Array.from(new Set([...tokenWords, ...semanticKeywords]));
+  const isNaturalLanguage = isConversational || allKeywords.length > 2 || Boolean(maxDuration) || Boolean(category);
+
+  return {
+    rawQuery: query,
+    normalizedQuery: normalized || query,
+    category,
+    intent,
+    mood,
+    keywords: allKeywords,
+    language: detectedLang,
+    maxDuration,
+    isNaturalLanguage,
+    confidence: isNaturalLanguage ? 0.92 : 0.75,
+    reasoning: `Semantic search intent parsed (Category: "${category || 'General'}", Intent: ${intent || 'all'}).`
+  };
+}

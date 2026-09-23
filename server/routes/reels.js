@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import multer from 'multer';
 import { analyzeLanguage } from '../services/languageEngine.js';
+import { parseSearchIntentWithAI } from '../services/aiEngine.js';
 
 const router = express.Router();
 const reelsPath = path.resolve(process.cwd(), 'server/data/reels.json');
@@ -41,9 +42,10 @@ function saveReels(reels) {
 }
 
 // GET all reels with multi-factor filtering (Intent, Category, Goal, Search, Mood)
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   const { intent, category, goal, mood, search, detox } = req.query;
   let reels = loadReels();
+  let searchIntent = null;
 
   if (detox === 'true') {
     reels = reels.filter(r => r.category === 'Mindfulness & Detox' || r.intent === 'relax');
@@ -60,52 +62,84 @@ router.get('/', (req, res) => {
     if (mood && mood !== 'all') {
       reels = reels.filter(r => r.mood === mood);
     }
-    if (search) {
-      const analysis = analyzeLanguage(search);
-      const q = search.toLowerCase().trim();
-      
-      // Slang, emotion, and intent-aware keywords
-      const intentKeywords = [];
-      if (analysis.detectedSlangs.some(s => s.intent === 'praise' || s.term === 'fire')) {
-        intentKeywords.push('neural', 'quantum', 'interest', 'compound');
-      }
-      if (analysis.detectedSlangs.some(s => s.term === 'chill' || s.term === 'vibe') || q.includes('chill') || q.includes('vibe')) {
-        intentKeywords.push('breathing', 'cortisol', 'detox', 'calm');
-      }
-      if (analysis.detectedDialect === 'kathiawadi' || q.includes('moj') || q.includes('bapu') || q.includes('halo') || q.includes('garba') || q.includes('navratri')) {
-        intentKeywords.push('garba', 'navratri', 'gujarat', 'dodhiya', 'titodo', 'sanedo', 'dholida', 'raas');
-      }
-      if (analysis.detectedDialect === 'bambaiya' || q.includes('jhakaas') || q.includes('bantai')) {
-        intentKeywords.push('neural', 'network', 'tmkoc', 'comedy');
-      }
+    if (search && search.trim()) {
+      searchIntent = await parseSearchIntentWithAI(search);
+      const qLower = search.trim().toLowerCase();
 
-      const matchReel = (r) => {
-        const titleL = (r.title || '').toLowerCase();
-        const descL = (r.description || '').toLowerCase();
-        const catL = (r.category || '').toLowerCase();
-        const tags = (r.goalTags || []).join(' ').toLowerCase();
+      // Score each reel based on relevance to the interpreted intent
+      const scored = reels.map(reel => {
+        let score = 0;
+        const titleL = (reel.title || '').toLowerCase();
+        const descL = (reel.description || '').toLowerCase();
+        const catL = (reel.category || '').toLowerCase();
+        const creatorL = ((reel.creator?.name || '') + ' ' + (reel.creator?.handle || '')).toLowerCase();
+        const tagsL = (reel.goalTags || []).join(' ').toLowerCase();
 
-        // 1. Direct query match
-        if (titleL.includes(q) || descL.includes(q) || catL.includes(q) || tags.includes(q)) {
-          return true;
+        // 1. Direct query substring matches
+        if (titleL.includes(qLower)) score += 60;
+        if (descL.includes(qLower)) score += 35;
+        if (catL.includes(qLower)) score += 40;
+        if (creatorL.includes(qLower)) score += 40;
+
+        // 2. Keyword relevance scoring
+        if (searchIntent && searchIntent.keywords) {
+          for (const kw of searchIntent.keywords) {
+            const kwLower = kw.toLowerCase();
+            if (titleL.includes(kwLower)) score += 25;
+            if (descL.includes(kwLower)) score += 15;
+            if (tagsL.includes(kwLower)) score += 20;
+            if (catL.includes(kwLower)) score += 25;
+            if (creatorL.includes(kwLower)) score += 20;
+          }
         }
 
-        // 2. Intent-expanded semantic match
-        if (intentKeywords.length > 0 && intentKeywords.some(kw => titleL.includes(kw) || descL.includes(kw) || tags.includes(kw))) {
-          return true;
+        // 3. Category alignment with semantic intent
+        if (searchIntent?.category && reel.category && reel.category.toLowerCase() === searchIntent.category.toLowerCase()) {
+          score += 45;
         }
 
-        return false;
-      };
+        // 4. Intent & Mood alignment
+        if (searchIntent?.intent && reel.intent && reel.intent === searchIntent.intent) {
+          score += 25;
+        }
+        if (searchIntent?.mood && reel.mood && reel.mood === searchIntent.mood) {
+          score += 20;
+        }
 
-      const matched = reels.filter(matchReel);
-      if (matched.length > 0) {
-        reels = matched;
+        // 5. Regional Language & Culture Boost
+        if (searchIntent?.language === 'gu') {
+          if (tagsL.includes('gujarat') || titleL.includes('garba') || titleL.includes('jethalal') || catL.includes('culture')) {
+            score += 35;
+          }
+        }
+
+        // 6. Duration constraint validation
+        if (searchIntent?.maxDuration && reel.duration) {
+          if (reel.duration <= searchIntent.maxDuration) {
+            score += 15;
+          }
+        }
+
+        return { reel, score };
+      });
+
+      const matches = scored.filter(item => item.score > 0);
+      if (matches.length > 0) {
+        matches.sort((a, b) => b.score - a.score);
+        reels = matches.map(m => m.reel);
+      } else {
+        // Fallback: Standard substring search
+        reels = reels.filter(r => {
+          const t = (r.title || '').toLowerCase();
+          const d = (r.description || '').toLowerCase();
+          const c = (r.category || '').toLowerCase();
+          return t.includes(qLower) || d.includes(qLower) || c.includes(qLower);
+        });
       }
     }
   }
 
-  res.json({ success: true, count: reels.length, reels });
+  res.json({ success: true, count: reels.length, searchIntent, reels });
 });
 
 // GET single reel by ID

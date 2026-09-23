@@ -18,6 +18,11 @@ import { themes } from '../utils/theme';
 import { sounds } from '../utils/sound';
 import confetti from 'canvas-confetti';
 import defaultReelsData from '../data/defaultReels.json';
+import { 
+  rankReelsBySearchIntent, 
+  parseClientSearchIntent, 
+  StructuredSearchIntent 
+} from '../utils/aiClientEngine';
 
 interface TimeSessionState {
   isActive: boolean;
@@ -61,6 +66,7 @@ interface AppContextType {
   selectedCategory: string;
   selectedMood: MoodType;
   searchQuery: string;
+  searchIntent: StructuredSearchIntent | null;
   language: LanguageCode;
   t: typeof translations['en'];
   userProfile: UserProfile | null;
@@ -200,6 +206,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedMood, setSelectedMood] = useState<MoodType>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchIntent, setSearchIntent] = useState<StructuredSearchIntent | null>(null);
   
   // Language state with fallback protection
   const [language, setLanguageState] = useState<LanguageCode>(() => {
@@ -618,19 +625,28 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       .then(data => {
         if (data && data.success && data.reels && data.reels.length > 0) {
           setReels(data.reels);
+          if (data.searchIntent) {
+            setSearchIntent(data.searchIntent);
+          } else if (!searchQuery.trim()) {
+            setSearchIntent(null);
+          }
           setCurrentReelIndex(0);
         } else {
-          // Local fallback filtering from defaultReelsData
+          // Local fallback filtering from defaultReelsData with client-side AI intent ranking
           let filtered = (defaultReelsData as unknown) as Reel[];
           if (isDetoxMode) {
             filtered = filtered.filter(r => r.category === 'Mindfulness & Mental Wellness' || r.category === 'Science & Cosmos');
+            setSearchIntent(null);
           } else {
-            if (intent !== 'all') filtered = filtered.filter(r => r.intent === intent);
-            if (selectedCategory !== 'All') filtered = filtered.filter(r => r.category === selectedCategory);
-            if (selectedMood !== 'all') filtered = filtered.filter(r => r.mood === selectedMood);
-            if (searchQuery) {
-              const q = searchQuery.toLowerCase();
-              filtered = filtered.filter(r => r.title.toLowerCase().includes(q) || r.description.toLowerCase().includes(q));
+            if (searchQuery.trim()) {
+              const ranked = rankReelsBySearchIntent(filtered, searchQuery);
+              filtered = ranked.reels;
+              setSearchIntent(ranked.intent);
+            } else {
+              setSearchIntent(null);
+              if (intent !== 'all') filtered = filtered.filter(r => r.intent === intent);
+              if (selectedCategory !== 'All') filtered = filtered.filter(r => r.category === selectedCategory);
+              if (selectedMood !== 'all') filtered = filtered.filter(r => r.mood === selectedMood);
             }
           }
           if (filtered.length > 0) {
@@ -639,7 +655,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           }
         }
       })
-      .catch(err => console.warn('Reels fetch notice:', err))
+      .catch(err => {
+        console.warn('Reels fetch notice:', err);
+        let filtered = (defaultReelsData as unknown) as Reel[];
+        if (searchQuery.trim() && !isDetoxMode) {
+          const ranked = rankReelsBySearchIntent(filtered, searchQuery);
+          setReels(ranked.reels);
+          setSearchIntent(ranked.intent);
+          setCurrentReelIndex(0);
+        }
+      })
       .finally(() => setLoading(false));
   };
 
@@ -1078,6 +1103,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         selectedCategory,
         selectedMood,
         searchQuery,
+        searchIntent,
         language,
         t,
         userProfile,

@@ -9,7 +9,9 @@ import {
   ShieldCheck, 
   Flame,
   Check,
-  Bot
+  Bot,
+  Mic,
+  MicOff
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { triggerHaptic } from '../utils/nativeBridge';
@@ -32,7 +34,54 @@ export const MobileTopBar: React.FC = () => {
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const isLight = colorMode === 'light';
+
+  const handleVoiceSearch = () => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert("Voice search is supported in Chrome, Edge, and Safari.");
+      return;
+    }
+
+    try {
+      const recognition = new SpeechRecognition();
+      recognition.lang = 
+        language === 'gu' ? 'gu-IN' :
+        language === 'hi' ? 'hi-IN' :
+        language === 'mr' ? 'mr-IN' :
+        language === 'te' ? 'te-IN' :
+        language === 'es' ? 'es-ES' :
+        language === 'fr' ? 'fr-FR' :
+        language === 'ja' ? 'ja-JP' :
+        language === 'de' ? 'de-DE' : 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.onstart = () => {
+        setIsListening(true);
+      };
+
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setSearchQuery(transcript);
+        setIsListening(false);
+        setCurrentPage('feed');
+      };
+
+      recognition.onerror = () => {
+        setIsListening(false);
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognition.start();
+    } catch (err) {
+      setIsListening(false);
+    }
+  };
 
   return (
     <>
@@ -160,10 +209,24 @@ export const MobileTopBar: React.FC = () => {
                 autoFocus
               />
               {searchQuery && (
-                <button onClick={() => setSearchQuery('')}>
+                <button onClick={() => setSearchQuery('')} className="p-0.5">
                   <X className="w-3.5 h-3.5 text-slate-400" />
                 </button>
               )}
+              <button
+                type="button"
+                onClick={handleVoiceSearch}
+                className={`p-1 rounded-lg transition-all ${
+                  isListening
+                    ? 'bg-rose-500 text-white animate-pulse shadow-md shadow-rose-500/50'
+                    : isLight
+                    ? 'text-slate-500 hover:text-cyan-600 hover:bg-slate-200'
+                    : 'text-slate-400 hover:text-cyan-400 hover:bg-white/10'
+                }`}
+                title={isListening ? "Listening... speak now" : "Voice Search"}
+              >
+                {isListening ? <MicOff className="w-3.5 h-3.5" /> : <Mic className="w-3.5 h-3.5" />}
+              </button>
             </div>
             <button
               onClick={() => setIsSearchOpen(false)}

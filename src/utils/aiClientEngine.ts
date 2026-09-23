@@ -287,3 +287,291 @@ export function clientGenerateContentSuggestions(title: string, category: string
   };
 }
 
+/**
+ * Structured Search Intent Representation
+ */
+export interface StructuredSearchIntent {
+  rawQuery: string;
+  normalizedQuery: string;
+  category?: string;
+  intent?: 'entertain' | 'teach' | 'achieve' | 'inspire' | 'relax' | 'all';
+  mood?: 'energetic' | 'focus' | 'humorous' | 'curious' | 'chill' | 'excited' | 'calm' | 'creative' | 'all';
+  keywords: string[];
+  language?: string;
+  maxDuration?: number;
+  isNaturalLanguage: boolean;
+  confidence: number;
+  reasoning: string;
+}
+
+/**
+ * Converts a raw user search query into a structured semantic search intent.
+ * Understands conversational prompts, time limits, multi-lingual cues, and topic descriptors.
+ */
+export function parseClientSearchIntent(rawQuery: string): StructuredSearchIntent {
+  const query = (rawQuery || '').trim();
+  if (!query) {
+    return {
+      rawQuery: '',
+      normalizedQuery: '',
+      keywords: [],
+      isNaturalLanguage: false,
+      confidence: 0,
+      reasoning: 'Empty search query.'
+    };
+  }
+
+  const lower = query.toLowerCase();
+
+  // 1. Detect conversational natural-language prefixes & fillers
+  const conversationalRegex = /^(?:show\s+me|can\s+you\s+show\s+me|i\s+want\s+to\s+watch|i\s+want|i'm\s+looking\s+for|give\s+me|find\s+me|search\s+for|videos\s+of|reels\s+about|reels\s+of|something\s+about|something\s+for|display|play)\s+/i;
+  const isConversational = conversationalRegex.test(query);
+
+  let normalized = lower.replace(conversationalRegex, '').trim();
+  // Strip non-essential fluff words for keyword extraction
+  normalized = normalized.replace(/\b(?:please|videos?|reels?|shorts?|clips?|content)\b/gi, ' ').replace(/\s+/g, ' ').trim();
+
+  // 2. Duration Extraction (e.g., "for 10 minutes", "5 mins", "quick 30 sec")
+  let maxDuration: number | undefined;
+  const durationMatch = lower.match(/(?:for\s+|in\s+)?(\d+)\s*(?:mins?|minutes?)/i);
+  if (durationMatch) {
+    maxDuration = parseInt(durationMatch[1], 10) * 60;
+  } else {
+    const secMatch = lower.match(/(\d+)\s*(?:secs?|seconds?)/i);
+    if (secMatch) {
+      maxDuration = parseInt(secMatch[1], 10);
+    }
+  }
+
+  // 3. Category & Domain Intent Detection
+  let category: string | undefined;
+  let intent: StructuredSearchIntent['intent'];
+  let mood: StructuredSearchIntent['mood'];
+  const semanticKeywords: string[] = [];
+
+  // Entertainment & Comedy / Humor (Check early so comedy requests are never misclassified)
+  if (/\b(?:comedy|funny|humor|laugh|joke|memes?|hilarious|jethalal|bapuji|tmkoc|babita|iyer|gokuldham)\b/i.test(lower)) {
+    category = 'Entertainment & Comedy';
+    intent = 'entertain';
+    mood = 'humorous';
+    semanticKeywords.push('comedy', 'funny', 'humor', 'jethalal', 'bapuji', 'tmkoc', 'laugh', 'gokuldham');
+  }
+
+  // Travel & Adventure
+  if (/\b(?:travel|travelling|journey|trip|mountains?|hills?|nature|explore|scenic|destination|sunrise|flight|airport|india)\b/i.test(lower)) {
+    category = 'Travel & Adventure';
+    semanticKeywords.push('travel', 'nature', 'mountains', 'hills', 'scenic', 'journey', 'explore');
+    if (/\b(?:relax|relaxing|calm|peace|peaceful|soothing|chill)\b/i.test(lower)) {
+      intent = 'relax';
+      mood = 'chill';
+      semanticKeywords.push('relaxing', 'peaceful', 'calm', 'chill');
+    }
+  }
+
+  // Tech & AI
+  if (/\b(?:ai|artificial\s+intelligence|tech|technology|code|coding|python|javascript|developer|software|robotics?|neural|engineer|programming|github)\b/i.test(lower)) {
+    category = 'Tech & AI';
+    intent = 'teach';
+    mood = 'curious';
+    semanticKeywords.push('ai', 'tech', 'software', 'engineer', 'developer', 'coding', 'neural');
+  }
+
+  // Food & Lifestyle / Cooking
+  if (/\b(?:cook|cooking|recipe|food|kitchen|bake|espresso|coffee|delicious|eat|chef|dish|meal|breakfast|fails?)\b/i.test(lower)) {
+    if (!category) {
+      category = 'Food & Lifestyle';
+      intent = 'entertain';
+      mood = 'humorous';
+    }
+    semanticKeywords.push('cooking', 'food', 'kitchen', 'recipe', 'espresso', 'coffee');
+    if (/\b(?:fails?|funny|laugh|hilarious)\b/i.test(lower)) {
+      semanticKeywords.push('fail', 'funny', 'humor');
+    }
+  }
+
+  // Culture & Dance (Garba, Folk, Navratri) - Only if dance/garba is specifically mentioned
+  if (/\b(?:garba|navratri|dance|dancing|dodhiya|sanedo|titodo|dholida|raas|dandiya|vadodara|baroda|heritage)\b/i.test(lower)) {
+    if (!category) {
+      category = 'Culture & Dance';
+      intent = 'entertain';
+      mood = 'energetic';
+    }
+    semanticKeywords.push('garba', 'navratri', 'dance', 'culture', 'raas', 'dodhiya');
+  }
+
+  // Mindfulness & Mental Detox
+  if (/\b(?:relax|relaxing|meditation|mindfulness|detox|calm|peaceful|breathing|zen|mental|slackline|stress)\b/i.test(lower)) {
+    if (!category) {
+      category = 'Mindfulness & Detox';
+      intent = 'relax';
+      mood = 'calm';
+    }
+    semanticKeywords.push('meditation', 'calm', 'peaceful', 'detox', 'mindfulness', 'relaxing');
+  }
+
+  // Fitness & Health
+  if (/\b(?:fitness|workout|gym|exercise|training|health|muscle|activation|stretching)\b/i.test(lower)) {
+    category = 'Fitness & Health';
+    intent = 'achieve';
+    mood = 'energetic';
+    semanticKeywords.push('fitness', 'workout', 'exercise', 'training', 'health');
+  }
+
+  // Productivity & Growth / Study
+  if (/\b(?:productivity|study|studying|focus|growth|career|habit|routine|learning|interesting|lesson)\b/i.test(lower)) {
+    if (!category) {
+      category = 'Productivity & Growth';
+      intent = 'achieve';
+      mood = 'focus';
+    }
+    semanticKeywords.push('productivity', 'study', 'growth', 'focus', 'learning');
+  }
+
+  // 4. Regional Language / Dialect Detection
+  let detectedLang = 'en';
+  if (/[\u0A80-\u0AFF]/.test(query) || /\b(?:gujarat|gujarati|garba|navratri|jethalal|sanedo|titodo|dodhiya|baka|jalso)\b/i.test(lower)) {
+    detectedLang = 'gu';
+    semanticKeywords.push('gujarat', 'gujarati');
+  } else if (/[\u0900-\u097F]/.test(query) || /\b(?:deshi|desi|khud\s+se|jodhpur|sadhguru|apna|bhai)\b/i.test(lower)) {
+    detectedLang = 'hi';
+  }
+
+  // 5. Raw Word Token Extraction (ignoring short stopwords)
+  const stopwords = new Set(['the', 'is', 'at', 'which', 'on', 'a', 'an', 'and', 'or', 'in', 'to', 'for', 'about', 'with', 'of', 'me', 'you', 'something', 'videos', 'reels', 'show']);
+  const tokenWords = normalized
+    .replace(/[^\w\s\u0A80-\u0AFF\u0900-\u097F]/g, ' ')
+    .split(/\s+/)
+    .filter(w => w.length >= 2 && !stopwords.has(w));
+
+  const allKeywords = Array.from(new Set([...tokenWords, ...semanticKeywords]));
+  const isNaturalLanguage = isConversational || allKeywords.length > 2 || Boolean(maxDuration) || Boolean(category);
+
+  // Formulate explanatory reasoning for transparency
+  const reasons: string[] = [];
+  if (category) reasons.push(`Category: "${category}"`);
+  if (intent) reasons.push(`Intent: ${intent}`);
+  if (mood) reasons.push(`Mood: ${mood}`);
+  if (detectedLang !== 'en') reasons.push(`Language: ${detectedLang.toUpperCase()}`);
+  if (maxDuration) reasons.push(`Max Duration: ${Math.round(maxDuration / 60)}m`);
+  const reasoning = reasons.length > 0 
+    ? `Semantic intent parsed (${reasons.join(', ')}).` 
+    : `Keyword search for: "${query}".`;
+
+  return {
+    rawQuery: query,
+    normalizedQuery: normalized || query,
+    category,
+    intent,
+    mood,
+    keywords: allKeywords,
+    language: detectedLang,
+    maxDuration,
+    isNaturalLanguage,
+    confidence: isNaturalLanguage ? 0.92 : 0.75,
+    reasoning
+  };
+}
+
+/**
+ * Filter & Rank Reels based on Structured Search Intent with graceful fallback
+ */
+export function rankReelsBySearchIntent(allReels: Reel[], query: string): { reels: Reel[]; intent: StructuredSearchIntent } {
+  const trimmed = (query || '').trim();
+  if (!trimmed) {
+    return {
+      reels: allReels,
+      intent: {
+        rawQuery: '',
+        normalizedQuery: '',
+        keywords: [],
+        isNaturalLanguage: false,
+        confidence: 0,
+        reasoning: 'Empty query, returning all reels.'
+      }
+    };
+  }
+
+  const intent = parseClientSearchIntent(trimmed);
+  const qLower = trimmed.toLowerCase();
+
+  // Score each reel based on relevance to the interpreted intent
+  const scored = allReels.map(reel => {
+    let score = 0;
+    const titleL = (reel.title || '').toLowerCase();
+    const descL = (reel.description || '').toLowerCase();
+    const catL = (reel.category || '').toLowerCase();
+    const creatorL = ((reel.creator?.name || '') + ' ' + (reel.creator?.handle || '')).toLowerCase();
+    const tagsL = (reel.goalTags || []).join(' ').toLowerCase();
+
+    // 1. Direct raw query substring matches
+    if (titleL.includes(qLower)) score += 60;
+    if (descL.includes(qLower)) score += 35;
+    if (catL.includes(qLower)) score += 40;
+    if (creatorL.includes(qLower)) score += 40;
+
+    // 2. Keyword relevance scoring
+    for (const kw of intent.keywords) {
+      const kwLower = kw.toLowerCase();
+      if (titleL.includes(kwLower)) score += 25;
+      if (descL.includes(kwLower)) score += 15;
+      if (tagsL.includes(kwLower)) score += 20;
+      if (catL.includes(kwLower)) score += 25;
+      if (creatorL.includes(kwLower)) score += 20;
+    }
+
+    // 3. Category alignment with semantic intent
+    if (intent.category && reel.category && reel.category.toLowerCase() === intent.category.toLowerCase()) {
+      score += 45;
+    }
+
+    // 4. Intent & Mood alignment
+    if (intent.intent && reel.intent && reel.intent === intent.intent) {
+      score += 25;
+    }
+    if (intent.mood && reel.mood && reel.mood === intent.mood) {
+      score += 20;
+    }
+
+    // 5. Regional Language & Culture Boost
+    if (intent.language === 'gu') {
+      if (tagsL.includes('gujarat') || titleL.includes('garba') || titleL.includes('jethalal') || catL.includes('culture')) {
+        score += 35;
+      }
+    }
+
+    // 6. Duration constraint validation
+    if (intent.maxDuration && reel.duration) {
+      if (reel.duration <= intent.maxDuration) {
+        score += 15;
+      }
+    }
+
+    return { reel, score };
+  });
+
+  // Filter reels with a positive relevance score
+  const matches = scored.filter(item => item.score > 0);
+
+  if (matches.length > 0) {
+    matches.sort((a, b) => b.score - a.score);
+    return {
+      reels: matches.map(m => m.reel),
+      intent
+    };
+  }
+
+  // Fallback: Standard substring search across title & description
+  const fallback = allReels.filter(r => {
+    const t = (r.title || '').toLowerCase();
+    const d = (r.description || '').toLowerCase();
+    const c = (r.category || '').toLowerCase();
+    return t.includes(qLower) || d.includes(qLower) || c.includes(qLower);
+  });
+
+  return {
+    reels: fallback.length > 0 ? fallback : [],
+    intent
+  };
+}
+
+

@@ -97,7 +97,15 @@ export const Navigation: React.FC = () => {
 
     try {
       const recognition = new SpeechRecognition();
-      recognition.lang = language === 'hi' ? 'hi-IN' : language === 'es' ? 'es-ES' : 'en-US';
+      recognition.lang = 
+        language === 'gu' ? 'gu-IN' :
+        language === 'hi' ? 'hi-IN' :
+        language === 'mr' ? 'mr-IN' :
+        language === 'te' ? 'te-IN' :
+        language === 'es' ? 'es-ES' :
+        language === 'fr' ? 'fr-FR' :
+        language === 'ja' ? 'ja-JP' :
+        language === 'de' ? 'de-DE' : 'en-US';
       recognition.interimResults = false;
       recognition.maxAlternatives = 1;
 
@@ -334,6 +342,22 @@ export const Navigation: React.FC = () => {
                   className="w-full text-xs bg-transparent outline-none placeholder:text-slate-400"
                   autoFocus
                 />
+                {searchQuery && (
+                  <button onClick={() => setSearchQuery('')} className="text-slate-400 hover:text-white text-xs">✕</button>
+                )}
+                <button
+                  onClick={handleVoiceSearch}
+                  className={`p-1 rounded-lg transition-all ${
+                    isListening
+                      ? 'bg-rose-500 text-white animate-pulse shadow-md shadow-rose-500/50'
+                      : isLight
+                      ? 'text-slate-500 hover:text-cyan-600 hover:bg-slate-200'
+                      : 'text-slate-400 hover:text-cyan-400 hover:bg-white/10'
+                  }`}
+                  title={isListening ? "Listening... speak now" : "Voice Search"}
+                >
+                  {isListening ? <MicOff className="w-3.5 h-3.5" /> : <Mic className="w-3.5 h-3.5" />}
+                </button>
                 <button onClick={() => setIsSearchOpenMobile(false)} className="text-slate-400 hover:text-white text-xs">✕</button>
               </div>
             </div>
