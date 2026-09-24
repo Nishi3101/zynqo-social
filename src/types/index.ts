@@ -234,7 +234,7 @@ export interface CommentActivity {
   timestamp: string;
 }
 
-export type PageType = 'home' | 'feed' | 'profile';
+export type PageType = 'home' | 'feed' | 'profile' | 'creator';
 
 export type UserCategory = 'Student' | 'Teacher' | 'Clerk' | 'Manager' | 'Head' | 'Other';
 
@@ -284,5 +284,56 @@ export interface LanguageAnalysisResult {
   detectedIntent: string;
   sentiment: 'positive' | 'negative' | 'neutral';
   normalizedMeaning: string;
+}
+
+export interface CreatorAnalyticsPost {
+  id: string;
+  title: string;
+  type: 'reel' | 'video' | 'post';
+  thumbnail?: string;
+  videoUrl?: string;
+  publishedAt: string;
+  views: number;
+  likes: number;
+  comments: number;
+  shares: number;
+  performance?: string;
+  isScheduled?: boolean;
+}
+
+export interface CreatorDailyStats {
+  date: string;
+  label: string;
+  views: number;
+  likes: number;
+  comments?: number;
+  shares?: number;
+}
+
+export interface CreatorDashboardData {
+  totalViews: number;
+  totalLikes: number;
+  totalComments: number;
+  totalShares: number;
+  followers: number;
+  followersGained?: string;
+  viewsTrend?: string;
+  likesTrend?: string;
+  commentsTrend?: string;
+  sharesTrend?: string;
+  avgWatchTime?: string;
+  completionRate?: string;
+  meaningfulEngagementRate?: string;
+  weeklyAnalytics: CreatorDailyStats[];
+  recentPosts: CreatorAnalyticsPost[];
+  audienceDemographics?: {
+    topCountries: string[];
+    topAges: string[];
+  };
+  aiCoachFeedback?: {
+    overallScore: string;
+    strengths: string[];
+    improvementOpportunities: string[];
+  };
 }
 

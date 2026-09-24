@@ -16,6 +16,7 @@ import { CreatorStudioModal } from './components/CreatorStudioModal';
 import { MemoryVaultModal } from './components/MemoryVaultModal';
 import { FirewallModal } from './components/FirewallModal';
 import { ProfileView } from './components/ProfileView';
+import { CreatorDashboardView } from './components/CreatorDashboardView';
 import { SettingsAndActivityModal } from './components/SettingsAndActivityModal';
 import { LeaderboardModal } from './components/LeaderboardModal';
 import { AIPlaylistsModal } from './components/AIPlaylistsModal';
@@ -72,6 +73,10 @@ const MainLayout: React.FC = () => {
         closeAuthModal();
         return true;
       }
+      if (currentPage === 'creator') {
+        setCurrentPage('profile');
+        return true;
+      }
       if (currentPage !== 'feed') {
         setCurrentPage('feed');
         return true;
@@ -110,6 +115,24 @@ const MainLayout: React.FC = () => {
           onClose={closeAuthModal}
           initialStep={authInitialStep}
         />
+      </div>
+    );
+  }
+
+  // If user is on the Creator Dashboard page (/creator or /dashboard)
+  if (currentPage === 'creator') {
+    return (
+      <div className={`w-full min-h-[100dvh] h-[100dvh] max-w-full overflow-x-hidden overflow-y-auto pb-16 md:pb-0 transition-colors duration-200 ${
+        isLight ? 'zynqo-ambient-bg-light text-slate-900' : 'zynqo-ambient-bg-dark text-slate-100'
+      }`}>
+        <CreatorDashboardView />
+        <MobileNavBar />
+        <AuthModal
+          isOpen={isAuthModalOpen}
+          onClose={closeAuthModal}
+          initialStep={authInitialStep}
+        />
+        {activeModal === 'creatorStudio' && <CreatorStudioModal />}
       </div>
     );
   }

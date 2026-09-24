@@ -287,6 +287,20 @@ io.on('connection', (socket) => {
   });
 });
 
+// Serve frontend SPA in production if built
+const distPath = path.resolve(process.cwd(), 'dist');
+app.use(express.static(distPath));
+
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api') || req.path.startsWith('/uploads') || req.path.startsWith('/videos') || req.path.startsWith('/socket.io')) {
+    return next();
+  }
+  const indexPath = path.join(distPath, 'index.html');
+  res.sendFile(indexPath, err => {
+    if (err) next();
+  });
+});
+
 server.listen(PORT, () => {
   console.log(`🚀 Zynqo Social Server running at http://localhost:${PORT}`);
   console.log(`📡 WebSocket / Socket.IO ready for Watch Together sync`);

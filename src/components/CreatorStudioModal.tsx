@@ -30,7 +30,7 @@ import { AIAssistModal } from './AIAssistModal';
 import { clientGenerateCreatorAssets, clientGenerateContentSuggestions } from '../utils/aiClientEngine';
 
 export const CreatorStudioModal: React.FC = () => {
-  const { closeModal, awardXP, refreshReels, t, language: appLanguage } = useApp();
+  const { closeModal, awardXP, refreshReels, t, language: appLanguage, setCurrentPage } = useApp();
   const [activeTab, setActiveTab] = useState<'generate' | 'upload' | 'analytics'>('generate');
 
   // Generation state
@@ -479,6 +479,18 @@ export const CreatorStudioModal: React.FC = () => {
           >
             <BarChart3 className="w-4 h-4" />
             <span>Audience Retention & Analytics</span>
+          </button>
+
+          <button
+            onClick={() => {
+              closeModal();
+              setCurrentPage('creator');
+            }}
+            className="ml-auto px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 text-rose-300 hover:text-white bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 transition shadow-sm"
+            title="Open Full Creator Dashboard"
+          >
+            <BarChart3 className="w-3.5 h-3.5 text-rose-400" />
+            <span className="hidden sm:inline">Open Full Dashboard</span>
           </button>
         </div>
 

@@ -131,7 +131,17 @@ const generateInitialWatchHistory = (): Record<string, number> => {
 };
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [currentPage, setCurrentPageState] = useState<PageType>('home');
+  const [currentPage, setCurrentPageState] = useState<PageType>(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const path = window.location.pathname.toLowerCase();
+        if (path === '/creator' || path === '/dashboard') return 'creator';
+        if (path === '/profile') return 'profile';
+        if (path === '/feed') return 'feed';
+      }
+    } catch (e) {}
+    return 'home';
+  });
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authInitialStep, setAuthInitialStep] = useState<'login' | 'mood' | 'onboarding'>('login');
   
@@ -371,7 +381,36 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const setCurrentPage = (page: PageType) => {
     sounds.playClick();
     setCurrentPageState(page);
+    try {
+      if (typeof window !== 'undefined') {
+        const targetPath = page === 'home' ? '/' : `/${page}`;
+        if (window.location.pathname.toLowerCase() !== targetPath) {
+          window.history.pushState({ page }, '', targetPath);
+        }
+      }
+    } catch (e) {}
   };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      try {
+        if (typeof window !== 'undefined') {
+          const path = window.location.pathname.toLowerCase();
+          if (path === '/creator' || path === '/dashboard') {
+            setCurrentPageState('creator');
+          } else if (path === '/profile') {
+            setCurrentPageState('profile');
+          } else if (path === '/feed') {
+            setCurrentPageState('feed');
+          } else if (path === '/' || path === '') {
+            setCurrentPageState('home');
+          }
+        }
+      } catch (e) {}
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   const openAuthModal = (step: 'login' | 'mood' | 'onboarding' = 'login') => {
     sounds.playClick();

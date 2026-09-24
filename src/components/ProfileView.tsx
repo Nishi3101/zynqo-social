@@ -38,7 +38,8 @@ import {
   Users2,
   CalendarDays,
   FileEdit,
-  FolderOpen
+  FolderOpen,
+  BarChart3
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { themes } from '../utils/theme';
@@ -361,6 +362,19 @@ export const ProfileView: React.FC = () => {
                   >
                     <Settings className="w-3.5 h-3.5 text-violet-400" />
                     <span className="hidden sm:inline">Settings</span>
+                  </button>
+
+                  <button
+                    onClick={() => setCurrentPage('creator')}
+                    className={`px-3 py-2 rounded-xl border text-xs font-semibold font-sans flex items-center gap-1.5 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 ${
+                      isLight 
+                        ? 'bg-rose-50 hover:bg-rose-100 text-rose-800 border-rose-200' 
+                        : 'bg-rose-950/40 hover:bg-rose-900/50 text-rose-300 border-rose-500/30'
+                    }`}
+                    title="Open Creator Dashboard"
+                  >
+                    <BarChart3 className="w-3.5 h-3.5 text-rose-400" />
+                    <span>Creator Dashboard</span>
                   </button>
 
                   <button
