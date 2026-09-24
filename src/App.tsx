@@ -33,6 +33,7 @@ const MainLayout: React.FC = () => {
     openAuthModal, 
     closeAuthModal, 
     activeModal,
+    openModal,
     closeModal,
     colorMode,
     t
@@ -41,6 +42,19 @@ const MainLayout: React.FC = () => {
   const [deviceFrameMode, setDeviceFrameMode] = useState<'mobile' | 'studio'>('mobile');
   const [showKeyboardHelp, setShowKeyboardHelp] = useState(false);
   const isLight = colorMode === 'light';
+
+  // Auto-open Watch Together if ?room= query parameter exists in URL
+  React.useEffect(() => {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const roomParam = urlParams.get('room');
+      if (roomParam) {
+        openModal('watchTogether');
+      }
+    } catch {
+      // Ignore URL parsing errors
+    }
+  }, [openModal]);
 
   // Sync Native Mobile Status Bar with Color Theme
   React.useEffect(() => {
