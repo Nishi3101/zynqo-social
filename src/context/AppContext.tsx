@@ -204,7 +204,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   });
 
-  const [reels, setReels] = useState<Reel[]>((defaultReelsData as unknown) as Reel[]);
+  const [reels, setReels] = useState<Reel[]>(() => {
+    try {
+      const base = (defaultReelsData as unknown) as Reel[];
+      if (base && base.length > 1) {
+        const lastSeenId = typeof window !== 'undefined' ? localStorage.getItem('zynqo_last_starting_reel_id') : null;
+        let startIndex = Math.floor(Math.random() * base.length);
+        if (base[startIndex]?.id === lastSeenId && base.length > 1) {
+          startIndex = (startIndex + 1) % base.length;
+        }
+        if (typeof window !== 'undefined' && base[startIndex]?.id) {
+          localStorage.setItem('zynqo_last_starting_reel_id', base[startIndex].id);
+        }
+        return [...base.slice(startIndex), ...base.slice(0, startIndex)];
+      }
+    } catch (e) {}
+    return (defaultReelsData as unknown) as Reel[];
+  });
   const [userReels, setUserReels] = useState<Reel[]>([]);
   const [userVideos, setUserVideos] = useState<UserVideo[]>([]);
   const [userPosts, setUserPosts] = useState<UserPost[]>([]);
@@ -719,6 +735,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       .then(data => {
         if (data && data.success && data.reels && data.reels.length > 0) {
           setReels(data.reels);
+          if (data.reels[0]?.id && typeof window !== 'undefined') {
+            try {
+              localStorage.setItem('zynqo_last_starting_reel_id', data.reels[0].id);
+            } catch (e) {}
+          }
           if (data.searchIntent) {
             setSearchIntent(data.searchIntent);
           } else if (!searchQuery.trim()) {
@@ -741,6 +762,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               if (intent !== 'all') filtered = filtered.filter(r => r.intent === intent);
               if (selectedCategory !== 'All') filtered = filtered.filter(r => r.category === selectedCategory);
               if (selectedMood && selectedMood !== 'all') filtered = rankReelsByMood(filtered, selectedMood);
+
+              // Circular rotation for unfiltered discovery feed so starting reel is dynamic like Instagram
+              const isUnfiltered = intent === 'all' && selectedCategory === 'All' && (!selectedMood || selectedMood === 'all');
+              if (isUnfiltered && filtered.length > 1) {
+                const lastSeenId = typeof window !== 'undefined' ? localStorage.getItem('zynqo_last_starting_reel_id') : null;
+                let startIndex = Math.floor(Math.random() * filtered.length);
+                if (filtered[startIndex]?.id === lastSeenId && filtered.length > 1) {
+                  startIndex = (startIndex + 1) % filtered.length;
+                }
+                filtered = [...filtered.slice(startIndex), ...filtered.slice(0, startIndex)];
+                if (typeof window !== 'undefined' && filtered[0]?.id) {
+                  try {
+                    localStorage.setItem('zynqo_last_starting_reel_id', filtered[0].id);
+                  } catch (e) {}
+                }
+              }
             }
           }
           if (filtered.length > 0) {
@@ -759,6 +796,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setCurrentReelIndex(0);
         } else if (selectedMood && selectedMood !== 'all' && !isDetoxMode) {
           filtered = rankReelsByMood(filtered, selectedMood);
+          setReels(filtered);
+          setCurrentReelIndex(0);
+        } else if (!isDetoxMode) {
+          if (filtered.length > 1) {
+            const lastSeenId = typeof window !== 'undefined' ? localStorage.getItem('zynqo_last_starting_reel_id') : null;
+            let startIndex = Math.floor(Math.random() * filtered.length);
+            if (filtered[startIndex]?.id === lastSeenId && filtered.length > 1) {
+              startIndex = (startIndex + 1) % filtered.length;
+            }
+            filtered = [...filtered.slice(startIndex), ...filtered.slice(0, startIndex)];
+            if (typeof window !== 'undefined' && filtered[0]?.id) {
+              try {
+                localStorage.setItem('zynqo_last_starting_reel_id', filtered[0].id);
+              } catch (e) {}
+            }
+          }
           setReels(filtered);
           setCurrentReelIndex(0);
         }

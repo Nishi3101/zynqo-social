@@ -281,6 +281,14 @@ router.get('/', async (req, res) => {
           return t.includes(qLower) || d.includes(qLower) || c.includes(qLower);
         });
       }
+    } else {
+      // Instagram-style dynamic session feed rotation:
+      // When browsing the default unfiltered feed, rotate the starting reel dynamically so every session opens with a fresh trending video
+      const isUnfiltered = (!intent || intent === 'all') && (!category || category === 'All') && !goal && (!mood || mood === 'all');
+      if (isUnfiltered && reels.length > 1) {
+        const startIndex = Math.floor(Math.random() * reels.length);
+        reels = [...reels.slice(startIndex), ...reels.slice(0, startIndex)];
+      }
     }
   }
 
