@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Radio, ArrowRight, Activity, Zap } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import defaultReelsData from '../data/defaultReels.json';
+import { Reel } from '../types';
 
 interface LiveRadarProps {
   onExplore?: () => void;
@@ -18,17 +20,8 @@ interface SignalPoint {
   distance: number;    // Distance from center (0 - 100%)
   color: string;       // Signal accent color
   pulseDelay: string;  // CSS delay for staggered pulsing
+  category?: string;   // Real category mapping for interactive filtering
 }
-
-const RADAR_SIGNALS: SignalPoint[] = [
-  { id: 'viral', label: 'VIRAL', emoji: '🔥', count: '+12.4K', angle: 45, distance: 74, color: '#f97316', pulseDelay: '0s' },
-  { id: 'music', label: 'MUSIC', emoji: '🎵', count: '+8.7K', angle: 135, distance: 62, color: '#ec4899', pulseDelay: '0.6s' },
-  { id: 'reels', label: 'REELS', emoji: '🎬', count: '+18.1K', angle: 220, distance: 82, color: '#06b6d4', pulseDelay: '1.2s' },
-  { id: 'ai', label: 'AI', emoji: '🤖', count: '+5.2K', angle: 295, distance: 52, color: '#a855f7', pulseDelay: '1.8s' },
-  { id: 'memes', label: 'MEMES', emoji: '😂', count: '+9.3K', angle: 345, distance: 68, color: '#eab308', pulseDelay: '0.3s' },
-  { id: 'gaming', label: 'GAMING', emoji: '🎮', count: '+14.6K', angle: 175, distance: 78, color: '#10b981', pulseDelay: '0.9s' },
-  { id: 'trending', label: 'TRENDING', emoji: '✨', count: '+21.0K', angle: 85, distance: 86, color: '#38bdf8', pulseDelay: '1.5s' }
-];
 
 export const LiveRadar: React.FC<LiveRadarProps> = ({ 
   onExplore, 
@@ -36,11 +29,157 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
   isLight = false,
   className = ''
 }) => {
-  const { t, language } = useApp();
-  // Live animated telemetry counters
-  const [activeTrends, setActiveTrends] = useState(1284);
-  const [liveSignals, setLiveSignals] = useState(24.8);
+  const { t, language, reels, setSelectedCategory, setCurrentPage } = useApp();
+
+  // Active database list (with reliable fallback to defaultReelsData)
+  const activeReels = useMemo<Reel[]>(() => {
+    return (reels && reels.length > 0) ? reels : (defaultReelsData as unknown as Reel[]);
+  }, [reels]);
+
+  // Real aggregate calculations from active reels
+  const totalReelsCount = activeReels.length;
+  const totalViews = useMemo(() => {
+    return activeReels.reduce((sum, r) => sum + (r.views || 0), 0);
+  }, [activeReels]);
+
+  const uniqueCategoriesCount = useMemo(() => {
+    return new Set(activeReels.map(r => r.category)).size || 11;
+  }, [activeReels]);
+
+  // Derived telemetry baseline: real signal velocity based on view volume (~36.9k/s for 3.7B views)
+  const baseSignalRate = useMemo(() => {
+    return parseFloat((totalViews / 100000000).toFixed(1));
+  }, [totalViews]);
+
+  const [liveSignals, setLiveSignals] = useState(baseSignalRate);
   const [sweepAngle, setSweepAngle] = useState(142);
+
+  // Keep liveSignals synchronized with baseline when reels load
+  useEffect(() => {
+    setLiveSignals(baseSignalRate);
+  }, [baseSignalRate]);
+
+  // Dynamic Signal Points computed directly from actual reel database
+  const radarSignals = useMemo<SignalPoint[]>(() => {
+    const formatCompact = (num: number) => {
+      if (num >= 1000000000) return (num / 1000000000).toFixed(1) + 'B';
+      if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+      if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+      return (num || 0).toString();
+    };
+
+    // Calculate genuine views/metrics per category from the actual database
+    const cultureReels = activeReels.filter(r => r.category === 'Culture & Dance');
+    const cultureViews = cultureReels.reduce((s, r) => s + (r.views || 0), 0);
+
+    const musicReels = activeReels.filter(r => r.category === 'Music & Audio');
+    const musicViews = musicReels.reduce((s, r) => s + (r.views || 0), 0);
+
+    const aiReels = activeReels.filter(r => r.category === 'Tech & AI' || (r.goalTags && r.goalTags.some(t => t.toLowerCase().includes('ai') || t.toLowerCase().includes('tech'))));
+    const aiViews = aiReels.reduce((s, r) => s + (r.views || 0), 0);
+
+    const memesReels = activeReels.filter(r => r.category === 'Entertainment & Comedy');
+    const memesViews = memesReels.reduce((s, r) => s + (r.views || 0), 0);
+
+    const fitnessReels = activeReels.filter(r => r.category === 'Fitness & Health');
+    const fitnessViews = fitnessReels.reduce((s, r) => s + (r.views || 0), 0);
+
+    const sortedByViews = [...activeReels].sort((a, b) => (b.views || 0) - (a.views || 0));
+    const trendingViews = sortedByViews.slice(0, 100).reduce((s, r) => s + (r.views || 0), 0);
+
+    return [
+      { 
+        id: 'viral', 
+        label: 'VIRAL', 
+        emoji: '🔥', 
+        count: `+${formatCompact(cultureViews)}`, 
+        angle: 45, 
+        distance: 74, 
+        color: '#f97316', 
+        pulseDelay: '0s',
+        category: 'Culture & Dance'
+      },
+      { 
+        id: 'music', 
+        label: 'MUSIC', 
+        emoji: '🎵', 
+        count: `+${formatCompact(musicViews)}`, 
+        angle: 135, 
+        distance: 62, 
+        color: '#ec4899', 
+        pulseDelay: '0.6s',
+        category: 'Music & Audio'
+      },
+      { 
+        id: 'reels', 
+        label: 'REELS', 
+        emoji: '🎬', 
+        count: `${totalReelsCount.toLocaleString()} REELS`, 
+        angle: 220, 
+        distance: 82, 
+        color: '#06b6d4', 
+        pulseDelay: '1.2s',
+        category: 'All'
+      },
+      { 
+        id: 'ai', 
+        label: 'AI', 
+        emoji: '🤖', 
+        count: `+${formatCompact(aiViews)}`, 
+        angle: 295, 
+        distance: 52, 
+        color: '#a855f7', 
+        pulseDelay: '1.8s',
+        category: 'Tech & AI'
+      },
+      { 
+        id: 'memes', 
+        label: 'MEMES', 
+        emoji: '😂', 
+        count: `+${formatCompact(memesViews)}`, 
+        angle: 345, 
+        distance: 68, 
+        color: '#eab308', 
+        pulseDelay: '0.3s',
+        category: 'Entertainment & Comedy'
+      },
+      { 
+        id: 'gaming', 
+        label: 'FITNESS', 
+        emoji: '⚡', 
+        count: `+${formatCompact(fitnessViews)}`, 
+        angle: 175, 
+        distance: 78, 
+        color: '#10b981', 
+        pulseDelay: '0.9s',
+        category: 'Fitness & Health'
+      },
+      { 
+        id: 'trending', 
+        label: 'TRENDING', 
+        emoji: '✨', 
+        count: `+${formatCompact(trendingViews)}`, 
+        angle: 85, 
+        distance: 86, 
+        color: '#38bdf8', 
+        pulseDelay: '1.5s',
+        category: 'All'
+      }
+    ];
+  }, [activeReels, totalReelsCount]);
+
+  const handleSignalClick = (categoryName?: string) => {
+    if (categoryName && categoryName !== 'All') {
+      setSelectedCategory(categoryName);
+    } else {
+      setSelectedCategory('All');
+    }
+    if (onExplore) {
+      onExplore();
+    } else {
+      setCurrentPage('feed');
+    }
+  };
 
   const getSignalLabel = (sig: SignalPoint) => {
     if (language === 'gu') {
@@ -50,7 +189,7 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
         reels: 'રીલ્સ',
         ai: 'AI',
         memes: 'મીમ્સ',
-        gaming: 'ગેમિંગ',
+        gaming: 'ફિટનેસ',
         trending: 'ટ્રેન્ડિંગ'
       };
       return guLabels[sig.id] || sig.label;
@@ -62,7 +201,7 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
         reels: 'रील्स',
         ai: 'AI',
         memes: 'मीम्स',
-        gaming: 'गेमिंग',
+        gaming: 'फिटनेस',
         trending: 'ट्रेंडिंग'
       };
       return hiLabels[sig.id] || sig.label;
@@ -72,17 +211,10 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
 
   // Periodic subtle updates to make radar feel truly alive
   useEffect(() => {
-    const trendInterval = setInterval(() => {
-      setActiveTrends(prev => {
-        const delta = Math.floor(Math.random() * 7) - 3;
-        return Math.max(1240, Math.min(1340, prev + delta));
-      });
-    }, 2400);
-
     const signalInterval = setInterval(() => {
       setLiveSignals(prev => {
         const delta = (Math.random() * 0.2 - 0.1);
-        return parseFloat((prev + delta).toFixed(1));
+        return parseFloat(Math.max(1, prev + delta).toFixed(1));
       });
     }, 3200);
 
@@ -91,7 +223,6 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
     }, 120);
 
     return () => {
-      clearInterval(trendInterval);
       clearInterval(signalInterval);
       clearInterval(sweepDisplayInterval);
     };
@@ -220,11 +351,11 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
               isLight ? 'text-slate-900' : 'text-white'
             }`}>
               <Activity className={`w-3 h-3 ${isLight ? 'text-[#be123c]' : 'text-pink-400'}`} />
-              {activeTrends.toLocaleString()}
+              {totalReelsCount.toLocaleString()}
             </span>
           </div>
           <span className="text-[9px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-1.5 py-0.5 rounded border border-emerald-300 dark:border-emerald-500/20 font-bold">
-            +18%
+            100% LIVE
           </span>
         </div>
 
@@ -251,7 +382,7 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
               ? 'text-rose-700 bg-rose-100/70 border-rose-200' 
               : 'text-pink-400 bg-pink-950/50 border-pink-500/20'
           }`}>
-            FAST
+            REAL-TIME
           </span>
         </div>
       </div>
@@ -347,14 +478,16 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
           {/* ─────────────────────────────────────────────────────────────
               LIVE ZYNQO ENTERTAINMENT SIGNAL DETECTION POINTS
               ───────────────────────────────────────────────────────────── */}
-          {RADAR_SIGNALS.map(sig => {
+          {radarSignals.map(sig => {
             const { x, y } = getCoordinates(sig.angle, sig.distance);
             const isRightSide = x > 54;
             return (
               <div
                 key={sig.id}
+                onClick={() => handleSignalClick(sig.category)}
                 className="absolute z-30 -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 hover:scale-125 cursor-pointer group/sig"
                 style={{ top: `${y}%`, left: `${x}%` }}
+                title={`Click to explore ${sig.label} reels`}
               >
                 {/* Outer Ripple Ping */}
                 <div 
@@ -416,7 +549,7 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
             <Radio className={`w-3 h-3 animate-pulse ${
               isLight ? 'text-rose-600' : 'text-pink-400'
             }`} />
-            {language === 'gu' ? '૭ ચેનલ સ્કેનિંગ' : language === 'hi' ? '७ चैनल स्कैनिंग' : 'SCANNING 7 CHANNELS'}
+            {language === 'gu' ? `${uniqueCategoriesCount} ચેનલ સ્કેનિંગ` : language === 'hi' ? `${uniqueCategoriesCount} चैनल स्कैनिंग` : `SCANNING ${uniqueCategoriesCount} CHANNELS`}
           </span>
           <span className={`font-semibold flex items-center gap-1 ${
             isLight ? 'text-rose-700' : 'text-pink-400'
