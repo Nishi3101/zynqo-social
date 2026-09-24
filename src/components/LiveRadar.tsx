@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Radio, ArrowRight, Activity, Zap } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-import defaultReelsData from '../data/defaultReels.json';
 import { Reel } from '../types';
 
 interface LiveRadarProps {
@@ -31,9 +30,9 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
 }) => {
   const { t, language, reels, setSelectedCategory, setCurrentPage } = useApp();
 
-  // Active database list (with reliable fallback to defaultReelsData)
+  // Active database list from context
   const activeReels = useMemo<Reel[]>(() => {
-    return (reels && reels.length > 0) ? reels : (defaultReelsData as unknown as Reel[]);
+    return reels || [];
   }, [reels]);
 
   // Real aggregate calculations from active reels
@@ -52,7 +51,6 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
   }, [totalViews]);
 
   const [liveSignals, setLiveSignals] = useState(baseSignalRate);
-  const [sweepAngle, setSweepAngle] = useState(142);
 
   // Keep liveSignals synchronized with baseline when reels load
   useEffect(() => {
@@ -218,13 +216,8 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
       });
     }, 3200);
 
-    const sweepDisplayInterval = setInterval(() => {
-      setSweepAngle(prev => (prev + 11) % 360);
-    }, 120);
-
     return () => {
       clearInterval(signalInterval);
-      clearInterval(sweepDisplayInterval);
     };
   }, []);
 
@@ -322,12 +315,12 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
           <span className={`text-[10px] font-bold block leading-none ${
             isLight ? 'text-[#be123c]' : 'text-pink-400'
           }`}>
-            AZ {sweepAngle.toString().padStart(3, '0')}°
+            AZ 360° LIVE
           </span>
           <span className={`text-[9px] block pt-0.5 ${
             isLight ? 'text-slate-400' : 'text-slate-500'
           }`}>
-            360° SWEEP
+            REAL-TIME
           </span>
         </div>
       </div>

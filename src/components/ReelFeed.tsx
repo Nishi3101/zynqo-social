@@ -186,7 +186,7 @@ export const ReelFeed: React.FC = () => {
     const itemHeight = container.clientHeight || window.innerHeight;
     const activeIdx = Math.round(scrollTop / itemHeight);
 
-    if (activeIdx !== currentReelIndex && activeIdx >= 0 && activeIdx < reels.length) {
+    if (activeIdx !== currentReelIndex && activeIdx >= 0 && activeIdx < displayedReels.length) {
       setCurrentReelIndex(activeIdx);
     }
   };
@@ -257,7 +257,7 @@ export const ReelFeed: React.FC = () => {
           })}
         </div>
 
-        {/* Reel Scroll Container */}
+        {/* High-Performance Virtualized Reel Scroll Container */}
         <div
           ref={containerRef}
           onScroll={handleScroll}
@@ -268,21 +268,41 @@ export const ReelFeed: React.FC = () => {
           onMouseUp={handleMouseUp}
           className="reel-container w-full h-full flex-1"
         >
-          {(displayedReels || []).map((reel, idx) => (
-            <div key={reel.id} className="reel-item w-full h-full relative">
-              <ReelCard 
-                reel={reel} 
-                isActive={idx === currentReelIndex}
-                onEnded={() => {
-                  if (idx < displayedReels.length - 1) {
-                    scrollToReel(idx + 1);
-                  } else {
-                    scrollToReel(0);
-                  }
-                }}
-              />
-            </div>
-          ))}
+          {(displayedReels || []).map((reel, idx) => {
+            // High-performance virtualization: mount heavy video and card elements only within ±2 buffer window of active reel
+            const isNearActive = Math.abs(idx - currentReelIndex) <= 2;
+            return (
+              <div key={reel.id} className="reel-item w-full h-full relative">
+                {isNearActive ? (
+                  <ReelCard 
+                    reel={reel} 
+                    isActive={idx === currentReelIndex}
+                    onEnded={() => {
+                      if (idx < displayedReels.length - 1) {
+                        scrollToReel(idx + 1);
+                      } else {
+                        scrollToReel(0);
+                      }
+                    }}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-black flex items-center justify-center relative overflow-hidden">
+                    {reel.thumbnail ? (
+                      <img 
+                        src={reel.thumbnail} 
+                        alt="" 
+                        loading="lazy" 
+                        decoding="async"
+                        className="w-full h-full object-cover opacity-20 pointer-events-none filter blur-sm" 
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-slate-950" />
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

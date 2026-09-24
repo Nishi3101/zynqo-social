@@ -20,26 +20,6 @@ interface DoodleData {
 }
 
 export const HomeAtmosphere: React.FC<HomeAtmosphereProps> = ({ isLight }) => {
-  const [mousePos, setMousePos] = useState<{ x: number; y: number }>({ x: -1000, y: -1000 });
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Global mousemove tracking with requestAnimationFrame for 60fps responsiveness
-  useEffect(() => {
-    let animId: number;
-    const onMouseMove = (e: MouseEvent) => {
-      cancelAnimationFrame(animId);
-      animId = requestAnimationFrame(() => {
-        setMousePos({ x: e.clientX, y: e.clientY });
-      });
-    };
-
-    window.addEventListener('mousemove', onMouseMove, { passive: true });
-    return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-      cancelAnimationFrame(animId);
-    };
-  }, []);
-
   // Collection of 16 handcrafted futuristic AI + Entertainment + Social Reels line-art doodles
   const doodles: DoodleData[] = [
     // 1. Neural Network Node Cluster (Top-left above hero title)
@@ -424,7 +404,7 @@ export const HomeAtmosphere: React.FC<HomeAtmosphereProps> = ({ isLight }) => {
   ];
 
   return (
-    <div ref={containerRef} className="absolute inset-0 w-full pointer-events-none z-0 overflow-hidden select-none">
+    <div className="absolute inset-0 w-full pointer-events-none z-0 overflow-hidden select-none">
       {/* Ambient Velvet Rose, Peach, Lilac & Lavender Pastel Glow Blooms */}
       <div 
         className={`absolute top-[-5%] right-[-5%] w-[680px] h-[680px] rounded-full blur-[140px] pointer-events-none transition-all duration-700 ${
@@ -448,14 +428,13 @@ export const HomeAtmosphere: React.FC<HomeAtmosphereProps> = ({ isLight }) => {
       />
 
       {/* =========================================================================
-          INTERACTIVE FLOATING BACKGROUND DOODLES
+          HIGH-PERFORMANCE FLOATING BACKGROUND DOODLES (GPU-ACCELERATED)
           ========================================================================= */}
       <div className="absolute inset-0 w-full h-full pointer-events-none">
         {doodles.map((doodle) => (
           <InteractiveDoodleItem
             key={doodle.id}
             doodle={doodle}
-            mousePos={mousePos}
             isLight={isLight}
           />
         ))}
@@ -466,77 +445,35 @@ export const HomeAtmosphere: React.FC<HomeAtmosphereProps> = ({ isLight }) => {
 
 interface InteractiveDoodleItemProps {
   doodle: DoodleData;
-  mousePos: { x: number; y: number };
   isLight: boolean;
 }
 
-const InteractiveDoodleItem: React.FC<InteractiveDoodleItemProps> = ({ doodle, mousePos, isLight }) => {
-  const itemRef = useRef<HTMLDivElement>(null);
+const InteractiveDoodleItem: React.FC<InteractiveDoodleItemProps> = ({ doodle, isLight }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [physicsOffset, setPhysicsOffset] = useState({ x: 0, y: 0, scale: 1, extraOpacity: 0, rotate: 0 });
-
-  // Calculate mouse proximity physics
-  useEffect(() => {
-    if (!itemRef.current || mousePos.x < 0) return;
-
-    const rect = itemRef.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    const dx = mousePos.x - centerX;
-    const dy = mousePos.y - centerY;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-
-    // Reactive proximity radius (240px)
-    const PROXIMITY_RADIUS = 240;
-
-    if (dist < PROXIMITY_RADIUS) {
-      const proximity = 1 - dist / PROXIMITY_RADIUS;
-      // Gentle repelling push (smooth magnet effect)
-      const forceX = -(dx / dist) * proximity * 24;
-      const forceY = -(dy / dist) * proximity * 24;
-      const scale = 1 + proximity * 0.18;
-      const extraOpacity = proximity * 0.55;
-      const rotate = proximity * (doodle.id.charCodeAt(0) % 2 === 0 ? 9 : -9);
-
-      setPhysicsOffset({
-        x: forceX,
-        y: forceY,
-        scale,
-        extraOpacity,
-        rotate
-      });
-    } else {
-      if (physicsOffset.x !== 0 || physicsOffset.scale !== 1) {
-        setPhysicsOffset({ x: 0, y: 0, scale: 1, extraOpacity: 0, rotate: 0 });
-      }
-    }
-  }, [mousePos, doodle.id]);
-
   const colorClass = isLight ? doodle.colorLight : doodle.colorDark;
-  const currentOpacity = Math.min(1, doodle.baseOpacity + physicsOffset.extraOpacity + (isHovered ? 0.35 : 0));
+  const currentOpacity = Math.min(1, doodle.baseOpacity + (isHovered ? 0.35 : 0));
 
   return (
     <div
-      ref={itemRef}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`absolute pointer-events-auto cursor-default transition-transform duration-500 ease-out select-none ${colorClass}`}
+      className={`absolute pointer-events-auto cursor-default transition-all duration-300 ease-out select-none ${colorClass}`}
       style={{
         top: doodle.top,
         left: doodle.left,
         width: `${doodle.size}px`,
         height: `${doodle.size}px`,
-        transform: `translate3d(${physicsOffset.x}px, ${physicsOffset.y}px, 0) scale(${physicsOffset.scale * (isHovered ? 1.15 : 1)}) rotate(${physicsOffset.rotate}deg)`,
+        transform: isHovered ? 'scale(1.2)' : 'scale(1)',
         opacity: currentOpacity,
-        filter: isHovered || physicsOffset.extraOpacity > 0.08
+        filter: isHovered
           ? (isLight 
               ? 'drop-shadow(0 0 10px rgba(59, 130, 246, 0.45)) drop-shadow(0 0 18px rgba(37, 99, 235, 0.25))' 
               : 'drop-shadow(0 0 12px rgba(56, 189, 248, 0.65)) drop-shadow(0 0 24px rgba(99, 102, 241, 0.4))')
           : (isLight 
               ? 'drop-shadow(0 1px 4px rgba(37, 99, 235, 0.12))' 
               : 'drop-shadow(0 0 6px rgba(56, 189, 248, 0.25))'),
-        transition: 'transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.45s ease, filter 0.45s ease'
+        transition: 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease, filter 0.3s ease',
+        willChange: 'transform, opacity'
       }}
       title={doodle.name}
     >

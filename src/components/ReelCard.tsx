@@ -142,10 +142,12 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) =
 
   return (
     <div className="relative w-full h-full flex items-center justify-center bg-black overflow-hidden select-none">
-      {/* Background Visualizer (Canvas procedural art) */}
-      <ReelVisualizer theme={reel.visualTheme} isPlaying={isActive && isPlaying} />
+      {/* Background Visualizer (Canvas procedural art) - rendered only for canvas-generated reels without videoUrl */}
+      {!reel.videoUrl && (
+        <ReelVisualizer theme={reel.visualTheme} isPlaying={isActive && isPlaying} />
+      )}
 
-      {/* HTML5 Native Video element (layered over canvas) */}
+      {/* HTML5 Native Video element */}
       {reel.videoUrl && (
         <video
           ref={videoRef}
@@ -153,6 +155,7 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) =
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
           muted={isMuted}
           playsInline
+          preload={isActive ? 'auto' : 'metadata'}
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleVideoEnded}
         />

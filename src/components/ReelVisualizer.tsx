@@ -204,7 +204,9 @@ export const ReelVisualizer: React.FC<ReelVisualizerProps> = ({ theme, isPlaying
         });
       }
 
-      animationFrameId = requestAnimationFrame(render);
+      if (isPlaying) {
+        animationFrameId = requestAnimationFrame(render);
+      }
     };
 
     render();

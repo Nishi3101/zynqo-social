@@ -419,13 +419,21 @@ export const LandingHome: React.FC<LandingHomeProps> = ({ onOpenAuth }) => {
                   >
                     {/* Visualizer / Video preview box */}
                     <div className="h-32 sm:h-36 w-full bg-slate-950 relative overflow-hidden flex items-center justify-center">
-                      {reel.videoUrl ? (
+                      {reel.thumbnail ? (
+                        <img
+                          src={reel.thumbnail}
+                          alt={reel.title || 'Reel Preview'}
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-90"
+                        />
+                      ) : reel.videoUrl ? (
                         <video
                           src={reel.videoUrl}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-80"
                           muted
                           playsInline
-                          preload="metadata"
+                          preload="none"
                         />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-tr from-rose-950 via-slate-900 to-pink-950 flex items-center justify-center">
