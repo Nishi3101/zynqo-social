@@ -20,6 +20,7 @@ import { CreatorDashboardView } from './components/CreatorDashboardView';
 import { SettingsAndActivityModal } from './components/SettingsAndActivityModal';
 import { LeaderboardModal } from './components/LeaderboardModal';
 import { AIPlaylistsModal } from './components/AIPlaylistsModal';
+import { AIAvatarModal } from './components/AIAvatarModal';
 import { MobileTopBar } from './components/MobileTopBar';
 import { MobileNavBar } from './components/MobileNavBar';
 import { configureNativeStatusBar, registerNativeBackHandler } from './utils/nativeBridge';
@@ -98,6 +99,7 @@ const MainLayout: React.FC = () => {
           onClose={closeAuthModal}
           initialStep={authInitialStep}
         />
+        {activeModal === 'aiAvatar' && <AIAvatarModal />}
       </div>
     );
   }
@@ -116,6 +118,7 @@ const MainLayout: React.FC = () => {
           initialStep={authInitialStep}
         />
         {activeModal === 'settingsAndActivity' && <SettingsAndActivityModal />}
+        {activeModal === 'aiAvatar' && <AIAvatarModal />}
       </div>
     );
   }
@@ -135,6 +138,7 @@ const MainLayout: React.FC = () => {
         />
         {activeModal === 'creatorStudio' && <CreatorStudioModal />}
         {activeModal === 'settingsAndActivity' && <SettingsAndActivityModal />}
+        {activeModal === 'aiAvatar' && <AIAvatarModal />}
       </div>
     );
   }
@@ -273,6 +277,7 @@ const MainLayout: React.FC = () => {
       {activeModal === 'settingsAndActivity' && <SettingsAndActivityModal />}
       {activeModal === 'leaderboard' && <LeaderboardModal />}
       {activeModal === 'aiPlaylists' && <AIPlaylistsModal />}
+      {activeModal === 'aiAvatar' && <AIAvatarModal />}
 
       {/* Endless Scroll Firewall Modal */}
       <FirewallModal />

@@ -423,6 +423,20 @@ export const AICompanion: React.FC = () => {
                 <span className="text-[10px] hidden sm:inline">{t.companion?.voiceMode || 'Voice'}</span>
               </button>
 
+              {/* AI Avatar Demo Trigger */}
+              <button
+                onClick={() => {
+                  stopSpeaking();
+                  setIsOpen(false);
+                  openModal('aiAvatar');
+                }}
+                className="p-1.5 rounded-xl text-xs flex items-center gap-1 text-cyan-300 hover:text-white hover:bg-white/10 transition"
+                title="AI Avatar & Digital Twin Demo"
+              >
+                <Bot className="w-4 h-4 text-cyan-300" />
+                <span className="text-[10px] hidden sm:inline">Avatar</span>
+              </button>
+
               <button
                 onClick={() => {
                   stopSpeaking();
@@ -440,6 +454,19 @@ export const AICompanion: React.FC = () => {
 
           {/* Quick Action Chips in Current Language */}
           <div className="p-2 px-3 border-b border-white/5 flex gap-1.5 overflow-x-auto no-scrollbar bg-slate-900/40">
+            {/* AI Avatar Demo Chip */}
+            <button
+              onClick={() => {
+                stopSpeaking();
+                setIsOpen(false);
+                openModal('aiAvatar');
+              }}
+              className="px-2.5 py-1 rounded-full bg-gradient-to-r from-violet-600/30 to-cyan-600/30 hover:from-violet-600/50 hover:to-cyan-600/50 text-[10px] font-semibold text-cyan-200 border border-cyan-400/40 whitespace-nowrap flex items-center gap-1 shadow-sm"
+              title="Open AI Avatar & Digital Twin Demo"
+            >
+              <Sparkles className="w-3 h-3 text-cyan-300" />
+              <span>AI Avatar Demo</span>
+            </button>
             <button
               onClick={() => handleSendMessage(t.companion?.surpriseMe || 'Surprise me with something unexpected!')}
               className="px-2.5 py-1 rounded-full bg-slate-800/80 hover:bg-slate-700 text-[10px] font-semibold text-cyan-300 border border-cyan-500/30 whitespace-nowrap flex items-center gap-1"

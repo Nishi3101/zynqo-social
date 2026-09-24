@@ -250,8 +250,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isPlaying, setIsPlaying] = useState(true);
   const [activeModal, setActiveModal] = useState<string | null>(() => {
     try {
-      if (typeof window !== 'undefined' && window.location.pathname.toLowerCase() === '/settings') {
-        return 'settingsAndActivity';
+      if (typeof window !== 'undefined') {
+        const path = window.location.pathname.toLowerCase();
+        if (path === '/settings') {
+          return 'settingsAndActivity';
+        }
+        if (path === '/avatar' || path === '/ai-avatar' || path === '/digital-twin') {
+          return 'aiAvatar';
+        }
       }
     } catch (e) {}
     return null;
@@ -413,6 +419,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           } else if (path === '/settings') {
             setCurrentPageState('feed');
             setActiveModal('settingsAndActivity');
+          } else if (path === '/avatar' || path === '/ai-avatar' || path === '/digital-twin') {
+            setCurrentPageState('feed');
+            setActiveModal('aiAvatar');
           } else if (path === '/' || path === '') {
             setCurrentPageState('home');
           }
@@ -1146,11 +1155,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     sounds.playClick();
     setActiveModal(modalName);
     setConsecutivePassiveCount(0); // user engaged
+    try {
+      if (typeof window !== 'undefined' && modalName === 'aiAvatar') {
+        if (window.location.pathname.toLowerCase() !== '/avatar') {
+          window.history.pushState({ modal: 'aiAvatar' }, '', '/avatar');
+        }
+      }
+    } catch (e) {}
   };
 
   const closeModal = () => {
     sounds.playClick();
     setActiveModal(null);
+    try {
+      if (typeof window !== 'undefined') {
+        const path = window.location.pathname.toLowerCase();
+        if (path === '/avatar' || path === '/ai-avatar' || path === '/digital-twin' || path === '/settings') {
+          const fallbackPath = currentPage === 'home' ? '/' : `/${currentPage}`;
+          window.history.pushState({ page: currentPage }, '', fallbackPath);
+        }
+      }
+    } catch (e) {}
   };
 
   const toggleDetoxMode = () => {

@@ -90,6 +90,80 @@ router.post('/companion', async (req, res) => {
   }
 });
 
+// POST AI Avatar / Digital Twin Demo Chat
+router.post('/avatar', async (req, res) => {
+  try {
+    const { message, context = {}, persona = 'twin' } = req.body;
+    if (!message) {
+      return res.status(400).json({ success: false, error: 'Message required' });
+    }
+
+    const msgLower = (message || '').toLowerCase();
+    const mood = context.mood || 'Happy';
+    const category = context.category || 'Tech & AI';
+    const userName = context.userName || 'Creator';
+
+    // Watch recommendation / entertainment query matching project example
+    const isWatchQuery = /what (should|can) i watch|recommend|entertainment options|suggest (a |some )?(video|reel|movie|watch)|bored|find (a )?reel/i.test(msgLower);
+
+    if (isWatchQuery) {
+      let reels = [];
+      try {
+        reels = JSON.parse(fs.readFileSync(reelsPath, 'utf8'));
+      } catch (e) {
+        reels = [];
+      }
+
+      // Filter or sort reels based on mood and category
+      let matchingReels = reels.filter(r => 
+        (r.category && r.category.toLowerCase().includes(category.toLowerCase())) ||
+        (r.moodTags && r.moodTags.some(m => m.toLowerCase().includes(mood.toLowerCase()))) ||
+        (r.goalTags && r.goalTags.some(g => g.toLowerCase().includes(mood.toLowerCase())))
+      );
+
+      if (matchingReels.length === 0) {
+        matchingReels = reels.slice(0, 3);
+      }
+
+      const recs = matchingReels.slice(0, 2);
+      const rec1 = recs[0];
+      const rec2 = recs[1] || recs[0];
+
+      const reply = `Based on your current mood (${mood}) and interests, here are some entertainment options:\n\n1. 🎬 **${rec1 ? rec1.title : 'Mastering Atomic Focus'}** by @${rec1?.creator?.handle || 'creator'}\n2. 💡 **${rec2 ? rec2.title : 'Quick Mindset Shift'}** by @${rec2?.creator?.handle || 'creator'}\n\nTap on any recommendation below to watch it directly!`;
+
+      return res.json({
+        success: true,
+        reply,
+        persona,
+        recommendations: recs.map(r => ({
+          id: r.id,
+          title: r.title,
+          category: r.category,
+          creatorHandle: r.creator?.handle || 'creator'
+        })),
+        action: 'WATCH_RECOMMENDATION'
+      });
+    }
+
+    // General conversational query handled by companionChat
+    const companionResponse = await companionChat(message, {
+      ...context,
+      persona
+    });
+
+    res.json({
+      success: true,
+      reply: companionResponse.reply,
+      action: companionResponse.action || 'GENERAL_CHAT',
+      targetReelId: companionResponse.targetReelId,
+      persona
+    });
+  } catch (err) {
+    console.error('Avatar chat error:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 // POST Analyze Language, Slang, Regional Dialects & Code-Switching
 router.post('/analyze-language', (req, res) => {
   try {
