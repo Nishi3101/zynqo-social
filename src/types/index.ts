@@ -154,6 +154,7 @@ export interface MemoryItem {
 export interface UserProfile {
   id: string;
   name: string;
+  email?: string;
   handle: string;
   avatar: string;
   bio?: string;
@@ -170,11 +171,15 @@ export interface UserProfile {
   date_of_birth?: string;
   category?: string;
   current_mood?: string;
+  profile_visibility?: 'public' | 'private';
+  room_privacy?: 'public' | 'private';
   privacySettings: {
     useWatchHistory: boolean;
     useMoodSignals: boolean;
     allowCollaborativeFiltering: boolean;
     privateMode: boolean;
+    profileVisibility?: 'public' | 'private';
+    roomPrivacy?: 'public' | 'private';
   };
   isBusiness?: boolean;
   businessName?: string;

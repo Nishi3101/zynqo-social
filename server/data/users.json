@@ -7,6 +7,8 @@
     "date_of_birth": "1995-06-15",
     "category": "Manager",
     "current_mood": "Happy",
+    "profile_visibility": "public",
+    "room_privacy": "public",
     "created_at": "2026-09-05T09:52:00.567Z"
   },
   {
@@ -17,6 +19,8 @@
     "date_of_birth": "1998-04-12",
     "category": "Teacher",
     "current_mood": "Happy",
+    "profile_visibility": "public",
+    "room_privacy": "public",
     "created_at": "2026-09-05T09:52:48.490Z"
   },
   {
@@ -27,6 +31,8 @@
     "date_of_birth": "2001-08-15",
     "category": "Student",
     "current_mood": "Happy",
+    "profile_visibility": "public",
+    "room_privacy": "public",
     "created_at": "2026-09-05T09:55:29.543Z"
   },
   {
@@ -37,6 +43,8 @@
     "date_of_birth": "2001-08-15",
     "category": "Teacher",
     "current_mood": "Happy",
+    "profile_visibility": "public",
+    "room_privacy": "public",
     "created_at": "2026-09-05T09:55:29.601Z"
   },
   {
@@ -47,6 +55,8 @@
     "date_of_birth": "2001-08-15",
     "category": "Clerk",
     "current_mood": "Happy",
+    "profile_visibility": "public",
+    "room_privacy": "public",
     "created_at": "2026-09-05T09:55:29.619Z"
   },
   {
@@ -57,6 +67,8 @@
     "date_of_birth": "2001-08-15",
     "category": "Manager",
     "current_mood": "Happy",
+    "profile_visibility": "public",
+    "room_privacy": "public",
     "created_at": "2026-09-05T09:55:29.643Z"
   },
   {
@@ -67,6 +79,8 @@
     "date_of_birth": "2001-08-15",
     "category": "Head",
     "current_mood": "Happy",
+    "profile_visibility": "public",
+    "room_privacy": "public",
     "created_at": "2026-09-05T09:55:29.658Z"
   },
   {
@@ -77,6 +91,8 @@
     "date_of_birth": "2001-08-15",
     "category": "Other",
     "current_mood": "Happy",
+    "profile_visibility": "public",
+    "room_privacy": "public",
     "created_at": "2026-09-05T09:55:29.669Z"
   },
   {
@@ -87,6 +103,8 @@
     "date_of_birth": "2000-01-01",
     "category": "Student",
     "current_mood": "Excited",
+    "profile_visibility": "public",
+    "room_privacy": "public",
     "created_at": "2026-09-05T10:11:27.413Z"
   },
   {
@@ -97,6 +115,8 @@
     "date_of_birth": "2008-01-31",
     "category": "Student",
     "current_mood": "Relaxed",
+    "profile_visibility": "public",
+    "room_privacy": "public",
     "created_at": "2026-09-05T10:13:44.218Z"
   },
   {
@@ -107,6 +127,8 @@
     "date_of_birth": "2008-01-31",
     "category": "Student",
     "current_mood": "Happy",
+    "profile_visibility": "public",
+    "room_privacy": "public",
     "created_at": "2026-09-05T16:49:32.293Z"
   },
   {
@@ -117,6 +139,8 @@
     "date_of_birth": "2014-01-01",
     "category": "Student",
     "current_mood": "Happy",
+    "profile_visibility": "public",
+    "room_privacy": "public",
     "created_at": "2026-09-05T17:44:00.377Z"
   },
   {
@@ -127,6 +151,8 @@
     "date_of_birth": "2008-01-31",
     "category": "Student",
     "current_mood": "Happy",
+    "profile_visibility": "public",
+    "room_privacy": "public",
     "created_at": "2026-09-05T17:52:51.226Z"
   },
   {
@@ -137,6 +163,8 @@
     "date_of_birth": "2008-01-31",
     "category": "Student",
     "current_mood": "Happy",
+    "profile_visibility": "public",
+    "room_privacy": "public",
     "created_at": "2026-09-06T09:22:04.784Z"
   },
   {
@@ -147,6 +175,8 @@
     "date_of_birth": "2008-01-31",
     "category": "Student",
     "current_mood": "Relaxed",
+    "profile_visibility": "public",
+    "room_privacy": "public",
     "created_at": "2026-09-06T09:26:50.923Z"
   },
   {
@@ -157,6 +187,8 @@
     "date_of_birth": "2008-01-31",
     "category": "Student",
     "current_mood": "Happy",
+    "profile_visibility": "public",
+    "room_privacy": "public",
     "created_at": "2026-09-11T09:14:40.540Z"
   },
   {
@@ -167,6 +199,8 @@
     "date_of_birth": "2008-01-31",
     "category": "Student",
     "current_mood": "Chill",
+    "profile_visibility": "public",
+    "room_privacy": "public",
     "created_at": "2026-09-20T07:58:10.388Z"
   }
 ]

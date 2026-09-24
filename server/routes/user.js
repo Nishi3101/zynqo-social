@@ -31,7 +31,7 @@ db.exec(`
   );
 `);
 
-// Add date_of_birth, category, and current_mood columns if table previously existed without them
+// Add date_of_birth, category, current_mood, profile_visibility, and room_privacy columns if table previously existed without them
 try {
   const existingCols = db.prepare(`PRAGMA table_info(users)`).all().map(c => c.name);
   if (!existingCols.includes('date_of_birth')) {
@@ -43,6 +43,12 @@ try {
   if (!existingCols.includes('current_mood')) {
     db.exec(`ALTER TABLE users ADD COLUMN current_mood TEXT DEFAULT 'Happy';`);
   }
+  if (!existingCols.includes('profile_visibility')) {
+    db.exec(`ALTER TABLE users ADD COLUMN profile_visibility TEXT DEFAULT 'public';`);
+  }
+  if (!existingCols.includes('room_privacy')) {
+    db.exec(`ALTER TABLE users ADD COLUMN room_privacy TEXT DEFAULT 'public';`);
+  }
 } catch (e) {
   console.warn('[DB] Migration check notice:', e);
 }
@@ -52,8 +58,8 @@ try {
   const defaultUser = db.prepare(`SELECT * FROM users WHERE email = ?`).get('alex@zynqosocial.internal');
   if (!defaultUser) {
     db.prepare(`
-      INSERT INTO users (id, name, email, password, language, date_of_birth, category, current_mood, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO users (id, name, email, password, language, date_of_birth, category, current_mood, profile_visibility, room_privacy, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
       'user-default',
       'Alex Rivera',
@@ -63,8 +69,12 @@ try {
       '1995-06-15',
       'Manager',
       'Happy',
+      'public',
+      'public',
       new Date().toISOString()
     );
+  } else if (!defaultUser.profile_visibility || !defaultUser.room_privacy) {
+    db.prepare(`UPDATE users SET profile_visibility = COALESCE(profile_visibility, 'public'), room_privacy = COALESCE(room_privacy, 'public') WHERE email = ?`).run('alex@zynqosocial.internal');
   }
 } catch (e) {
   console.warn('[DB] Default user notice:', e);
@@ -73,7 +83,7 @@ try {
 // Sync users.json snapshot
 function syncUsersJson() {
   try {
-    const allUsers = db.prepare(`SELECT id, name, email, language, date_of_birth, category, current_mood, created_at FROM users`).all();
+    const allUsers = db.prepare(`SELECT id, name, email, language, date_of_birth, category, current_mood, profile_visibility, room_privacy, created_at FROM users`).all();
     fs.writeFileSync(usersJsonPath, JSON.stringify(allUsers, null, 2), 'utf8');
   } catch (e) {
     console.warn('[DB] syncUsersJson notice:', e);
@@ -114,6 +124,8 @@ let userProfile = {
   date_of_birth: '1995-06-15',
   category: 'Manager',
   current_mood: 'Happy',
+  profile_visibility: 'public',
+  room_privacy: 'public',
   badges: [
     { id: 'b1', name: 'Knowledge Seeker', icon: 'BookOpen', description: 'Saved 10+ AI Notes' },
     { id: 'b2', name: 'Fact Sentinel', icon: 'ShieldCheck', description: 'Checked 5+ Claims' },
@@ -130,7 +142,9 @@ let userProfile = {
     useWatchHistory: true,
     useMoodSignals: true,
     allowCollaborativeFiltering: true,
-    privateMode: false
+    privateMode: false,
+    profileVisibility: 'public',
+    roomPrivacy: 'public'
   }
 };
 
@@ -320,6 +334,25 @@ function loadGoals() {
 
 // GET user profile
 router.get('/profile', (req, res) => {
+  const email = req.query.email ? req.query.email.trim().toLowerCase() : null;
+  if (email) {
+    const dbUser = db.prepare(`SELECT * FROM users WHERE LOWER(email) = ?`).get(email);
+    if (dbUser) {
+      userProfile.id = dbUser.id;
+      userProfile.name = dbUser.name;
+      userProfile.date_of_birth = dbUser.date_of_birth || userProfile.date_of_birth;
+      userProfile.category = dbUser.category || userProfile.category;
+      userProfile.current_mood = dbUser.current_mood || userProfile.current_mood;
+      userProfile.profile_visibility = dbUser.profile_visibility || 'public';
+      userProfile.room_privacy = dbUser.room_privacy || 'public';
+      userProfile.privacySettings = {
+        ...userProfile.privacySettings,
+        profileVisibility: dbUser.profile_visibility || 'public',
+        roomPrivacy: dbUser.room_privacy || 'public',
+        privateMode: (dbUser.profile_visibility || 'public') === 'private'
+      };
+    }
+  }
   res.json({
     success: true,
     profile: userProfile,
@@ -338,7 +371,7 @@ router.get('/profile', (req, res) => {
 
 // PUT update user profile
 router.put('/profile', (req, res) => {
-  const { name, handle, bio, avatar, isFollowing } = req.body;
+  const { name, handle, bio, avatar, isFollowing, profile_visibility, room_privacy, email } = req.body;
   if (name !== undefined) userProfile.name = name;
   if (handle !== undefined) userProfile.handle = handle.startsWith('@') ? handle : `@${handle}`;
   if (bio !== undefined) userProfile.bio = bio;
@@ -346,6 +379,26 @@ router.put('/profile', (req, res) => {
   if (isFollowing !== undefined) {
     userProfile.isFollowing = isFollowing;
     userProfile.followersCount = (userProfile.followersCount || 1420) + (isFollowing ? 1 : -1);
+  }
+  if (profile_visibility !== undefined && ['public', 'private'].includes(String(profile_visibility).toLowerCase())) {
+    userProfile.profile_visibility = String(profile_visibility).toLowerCase();
+    userProfile.privacySettings.profileVisibility = userProfile.profile_visibility;
+    userProfile.privacySettings.privateMode = userProfile.profile_visibility === 'private';
+  }
+  if (room_privacy !== undefined && ['public', 'private'].includes(String(room_privacy).toLowerCase())) {
+    userProfile.room_privacy = String(room_privacy).toLowerCase();
+    userProfile.privacySettings.roomPrivacy = userProfile.room_privacy;
+  }
+  if (email || userProfile.email) {
+    const targetEmail = (email || userProfile.email).trim().toLowerCase();
+    try {
+      db.prepare(`UPDATE users SET profile_visibility = ?, room_privacy = ? WHERE LOWER(email) = ?`).run(
+        userProfile.profile_visibility,
+        userProfile.room_privacy,
+        targetEmail
+      );
+      syncUsersJson();
+    } catch (e) {}
   }
   res.json({ success: true, profile: userProfile });
 });
@@ -538,14 +591,173 @@ router.post('/forget', (req, res) => {
   });
 });
 
-// POST toggle privacy settings
-router.post('/privacy', (req, res) => {
-  const { key, value } = req.body;
-  if (userProfile.privacySettings.hasOwnProperty(key)) {
-    userProfile.privacySettings[key] = value;
+// GET /api/user/privacy & GET /api/user/settings - Load privacy settings
+const getPrivacySettingsHandler = (req, res) => {
+  try {
+    const email = req.query.email ? req.query.email.trim().toLowerCase() : (userProfile.email || '').toLowerCase();
+    const userId = req.query.userId || userProfile.id;
+
+    let dbUser = null;
+    if (email) {
+      dbUser = db.prepare(`SELECT * FROM users WHERE LOWER(email) = ?`).get(email);
+    } else if (userId) {
+      dbUser = db.prepare(`SELECT * FROM users WHERE id = ?`).get(userId);
+    }
+
+    const profileVisibility = dbUser?.profile_visibility || userProfile.profile_visibility || 'public';
+    const roomPrivacy = dbUser?.room_privacy || userProfile.room_privacy || 'public';
+
+    return res.json({
+      success: true,
+      settings: {
+        profileVisibility,
+        roomPrivacy,
+        useWatchHistory: userProfile.privacySettings.useWatchHistory,
+        useMoodSignals: userProfile.privacySettings.useMoodSignals,
+        allowCollaborativeFiltering: userProfile.privacySettings.allowCollaborativeFiltering,
+        privateMode: profileVisibility === 'private'
+      }
+    });
+  } catch (err) {
+    console.error('[API] Get privacy settings error:', err);
+    return res.status(500).json({ success: false, error: err.message });
   }
-  res.json({ success: true, privacySettings: userProfile.privacySettings });
-});
+};
+router.get('/privacy', getPrivacySettingsHandler);
+router.get('/settings', getPrivacySettingsHandler);
+
+// POST /api/user/privacy & POST /api/user/settings & PUT /api/user/settings - Save privacy settings
+const savePrivacySettingsHandler = (req, res) => {
+  try {
+    const { email, userId, profileVisibility, roomPrivacy, key, value } = req.body;
+    const headerEmail = req.headers['x-user-email'];
+
+    // Identify requesting user
+    let dbUser = null;
+    let targetEmail = null;
+    let targetId = null;
+
+    if (email && email.trim()) {
+      targetEmail = email.trim().toLowerCase();
+      dbUser = db.prepare(`SELECT * FROM users WHERE LOWER(email) = ?`).get(targetEmail);
+      if (!dbUser && targetEmail !== 'alex@zynqosocial.internal') {
+        return res.status(401).json({
+          success: false,
+          error: 'Unauthorized: User not found or not logged in.'
+        });
+      }
+    } else if (userId && userId.trim()) {
+      targetId = userId.trim();
+      dbUser = db.prepare(`SELECT * FROM users WHERE id = ?`).get(targetId);
+      if (!dbUser && targetId !== 'user-default') {
+        return res.status(401).json({
+          success: false,
+          error: 'Unauthorized: User not found or not logged in.'
+        });
+      }
+    } else if (headerEmail && headerEmail.trim()) {
+      targetEmail = headerEmail.trim().toLowerCase();
+      dbUser = db.prepare(`SELECT * FROM users WHERE LOWER(email) = ?`).get(targetEmail);
+      if (!dbUser && targetEmail !== 'alex@zynqosocial.internal') {
+        return res.status(401).json({
+          success: false,
+          error: 'Unauthorized: User not found or not logged in.'
+        });
+      }
+    } else if (userProfile && userProfile.email) {
+      targetEmail = userProfile.email.trim().toLowerCase();
+      dbUser = db.prepare(`SELECT * FROM users WHERE LOWER(email) = ?`).get(targetEmail);
+    } else if (userProfile && userProfile.id && userProfile.id !== 'local-profile') {
+      targetId = userProfile.id;
+      dbUser = db.prepare(`SELECT * FROM users WHERE id = ?`).get(targetId);
+    } else {
+      return res.status(401).json({
+        success: false,
+        error: 'Unauthorized: You must be logged in to modify your settings.'
+      });
+    }
+
+    // Determine current values
+    let updatedProfileVis = dbUser?.profile_visibility || userProfile.profile_visibility || 'public';
+    let updatedRoomPriv = dbUser?.room_privacy || userProfile.room_privacy || 'public';
+
+    // Handle legacy key/value toggle
+    if (key) {
+      if (key === 'profileVisibility' || key === 'profile_visibility') {
+        const val = String(value).toLowerCase();
+        if (['public', 'private'].includes(val)) updatedProfileVis = val;
+      } else if (key === 'roomPrivacy' || key === 'room_privacy') {
+        const val = String(value).toLowerCase();
+        if (['public', 'private'].includes(val)) updatedRoomPriv = val;
+      } else if (key === 'privateMode') {
+        updatedProfileVis = value ? 'private' : 'public';
+      }
+      if (userProfile.privacySettings.hasOwnProperty(key)) {
+        userProfile.privacySettings[key] = value;
+      }
+    }
+
+    // Handle direct profileVisibility updates
+    if (profileVisibility !== undefined) {
+      const cleanVal = String(profileVisibility).trim().toLowerCase();
+      if (!['public', 'private'].includes(cleanVal)) {
+        return res.status(400).json({
+          success: false,
+          error: "Profile Visibility must be 'public' or 'private'."
+        });
+      }
+      updatedProfileVis = cleanVal;
+    }
+
+    // Handle direct roomPrivacy updates
+    if (roomPrivacy !== undefined) {
+      const cleanVal = String(roomPrivacy).trim().toLowerCase();
+      if (!['public', 'private'].includes(cleanVal)) {
+        return res.status(400).json({
+          success: false,
+          error: "Room Privacy must be 'public' or 'private'."
+        });
+      }
+      updatedRoomPriv = cleanVal;
+    }
+
+    // Update SQLite database record for the logged-in user
+    if (dbUser) {
+      db.prepare(`UPDATE users SET profile_visibility = ?, room_privacy = ? WHERE id = ?`).run(
+        updatedProfileVis,
+        updatedRoomPriv,
+        dbUser.id
+      );
+      syncUsersJson();
+    }
+
+    // Update in-memory profile cache
+    userProfile.profile_visibility = updatedProfileVis;
+    userProfile.room_privacy = updatedRoomPriv;
+    userProfile.privacySettings.profileVisibility = updatedProfileVis;
+    userProfile.privacySettings.roomPrivacy = updatedRoomPriv;
+    userProfile.privacySettings.privateMode = updatedProfileVis === 'private';
+
+    return res.json({
+      success: true,
+      message: 'Privacy settings saved successfully.',
+      settings: {
+        profileVisibility: updatedProfileVis,
+        roomPrivacy: updatedRoomPriv,
+        privateMode: updatedProfileVis === 'private',
+        useWatchHistory: userProfile.privacySettings.useWatchHistory,
+        useMoodSignals: userProfile.privacySettings.useMoodSignals,
+        allowCollaborativeFiltering: userProfile.privacySettings.allowCollaborativeFiltering
+      }
+    });
+  } catch (err) {
+    console.error('[API] Save privacy settings error:', err);
+    return res.status(500).json({ success: false, error: err.message });
+  }
+};
+router.post('/privacy', savePrivacySettingsHandler);
+router.post('/settings', savePrivacySettingsHandler);
+router.put('/settings', savePrivacySettingsHandler);
 
 // GET goals curriculum
 router.get('/goals', (req, res) => {
@@ -618,9 +830,9 @@ router.post('/signup', (req, res) => {
 
     // Store in SQLite database
     db.prepare(`
-      INSERT INTO users (id, name, email, password, language, date_of_birth, category, current_mood, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `).run(id, cleanName, cleanEmail, password, language, cleanDob, cleanCategory, cleanMood, createdAt);
+      INSERT INTO users (id, name, email, password, language, date_of_birth, category, current_mood, profile_visibility, room_privacy, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(id, cleanName, cleanEmail, password, language, cleanDob, cleanCategory, cleanMood, 'public', 'public', createdAt);
 
     // Sync snapshot to users.json
     syncUsersJson();
@@ -628,10 +840,19 @@ router.post('/signup', (req, res) => {
     // Update active in-memory user profile
     userProfile.id = id;
     userProfile.name = cleanName;
+    userProfile.email = cleanEmail;
     userProfile.handle = `@${cleanName.toLowerCase().replace(/\s+/g, '_')}`;
     userProfile.date_of_birth = cleanDob;
     userProfile.category = cleanCategory;
     userProfile.current_mood = cleanMood;
+    userProfile.profile_visibility = 'public';
+    userProfile.room_privacy = 'public';
+    userProfile.privacySettings = {
+      ...userProfile.privacySettings,
+      profileVisibility: 'public',
+      roomPrivacy: 'public',
+      privateMode: false
+    };
 
     return res.status(201).json({
       success: true,
@@ -643,6 +864,8 @@ router.post('/signup', (req, res) => {
         date_of_birth: cleanDob,
         category: cleanCategory,
         current_mood: cleanMood,
+        profile_visibility: 'public',
+        room_privacy: 'public',
         language,
         created_at: createdAt
       }
@@ -678,6 +901,8 @@ router.post('/login', (req, res) => {
         date_of_birth: '1995-06-15',
         category: 'Manager',
         current_mood: 'Happy',
+        profile_visibility: 'public',
+        room_privacy: 'public',
         language: 'en'
       };
     }
@@ -689,10 +914,19 @@ router.post('/login', (req, res) => {
     // Update active in-memory user profile
     userProfile.id = user.id;
     userProfile.name = user.name;
+    userProfile.email = user.email;
     userProfile.handle = `@${user.name.toLowerCase().replace(/\s+/g, '_')}`;
     userProfile.date_of_birth = user.date_of_birth || '1995-06-15';
     userProfile.category = user.category || 'Manager';
     userProfile.current_mood = user.current_mood || 'Happy';
+    userProfile.profile_visibility = user.profile_visibility || 'public';
+    userProfile.room_privacy = user.room_privacy || 'public';
+    userProfile.privacySettings = {
+      ...userProfile.privacySettings,
+      profileVisibility: userProfile.profile_visibility,
+      roomPrivacy: userProfile.room_privacy,
+      privateMode: userProfile.profile_visibility === 'private'
+    };
 
     return res.json({
       success: true,
@@ -704,6 +938,8 @@ router.post('/login', (req, res) => {
         date_of_birth: userProfile.date_of_birth,
         category: userProfile.category,
         current_mood: userProfile.current_mood,
+        profile_visibility: userProfile.profile_visibility,
+        room_privacy: userProfile.room_privacy,
         language: user.language || 'en'
       }
     });
@@ -753,7 +989,7 @@ router.post('/mood', (req, res) => {
 // GET /api/user/users - Retrieve stored users (excluding password) for verification
 router.get('/users', (req, res) => {
   try {
-    const users = db.prepare(`SELECT id, name, email, language, date_of_birth, category, current_mood, created_at FROM users`).all();
+    const users = db.prepare(`SELECT id, name, email, language, date_of_birth, category, current_mood, profile_visibility, room_privacy, created_at FROM users`).all();
     res.json({ success: true, count: users.length, users });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });

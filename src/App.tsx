@@ -115,6 +115,7 @@ const MainLayout: React.FC = () => {
           onClose={closeAuthModal}
           initialStep={authInitialStep}
         />
+        {activeModal === 'settingsAndActivity' && <SettingsAndActivityModal />}
       </div>
     );
   }
@@ -133,6 +134,7 @@ const MainLayout: React.FC = () => {
           initialStep={authInitialStep}
         />
         {activeModal === 'creatorStudio' && <CreatorStudioModal />}
+        {activeModal === 'settingsAndActivity' && <SettingsAndActivityModal />}
       </div>
     );
   }

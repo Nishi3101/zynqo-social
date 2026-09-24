@@ -76,6 +76,7 @@ export const SettingsAndActivityModal: React.FC = () => {
     openModal,
     userProfile,
     updateUserProfile,
+    savePrivacySettings,
     isLoggedIn,
     logoutUser,
     openAuthModal,
@@ -92,13 +93,92 @@ export const SettingsAndActivityModal: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   // Interactive settings state (persisted in localStorage / userProfile)
-  const [isPrivateAccount, setIsPrivateAccount] = useState<boolean>(() => {
+  const [profileVisibility, setProfileVisibility] = useState<'public' | 'private'>(() => {
     try {
-      return localStorage.getItem('zynqo_privacy_private') === 'true';
+      const saved = localStorage.getItem('zynqo_profile_visibility');
+      if (saved === 'public' || saved === 'private') return saved;
+      if (userProfile?.profile_visibility) return userProfile.profile_visibility as 'public' | 'private';
+      if (userProfile?.privacySettings?.profileVisibility) return userProfile.privacySettings.profileVisibility;
+      return localStorage.getItem('zynqo_privacy_private') === 'true' ? 'private' : 'public';
     } catch (e) {
-      return false;
+      return 'public';
     }
   });
+
+  const [roomPrivacy, setRoomPrivacy] = useState<'public' | 'private'>(() => {
+    try {
+      const saved = localStorage.getItem('zynqo_room_privacy');
+      if (saved === 'public' || saved === 'private') return saved;
+      if (userProfile?.room_privacy) return userProfile.room_privacy as 'public' | 'private';
+      if (userProfile?.privacySettings?.roomPrivacy) return userProfile.privacySettings.roomPrivacy;
+      return 'public';
+    } catch (e) {
+      return 'public';
+    }
+  });
+
+  const [privacySaveStatus, setPrivacySaveStatus] = useState<string>('');
+
+  const [isPrivateAccount, setIsPrivateAccount] = useState<boolean>(() => {
+    return profileVisibility === 'private';
+  });
+
+  // Load saved privacy settings from database whenever Settings is opened or userProfile updates
+  React.useEffect(() => {
+    const userEmail = localStorage.getItem('pulseai_user_email') || userProfile?.email;
+    const url = userEmail ? `/api/user/privacy?email=${encodeURIComponent(userEmail)}` : '/api/user/privacy';
+    fetch(url)
+      .then(res => res.headers.get('content-type')?.includes('application/json') ? res.json() : null)
+      .then(data => {
+        if (data && data.success && data.settings) {
+          if (data.settings.profileVisibility) {
+            setProfileVisibility(data.settings.profileVisibility);
+            setIsPrivateAccount(data.settings.profileVisibility === 'private');
+            try {
+              localStorage.setItem('zynqo_profile_visibility', data.settings.profileVisibility);
+              localStorage.setItem('zynqo_privacy_private', String(data.settings.profileVisibility === 'private'));
+            } catch (e) {}
+          }
+          if (data.settings.roomPrivacy) {
+            setRoomPrivacy(data.settings.roomPrivacy);
+            try {
+              localStorage.setItem('zynqo_room_privacy', data.settings.roomPrivacy);
+            } catch (e) {}
+          }
+        }
+      })
+      .catch(() => {});
+  }, [userProfile?.email]);
+
+  const handleUpdateProfileVisibility = async (val: 'public' | 'private') => {
+    sounds.playClick();
+    setProfileVisibility(val);
+    setIsPrivateAccount(val === 'private');
+    try {
+      localStorage.setItem('zynqo_profile_visibility', val);
+      localStorage.setItem('zynqo_privacy_private', String(val === 'private'));
+    } catch (e) {}
+
+    if (savePrivacySettings) {
+      await savePrivacySettings(val, roomPrivacy);
+    }
+    setPrivacySaveStatus(`Profile Visibility set to ${val === 'private' ? 'Private' : 'Public'} (Saved)`);
+    setTimeout(() => setPrivacySaveStatus(''), 3500);
+  };
+
+  const handleUpdateRoomPrivacy = async (val: 'public' | 'private') => {
+    sounds.playClick();
+    setRoomPrivacy(val);
+    try {
+      localStorage.setItem('zynqo_room_privacy', val);
+    } catch (e) {}
+
+    if (savePrivacySettings) {
+      await savePrivacySettings(profileVisibility, val);
+    }
+    setPrivacySaveStatus(`Room Privacy set to ${val === 'private' ? 'Private' : 'Public'} (Saved)`);
+    setTimeout(() => setPrivacySaveStatus(''), 3500);
+  };
 
   const [hideLikeCounts, setHideLikeCounts] = useState<boolean>(() => {
     try {
@@ -251,7 +331,16 @@ export const SettingsAndActivityModal: React.FC = () => {
           id: 'account_privacy',
           icon: Lock,
           title: 'Account privacy',
-          badge: isPrivateAccount ? 'Private' : 'Public',
+          subtitle: 'Profile visibility & Room privacy controls',
+          badge: profileVisibility === 'private' ? 'Private' : 'Public',
+          action: () => setActiveSubView('accountPrivacy')
+        },
+        {
+          id: 'room_privacy',
+          icon: Users,
+          title: 'Room privacy',
+          subtitle: 'Public or Private watch rooms',
+          badge: roomPrivacy === 'private' ? 'Private' : 'Public',
           action: () => setActiveSubView('accountPrivacy')
         },
         {
@@ -607,6 +696,13 @@ export const SettingsAndActivityModal: React.FC = () => {
               {renderSubViewContent({
                 viewId: activeSubView,
                 isLight,
+                profileVisibility,
+                handleUpdateProfileVisibility,
+                roomPrivacy,
+                handleUpdateRoomPrivacy,
+                privacySaveStatus,
+                isLoggedIn,
+                openAuthModal,
                 isPrivateAccount,
                 togglePrivateAccount,
                 hideLikeCounts,
@@ -861,6 +957,13 @@ function getSubViewTitle(id: string): string {
 function renderSubViewContent(props: {
   viewId: string;
   isLight: boolean;
+  profileVisibility: 'public' | 'private';
+  handleUpdateProfileVisibility: (v: 'public' | 'private') => void;
+  roomPrivacy: 'public' | 'private';
+  handleUpdateRoomPrivacy: (v: 'public' | 'private') => void;
+  privacySaveStatus: string;
+  isLoggedIn: boolean;
+  openAuthModal: (step?: 'login' | 'mood' | 'onboarding') => void;
   isPrivateAccount: boolean;
   togglePrivateAccount: (v: boolean) => void;
   hideLikeCounts: boolean;
@@ -889,6 +992,13 @@ function renderSubViewContent(props: {
   const {
     viewId,
     isLight,
+    profileVisibility,
+    handleUpdateProfileVisibility,
+    roomPrivacy,
+    handleUpdateRoomPrivacy,
+    privacySaveStatus,
+    isLoggedIn,
+    openAuthModal,
     isPrivateAccount,
     togglePrivateAccount,
     hideLikeCounts,
@@ -915,28 +1025,246 @@ function renderSubViewContent(props: {
     sounds
   } = props;
 
-  // 1. ACCOUNT PRIVACY
+  // 1. ACCOUNT PRIVACY & PRIVACY CONTROLS
   if (viewId === 'accountPrivacy') {
     return (
-      <div className="space-y-4">
-        <div className={`p-4 rounded-2xl border flex items-center justify-between ${
+      <div className="space-y-5 animate-fade-in">
+        {/* 1. Profile Visibility */}
+        <div className={`p-4 sm:p-5 rounded-2xl border space-y-3.5 ${
           isLight ? 'bg-slate-50 border-slate-200' : 'bg-slate-800/60 border-white/10'
         }`}>
-          <div>
-            <h4 className="text-sm font-bold">Private Account</h4>
-            <p className="text-xs text-slate-400 mt-1 max-w-[260px]">
-              When your account is public, your profile and reels can be seen by anyone. When private, only approved followers can see what you share.
-            </p>
+          <div className="flex items-center justify-between border-b pb-2.5 border-inherit">
+            <div>
+              <h4 className="text-sm font-bold flex items-center gap-2">
+                <Lock className="w-4 h-4 text-cyan-400" />
+                Profile Visibility
+              </h4>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Control who can view your profile, reels, and uploaded content.
+              </p>
+            </div>
+            <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold font-mono uppercase tracking-wider ${
+              profileVisibility === 'private'
+                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+            }`}>
+              {profileVisibility === 'private' ? 'Private' : 'Public'}
+            </span>
           </div>
-          <input
-            type="checkbox"
-            checked={isPrivateAccount}
-            onChange={e => togglePrivateAccount(e.target.checked)}
-            className="w-5 h-5 accent-cyan-500 rounded cursor-pointer"
-          />
+
+          <div className="space-y-2 pt-1">
+            {/* Public Option */}
+            <div
+              onClick={() => handleUpdateProfileVisibility('public')}
+              className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition ${
+                profileVisibility === 'public'
+                  ? isLight
+                    ? 'bg-cyan-50/80 border-cyan-400 shadow-sm'
+                    : 'bg-cyan-950/40 border-cyan-500/60 shadow-lg shadow-cyan-950/20'
+                  : isLight
+                  ? 'bg-white hover:bg-slate-100/80 border-slate-200'
+                  : 'bg-slate-900/60 hover:bg-slate-900 border-white/5'
+              }`}
+            >
+              <div className="flex items-start gap-3">
+                <div className={`w-4 h-4 mt-0.5 rounded-full border flex items-center justify-center transition-colors ${
+                  profileVisibility === 'public'
+                    ? 'border-cyan-500 bg-cyan-500'
+                    : 'border-slate-400 bg-transparent'
+                }`}>
+                  {profileVisibility === 'public' && <div className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold">Public</span>
+                    <span className="text-[10px] text-emerald-400 font-mono">(Recommended)</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                    Anyone on Zynqo can view your profile, watch your reels, and discover your content across search.
+                  </p>
+                </div>
+              </div>
+              <input
+                type="radio"
+                name="profile_visibility"
+                checked={profileVisibility === 'public'}
+                onChange={() => handleUpdateProfileVisibility('public')}
+                className="w-4 h-4 accent-cyan-500 cursor-pointer"
+              />
+            </div>
+
+            {/* Private Option */}
+            <div
+              onClick={() => handleUpdateProfileVisibility('private')}
+              className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition ${
+                profileVisibility === 'private'
+                  ? isLight
+                    ? 'bg-cyan-50/80 border-cyan-400 shadow-sm'
+                    : 'bg-cyan-950/40 border-cyan-500/60 shadow-lg shadow-cyan-950/20'
+                  : isLight
+                  ? 'bg-white hover:bg-slate-100/80 border-slate-200'
+                  : 'bg-slate-900/60 hover:bg-slate-900 border-white/5'
+              }`}
+            >
+              <div className="flex items-start gap-3">
+                <div className={`w-4 h-4 mt-0.5 rounded-full border flex items-center justify-center transition-colors ${
+                  profileVisibility === 'private'
+                    ? 'border-cyan-500 bg-cyan-500'
+                    : 'border-slate-400 bg-transparent'
+                }`}>
+                  {profileVisibility === 'private' && <div className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
+                </div>
+                <div>
+                  <span className="text-xs font-bold block">Private</span>
+                  <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                    Only approved followers can view your profile, reels, and posts. Your existing followers will not be affected.
+                  </p>
+                </div>
+              </div>
+              <input
+                type="radio"
+                name="profile_visibility"
+                checked={profileVisibility === 'private'}
+                onChange={() => handleUpdateProfileVisibility('private')}
+                className="w-4 h-4 accent-cyan-500 cursor-pointer"
+              />
+            </div>
+          </div>
         </div>
-        <div className="p-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-xs text-cyan-300">
-          ✓ Your existing followers won't be affected when you switch to private mode.
+
+        {/* 2. Room Privacy */}
+        <div className={`p-4 sm:p-5 rounded-2xl border space-y-3.5 ${
+          isLight ? 'bg-slate-50 border-slate-200' : 'bg-slate-800/60 border-white/10'
+        }`}>
+          <div className="flex items-center justify-between border-b pb-2.5 border-inherit">
+            <div>
+              <h4 className="text-sm font-bold flex items-center gap-2">
+                <Users className="w-4 h-4 text-cyan-400" />
+                Room Privacy
+              </h4>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Set default discoverability and access when creating Watch Together rooms.
+              </p>
+            </div>
+            <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold font-mono uppercase tracking-wider ${
+              roomPrivacy === 'private'
+                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+            }`}>
+              {roomPrivacy === 'private' ? 'Private' : 'Public'}
+            </span>
+          </div>
+
+          <div className="space-y-2 pt-1">
+            {/* Public Option */}
+            <div
+              onClick={() => handleUpdateRoomPrivacy('public')}
+              className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition ${
+                roomPrivacy === 'public'
+                  ? isLight
+                    ? 'bg-cyan-50/80 border-cyan-400 shadow-sm'
+                    : 'bg-cyan-950/40 border-cyan-500/60 shadow-lg shadow-cyan-950/20'
+                  : isLight
+                  ? 'bg-white hover:bg-slate-100/80 border-slate-200'
+                  : 'bg-slate-900/60 hover:bg-slate-900 border-white/5'
+              }`}
+            >
+              <div className="flex items-start gap-3">
+                <div className={`w-4 h-4 mt-0.5 rounded-full border flex items-center justify-center transition-colors ${
+                  roomPrivacy === 'public'
+                    ? 'border-cyan-500 bg-cyan-500'
+                    : 'border-slate-400 bg-transparent'
+                }`}>
+                  {roomPrivacy === 'public' && <div className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold">Public</span>
+                    <span className="text-[10px] text-emerald-400 font-mono">(Discoverable)</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                    Your rooms appear in the public Watch Together lounge list so any connected peer can join.
+                  </p>
+                </div>
+              </div>
+              <input
+                type="radio"
+                name="room_privacy"
+                checked={roomPrivacy === 'public'}
+                onChange={() => handleUpdateRoomPrivacy('public')}
+                className="w-4 h-4 accent-cyan-500 cursor-pointer"
+              />
+            </div>
+
+            {/* Private Option */}
+            <div
+              onClick={() => handleUpdateRoomPrivacy('private')}
+              className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition ${
+                roomPrivacy === 'private'
+                  ? isLight
+                    ? 'bg-cyan-50/80 border-cyan-400 shadow-sm'
+                    : 'bg-cyan-950/40 border-cyan-500/60 shadow-lg shadow-cyan-950/20'
+                  : isLight
+                  ? 'bg-white hover:bg-slate-100/80 border-slate-200'
+                  : 'bg-slate-900/60 hover:bg-slate-900 border-white/5'
+              }`}
+            >
+              <div className="flex items-start gap-3">
+                <div className={`w-4 h-4 mt-0.5 rounded-full border flex items-center justify-center transition-colors ${
+                  roomPrivacy === 'private'
+                    ? 'border-cyan-500 bg-cyan-500'
+                    : 'border-slate-400 bg-transparent'
+                }`}>
+                  {roomPrivacy === 'private' && <div className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
+                </div>
+                <div>
+                  <span className="text-xs font-bold block">Private</span>
+                  <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                    Hidden from public room lobbies. Only participants who enter your unique room code or link can join.
+                  </p>
+                </div>
+              </div>
+              <input
+                type="radio"
+                name="room_privacy"
+                checked={roomPrivacy === 'private'}
+                onChange={() => handleUpdateRoomPrivacy('private')}
+                className="w-4 h-4 accent-cyan-500 cursor-pointer"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Live Feedback / Saved Notification */}
+        {privacySaveStatus && (
+          <div className="p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-xs text-emerald-400 flex items-center gap-2 animate-fade-in font-medium">
+            <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+            <span>{privacySaveStatus}</span>
+          </div>
+        )}
+
+        {/* Not Logged In Warning (if guest) */}
+        {!isLoggedIn && (
+          <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300 flex items-center justify-between gap-3">
+            <span>Sign in to permanently save your privacy settings to your cloud profile database.</span>
+            <button
+              onClick={() => openAuthModal('login')}
+              className="px-3 py-1 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition flex-shrink-0"
+            >
+              Sign In
+            </button>
+          </div>
+        )}
+
+        {/* Reassurance Footer */}
+        <div className="p-3.5 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-xs text-cyan-300 space-y-1">
+          <p className="font-semibold flex items-center gap-1.5">
+            <Shield className="w-3.5 h-3.5" />
+            Verified Privacy Controls
+          </p>
+          <p className="text-[11px] text-cyan-200/80 leading-relaxed">
+            Settings are stored securely in your user account and loaded automatically whenever you return to Settings.
+          </p>
         </div>
       </div>
     );

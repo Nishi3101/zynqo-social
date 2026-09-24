@@ -90,6 +90,7 @@ interface AppContextType {
   toggleLike: (reelId: string, itemMeta?: Partial<ActivityItem>) => Promise<void>;
   toggleSave: (item: Partial<ActivityItem>) => Promise<boolean>;
   updateUserProfile: (updates: Partial<UserProfile>) => Promise<void>;
+  savePrivacySettings: (profileVisibility: 'public' | 'private', roomPrivacy: 'public' | 'private') => Promise<boolean>;
   addUserContent: (type: 'reel' | 'video' | 'post', item: any) => Promise<void>;
   addComment: (reelId: string, text: string) => Promise<boolean>;
   awardXP: (amount: number, reason?: string) => Promise<void>;
@@ -137,7 +138,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         const path = window.location.pathname.toLowerCase();
         if (path === '/creator' || path === '/dashboard') return 'creator';
         if (path === '/profile') return 'profile';
-        if (path === '/feed') return 'feed';
+        if (path === '/feed' || path === '/settings') return 'feed';
       }
     } catch (e) {}
     return 'home';
@@ -247,7 +248,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isDetoxMode, setIsDetoxMode] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [activeModal, setActiveModal] = useState<string | null>(null);
+  const [activeModal, setActiveModal] = useState<string | null>(() => {
+    try {
+      if (typeof window !== 'undefined' && window.location.pathname.toLowerCase() === '/settings') {
+        return 'settingsAndActivity';
+      }
+    } catch (e) {}
+    return null;
+  });
   const [firewallTriggered, setFirewallTriggered] = useState(false);
   const [consecutivePassiveCount, setConsecutivePassiveCount] = useState(0);
 
@@ -402,6 +410,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             setCurrentPageState('profile');
           } else if (path === '/feed') {
             setCurrentPageState('feed');
+          } else if (path === '/settings') {
+            setCurrentPageState('feed');
+            setActiveModal('settingsAndActivity');
           } else if (path === '/' || path === '') {
             setCurrentPageState('home');
           }
@@ -459,12 +470,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         date_of_birth: date_of_birth || localStorage.getItem('pulseai_user_dob') || undefined,
         category: category || localStorage.getItem('pulseai_user_category') || 'Student',
         current_mood: current_mood || localStorage.getItem('pulseai_user_mood') || 'Happy',
+        profile_visibility: (localStorage.getItem('zynqo_profile_visibility') as 'public' | 'private') || 'public',
+        room_privacy: (localStorage.getItem('zynqo_room_privacy') as 'public' | 'private') || 'public',
         badges: [],
         privacySettings: {
           useWatchHistory: true,
           useMoodSignals: true,
           allowCollaborativeFiltering: true,
-          privateMode: false
+          privateMode: (localStorage.getItem('zynqo_profile_visibility') || 'public') === 'private',
+          profileVisibility: (localStorage.getItem('zynqo_profile_visibility') as 'public' | 'private') || 'public',
+          roomPrivacy: (localStorage.getItem('zynqo_room_privacy') as 'public' | 'private') || 'public'
         },
         memoryVault: []
       };
@@ -577,12 +592,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               xp: data.profile.xp || 150,
               level: data.profile.level || 2,
               streakDays: data.profile.streakDays || 3,
+              profile_visibility: data.profile.profile_visibility || (localStorage.getItem('zynqo_profile_visibility') as 'public' | 'private') || 'public',
+              room_privacy: data.profile.room_privacy || (localStorage.getItem('zynqo_room_privacy') as 'public' | 'private') || 'public',
               badges: Array.isArray(data.profile.badges) ? data.profile.badges : [],
-              privacySettings: data.profile.privacySettings || {
+              privacySettings: {
                 useWatchHistory: true,
                 useMoodSignals: true,
                 allowCollaborativeFiltering: true,
-                privateMode: false
+                privateMode: (data.profile.profile_visibility || 'public') === 'private',
+                profileVisibility: data.profile.profile_visibility || (localStorage.getItem('zynqo_profile_visibility') as 'public' | 'private') || 'public',
+                roomPrivacy: data.profile.room_privacy || (localStorage.getItem('zynqo_room_privacy') as 'public' | 'private') || 'public',
+                ...(data.profile.privacySettings || {})
               },
               memoryVault: Array.isArray(data.profile.memoryVault) ? data.profile.memoryVault : []
             };
@@ -594,9 +614,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               handle: savedHandle || data.profile.handle || base.handle,
               bio: savedBio || data.profile.bio || base.bio,
               avatar: savedAvatar || data.profile.avatar || base.avatar,
+              profile_visibility: data.profile.profile_visibility || base.profile_visibility || 'public',
+              room_privacy: data.profile.room_privacy || base.room_privacy || 'public',
               badges: Array.isArray(data.profile.badges) ? data.profile.badges : base.badges,
               memoryVault: Array.isArray(data.profile.memoryVault) ? data.profile.memoryVault : (base.memoryVault || []),
-              privacySettings: data.profile.privacySettings || base.privacySettings
+              privacySettings: {
+                ...base.privacySettings,
+                ...(data.profile.privacySettings || {}),
+                profileVisibility: data.profile.profile_visibility || base.profile_visibility || 'public',
+                roomPrivacy: data.profile.room_privacy || base.room_privacy || 'public',
+                privateMode: (data.profile.profile_visibility || base.profile_visibility || 'public') === 'private'
+              }
             };
           });
         } else {
@@ -606,6 +634,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const savedDob = localStorage.getItem('pulseai_user_dob') || undefined;
           const savedCat = localStorage.getItem('pulseai_user_category') || 'Student';
           const savedMood = localStorage.getItem('pulseai_user_mood') || 'Happy';
+          const savedProfVis = (localStorage.getItem('zynqo_profile_visibility') as 'public' | 'private') || 'public';
+          const savedRoomPriv = (localStorage.getItem('zynqo_room_privacy') as 'public' | 'private') || 'public';
           setUserProfile(prev => prev || {
             id: 'local-profile',
             name: savedName,
@@ -620,12 +650,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             date_of_birth: savedDob,
             category: savedCat,
             current_mood: savedMood,
+            profile_visibility: savedProfVis,
+            room_privacy: savedRoomPriv,
             badges: [],
             privacySettings: {
               useWatchHistory: true,
               useMoodSignals: true,
               allowCollaborativeFiltering: true,
-              privateMode: false
+              privateMode: savedProfVis === 'private',
+              profileVisibility: savedProfVis,
+              roomPrivacy: savedRoomPriv
             },
             memoryVault: []
           });
@@ -906,6 +940,44 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     } catch (e) {}
   };
 
+  const savePrivacySettings = async (profileVisibility: 'public' | 'private', roomPrivacy: 'public' | 'private'): Promise<boolean> => {
+    localStorage.setItem('zynqo_profile_visibility', profileVisibility);
+    localStorage.setItem('zynqo_room_privacy', roomPrivacy);
+    localStorage.setItem('zynqo_privacy_private', String(profileVisibility === 'private'));
+
+    setUserProfile(prev => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        profile_visibility: profileVisibility,
+        room_privacy: roomPrivacy,
+        privacySettings: {
+          ...prev.privacySettings,
+          profileVisibility,
+          roomPrivacy,
+          privateMode: profileVisibility === 'private'
+        }
+      };
+    });
+
+    try {
+      const email = localStorage.getItem('pulseai_user_email') || userProfile?.email || userProfile?.name;
+      const res = await fetch('/api/user/privacy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          profileVisibility,
+          roomPrivacy
+        })
+      });
+      return res.ok;
+    } catch (e) {
+      console.warn('Failed to sync privacy settings to backend:', e);
+      return false;
+    }
+  };
+
   const addUserContent = async (type: 'reel' | 'video' | 'post', item: any) => {
     sounds.playSuccess();
     const newItem = {
@@ -1181,6 +1253,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         toggleLike,
         toggleSave,
         updateUserProfile,
+        savePrivacySettings,
         addUserContent,
         addComment,
         awardXP,
