@@ -21,7 +21,8 @@ import defaultReelsData from '../data/defaultReels.json';
 import { 
   rankReelsBySearchIntent, 
   parseClientSearchIntent, 
-  StructuredSearchIntent 
+  StructuredSearchIntent,
+  rankReelsByMood
 } from '../utils/aiClientEngine';
 
 interface TimeSessionState {
@@ -204,7 +205,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [currentReelIndex, setCurrentReelIndex] = useState(0);
   const [intent, setIntentState] = useState<IntentType>('all');
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedMood, setSelectedMood] = useState<MoodType>('all');
+  const [selectedMood, setSelectedMood] = useState<MoodType>(() => {
+    try {
+      const saved = localStorage.getItem('pulseai_user_mood');
+      if (saved) return saved as MoodType;
+    } catch (e) {}
+    return 'all';
+  });
   const [searchQuery, setSearchQuery] = useState('');
   const [searchIntent, setSearchIntent] = useState<StructuredSearchIntent | null>(null);
   
@@ -393,7 +400,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     localStorage.setItem('pulseai_user_email', email);
     if (date_of_birth) localStorage.setItem('pulseai_user_dob', date_of_birth);
     if (category) localStorage.setItem('pulseai_user_category', category);
-    if (current_mood) localStorage.setItem('pulseai_user_mood', current_mood);
+    if (current_mood) {
+      localStorage.setItem('pulseai_user_mood', current_mood);
+      setSelectedMood(current_mood as MoodType);
+    }
 
     setUserProfile(prev => {
       const base: UserProfile = prev || {
@@ -442,6 +452,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const saveUserMood = async (mood: string) => {
     localStorage.setItem('pulseai_user_mood', mood);
+    setSelectedMood(mood as MoodType);
     setUserProfile(prev => {
       if (!prev) return null;
       return { ...prev, current_mood: mood };
@@ -468,6 +479,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     localStorage.removeItem('pulseai_user_dob');
     localStorage.removeItem('pulseai_user_category');
     localStorage.removeItem('pulseai_user_mood');
+    setSelectedMood('all');
     
     // Reset to default guest profile
     setUserProfile(prev => {
@@ -646,7 +658,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
               setSearchIntent(null);
               if (intent !== 'all') filtered = filtered.filter(r => r.intent === intent);
               if (selectedCategory !== 'All') filtered = filtered.filter(r => r.category === selectedCategory);
-              if (selectedMood !== 'all') filtered = filtered.filter(r => r.mood === selectedMood);
+              if (selectedMood && selectedMood !== 'all') filtered = rankReelsByMood(filtered, selectedMood);
             }
           }
           if (filtered.length > 0) {
@@ -662,6 +674,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           const ranked = rankReelsBySearchIntent(filtered, searchQuery);
           setReels(ranked.reels);
           setSearchIntent(ranked.intent);
+          setCurrentReelIndex(0);
+        } else if (selectedMood && selectedMood !== 'all' && !isDetoxMode) {
+          filtered = rankReelsByMood(filtered, selectedMood);
+          setReels(filtered);
           setCurrentReelIndex(0);
         }
       })

@@ -41,6 +41,145 @@ function saveReels(reels) {
   }
 }
 
+const MOOD_PROFILES = {
+  Happy: {
+    label: 'Happy',
+    targetMoods: ['humorous', 'excited', 'energetic', 'creative', 'chill'],
+    targetIntents: ['entertain', 'inspire', 'connect'],
+    targetCategories: ['Comedy & Satire', 'Culture & Dance', 'Gaming & Humor', 'Music & Audio'],
+    keywords: ['comedy', 'happy', 'laugh', 'fun', 'joy', 'garba', 'dance', 'smile', 'jethalal', 'humor', 'positive', 'tmkoc', 'babita', 'raas']
+  },
+  Relaxed: {
+    label: 'Relaxed',
+    targetMoods: ['calm', 'chill', 'focus'],
+    targetIntents: ['relax', 'teach'],
+    targetCategories: ['Mindfulness & Mental Wellness', 'Science & Cosmos', 'Music & Audio'],
+    keywords: ['calm', 'peace', 'meditation', 'breathwork', 'nature', 'cosmos', 'zen', 'relax', 'lo-fi', 'sleep', 'ambient', 'mindfulness']
+  },
+  Excited: {
+    label: 'Excited',
+    targetMoods: ['excited', 'energetic', 'creative'],
+    targetIntents: ['entertain', 'achieve', 'inspire'],
+    targetCategories: ['Culture & Dance', 'Fitness & Movement', 'AI & Futuristic Tech'],
+    keywords: ['energetic', 'hype', 'garba', 'dance', 'workout', 'future', 'ai', 'breakthrough', 'action', 'fast', 'festivals', 'dandiya']
+  },
+  Chill: {
+    label: 'Chill',
+    targetMoods: ['chill', 'calm', 'creative'],
+    targetIntents: ['relax', 'connect', 'entertain'],
+    targetCategories: ['Music & Audio', 'Culture & Dance', 'Mindfulness & Mental Wellness'],
+    keywords: ['chill', 'vibes', 'lo-fi', 'music', 'groove', 'style', 'coffee', 'casual', 'ambient', 'beats', 'peace']
+  },
+  Sad: {
+    label: 'Sad',
+    targetMoods: ['calm', 'humorous', 'chill'],
+    targetIntents: ['relax', 'entertain', 'inspire'],
+    targetCategories: ['Mindfulness & Mental Wellness', 'Comedy & Satire', 'Culture & Dance'],
+    keywords: ['uplifting', 'comfort', 'healing', 'mindfulness', 'laughter', 'breathwork', 'hope', 'peace', 'wellness', 'jethalal', 'comedy']
+  },
+  Tired: {
+    label: 'Tired',
+    targetMoods: ['calm', 'chill'],
+    targetIntents: ['relax'],
+    targetCategories: ['Mindfulness & Mental Wellness', 'Science & Cosmos', 'Music & Audio'],
+    keywords: ['sleep', 'night', 'rest', 'calm', 'ambient', 'stars', 'cosmos', 'peaceful', 'relaxing', 'gentle', 'meditation']
+  },
+  Neutral: {
+    label: 'Neutral',
+    targetMoods: ['curious', 'focus', 'creative'],
+    targetIntents: ['teach', 'entertain', 'inspire'],
+    targetCategories: ['AI & Futuristic Tech', 'Science & Cosmos', 'Comedy & Satire'],
+    keywords: ['interesting', 'science', 'tech', 'facts', 'curiosity', 'creative', 'knowledge', 'explore', 'neural', 'quantum']
+  },
+  Frustrated: {
+    label: 'Frustrated',
+    targetMoods: ['calm', 'humorous', 'energetic'],
+    targetIntents: ['relax', 'entertain', 'achieve'],
+    targetCategories: ['Mindfulness & Mental Wellness', 'Fitness & Movement', 'Comedy & Satire'],
+    keywords: ['stress', 'release', 'breathe', 'punchline', 'workout', 'calisthenics', 'laugh', 'detox', 'reset', 'comedy', 'peace']
+  },
+  Curious: {
+    label: 'Curious',
+    targetMoods: ['curious', 'focus'],
+    targetIntents: ['teach', 'achieve'],
+    targetCategories: ['AI & Futuristic Tech', 'Science & Cosmos', 'Finance & Compounding'],
+    keywords: ['neural', 'ai', 'quantum', 'physics', 'finance', 'how it works', 'code', 'algorithm', 'learn', 'deep-dive', 'compounding']
+  },
+  Romantic: {
+    label: 'Romantic',
+    targetMoods: ['creative', 'chill', 'calm', 'excited'],
+    targetIntents: ['connect', 'entertain', 'inspire'],
+    targetCategories: ['Culture & Dance', 'Music & Audio'],
+    keywords: ['garba', 'dance', 'music', 'heart', 'love', 'duet', 'soul', 'rhythm', 'raas', 'melody', 'poetry', 'connection']
+  }
+};
+
+function rankReelsByMood(allReels, mood) {
+  if (!mood || mood.toLowerCase() === 'all') return allReels;
+
+  const key = Object.keys(MOOD_PROFILES).find(
+    k => k.toLowerCase() === mood.trim().toLowerCase()
+  );
+  if (!key) return allReels;
+
+  const profile = MOOD_PROFILES[key];
+
+  const scored = allReels.map((reel, index) => {
+    let score = 0;
+    const rMood = (reel.mood || '').toLowerCase();
+    const rIntent = (reel.intent || '').toLowerCase();
+    const rCat = (reel.category || '').toLowerCase();
+    const rTitle = (reel.title || '').toLowerCase();
+    const rDesc = (reel.description || '').toLowerCase();
+    const rTags = (reel.goalTags || []).map(t => t.toLowerCase());
+
+    // 1. Mood alignment (+50 if in target moods, extra +15 for primary match)
+    if (profile.targetMoods.includes(rMood)) {
+      score += 50;
+      if (rMood === profile.targetMoods[0]) score += 15;
+    }
+
+    // 2. Intent alignment (+35)
+    if (profile.targetIntents.includes(rIntent)) {
+      score += 35;
+    }
+
+    // 3. Category alignment (+40)
+    if (profile.targetCategories.some(c => c.toLowerCase() === rCat)) {
+      score += 40;
+    }
+
+    // 4. Keyword & Tag matches (+10 to +20)
+    for (const kw of profile.keywords) {
+      if (rTags.includes(kw)) score += 20;
+      if (rTitle.includes(kw)) score += 15;
+      if (rDesc.includes(kw)) score += 10;
+    }
+
+    // Tie-breaker
+    const tieBreaker = (allReels.length - index) * 0.001;
+
+    const personalizedReel = {
+      ...reel,
+      whyAmISeeingThis: {
+        ...reel.whyAmISeeingThis,
+        primaryReason: `Recommended for your "${profile.label}" mood: aligns with ${reel.category} and your current vibe.`,
+        signalWeight: {
+          watchHistory: reel.whyAmISeeingThis?.signalWeight?.watchHistory ?? 20,
+          goalAlignment: reel.whyAmISeeingThis?.signalWeight?.goalAlignment ?? 20,
+          currentMood: 50,
+          collaborativeFilter: reel.whyAmISeeingThis?.signalWeight?.collaborativeFilter ?? 10
+        }
+      }
+    };
+
+    return { reel: personalizedReel, score: score + tieBreaker };
+  });
+
+  scored.sort((a, b) => b.score - a.score);
+  return scored.map(s => s.reel);
+}
+
 // GET all reels with multi-factor filtering (Intent, Category, Goal, Search, Mood)
 router.get('/', async (req, res) => {
   const { intent, category, goal, mood, search, detox } = req.query;
@@ -60,7 +199,7 @@ router.get('/', async (req, res) => {
       reels = reels.filter(r => r.goalTags && r.goalTags.includes(goal));
     }
     if (mood && mood !== 'all') {
-      reels = reels.filter(r => r.mood === mood);
+      reels = rankReelsByMood(reels, mood);
     }
     if (search && search.trim()) {
       searchIntent = await parseSearchIntentWithAI(search);
@@ -104,6 +243,12 @@ router.get('/', async (req, res) => {
         }
         if (searchIntent?.mood && reel.mood && reel.mood === searchIntent.mood) {
           score += 20;
+        }
+        if (mood && mood !== 'all') {
+          const mKey = Object.keys(MOOD_PROFILES).find(k => k.toLowerCase() === mood.trim().toLowerCase());
+          if (mKey && MOOD_PROFILES[mKey].targetMoods.includes((reel.mood || '').toLowerCase())) {
+            score += 25;
+          }
         }
 
         // 5. Regional Language & Culture Boost

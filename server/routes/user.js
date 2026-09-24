@@ -721,14 +721,16 @@ router.post('/mood', (req, res) => {
       return res.status(400).json({ success: false, error: 'Mood cannot be empty.' });
     }
 
-    const cleanMood = mood.trim();
-    if (!ALLOWED_MOODS.includes(cleanMood)) {
+    const rawMood = mood.trim();
+    const matchedMood = ALLOWED_MOODS.find(m => m.toLowerCase() === rawMood.toLowerCase());
+    if (!matchedMood) {
       return res.status(400).json({
         success: false,
         error: `Mood must be one of: ${ALLOWED_MOODS.join(', ')}.`
       });
     }
 
+    const cleanMood = matchedMood;
     userProfile.current_mood = cleanMood;
 
     if (email && email.trim()) {

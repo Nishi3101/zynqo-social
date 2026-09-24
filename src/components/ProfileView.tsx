@@ -66,6 +66,7 @@ export const ProfileView: React.FC = () => {
     colorMode, 
     toggleColorMode,
     openModal,
+    openAuthModal,
     totalReelsWatched,
     todayReelsWatched,
     dailyReelHistory,
@@ -324,9 +325,13 @@ export const ProfileView: React.FC = () => {
                       </span>
                     )}
                     {userProfile?.current_mood && (
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-sans font-semibold bg-indigo-500/15 text-indigo-400 border border-indigo-500/30">
+                      <button
+                        onClick={() => openAuthModal('mood')}
+                        title="Click to update your current mood"
+                        className="px-2 py-0.5 rounded-full text-[10px] font-sans font-semibold bg-indigo-500/15 hover:bg-indigo-500/25 active:scale-95 text-indigo-400 border border-indigo-500/30 transition-all cursor-pointer inline-flex items-center gap-1"
+                      >
                         Mood: {userProfile.current_mood}
-                      </span>
+                      </button>
                     )}
                   </div>
                 </div>
