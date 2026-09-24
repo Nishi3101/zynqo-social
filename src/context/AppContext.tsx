@@ -49,7 +49,7 @@ interface AppContextType {
   closeThemeModal: () => void;
   openAuthModal: (step?: 'login' | 'mood' | 'onboarding') => void;
   closeAuthModal: () => void;
-  loginUser: (name: string, email: string, interests?: string[], budget?: number, date_of_birth?: string, category?: string, current_mood?: string) => void;
+  loginUser: (name: string, email: string, interests?: string[], budget?: number, date_of_birth?: string, category?: string, current_mood?: string, avatar?: string) => void;
   logoutUser: () => void;
   saveUserMood: (mood: string) => Promise<void>;
   resetAttentionLimit: () => void;
@@ -466,13 +466,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     budget?: number, 
     date_of_birth?: string, 
     category?: string,
-    current_mood?: string
+    current_mood?: string,
+    avatar?: string
   ) => {
     sounds.playSuccess();
     setIsLoggedIn(true);
     localStorage.setItem('pulseai_logged_in', 'true');
     localStorage.setItem('pulseai_user_name', name);
     localStorage.setItem('pulseai_user_email', email);
+    if (avatar) localStorage.setItem('pulseai_user_avatar', avatar);
     if (date_of_birth) localStorage.setItem('pulseai_user_dob', date_of_birth);
     if (category) localStorage.setItem('pulseai_user_category', category);
     if (current_mood) {
@@ -485,7 +487,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         id: `user-${Date.now()}`,
         name: name || 'User',
         handle: `@${(name || 'user').toLowerCase().replace(/\s+/g, '_')}`,
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
+        avatar: avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
         bio: 'Living life one reel at a time ✨',
         attentionBudgetMinutes: budget || 30,
         minutesUsedToday: 0,
@@ -514,6 +516,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return {
         ...base,
         name: name || base.name,
+        avatar: avatar || base.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
         handle: `@${(name || 'user').toLowerCase().replace(/\s+/g, '_')}`,
         attentionBudgetMinutes: budget || base.attentionBudgetMinutes,
         date_of_birth: date_of_birth || base.date_of_birth || localStorage.getItem('pulseai_user_dob') || undefined,
@@ -555,6 +558,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     localStorage.removeItem('pulseai_logged_in');
     localStorage.removeItem('pulseai_user_name');
     localStorage.removeItem('pulseai_user_email');
+    localStorage.removeItem('pulseai_user_avatar');
     localStorage.removeItem('pulseai_user_dob');
     localStorage.removeItem('pulseai_user_category');
     localStorage.removeItem('pulseai_user_mood');
@@ -665,7 +669,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             id: 'local-profile',
             name: savedName,
             handle: savedHandle,
-            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
+            avatar: localStorage.getItem('pulseai_user_avatar') || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
             bio: 'Living life one reel at a time ✨',
             attentionBudgetMinutes: 30,
             minutesUsedToday: 0,

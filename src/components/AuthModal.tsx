@@ -16,6 +16,12 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
+declare global {
+  interface Window {
+    google?: any;
+  }
+}
+
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -53,11 +59,145 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [isSubmittingMood, setIsSubmittingMood] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmittingGoogle, setIsSubmittingGoogle] = useState(false);
+  const [unconfiguredGoogle, setUnconfiguredGoogle] = useState(false);
   const [selectedInterests, setSelectedInterests] = useState<string[]>([
     'Artificial Intelligence & Coding',
     'Productivity & Habits'
   ]);
   const [selectedBudget, setSelectedBudget] = useState(30);
+
+  const verifyGoogleCredential = async (credential: string | null, isDemo = false) => {
+    setIsSubmittingGoogle(true);
+    setAuthError(null);
+    try {
+      const res = await fetch('/api/user/auth/google/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ credential, isDemo })
+      });
+      const data = await res.json();
+      if (data.success && data.user) {
+        loginUser(
+          data.user.name,
+          data.user.email,
+          selectedInterests,
+          selectedBudget,
+          data.user.date_of_birth,
+          data.user.category,
+          data.user.current_mood || 'Happy',
+          data.user.avatar
+        );
+        awardXP(100, 'Google Authentication');
+        setMoodChoice(data.user.current_mood || 'Happy');
+        setStep('onboarding');
+      } else {
+        setAuthError(data.error || 'Failed to authenticate with Google.');
+      }
+    } catch (err: any) {
+      console.error('Google verification error:', err);
+      setAuthError(err.message || 'Network error during Google authentication.');
+    } finally {
+      setIsSubmittingGoogle(false);
+    }
+  };
+
+  const openGoogleOAuthPopup = () => {
+    setIsSubmittingGoogle(true);
+    const width = 500;
+    const height = 600;
+    const left = window.screenX + (window.outerWidth - width) / 2;
+    const top = window.screenY + (window.outerHeight - height) / 2;
+
+    const popup = window.open(
+      '/api/user/auth/google',
+      'google_oauth_popup',
+      `width=${width},height=${height},left=${left},top=${top},toolbar=0,scrollbars=1,status=1,resizable=1`
+    );
+
+    if (!popup) {
+      setIsSubmittingGoogle(false);
+      setAuthError('Popup was blocked by your browser. Please allow popups to sign in with Google.');
+      return;
+    }
+
+    const checkClosed = setInterval(() => {
+      if (popup.closed) {
+        clearInterval(checkClosed);
+        setIsSubmittingGoogle(false);
+      }
+    }, 1000);
+  };
+
+  const handleGoogleSignIn = async () => {
+    setAuthError(null);
+    setUnconfiguredGoogle(false);
+    setIsSubmittingGoogle(true);
+
+    try {
+      const configRes = await fetch('/api/user/auth/google/config');
+      const config = await configRes.json();
+
+      if (!config.configured || !config.clientId) {
+        setIsSubmittingGoogle(false);
+        setUnconfiguredGoogle(true);
+        return;
+      }
+
+      // If Google Identity Services script is ready
+      if (window.google?.accounts?.id) {
+        window.google.accounts.id.initialize({
+          client_id: config.clientId,
+          callback: async (response: any) => {
+            if (response && response.credential) {
+              await verifyGoogleCredential(response.credential);
+            }
+          },
+          auto_select: false,
+          cancel_on_tap_outside: true
+        });
+
+        window.google.accounts.id.prompt((notification: any) => {
+          if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+            openGoogleOAuthPopup();
+          }
+        });
+      } else {
+        openGoogleOAuthPopup();
+      }
+    } catch (e: any) {
+      openGoogleOAuthPopup();
+    }
+  };
+
+  // Listen for message from Google OAuth callback popup
+  useEffect(() => {
+    const handleAuthMessage = (event: MessageEvent) => {
+      if (event.data?.type === 'GOOGLE_AUTH_SUCCESS' && event.data.user) {
+        const u = event.data.user;
+        loginUser(
+          u.name,
+          u.email,
+          selectedInterests,
+          selectedBudget,
+          u.date_of_birth,
+          u.category,
+          u.current_mood || 'Happy',
+          u.avatar
+        );
+        awardXP(100, 'Google Authentication');
+        setMoodChoice(u.current_mood || 'Happy');
+        setIsSubmittingGoogle(false);
+        setStep('onboarding');
+      } else if (event.data?.type === 'GOOGLE_AUTH_ERROR') {
+        setIsSubmittingGoogle(false);
+        setAuthError(event.data.error || 'Google Sign-In was cancelled or failed.');
+      }
+    };
+
+    window.addEventListener('message', handleAuthMessage);
+    return () => window.removeEventListener('message', handleAuthMessage);
+  }, [selectedInterests, selectedBudget]);
 
   // Synchronize step whenever modal opens or initialStep changes
   useEffect(() => {
@@ -398,11 +538,66 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               {/* Quick Guest Access button */}
               <button
                 onClick={() => handleQuickLogin(true)}
-                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-500 hover:opacity-95 text-slate-950 font-black text-xs md:text-sm shadow-xl shadow-emerald-500/25 transition flex items-center justify-center gap-2"
+                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-500 hover:opacity-95 text-slate-950 font-black text-xs md:text-sm shadow-xl shadow-emerald-500/25 transition flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Sparkles className="w-4 h-4" />
                 <span>Instant 1-Click Login (Guest / Alex Rivera)</span>
               </button>
+
+              {/* Sign in with Google Button */}
+              <button
+                type="button"
+                onClick={handleGoogleSignIn}
+                disabled={isSubmittingGoogle}
+                className={`w-full py-3 rounded-2xl border text-xs md:text-sm font-bold transition flex items-center justify-center gap-3 shadow-md active:scale-[0.99] cursor-pointer ${
+                  isLight
+                    ? 'bg-white hover:bg-slate-50 text-slate-800 border-slate-300 hover:border-slate-400 shadow-slate-200'
+                    : 'bg-white hover:bg-slate-100 text-slate-900 border-white/20 shadow-black/40'
+                }`}
+              >
+                <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24">
+                  <path
+                    fill="#4285F4"
+                    d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"
+                  />
+                  <path
+                    fill="#34A853"
+                    d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"
+                  />
+                  <path
+                    fill="#FBBC05"
+                    d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.03 0 12s.45 3.82 1.25 5.42l4.03-3.15z"
+                  />
+                  <path
+                    fill="#EA4335"
+                    d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
+                  />
+                </svg>
+                <span>{isSubmittingGoogle ? 'Signing in with Google...' : 'Continue with Google'}</span>
+              </button>
+
+              {/* Notice when Google Client ID is not yet configured in .env */}
+              {unconfiguredGoogle && (
+                <div className="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs space-y-2 animate-fade-in">
+                  <div className="flex items-start gap-2">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0 text-amber-400 mt-0.5" />
+                    <div>
+                      <p className="font-bold text-amber-300">Google OAuth Credentials Required</p>
+                      <p className="text-[11px] text-amber-200/80 leading-relaxed">
+                        To enable live Google Sign-In, set <code>GOOGLE_CLIENT_ID</code> and <code>GOOGLE_CLIENT_SECRET</code> in your <code>.env</code> file.
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => verifyGoogleCredential(null, true)}
+                    className="w-full py-1.5 px-3 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 font-bold text-[11px] border border-amber-500/40 transition flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <span>Test Demo Google Account Sign-In</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </button>
+                </div>
+              )}
 
               <div className="flex items-center gap-3 my-3">
                 <div className={`h-px flex-1 ${isLight ? 'bg-slate-200' : 'bg-white/10'}`} />
