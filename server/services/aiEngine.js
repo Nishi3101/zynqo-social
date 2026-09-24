@@ -125,6 +125,61 @@ export async function generateCreatorAssets(topic, audience = 'general', tone = 
 }
 
 /**
+ * AI Caption Generator for Upload Flow
+ */
+export async function generateAICaption(title, category = 'Tech & AI', tone = 'viral') {
+  const cleanTitle = title || 'Viral AI Insight';
+  if (geminiApiKey) {
+    try {
+      const prompt = `Generate a captivating, viral short-form video caption (max 200 characters) for a reel titled "${cleanTitle}" in category "${category}". Tone: ${tone}. Include an engaging call-to-action emoji. Output ONLY the raw caption text without quotes or explanations.`;
+      const aiResponse = await queryGemini(prompt);
+      if (aiResponse && aiResponse.trim()) {
+        return aiResponse.trim();
+      }
+    } catch (e) {
+      console.warn('Gemini caption generation notice:', e);
+    }
+  }
+
+  // Built-in smart contextual fallback
+  const hooks = [
+    `Stop scrolling! Here is everything you need to know about ${cleanTitle} in 30 seconds. 🚀 What do you think?`,
+    `The honest breakdown of ${cleanTitle} nobody tells you. Watch till the end! 💡 Save this for later.`,
+    `Tried this ${cleanTitle} method and it changed everything! 🔥 Tag someone who needs to see this.`,
+    `Most people do ${cleanTitle} completely wrong. Here's the high-leverage way to master it! ⚡`
+  ];
+  return hooks[Math.floor(Math.random() * hooks.length)];
+}
+
+/**
+ * AI Hashtag Generator for Upload Flow
+ */
+export async function generateAIHashtags(title, category = 'Tech & AI') {
+  const cleanTitle = title || 'NextGenAI';
+  if (geminiApiKey) {
+    try {
+      const prompt = `Generate 8 trending, highly relevant Instagram/Reel hashtags for a video titled "${cleanTitle}" in category "${category}". Return ONLY a JSON array of strings, e.g. ["#Tag1", "#Tag2"].`;
+      const aiResponse = await queryGemini(prompt, 'Respond with a valid JSON array only.');
+      if (aiResponse) {
+        const cleaned = aiResponse.replace(/```json/g, '').replace(/```/g, '').trim();
+        const parsed = JSON.parse(cleaned);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed.map(t => t.startsWith('#') ? t : `#${t}`);
+        }
+      }
+    } catch (e) {
+      console.warn('Gemini hashtag generation notice:', e);
+    }
+  }
+
+  const cleanTag = cleanTitle.replace(/[^a-zA-Z0-9]/g, '').slice(0, 20);
+  const topicTag = cleanTag ? `#${cleanTag}` : '#AI';
+  const categoryTag = `#${category.replace(/[^a-zA-Z0-9]/g, '')}`;
+  const generalTags = ['#ZynqoSocial', '#ViralReels', '#Trending', '#ExplorePage', '#LearnEveryday', '#CreatorCommunity'];
+  return [topicTag, categoryTag, ...generalTags].filter(Boolean).slice(0, 8);
+}
+
+/**
  * Universal Language Translator using Google GTX API
  */
 async function translateText(text, targetLang = 'en') {

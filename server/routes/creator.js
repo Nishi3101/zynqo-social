@@ -1,5 +1,5 @@
 import express from 'express';
-import { generateCreatorAssets } from '../services/aiEngine.js';
+import { generateCreatorAssets, generateAICaption, generateAIHashtags } from '../services/aiEngine.js';
 
 const router = express.Router();
 
@@ -11,6 +11,30 @@ router.post('/generate', async (req, res) => {
     res.json({ success: true, assets });
   } catch (err) {
     console.error('Creator generator error:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// POST Generate AI Caption for reel upload
+router.post('/ai-caption', async (req, res) => {
+  try {
+    const { title, category, tone } = req.body;
+    const caption = await generateAICaption(title, category, tone);
+    res.json({ success: true, caption });
+  } catch (err) {
+    console.error('AI Caption generation error:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// POST Generate AI Hashtags for reel upload
+router.post('/ai-hashtags', async (req, res) => {
+  try {
+    const { title, category } = req.body;
+    const hashtags = await generateAIHashtags(title, category);
+    res.json({ success: true, hashtags });
+  } catch (err) {
+    console.error('AI Hashtags generation error:', err);
     res.status(500).json({ success: false, error: err.message });
   }
 });

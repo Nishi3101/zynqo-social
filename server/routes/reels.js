@@ -207,8 +207,21 @@ router.post('/:id/comment', (req, res) => {
 
 // POST upload new reel
 router.post('/upload', upload.single('video'), (req, res) => {
-  const { title, description, category, intent, duration = 45, thumbnailUrl, overlayText } = req.body;
+  const { 
+    title, 
+    description, 
+    category, 
+    intent, 
+    duration = 45, 
+    thumbnailUrl, 
+    overlayText,
+    isScheduled,
+    scheduledDate,
+    scheduledTime
+  } = req.body;
   const reels = loadReels();
+
+  const isPostScheduled = isScheduled === 'true' || isScheduled === true;
 
   const newReel = {
     id: `reel-${Date.now()}`,
@@ -230,6 +243,16 @@ router.post('/upload', upload.single('video'), (req, res) => {
     intent: intent || 'teach',
     goalTags: ['coding', 'self-growth'],
     mood: 'curious',
+    status: isPostScheduled ? 'scheduled' : 'published',
+    scheduledAt: isPostScheduled && scheduledDate ? `${scheduledDate}T${scheduledTime || '12:00'}` : undefined,
+    scheduledDate: isPostScheduled ? scheduledDate : undefined,
+    scheduledTime: isPostScheduled ? scheduledTime : undefined,
+    sourceRights: {
+      platform: 'Zynqo Studio Upload',
+      creatorHandle: '@you_creator',
+      rightsStatus: 'Licensed (Original Creator)',
+      isDemo: false
+    },
     likes: 1,
     commentsCount: 0,
     shares: 0,
@@ -244,7 +267,7 @@ router.post('/upload', upload.single('video'), (req, res) => {
       aiConfidence: 98
     },
     whyAmISeeingThis: {
-      primaryReason: 'Freshly published native creator reel.',
+      primaryReason: isPostScheduled ? 'Scheduled native creator reel.' : 'Freshly published native creator reel.',
       matchedInterests: [category || 'General'],
       signalWeight: { watchHistory: 20, goalAlignment: 40, currentMood: 20, collaborativeFilter: 20 },
       privacyNote: 'Organic creator distribution.'
@@ -270,10 +293,14 @@ router.post('/upload', upload.single('video'), (req, res) => {
     comments: []
   };
 
-  reels.unshift(newReel);
+  if (isPostScheduled) {
+    reels.push(newReel);
+  } else {
+    reels.unshift(newReel);
+  }
   saveReels(reels);
 
-  res.json({ success: true, reel: newReel });
+  res.json({ success: true, scheduled: isPostScheduled, reel: newReel });
 });
 
 export default router;
