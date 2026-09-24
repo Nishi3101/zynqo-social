@@ -18,6 +18,8 @@ import { useApp } from '../context/AppContext';
 import { getLocalizedReel } from '../utils/translations';
 import { clientCompanionChat } from '../utils/aiClientEngine';
 
+export type VoiceState = 'idle' | 'listening' | 'processing' | 'speaking' | 'error';
+
 interface Message {
   id: string;
   sender: 'user' | 'nova';
@@ -40,9 +42,12 @@ export const AICompanion: React.FC = () => {
   const [isListening, setIsListening] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [isVoiceMode, setIsVoiceMode] = useState(false);
+  const [voiceState, setVoiceState] = useState<VoiceState>('idle');
+  const [voiceErrorMsg, setVoiceErrorMsg] = useState<string | null>(null);
   const [speakingMessageId, setSpeakingMessageId] = useState<string | null>(null);
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const recognitionRef = useRef<any>(null);
 
   const speechLangMap: Record<string, string> = {
     gu: 'gu-IN',
@@ -67,6 +72,7 @@ export const AICompanion: React.FC = () => {
       window.speechSynthesis.cancel();
     }
     setSpeakingMessageId(null);
+    setVoiceState(prev => (prev === 'speaking' ? 'idle' : prev));
   };
 
   // Text-to-Speech speaking function supporting all languages (using Google TTS POST proxy)
@@ -74,9 +80,11 @@ export const AICompanion: React.FC = () => {
     stopSpeaking();
 
     if (speakingMessageId === msgId) {
+      setVoiceState('idle');
       return;
     }
 
+    setVoiceState('speaking');
     if (msgId) {
       setSpeakingMessageId(msgId);
     }
@@ -90,6 +98,7 @@ export const AICompanion: React.FC = () => {
 
     if (!cleanText) {
       setSpeakingMessageId(null);
+      setVoiceState('idle');
       return;
     }
 
@@ -115,12 +124,15 @@ export const AICompanion: React.FC = () => {
 
       audio.onended = () => {
         setSpeakingMessageId(null);
+        setVoiceState('idle');
         audioRef.current = null;
         URL.revokeObjectURL(audioUrl);
       };
 
       audio.onerror = () => {
         setSpeakingMessageId(null);
+        setVoiceState('idle');
+        audioRef.current = null;
         URL.revokeObjectURL(audioUrl);
       };
 
@@ -132,11 +144,18 @@ export const AICompanion: React.FC = () => {
         const utterance = new SpeechSynthesisUtterance(cleanText);
         const targetLang = speechLangMap[language] || 'en-US';
         utterance.lang = targetLang;
-        utterance.onend = () => setSpeakingMessageId(null);
-        utterance.onerror = () => setSpeakingMessageId(null);
+        utterance.onend = () => {
+          setSpeakingMessageId(null);
+          setVoiceState('idle');
+        };
+        utterance.onerror = () => {
+          setSpeakingMessageId(null);
+          setVoiceState('idle');
+        };
         window.speechSynthesis.speak(utterance);
       } else {
         setSpeakingMessageId(null);
+        setVoiceState('idle');
       }
     }
   };
@@ -174,6 +193,11 @@ export const AICompanion: React.FC = () => {
     const text = textToSend || inputValue;
     if (!text.trim()) return;
 
+    if (isVoiceQuery) {
+      setVoiceState('processing');
+      setVoiceErrorMsg(null);
+    }
+
     const userMsg: Message = {
       id: `msg-${Date.now()}`,
       sender: 'user',
@@ -187,6 +211,13 @@ export const AICompanion: React.FC = () => {
 
     const localizedReel = currentReel ? getLocalizedReel(currentReel, language) : null;
 
+    // Multi-turn conversational context payload
+    const conversationHistory = [...messages, userMsg].slice(-8).map(m => ({
+      sender: m.sender,
+      role: m.sender === 'user' ? 'user' : 'model',
+      text: m.text
+    }));
+
     try {
       let data: any = null;
       try {
@@ -199,7 +230,8 @@ export const AICompanion: React.FC = () => {
               currentReel: localizedReel || currentReel,
               intent,
               remainingMinutes: 5,
-              language
+              language,
+              history: conversationHistory
             }
           })
         });
@@ -215,7 +247,8 @@ export const AICompanion: React.FC = () => {
           currentReel: localizedReel || currentReel,
           intent,
           remainingMinutes: 5,
-          language
+          language,
+          history: conversationHistory
         });
       }
 
@@ -234,6 +267,8 @@ export const AICompanion: React.FC = () => {
         // If Voice Mode is enabled or user used voice input, speak Nova's reply aloud in current language!
         if (isVoiceMode || isVoiceQuery) {
           speakText(data.reply, novaMsg.id);
+        } else {
+          setVoiceState('idle');
         }
 
         // Trigger action callbacks if requested
@@ -263,9 +298,15 @@ export const AICompanion: React.FC = () => {
             }
           }
         }
+      } else {
+        setVoiceState('idle');
       }
     } catch (err) {
       setIsTyping(false);
+      if (isVoiceQuery) {
+        setVoiceState('error');
+        setVoiceErrorMsg('Failed to reach AI service. Please try again.');
+      }
       setMessages(prev => [
         ...prev,
         {
@@ -278,33 +319,86 @@ export const AICompanion: React.FC = () => {
     }
   };
 
-  // Voice speech-to-text integration using Web Speech API mapped to current language
+  // Voice speech-to-text integration using Web Speech API mapped to current language with Interrupt capability
   const toggleSpeechRecognition = () => {
+    // Immediate Interrupt: If AI is speaking, stop speaking immediately!
+    if (speakingMessageId || voiceState === 'speaking') {
+      stopSpeaking();
+      return;
+    }
+
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) {
-      alert(t.companion?.speechNotSupported || 'Speech Recognition is not supported by your browser.');
+      setVoiceState('error');
+      setVoiceErrorMsg(t.companion?.speechNotSupported || 'Voice recognition is not supported in this browser. Please use Chrome, Edge, or Safari.');
       return;
     }
 
-    if (isListening) {
+    if (isListening || voiceState === 'listening') {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch (e) {}
+      }
       setIsListening(false);
+      setVoiceState('idle');
       return;
     }
 
-    const recognition = new SpeechRecognition();
-    recognition.lang = speechLangMap[language] || 'en-US';
-    recognition.interimResults = false;
+    setVoiceErrorMsg(null);
+    try {
+      const recognition = new SpeechRecognition();
+      recognitionRef.current = recognition;
+      recognition.lang = speechLangMap[language] || 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
 
-    recognition.onstart = () => setIsListening(true);
-    recognition.onend = () => setIsListening(false);
-    recognition.onerror = () => setIsListening(false);
-    recognition.onresult = (e: any) => {
-      const speechText = e.results[0][0].transcript;
-      setInputValue(speechText);
-      handleSendMessage(speechText, true);
-    };
+      recognition.onstart = () => {
+        setIsListening(true);
+        setVoiceState('listening');
+      };
 
-    recognition.start();
+      recognition.onend = () => {
+        setIsListening(false);
+        setVoiceState(prev => (prev === 'listening' ? 'idle' : prev));
+      };
+
+      recognition.onerror = (e: any) => {
+        setIsListening(false);
+        const errType = e?.error;
+        console.warn('Speech recognition error event:', errType);
+        if (errType === 'not-allowed') {
+          setVoiceState('error');
+          setVoiceErrorMsg('Microphone access denied. Please grant microphone permission in your browser.');
+        } else if (errType === 'no-speech') {
+          setVoiceState('idle');
+        } else if (errType === 'audio-capture') {
+          setVoiceState('error');
+          setVoiceErrorMsg('No microphone detected. Please plug in or connect a microphone.');
+        } else if (errType === 'network') {
+          setVoiceState('error');
+          setVoiceErrorMsg('Network error occurred during voice recognition.');
+        } else {
+          setVoiceState('idle');
+        }
+      };
+
+      recognition.onresult = (e: any) => {
+        const speechText = e.results[0]?.[0]?.transcript;
+        if (speechText && speechText.trim()) {
+          setInputValue(speechText);
+          handleSendMessage(speechText, true);
+        } else {
+          setVoiceState('idle');
+        }
+      };
+
+      recognition.start();
+    } catch (err: any) {
+      console.warn('Failed to start speech recognition:', err);
+      setVoiceState('error');
+      setVoiceErrorMsg('Could not access microphone. Please check permissions.');
+    }
   };
 
   const localizedCurrentReel = currentReel ? getLocalizedReel(currentReel, language) : null;
@@ -350,17 +444,39 @@ export const AICompanion: React.FC = () => {
 
           {/* Quick Voice Mode Bubble */}
           <button
-            onClick={toggleSpeechRecognition}
+            onClick={() => {
+              if (speakingMessageId || voiceState === 'speaking') {
+                stopSpeaking();
+              } else {
+                toggleSpeechRecognition();
+              }
+            }}
             className={`p-2 rounded-full transition-all duration-300 flex items-center justify-center relative overflow-hidden ${
-              isListening
-                ? 'liquid-glass-bubble prismatic-rim animate-chromatic-shimmer text-cyan-300 scale-110 shadow-[0_0_12px_#06b6d4]'
+              voiceState === 'listening'
+                ? 'liquid-glass-bubble prismatic-rim animate-chromatic-shimmer text-cyan-300 scale-110 shadow-[0_0_14px_#06b6d4]'
+                : voiceState === 'speaking'
+                ? 'bg-emerald-500/30 text-emerald-300 border border-emerald-400/50 scale-105 shadow-[0_0_12px_#10b981]'
+                : voiceState === 'processing'
+                ? 'bg-violet-500/30 text-violet-300 border border-violet-400/50 scale-105 shadow-[0_0_12px_#8b5cf6]'
                 : 'hover:bg-white/10 text-slate-400 hover:text-white'
             }`}
-            title={isListening ? "Listening... Click to stop" : "Talk to Nova (Voice)"}
+            title={
+              voiceState === 'listening'
+                ? "Listening... Tap to stop"
+                : voiceState === 'speaking'
+                ? "Nova is speaking... Tap to interrupt"
+                : voiceState === 'processing'
+                ? "Thinking..."
+                : "Talk to Nova (Voice)"
+            }
           >
-            {isListening && <span className="specular-lens" />}
-            {isListening ? (
+            {voiceState === 'listening' && <span className="specular-lens" />}
+            {voiceState === 'listening' ? (
               <Mic className="w-4 h-4 text-cyan-400 animate-bounce relative z-10" />
+            ) : voiceState === 'speaking' ? (
+              <Volume2 className="w-4 h-4 text-emerald-300 animate-pulse relative z-10" />
+            ) : voiceState === 'processing' ? (
+              <Bot className="w-4 h-4 text-violet-400 animate-spin relative z-10" />
             ) : (
               <Mic className="w-4 h-4" />
             )}
@@ -451,6 +567,70 @@ export const AICompanion: React.FC = () => {
               </button>
             </div>
           </div>
+
+          {/* Real-Time Voice State Banner */}
+          {voiceState === 'listening' && (
+            <div className="px-3.5 py-2 bg-gradient-to-r from-cyan-950/90 to-blue-950/90 border-b border-cyan-500/30 flex items-center justify-between text-xs text-cyan-200">
+              <div className="flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                </span>
+                <span className="font-semibold tracking-wide">🎙 Listening... Speak now</span>
+              </div>
+              <button
+                type="button"
+                onClick={toggleSpeechRecognition}
+                className="text-[11px] font-semibold text-cyan-400 hover:text-white underline px-1 rounded transition"
+              >
+                Cancel
+              </button>
+            </div>
+          )}
+
+          {voiceState === 'processing' && (
+            <div className="px-3.5 py-2 bg-gradient-to-r from-violet-950/90 to-fuchsia-950/90 border-b border-violet-500/30 flex items-center gap-2 text-xs text-violet-200">
+              <Bot className="w-3.5 h-3.5 text-violet-400 animate-spin" />
+              <span className="font-medium">Thinking... Understanding query</span>
+            </div>
+          )}
+
+          {voiceState === 'speaking' && (
+            <div className="px-3.5 py-2 bg-gradient-to-r from-emerald-950/90 to-teal-950/90 border-b border-emerald-500/30 flex items-center justify-between text-xs text-emerald-200">
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-0.5 h-3">
+                  <span className="w-1 bg-emerald-400 rounded-full animate-bounce" style={{ height: '70%', animationDelay: '0ms' }}></span>
+                  <span className="w-1 bg-emerald-400 rounded-full animate-bounce" style={{ height: '100%', animationDelay: '150ms' }}></span>
+                  <span className="w-1 bg-emerald-400 rounded-full animate-bounce" style={{ height: '50%', animationDelay: '300ms' }}></span>
+                </div>
+                <span className="font-semibold">🔊 Nova speaking...</span>
+              </div>
+              <button
+                type="button"
+                onClick={stopSpeaking}
+                className="text-[11px] font-semibold text-emerald-400 hover:text-white underline px-1 rounded transition"
+                title="Interrupt AI and stop speaking"
+              >
+                Tap to Interrupt
+              </button>
+            </div>
+          )}
+
+          {voiceState === 'error' && voiceErrorMsg && (
+            <div className="px-3.5 py-2 bg-red-950/90 border-b border-red-500/40 flex items-center justify-between text-xs text-red-200">
+              <span className="truncate pr-2">{voiceErrorMsg}</span>
+              <button
+                type="button"
+                onClick={() => {
+                  setVoiceState('idle');
+                  setVoiceErrorMsg(null);
+                }}
+                className="text-[11px] font-bold text-red-300 hover:text-white underline whitespace-nowrap"
+              >
+                Dismiss
+              </button>
+            </div>
+          )}
 
           {/* Quick Action Chips in Current Language */}
           <div className="p-2 px-3 border-b border-white/5 flex gap-1.5 overflow-x-auto no-scrollbar bg-slate-900/40">
@@ -575,13 +755,27 @@ export const AICompanion: React.FC = () => {
               type="button"
               onClick={toggleSpeechRecognition}
               className={`p-2 rounded-xl transition ${
-                isListening
-                  ? 'bg-red-500 text-white animate-pulse'
+                voiceState === 'listening'
+                  ? 'bg-red-500 text-white animate-pulse shadow-md shadow-red-500/40'
+                  : voiceState === 'speaking'
+                  ? 'bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 animate-pulse'
                   : 'text-slate-400 hover:text-cyan-400 bg-white/5'
               }`}
-              title={t.companion?.listening || "Voice Query"}
+              title={
+                voiceState === 'listening'
+                  ? "Listening... Tap to stop"
+                  : voiceState === 'speaking'
+                  ? "Nova speaking... Tap to interrupt"
+                  : t.companion?.listening || "Voice Query"
+              }
             >
-              {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+              {voiceState === 'listening' ? (
+                <MicOff className="w-4 h-4" />
+              ) : voiceState === 'speaking' ? (
+                <VolumeX className="w-4 h-4 text-emerald-300" />
+              ) : (
+                <Mic className="w-4 h-4" />
+              )}
             </button>
             <input
               type="text"

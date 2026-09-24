@@ -225,6 +225,52 @@ async function translateText(text, targetLang = 'en') {
 }
 
 /**
+ * Formats multi-turn conversation history for Gemini API
+ */
+function formatGeminiContents(history = [], currentMsg = '') {
+  const turns = [];
+  const rawList = [];
+  if (Array.isArray(history)) {
+    for (const h of history) {
+      const role = (h.role === 'model' || h.sender === 'nova' || h.sender === 'assistant') ? 'model' : 'user';
+      const text = (h.text || h.content || '').trim();
+      if (text) {
+        rawList.push({ role, text });
+      }
+    }
+  }
+  if (currentMsg) {
+    rawList.push({ role: 'user', text: currentMsg });
+  }
+
+  // Ensure turns alternate and start with 'user'
+  let lastRole = null;
+  for (const item of rawList) {
+    if (turns.length === 0 && item.role !== 'user') {
+      continue;
+    }
+    if (item.role === lastRole) {
+      turns[turns.length - 1].parts[0].text += `\n${item.text}`;
+    } else {
+      turns.push({
+        role: item.role,
+        parts: [{ text: item.text }]
+      });
+      lastRole = item.role;
+    }
+  }
+
+  if (turns.length === 0 && currentMsg) {
+    turns.push({
+      role: 'user',
+      parts: [{ text: currentMsg }]
+    });
+  }
+
+  return turns;
+}
+
+/**
  * Google Gemini API direct integration (if GEMINI_API_KEY is present)
  */
 async function queryGemini(prompt, systemInstruction = '') {
@@ -249,6 +295,42 @@ async function queryGemini(prompt, systemInstruction = '') {
     }
   } catch (err) {
     console.warn('[AI Engine] Gemini API call error:', err.message);
+  }
+  return null;
+}
+
+/**
+ * Multi-turn Gemini chat integration with voice-optimized tokens and model fallbacks
+ */
+async function queryGeminiChat(contents, systemInstruction = '') {
+  if (!geminiApiKey || !contents || contents.length === 0) return null;
+  const models = ['gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-2.0-flash'];
+  for (const model of models) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(geminiApiKey)}`;
+      const body = {
+        contents,
+        systemInstruction: systemInstruction ? { parts: [{ text: systemInstruction }] } : undefined,
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 350
+        }
+      };
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (text && text.trim()) {
+          return text.trim();
+        }
+      }
+    } catch (err) {
+      console.warn(`[AI Engine] Gemini ${model} chat call error:`, err.message);
+    }
   }
   return null;
 }
@@ -557,6 +639,11 @@ function searchReelsCatalog(query) {
     const hasTitleAnchor = 
       /neural network|procrastination|2[- ]minute rule|two minute rule|5 liters|water daily|quantum computing|superposition|qubit|bodyweight exercise|replace the gym|box breathing|cortisol reset|compound interest|mediterranean (power )?bowl|fire|bussin|moj|jhakaas|vibe|chill|bawal|sira/i.test(qLower);
 
+    // Do not hijack conversational creator or explanation queries as video searches
+    if (/\b(?:who made|who created|who is the creator|creator of|what other reels|more by (?:them|creator)|tell me more|how so|explain)\b/i.test(qLower)) {
+      return { matched: false, reel: null, score: 0 };
+    }
+
     // If neither explicit video intent nor a strong title anchor is present, DO NOT hijack as video search
     if (!hasVideoIntent && !hasTitleAnchor) {
       return { matched: false, reel: null, score: 0 };
@@ -786,17 +873,98 @@ export async function companionChat(userMessage, context = {}) {
 
   const cleanEng = englishQuery.toLowerCase().trim();
 
+  const history = Array.isArray(context.history) ? context.history : [];
+
   // =========================================================================
-  // TIER 0: OPTIONAL GEMINI LLM (If GEMINI_API_KEY is configured)
+  // TIER 0: MULTI-TURN GEMINI LLM (If GEMINI_API_KEY is configured)
   // =========================================================================
   if (geminiApiKey) {
-    const sysPrompt = 'You are Nova, an intelligent, charming, and highly capable AI companion inside Zynqo Social. You have the depth, helpfulness, and conversational prowess of ChatGPT and Claude. Answer directly, concisely, and helpfully in the user\'s requested language.';
-    const geminiReply = await queryGemini(originalMsg, sysPrompt);
-    if (geminiReply) {
-      return {
-        reply: geminiReply,
-        action: 'GENERAL_CHAT'
-      };
+    try {
+      const reelContextInfo = currentReel 
+        ? `The user is currently watching reel "${currentReel.title}" in category "${currentReel.category || 'Reel'}" by creator @${currentReel.creator?.name || 'creator'}. Reel description: "${currentReel.description || ''}".`
+        : 'The user is browsing the reels feed.';
+
+      const sysPrompt = `You are Nova, the real-time AI Voice and Entertainment Companion on Zynqo Social.
+You are in a live, real-time voice conversation with the user.
+${reelContextInfo}
+User intent mode: "${currentIntent}".
+Remaining daily session focus: ${remainingMinutes} minutes.
+Target language: ${lang === 'gu' ? 'Gujarati' : lang === 'hi' ? 'Hindi' : lang === 'es' ? 'Spanish' : lang === 'fr' ? 'French' : lang === 'ja' ? 'Japanese' : lang === 'de' ? 'German' : 'English'}.
+
+Voice Interaction Guidelines:
+1. Speak concisely, clearly, and conversationally (1 to 3 spoken sentences, maximum 45-50 words, unless the user explicitly asks for a detailed breakdown, study notes, quiz, or story).
+2. Format your response so it sounds natural when spoken aloud via Text-to-Speech (do NOT use markdown headers, asterisks, brackets, or raw URLs).
+3. Retain conversational context across previous turns in this conversation so you understand pronouns ("it", "they", "that", "this") and follow-up questions.
+4. If the user asks about the reel, explain clearly. If the user asks general questions, provide accurate, helpful answers.
+5. If the user asks in Hindi, Gujarati, or another language, reply fluently and naturally in that language.`;
+
+      const contents = formatGeminiContents(history, originalMsg);
+      const geminiReply = await queryGeminiChat(contents, sysPrompt);
+      if (geminiReply && geminiReply.trim()) {
+        return {
+          reply: geminiReply.trim(),
+          action: 'GENERAL_CHAT',
+          languageAnalysis: langAnalysis
+        };
+      }
+    } catch (err) {
+      console.warn('[AI Engine] Gemini companion chat notice, continuing to local reasoning:', err.message);
+    }
+  }
+
+  // Check if user is asking about the creator of this reel (turn 1 or follow up)
+  if (/\b(?:who made (?:it|this|that|the reel)|who is the creator|creator of this|who created (?:it|this|that)|who is this creator)\b/i.test(cleanEng)) {
+    if (currentReel?.creator) {
+      const rawReply = `This reel was created by ${currentReel.creator.name} (@${currentReel.creator.handle}), who is a ${currentReel.creator.bio || 'creator on Zynqo Social'}.`;
+      const localizedReply = await translateText(rawReply, lang);
+      return { reply: localizedReply, action: 'GENERAL_CHAT', languageAnalysis: langAnalysis };
+    }
+  }
+
+  // Check if user is asking for more reels by this creator (turn 1 or follow up)
+  if (/\b(?:what other reels|other videos|more by (?:them|this creator|creator|him|her)|what else (?:did|have) they (?:made|created|post))\b/i.test(cleanEng)) {
+    try {
+      const reelsPath = path.resolve(process.cwd(), 'server/data/reels.json');
+      const reels = JSON.parse(fs.readFileSync(reelsPath, 'utf8'));
+      const creatorHandle = currentReel?.creator?.handle;
+      const creatorName = currentReel?.creator?.name;
+      const creatorReels = reels.filter(r => 
+        r.id !== currentReel?.id && (
+          (creatorHandle && r.creator?.handle === creatorHandle) ||
+          (creatorName && r.creator?.name?.toLowerCase() === creatorName?.toLowerCase())
+        )
+      );
+      if (creatorReels.length > 0) {
+        const titles = creatorReels.slice(0, 3).map(r => `"${r.title}"`).join(', ');
+        const rawReply = `${creatorName || 'This creator'} also has other popular reels on Zynqo Social including ${titles}. Would you like me to switch your feed to one of them?`;
+        const localizedReply = await translateText(rawReply, lang);
+        return { reply: localizedReply, action: 'GENERAL_CHAT', languageAnalysis: langAnalysis };
+      } else {
+        const rawReply = `This is currently the featured spotlight reel on Zynqo Social by ${creatorName || 'this creator'}. Would you like to explore other high-impact reels in ${currentReel?.category || 'this category'}, or test your knowledge with a quiz?`;
+        const localizedReply = await translateText(rawReply, lang);
+        return { reply: localizedReply, action: 'GENERAL_CHAT', languageAnalysis: langAnalysis };
+      }
+    } catch (e) {}
+  }
+
+  // Multi-Turn Context Resolution for Local AI Engine
+  if (history.length > 0) {
+    // Friendly conversational continuation on acknowledgment
+    if (/^(?:ok|okay|cool|got it|thanks|thank you|great|awesome|understood|nice|yep|yeah|sure)\b/i.test(cleanEng) && cleanEng.length < 25) {
+      const rawReply = "Glad that helped! What would you like to explore next? You can ask me another question, test yourself with a quick quiz, or ask about any reel!";
+      const localizedReply = await translateText(rawReply, lang);
+      return { reply: localizedReply, action: 'GENERAL_CHAT', languageAnalysis: langAnalysis };
+    }
+
+    // Contextual pronoun enrichment for follow-ups (e.g. "tell me more", "explain that", "give examples")
+    if (/\b(?:tell me more|explain (?:that|more|further)|how so|give (?:me )?examples?|why is that|what does that mean)\b/i.test(cleanEng)) {
+      const lastUser = [...history].reverse().find(h => h.role === 'user' || h.sender === 'user');
+      if (lastUser?.text) {
+        const topicCandidate = lastUser.text.replace(/what is|tell me about|explain|who is/gi, '').trim();
+        if (topicCandidate && topicCandidate.length > 2) {
+          englishQuery = `${englishQuery} regarding ${topicCandidate}`;
+        }
+      }
     }
   }
 
@@ -904,7 +1072,7 @@ export async function companionChat(userMessage, context = {}) {
   }
 
   // Explain Like I'm 10 (ELI10)
-  if (cleanEng.includes('eli10') || cleanEng.includes('like i\'m 10') || cleanEng.includes('simple explanation') || cleanEng.includes('explain simply') || cleanEng.includes('easy terms')) {
+  if (/\b(?:eli10|like i'?m 10|like i am 10|simple explanation|explain (?:it )?simply|explain (?:it )?in simple terms|easy terms)\b/i.test(cleanEng) || cleanEng.includes('eli10')) {
     const reelTitle = currentReel ? currentReel.title : 'this concept';
     const rawReply = 'Think of ' + reelTitle + ' like building with LEGO bricks! When a project feels too huge, you do not build the entire rocket ship all at once. You just snap one small brick in place. By taking one tiny 2-minute step, your brain eliminates stress and momentum carries you the rest of the way!';
     const localizedReply = await translateText(rawReply, lang);

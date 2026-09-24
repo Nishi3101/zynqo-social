@@ -121,7 +121,19 @@ export async function clientCompanionChat(message: string, context: any = {}): P
     };
   }
 
-  // 4. Reel specific queries
+  const history: Array<{ sender?: string; role?: string; text: string }> = Array.isArray(context.history) ? context.history : [];
+
+  // 4. Reel and creator queries
+  if (lower.includes('who made') || lower.includes('creator') || lower.includes('who is the creator') || lower.includes('who posted')) {
+    if (currentReel?.creator) {
+      return {
+        success: true,
+        reply: `This reel was created by **${currentReel.creator.name}** (@${currentReel.creator.handle}), who is a ${currentReel.creator.bio || 'creator on Zynqo Social'}. You can find more of their content by exploring the ${currentReel.category || 'feed'} category!`,
+        languageAnalysis: { detectedLanguage: lang, sentiment: 'thoughtful', formality: 'casual' }
+      };
+    }
+  }
+
   if (lower.includes('this reel') || lower.includes('what is this') || lower.includes('explain') || lower.includes('summarize')) {
     if (currentReel) {
       const summary = currentReel.usefulOutputs?.notes?.summary || currentReel.description;
@@ -132,6 +144,15 @@ export async function clientCompanionChat(message: string, context: any = {}): P
         languageAnalysis: { detectedLanguage: lang, sentiment: 'thoughtful', formality: 'casual' }
       };
     }
+  }
+
+  // Multi-turn acknowledgment in client engine
+  if (history.length > 0 && /^(?:ok|okay|cool|got it|thanks|thank you|great|awesome|nice|sure|yep|yeah)\b/i.test(lower) && lower.length < 25) {
+    return {
+      success: true,
+      reply: "Glad that helped! What would you like to explore next? Feel free to ask about this reel, request a quick quiz, or explore a new topic!",
+      languageAnalysis: { detectedLanguage: lang, sentiment: 'positive', formality: 'casual' }
+    };
   }
 
   // 5. Intent and Navigation commands
