@@ -20,6 +20,14 @@ export interface RealityCheck {
   aiConfidence: number;
 }
 
+export interface SourceRights {
+  platform: string;
+  creatorHandle: string;
+  rightsStatus: string;
+  url?: string;
+  isDemo?: boolean;
+}
+
 export interface SignalWeight {
   watchHistory: number;
   goalAlignment: number;
@@ -104,6 +112,7 @@ export interface Reel {
   collaborator?: { name: string; handle: string; avatar: string };
   productLaunch?: { title: string; price: string; link: string; badge?: string };
   originalSource?: { platform: string; url: string; license: string };
+  sourceRights?: SourceRights;
   watchProgress?: number;
   feedCategory?: 'universal' | 'discovery' | 'trending' | 'following' | 'friends' | 'communities' | 'creators' | 'business' | 'continue';
 }

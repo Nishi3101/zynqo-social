@@ -15,13 +15,15 @@ import {
   ShoppingBag,
   Tag,
   ExternalLink,
-  Users
+  Users,
+  Info
 } from 'lucide-react';
 import { Reel } from '../types';
 import { ReelVisualizer } from './ReelVisualizer';
 import { ReelActions } from './ReelActions';
 import { useApp } from '../context/AppContext';
 import { getLocalizedReel, getLocalizedCategory } from '../utils/translations';
+import { resolveSourceRights } from '../utils/sourceRights';
 
 interface ReelCardProps {
   reel: Reel;
@@ -39,12 +41,15 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) =
   const [newCommentText, setNewCommentText] = useState('');
   const [commentWarning, setCommentWarning] = useState<string | null>(null);
   const [isFollowing, setIsFollowing] = useState(false);
+  const [isSourceRightsOpen, setIsSourceRightsOpen] = useState(false);
   const hasLoggedWatchRef = useRef(false);
+  const sourceInfo = resolveSourceRights(reel);
 
-  // Reset watch flag when active reel switches
+  // Reset watch flag and source rights modal when active reel switches
   useEffect(() => {
     if (!isActive) {
       hasLoggedWatchRef.current = false;
+      setIsSourceRightsOpen(false);
     }
   }, [isActive, reel.id]);
 
@@ -209,19 +214,88 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) =
           </span>
         )}
 
-        {/* Source Attribution & License Transparency (#80–#84) */}
-        {reel.originalSource && (
-          <a
-            href={reel.originalSource.url || '#'}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-blue-500/20 border border-blue-500/40 text-blue-300 backdrop-blur-md flex items-center gap-1.5 shadow-lg pointer-events-auto hover:bg-blue-500/30 transition cursor-pointer"
-            title={`Source: ${reel.originalSource.platform} (${reel.originalSource.license})`}
+        {/* Source & Rights Information Badge (#SourceRights) */}
+        <div className="relative pointer-events-auto">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsSourceRightsOpen(prev => !prev);
+            }}
+            className={`px-2.5 py-1 rounded-full text-[11px] font-medium backdrop-blur-md flex items-center gap-1.5 shadow-lg transition active:scale-95 cursor-pointer select-none ${
+              isSourceRightsOpen
+                ? 'bg-blue-600/40 border border-blue-400 text-white'
+                : 'bg-blue-500/20 border border-blue-500/40 text-blue-300 hover:bg-blue-500/30 hover:text-white'
+            }`}
+            title={`Source: ${sourceInfo.platform}\nCreator: ${sourceInfo.creatorHandle}\nRights: ${sourceInfo.rightsStatus} (Tap to view details)`}
           >
-            <ExternalLink className="w-3 h-3 text-blue-400" />
-            {reel.originalSource.platform} • {reel.originalSource.license}
-          </a>
-        )}
+            <Info className="w-3 h-3 text-blue-400 flex-shrink-0" />
+            <span>Source: {sourceInfo.platform}</span>
+          </button>
+
+          {/* Unobtrusive Popover Card when clicked/tapped */}
+          {isSourceRightsOpen && (
+            <div 
+              className="absolute left-0 top-full mt-1.5 z-50 w-64 p-3 rounded-2xl bg-slate-950/95 border border-blue-500/40 text-white shadow-2xl backdrop-blur-2xl animate-fade-in pointer-events-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-white/10">
+                <span className="text-[11px] font-bold text-blue-300 flex items-center gap-1">
+                  <Info className="w-3.5 h-3.5 text-blue-400" />
+                  Source & Rights Information
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setIsSourceRightsOpen(false)}
+                  className="text-slate-400 hover:text-white text-xs p-0.5 rounded transition"
+                  title="Close"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
+              <div className="space-y-1.5 text-xs">
+                <div className="flex items-start justify-between gap-2">
+                  <span className="text-slate-400 font-mono text-[11px]">Source:</span>
+                  <span className="font-semibold text-slate-100 text-right">{sourceInfo.platform}</span>
+                </div>
+                <div className="flex items-start justify-between gap-2">
+                  <span className="text-slate-400 font-mono text-[11px]">Creator:</span>
+                  <span className="font-semibold text-cyan-300 text-right truncate max-w-[140px]">{sourceInfo.creatorHandle}</span>
+                </div>
+                <div className="flex items-start justify-between gap-2">
+                  <span className="text-slate-400 font-mono text-[11px]">Rights:</span>
+                  <span className="font-semibold text-emerald-400 text-right">{sourceInfo.rightsStatus}</span>
+                </div>
+              </div>
+
+              {sourceInfo.url ? (
+                <div className="mt-2.5 pt-2 border-t border-white/10 flex items-center justify-between">
+                  <a
+                    href={sourceInfo.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[11px] text-blue-400 hover:text-blue-300 transition"
+                  >
+                    <span>Original Source</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                  {sourceInfo.isDemo && (
+                    <span className="text-[9px] px-1.5 py-0.5 rounded bg-white/5 text-slate-400 font-mono">
+                      Demo Metadata
+                    </span>
+                  )}
+                </div>
+              ) : (
+                sourceInfo.isDemo && (
+                  <div className="mt-2 pt-1.5 border-t border-white/5 text-[9px] text-slate-400 font-mono">
+                    Demo Metadata • Ready for real rights API
+                  </div>
+                )
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Subtitles Overlay in Localized Language */}
