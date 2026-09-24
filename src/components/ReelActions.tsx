@@ -23,7 +23,7 @@ interface ReelActionsProps {
   onOpenComments: () => void;
 }
 
-export const ReelActions: React.FC<ReelActionsProps> = ({
+export const ReelActions: React.FC<ReelActionsProps> = React.memo(({
   reel,
   showSubtitles,
   setShowSubtitles,
@@ -195,4 +195,4 @@ export const ReelActions: React.FC<ReelActionsProps> = ({
       </button>
     </div>
   );
-};
+});

@@ -31,11 +31,11 @@ interface ReelCardProps {
   onEnded?: () => void;
 }
 
-export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) => {
+export const ReelCard: React.FC<ReelCardProps> = React.memo(({ reel, isActive, onEnded }) => {
   const { isMuted, toggleMute, isPlaying, togglePlay, addComment, t, language, recordReelWatch } = useApp();
   const locReel = getLocalizedReel(reel, language);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [progress, setProgress] = useState(0);
+  const progressBarRef = useRef<HTMLDivElement | null>(null);
   const [showSubtitles, setShowSubtitles] = useState(true);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
   const [newCommentText, setNewCommentText] = useState('');
@@ -50,6 +50,9 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) =
     if (!isActive) {
       hasLoggedWatchRef.current = false;
       setIsSourceRightsOpen(false);
+      if (progressBarRef.current) {
+        progressBarRef.current.style.width = '0%';
+      }
     }
   }, [isActive, reel.id]);
 
@@ -74,7 +77,9 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) =
       video.pause();
       if (!isActive) {
         video.currentTime = 0;
-        setProgress(0);
+        if (progressBarRef.current) {
+          progressBarRef.current.style.width = '0%';
+        }
       }
     }
   }, [isActive, isPlaying, isMuted]);
@@ -84,7 +89,9 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) =
     const video = videoRef.current;
     if (video && video.duration) {
       const currentPct = (video.currentTime / video.duration) * 100;
-      setProgress(currentPct);
+      if (progressBarRef.current) {
+        progressBarRef.current.style.width = `${currentPct}%`;
+      }
 
       // Auto-record reel watch when user has watched >= 50% of the reel
       if (currentPct >= 50 && !hasLoggedWatchRef.current) {
@@ -421,10 +428,11 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) =
       />
 
       {/* Bottom Progress Bar */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10 z-40">
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10 z-40 pointer-events-none">
         <div
-          className="h-full bg-gradient-to-r from-cyan-400 via-teal-400 to-indigo-500 transition-all duration-150"
-          style={{ width: `${progress}%` }}
+          ref={progressBarRef}
+          className="h-full bg-gradient-to-r from-cyan-400 via-teal-400 to-indigo-500 will-change-[width]"
+          style={{ width: '0%' }}
         />
       </div>
 
@@ -506,4 +514,4 @@ export const ReelCard: React.FC<ReelCardProps> = ({ reel, isActive, onEnded }) =
       )}
     </div>
   );
-};
+});

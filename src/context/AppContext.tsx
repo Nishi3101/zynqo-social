@@ -233,7 +233,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [savedActivities, setSavedActivities] = useState<ActivityItem[]>([]);
   const [commentActivities, setCommentActivities] = useState<CommentActivity[]>([]);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [currentReelIndex, setCurrentReelIndex] = useState(0);
   const [intent, setIntentState] = useState<IntentType>('all');
   const [selectedCategory, setSelectedCategory] = useState('All');

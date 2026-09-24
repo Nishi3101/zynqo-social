@@ -138,23 +138,7 @@ export const ReelFeed: React.FC = () => {
     }, 450);
   };
 
-  // Touch Swipe for mobile & tablets
-  const handleTouchStart = (e: React.TouchEvent) => {
-    dragStartYRef.current = e.touches[0].clientY;
-  };
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (dragStartYRef.current === null) return;
-    const deltaY = e.changedTouches[0].clientY - dragStartYRef.current;
-    dragStartYRef.current = null;
-    if (Math.abs(deltaY) < 40) return;
-
-    if (deltaY < 0) {
-      scrollToReel(currentReelIndex + 1);
-    } else {
-      scrollToReel(currentReelIndex - 1);
-    }
-  };
 
   // Mouse drag up/down simulation
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -176,19 +160,23 @@ export const ReelFeed: React.FC = () => {
     }
   };
 
-  // Scroll listener to update active reel index
+  // High-performance scroll listener with requestAnimationFrame to eliminate scroll lag
+  const scrollRafRef = useRef<number | null>(null);
   const handleScroll = () => {
     if (isProgrammaticScrollRef.current) return;
     const container = containerRef.current;
     if (!container) return;
 
-    const scrollTop = container.scrollTop;
-    const itemHeight = container.clientHeight || window.innerHeight;
-    const activeIdx = Math.round(scrollTop / itemHeight);
+    if (scrollRafRef.current) cancelAnimationFrame(scrollRafRef.current);
+    scrollRafRef.current = requestAnimationFrame(() => {
+      const scrollTop = container.scrollTop;
+      const itemHeight = container.clientHeight || window.innerHeight;
+      const activeIdx = Math.round(scrollTop / itemHeight);
 
-    if (activeIdx !== currentReelIndex && activeIdx >= 0 && activeIdx < displayedReels.length) {
-      setCurrentReelIndex(activeIdx);
-    }
+      if (activeIdx !== currentReelIndex && activeIdx >= 0 && activeIdx < displayedReels.length) {
+        setCurrentReelIndex(activeIdx);
+      }
+    });
   };
 
   if (loading) {
@@ -262,8 +250,6 @@ export const ReelFeed: React.FC = () => {
           ref={containerRef}
           onScroll={handleScroll}
           onWheel={handleWheel}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
           className="reel-container w-full h-full flex-1"
