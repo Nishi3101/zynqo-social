@@ -153,19 +153,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const openThemeModal = () => {};
   const closeThemeModal = () => {};
 
-  // Color Mode state (Dark / Light)
+  // Color Mode state (Light by default compulsorily on open, toggleable to Dark)
   const [colorMode, setColorModeState] = useState<ColorMode>(() => {
     try {
-      const saved = localStorage.getItem('pulseai_color_mode');
-      if (saved === 'light' || saved === 'dark') return saved;
+      // Clear legacy localStorage dark preference so fresh app opens are strictly light theme first
+      localStorage.removeItem('pulseai_color_mode');
+      const sessionSaved = sessionStorage.getItem('pulseai_color_mode');
+      if (sessionSaved === 'dark' || sessionSaved === 'light') return sessionSaved;
     } catch (e) {}
-    return 'dark';
+    return 'light';
   });
 
   const setColorMode = (mode: ColorMode) => {
     setColorModeState(mode);
     try {
-      localStorage.setItem('pulseai_color_mode', mode);
+      sessionStorage.setItem('pulseai_color_mode', mode);
     } catch (e) {}
   };
 
@@ -173,7 +175,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setColorModeState(prev => {
       const next = prev === 'dark' ? 'light' : 'dark';
       try {
-        localStorage.setItem('pulseai_color_mode', next);
+        sessionStorage.setItem('pulseai_color_mode', next);
       } catch (e) {}
       return next;
     });
@@ -181,17 +183,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   useEffect(() => {
     const root = document.documentElement;
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
     if (colorMode === 'light') {
       root.classList.add('light');
       root.classList.remove('dark');
       root.style.colorScheme = 'light';
+      if (metaTheme) metaTheme.setAttribute('content', '#f8fafc');
     } else {
       root.classList.add('dark');
       root.classList.remove('light');
       root.style.colorScheme = 'dark';
+      if (metaTheme) metaTheme.setAttribute('content', '#0d0b14');
     }
     try {
-      localStorage.setItem('pulseai_color_mode', colorMode);
+      sessionStorage.setItem('pulseai_color_mode', colorMode);
     } catch (e) {}
   }, [colorMode]);
 

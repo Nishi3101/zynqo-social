@@ -13,10 +13,27 @@
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
+  background-color: #fdf8fa !important;
+  background-image: 
+    radial-gradient(circle at 14% 24%, rgba(254, 205, 211, 0.70) 0%, rgba(254, 215, 170, 0.42) 28%, transparent 62%),
+    radial-gradient(circle at 82% 16%, rgba(233, 213, 255, 0.70) 0%, rgba(243, 232, 255, 0.38) 32%, transparent 62%),
+    radial-gradient(circle at 48% 58%, rgba(252, 231, 243, 0.72) 0%, rgba(254, 205, 211, 0.35) 35%, transparent 65%),
+    radial-gradient(circle at 10% 88%, rgba(254, 243, 199, 0.52) 0%, transparent 52%),
+    radial-gradient(circle at 88% 85%, rgba(245, 208, 254, 0.52) 0%, transparent 55%),
+    linear-gradient(135deg, #fff7f9 0%, #fdf2f7 50%, #fbf5f8 100%) !important;
+  background-attachment: fixed !important;
+  color: #0f172a !important;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
   background-color: #0d0b14 !important;
   background-image:
     radial-gradient(circle at 18% 28%, rgba(217, 70, 239, 0.12) 0%, transparent 50%),
