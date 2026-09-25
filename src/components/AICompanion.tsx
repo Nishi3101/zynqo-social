@@ -41,7 +41,7 @@ export const AICompanion: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [isListening, setIsListening] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
-  const [isVoiceMode, setIsVoiceMode] = useState(false);
+  const [isVoiceMode, setIsVoiceMode] = useState(true);
   const [voiceState, setVoiceState] = useState<VoiceState>('idle');
   const [voiceErrorMsg, setVoiceErrorMsg] = useState<string | null>(null);
   const [speakingMessageId, setSpeakingMessageId] = useState<string | null>(null);
@@ -68,14 +68,58 @@ export const AICompanion: React.FC = () => {
       audioRef.current.currentTime = 0;
       audioRef.current = null;
     }
-    if ('speechSynthesis' in window) {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       window.speechSynthesis.cancel();
     }
     setSpeakingMessageId(null);
     setVoiceState(prev => (prev === 'speaking' ? 'idle' : prev));
   };
 
-  // Text-to-Speech speaking function supporting all languages (using Google TTS POST proxy)
+  // Resilient Web Speech synthesis fallback
+  const speakWithWebSpeech = (cleanText: string, msgId?: string) => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        const targetLang = speechLangMap[language] || 'en-US';
+        utterance.lang = targetLang;
+        utterance.rate = 1.0;
+        utterance.pitch = 1.05;
+        utterance.volume = 1.0;
+
+        const voices = window.speechSynthesis.getVoices();
+        if (voices && voices.length > 0) {
+          const match = voices.find(v => v.lang === targetLang || v.lang.startsWith(targetLang.slice(0, 2)));
+          if (match) utterance.voice = match;
+        }
+
+        utterance.onstart = () => {
+          setVoiceState('speaking');
+          if (msgId) setSpeakingMessageId(msgId);
+        };
+        utterance.onend = () => {
+          setSpeakingMessageId(null);
+          setVoiceState('idle');
+        };
+        utterance.onerror = (e) => {
+          console.warn('SpeechSynthesis event error:', e);
+          setSpeakingMessageId(null);
+          setVoiceState('idle');
+        };
+
+        window.speechSynthesis.speak(utterance);
+      } catch (err) {
+        console.warn('SpeechSynthesis error:', err);
+        setSpeakingMessageId(null);
+        setVoiceState('idle');
+      }
+    } else {
+      setSpeakingMessageId(null);
+      setVoiceState('idle');
+    }
+  };
+
+  // Text-to-Speech speaking function supporting all languages with multi-tiered fallback
   const speakText = async (text: string, msgId?: string) => {
     stopSpeaking();
 
@@ -90,7 +134,7 @@ export const AICompanion: React.FC = () => {
     }
 
     // Clean text of markdown asterisks, backticks, emojis and formatting
-    const cleanText = text
+    const cleanText = (text || '')
       .replace(/[*_#`~[\]()]/g, '')
       .replace(/https?:\/\/\S+/g, '')
       .replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '')
@@ -103,7 +147,6 @@ export const AICompanion: React.FC = () => {
     }
 
     try {
-      // POST request bypasses all URL length limitations
       const res = await fetch('/api/ai/tts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -113,11 +156,16 @@ export const AICompanion: React.FC = () => {
         })
       });
 
-      if (!res.ok) {
-        throw new Error(`TTS server status: ${res.status}`);
+      const contentType = res.headers.get('content-type') || '';
+      if (!res.ok || !contentType.includes('audio')) {
+        throw new Error(`TTS server unavailable or returned non-audio (${res.status})`);
       }
 
       const blob = await res.blob();
+      if (blob.size < 100) {
+        throw new Error('TTS audio blob too small');
+      }
+
       const audioUrl = URL.createObjectURL(blob);
       const audio = new Audio(audioUrl);
       audioRef.current = audio;
@@ -130,33 +178,19 @@ export const AICompanion: React.FC = () => {
       };
 
       audio.onerror = () => {
-        setSpeakingMessageId(null);
-        setVoiceState('idle');
+        console.warn('Audio playback error, falling back to Web Speech synthesis');
         audioRef.current = null;
         URL.revokeObjectURL(audioUrl);
+        speakWithWebSpeech(cleanText, msgId);
       };
 
-      await audio.play();
+      audio.play().catch(playErr => {
+        console.warn('Audio play() rejected, falling back to Web Speech synthesis:', playErr);
+        speakWithWebSpeech(cleanText, msgId);
+      });
     } catch (err) {
-      console.warn('Google TTS POST failed, attempting Web Speech fallback:', err);
-      // Fallback to Web Speech API only if network completely unavailable
-      if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(cleanText);
-        const targetLang = speechLangMap[language] || 'en-US';
-        utterance.lang = targetLang;
-        utterance.onend = () => {
-          setSpeakingMessageId(null);
-          setVoiceState('idle');
-        };
-        utterance.onerror = () => {
-          setSpeakingMessageId(null);
-          setVoiceState('idle');
-        };
-        window.speechSynthesis.speak(utterance);
-      } else {
-        setSpeakingMessageId(null);
-        setVoiceState('idle');
-      }
+      console.warn('Google TTS failed, falling back to Web Speech synthesis:', err);
+      speakWithWebSpeech(cleanText, msgId);
     }
   };
 
@@ -242,7 +276,7 @@ export const AICompanion: React.FC = () => {
         console.warn('Backend Zyno companion notice:', networkErr);
       }
 
-      if (!data || !data.success) {
+      if (!data || !data.success || !data.reply || typeof data.reply !== 'string' || !data.reply.trim()) {
         data = await clientCompanionChat(text, {
           currentReel: localizedReel || currentReel,
           intent,
@@ -254,22 +288,25 @@ export const AICompanion: React.FC = () => {
 
       setIsTyping(false);
 
-      if (data && data.success) {
-        const zynoMsg: Message = {
-          id: `zyno-${Date.now()}`,
-          sender: 'zyno',
-          text: data.reply,
-          timestamp: 'Just now',
-          languageAnalysis: data.languageAnalysis
-        };
-        setMessages(prev => [...prev, zynoMsg]);
+      const replyText = (data && data.reply && typeof data.reply === 'string' && data.reply.trim())
+        ? data.reply.trim()
+        : `Hello! I'm Zyno, your AI Companion on Zynqo Social. How can I help you today? Feel free to ask about this reel, explore quizzes, or ask any question!`;
 
-        // If Voice Mode is enabled or user used voice input, speak Zyno's reply aloud in current language!
-        if (isVoiceMode || isVoiceQuery) {
-          speakText(data.reply, zynoMsg.id);
-        } else {
-          setVoiceState('idle');
-        }
+      const zynoMsg: Message = {
+        id: `zyno-${Date.now()}`,
+        sender: 'zyno',
+        text: replyText,
+        timestamp: 'Just now',
+        languageAnalysis: data?.languageAnalysis
+      };
+      setMessages(prev => [...prev, zynoMsg]);
+
+      // Speak Zyno's reply aloud (Voice Mode enabled by default for demo)
+      if (isVoiceMode !== false) {
+        speakText(replyText, zynoMsg.id);
+      } else {
+        setVoiceState('idle');
+      }
 
         // Trigger action callbacks if requested
         if (data.action === 'SWITCH_REEL' && data.targetReelId) {
@@ -289,7 +326,7 @@ export const AICompanion: React.FC = () => {
           openModal('makeUseful');
         } else if (data.action === 'PLAN_SESSION') {
           openModal('timeSession');
-        } else if (data.action === 'EXPLAIN_SIMPLE') {
+        } else if (data && data.action === 'EXPLAIN_SIMPLE') {
           if (data.targetReelId) {
             const targetIdx = reels.findIndex(r => r.id === data.targetReelId);
             if (targetIdx !== -1) {
@@ -298,9 +335,6 @@ export const AICompanion: React.FC = () => {
             }
           }
         }
-      } else {
-        setVoiceState('idle');
-      }
     } catch (err) {
       setIsTyping(false);
       if (isVoiceQuery) {
@@ -682,15 +716,15 @@ export const AICompanion: React.FC = () => {
                     <Bot className="w-3.5 h-3.5" />
                   </div>
                 )}
-                <div className="flex flex-col max-w-[80%]">
+                <div className="flex flex-col max-w-[85%]">
                   <div
-                    className={`p-3 rounded-2xl text-xs leading-relaxed ${
+                    className={`p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed shadow-md select-text ${
                       msg.sender === 'user'
-                        ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 font-medium rounded-tr-none'
-                        : 'bg-slate-800/80 text-slate-200 border border-white/5 rounded-tl-none'
+                        ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 font-semibold rounded-tr-none'
+                        : 'bg-slate-800 text-slate-100 border border-white/10 rounded-tl-none font-normal'
                     }`}
                   >
-                    {msg.text}
+                    {msg.text || (msg.sender === 'user' ? 'Hello' : "Hello! I'm Zyno, your AI Companion on Zynqo Social. How can I help you today?")}
                   </div>
 
                   {msg.languageAnalysis && (msg.languageAnalysis.detectedSlangs?.length > 0 || msg.languageAnalysis.isCodeMixed || msg.languageAnalysis.detectedDialect !== 'standard') && (

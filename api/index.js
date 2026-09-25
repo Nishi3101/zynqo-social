@@ -296,6 +296,88 @@ export default async function handler(req, res) {
     });
   }
 
+  if (url.includes('/api/ai/companion')) {
+    try {
+      const { message = '', context = {} } = req.body || {};
+      const cleanMsg = String(message || '').trim();
+      if (!cleanMsg) {
+        return res.status(400).json({ success: false, error: 'Message is required' });
+      }
+
+      let reply = '';
+      let action = 'GENERAL_CHAT';
+      let targetReelId = undefined;
+      let languageAnalysis = undefined;
+
+      try {
+        const { companionChat } = await import('../server/services/aiEngine.js');
+        const response = await companionChat(cleanMsg, context);
+        if (response && response.reply) {
+          reply = response.reply;
+          action = response.action || 'GENERAL_CHAT';
+          targetReelId = response.targetReelId;
+          languageAnalysis = response.languageAnalysis;
+        }
+      } catch (importErr) {
+        console.warn('aiEngine import warning in serverless:', importErr);
+      }
+
+      if (!reply) {
+        const lower = cleanMsg.toLowerCase();
+        if (/^(hi|hello|hey|greetings|kem chho|namaste)/i.test(lower)) {
+          reply = "Hello! I'm Zyno, your AI Companion on Zynqo Social. How can I help you today? Feel free to ask about any reel, explore quizzes, or ask any question!";
+        } else if (lower.includes('joke')) {
+          reply = "Why do programmers prefer dark mode? Because light attracts bugs! 😂";
+        } else if (lower.includes('who are you')) {
+          reply = "I'm Zyno, your AI Entertainment and Learning Companion on Zynqo Social! I can explain video concepts, test you with interactive quizzes, and recommend high-impact reels.";
+        } else {
+          reply = `I'm Zyno, your AI companion on Zynqo Social! You said "${cleanMsg}". Whether you want to learn from the current reel, test your knowledge with a quiz, or just chat, I'm here 24/7!`;
+        }
+      }
+
+      return res.status(200).json({
+        success: true,
+        reply,
+        action,
+        targetReelId,
+        languageAnalysis
+      });
+    } catch (err) {
+      console.error('Serverless companion endpoint error:', err);
+      return res.status(200).json({
+        success: true,
+        reply: "Hello! I'm Zyno, your AI Companion on Zynqo Social. I'm ready to help you explore, learn, and test your knowledge!",
+        action: 'GENERAL_CHAT'
+      });
+    }
+  }
+
+  if (url.includes('/api/ai/tts')) {
+    try {
+      const { text = '', lang = 'en' } = (req.method === 'POST' ? req.body : req.query) || {};
+      const cleanText = String(text || '').trim();
+      if (!cleanText) {
+        return res.status(400).json({ success: false, error: 'Text required' });
+      }
+      const targetLang = String(lang).toLowerCase().slice(0, 2);
+      const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=${encodeURIComponent(targetLang)}&q=${encodeURIComponent(cleanText.slice(0, 190))}`;
+      const ttsRes = await fetch(ttsUrl, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' }
+      });
+      if (ttsRes.ok) {
+        const arrayBuf = await ttsRes.arrayBuffer();
+        const buf = Buffer.from(arrayBuf);
+        res.setHeader('Content-Type', 'audio/mpeg');
+        res.setHeader('Content-Length', buf.length);
+        res.setHeader('Cache-Control', 'public, max-age=86400');
+        return res.status(200).send(buf);
+      }
+    } catch (e) {
+      console.warn('Serverless TTS error:', e);
+    }
+    return res.status(502).json({ success: false, error: 'TTS synthesis error' });
+  }
+
   if (url.includes('/api/health')) {
     return res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
   }
