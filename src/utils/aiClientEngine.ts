@@ -1,4 +1,4 @@
-// Client-Side AI Engine: Provides offline & high-speed intelligence for AI Nova, Creator Studio, and Language Analysis
+// Client-Side AI Engine: Provides offline & high-speed intelligence for AI Zyno, Creator Studio, and Language Analysis
 import { Reel } from '../types';
 
 export interface AIResponse {
@@ -83,7 +83,7 @@ function getCreativeWriting(query: string): string | null {
 }
 
 /**
- * Main Client-Side Nova AI Companion Chat Engine
+ * Main Client-Side Zyno AI Companion Chat Engine
  */
 export async function clientCompanionChat(message: string, context: any = {}): Promise<AIResponse> {
   const text = (message || '').trim();
@@ -191,7 +191,7 @@ export async function clientCompanionChat(message: string, context: any = {}): P
 
   // 6. General Conversational Fallback
   const replies = [
-    `Hello! I'm Nova, your AI companion on Zynqo Social. Whether you want to learn from the current reel, test your knowledge with a quiz, explore creative scripts, or just chat, I'm here 24/7! What would you like to explore? ✨`,
+    `Hello! I'm Zyno, your AI companion on Zynqo Social. Whether you want to learn from the current reel, test your knowledge with a quiz, explore creative scripts, or just chat, I'm here 24/7! What would you like to explore? ✨`,
     `That's an interesting thought! On Zynqo, we prioritize mindful entertainment and practical learning. How can I help you make the most of your session today? 🚀`,
     `I'm ready! Feel free to ask me to summarize any reel, generate study notes, write code, or explain any scientific concept in simple terms. 💡`
   ];

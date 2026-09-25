@@ -125,10 +125,10 @@ io.on('connection', (socket) => {
         currentTime: 0,
         isPlaying: true,
         members: [
-          { id: 'bot-room', name: 'Nova (AI Room Assistant)', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100', isAI: true }
+          { id: 'bot-room', name: 'Zyno (AI Room Assistant)', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100', isAI: true }
         ],
         messages: [
-          { id: `m-${Date.now()}`, user: 'Nova (AI Room Assistant)', isAI: true, text: `Welcome to room ${targetRoomId}! Video playback and chat are synchronized across all participants in real time.`, timestamp: 'Just now' }
+          { id: `m-${Date.now()}`, user: 'Zyno (AI Room Assistant)', isAI: true, text: `Welcome to room ${targetRoomId}! Video playback and chat are synchronized across all participants in real time.`, timestamp: 'Just now' }
         ]
       };
     }
@@ -263,7 +263,7 @@ io.on('connection', (socket) => {
           const randomPrompt = aiPrompts[Math.floor(Math.random() * aiPrompts.length)];
           const aiMsg = {
             id: `ai-msg-${Date.now()}`,
-            user: 'Nova (AI Room Assistant)',
+            user: 'Zyno (AI Room Assistant)',
             isAI: true,
             avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100',
             text: randomPrompt,

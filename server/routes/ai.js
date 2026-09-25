@@ -74,7 +74,7 @@ router.get('/why-this/:id', (req, res) => {
   });
 });
 
-// POST Nova AI Companion Chat
+// POST Zyno AI Companion Chat
 router.post('/companion', async (req, res) => {
   try {
     const { message, context = {} } = req.body;

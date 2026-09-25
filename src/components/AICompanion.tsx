@@ -22,7 +22,7 @@ export type VoiceState = 'idle' | 'listening' | 'processing' | 'speaking' | 'err
 
 interface Message {
   id: string;
-  sender: 'user' | 'nova';
+  sender: 'user' | 'zyno' | 'nova';
   text: string;
   timestamp: string;
   languageAnalysis?: any;
@@ -171,12 +171,12 @@ export const AICompanion: React.FC = () => {
   useEffect(() => {
     stopSpeaking();
     const greetingText = t.companion?.greeting || 
-      `Hello! I'm Nova, your AI Entertainment Companion. I'm tuned to your "${intent}" mode. Ask me anything about what you're watching, or tell me what you want to achieve today!`;
+      `Hello! I'm Zyno, your AI Entertainment Companion. I'm tuned to your "${intent}" mode. Ask me anything about what you're watching, or tell me what you want to achieve today!`;
 
     setMessages([
       {
         id: `m-init-${language}`,
-        sender: 'nova',
+        sender: 'zyno',
         text: greetingText,
         timestamp: 'Just now'
       }
@@ -239,7 +239,7 @@ export const AICompanion: React.FC = () => {
           data = await res.json();
         }
       } catch (networkErr) {
-        console.warn('Backend Nova companion notice:', networkErr);
+        console.warn('Backend Zyno companion notice:', networkErr);
       }
 
       if (!data || !data.success) {
@@ -255,18 +255,18 @@ export const AICompanion: React.FC = () => {
       setIsTyping(false);
 
       if (data && data.success) {
-        const novaMsg: Message = {
-          id: `nova-${Date.now()}`,
-          sender: 'nova',
+        const zynoMsg: Message = {
+          id: `zyno-${Date.now()}`,
+          sender: 'zyno',
           text: data.reply,
           timestamp: 'Just now',
           languageAnalysis: data.languageAnalysis
         };
-        setMessages(prev => [...prev, novaMsg]);
+        setMessages(prev => [...prev, zynoMsg]);
 
-        // If Voice Mode is enabled or user used voice input, speak Nova's reply aloud in current language!
+        // If Voice Mode is enabled or user used voice input, speak Zyno's reply aloud in current language!
         if (isVoiceMode || isVoiceQuery) {
-          speakText(data.reply, novaMsg.id);
+          speakText(data.reply, zynoMsg.id);
         } else {
           setVoiceState('idle');
         }
@@ -310,8 +310,8 @@ export const AICompanion: React.FC = () => {
       setMessages(prev => [
         ...prev,
         {
-          id: `nova-err-${Date.now()}`,
-          sender: 'nova',
+          id: `zyno-err-${Date.now()}`,
+          sender: 'zyno',
           text: t.companion?.errorFallback || `I'm here! Let me know if you want notes, quizzes, or a structured session on this topic.`,
           timestamp: 'Just now'
         }
@@ -404,13 +404,13 @@ export const AICompanion: React.FC = () => {
   const localizedCurrentReel = currentReel ? getLocalizedReel(currentReel, language) : null;
 
   const thinkingTextMap: Record<string, string> = {
-    gu: 'નોવા વિચારી રહી છે...',
-    hi: 'नोवा सोच रही है...',
-    es: 'Nova está pensando...',
-    fr: 'Nova réfléchit...',
-    ja: 'Novaが考え中...',
-    de: 'Nova denkt nach...',
-    en: 'Nova is thinking...'
+    gu: 'ઝાયનો વિચારી રહ્યો છે...',
+    hi: 'ज़ायनो सोच रहा है...',
+    es: 'Zyno está pensando...',
+    fr: 'Zyno réfléchit...',
+    ja: 'Zynoが考え中...',
+    de: 'Zyno denkt nach...',
+    en: 'Zyno is thinking...'
   };
 
   return (
@@ -418,7 +418,7 @@ export const AICompanion: React.FC = () => {
       {/* Floating Liquid Glass Bubble Capsule Trigger - Prominently Visible Above Mobile Nav & Desktop Sidebar */}
       <div className="fixed bottom-20 left-3 md:bottom-6 md:left-24 lg:left-[304px] z-50 pb-safe transition-all duration-300 select-none">
         <div className="liquid-glass-dock rounded-full p-1.5 flex items-center gap-1.5 shadow-2xl backdrop-blur-2xl border border-white/20 bg-slate-950/85">
-          {/* Main Nova Active Liquid Bubble */}
+          {/* Main Zyno Active Liquid Bubble */}
           <button
             onClick={() => setIsOpen(prev => !prev)}
             className={`group relative px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full flex items-center gap-1.5 sm:gap-2 transition-all duration-300 cursor-pointer overflow-hidden ${
@@ -426,14 +426,14 @@ export const AICompanion: React.FC = () => {
                 ? 'liquid-glass-bubble prismatic-rim animate-chromatic-shimmer text-white shadow-lg'
                 : 'liquid-glass-bubble prismatic-rim hover:scale-105 active:scale-95 text-white'
             }`}
-            title={t.companion?.name || "Nova AI Companion"}
+            title={t.companion?.name || "Zyno AI Companion"}
           >
             <span className="specular-lens" />
             <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-cyan-400 to-violet-500 flex items-center justify-center flex-shrink-0 shadow-sm shadow-cyan-400/50 relative z-10">
               <Bot className="w-3.5 h-3.5 text-slate-950 animate-pulse" />
             </div>
             <span className="text-xs font-bold tracking-wide inline text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] relative z-10">
-              {t.companion?.name ? t.companion.name.split(' ')[0] : 'Nova'}
+              {t.companion?.name ? t.companion.name.split(' ')[0] : 'Zyno'}
             </span>
 
             {/* Glowing Green Notification Badge */}
@@ -464,10 +464,10 @@ export const AICompanion: React.FC = () => {
               voiceState === 'listening'
                 ? "Listening... Tap to stop"
                 : voiceState === 'speaking'
-                ? "Nova is speaking... Tap to interrupt"
+                ? "Zyno is speaking... Tap to interrupt"
                 : voiceState === 'processing'
                 ? "Thinking..."
-                : "Talk to Nova (Voice)"
+                : "Talk to Zyno (Voice)"
             }
           >
             {voiceState === 'listening' && <span className="specular-lens" />}
@@ -508,7 +508,7 @@ export const AICompanion: React.FC = () => {
               </div>
               <div>
                 <h3 className="text-xs md:text-sm font-bold text-white flex items-center gap-1.5">
-                  {t.companion?.name || 'Nova AI Companion'}
+                  {t.companion?.name || 'Zyno AI Companion'}
                   <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
                 </h3>
                 <p className="text-[10px] text-cyan-300 capitalize">
@@ -603,7 +603,7 @@ export const AICompanion: React.FC = () => {
                   <span className="w-1 bg-emerald-400 rounded-full animate-bounce" style={{ height: '100%', animationDelay: '150ms' }}></span>
                   <span className="w-1 bg-emerald-400 rounded-full animate-bounce" style={{ height: '50%', animationDelay: '300ms' }}></span>
                 </div>
-                <span className="font-semibold">🔊 Nova speaking...</span>
+                <span className="font-semibold">🔊 Zyno speaking...</span>
               </div>
               <button
                 type="button"
@@ -677,7 +677,7 @@ export const AICompanion: React.FC = () => {
                 key={msg.id}
                 className={`flex gap-2 items-start ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
-                {msg.sender === 'nova' && (
+                {(msg.sender === 'zyno' || msg.sender === 'nova') && (
                   <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-cyan-500 to-violet-500 flex items-center justify-center text-white flex-shrink-0 mt-1">
                     <Bot className="w-3.5 h-3.5" />
                   </div>
@@ -714,8 +714,8 @@ export const AICompanion: React.FC = () => {
                   )}
                 </div>
 
-                {/* Speak Out Loud Button for Nova messages */}
-                {msg.sender === 'nova' && (
+                {/* Speak Out Loud Button for Zyno messages */}
+                {(msg.sender === 'zyno' || msg.sender === 'nova') && (
                   <button
                     onClick={() => speakText(msg.text, msg.id)}
                     className={`p-1 rounded-lg transition self-end mb-1 ${
@@ -737,7 +737,7 @@ export const AICompanion: React.FC = () => {
             {isTyping && (
               <div className="flex gap-2 items-center text-slate-400 text-xs">
                 <Bot className="w-4 h-4 text-cyan-400 animate-spin" />
-                <span>{thinkingTextMap[language] || 'Nova is thinking...'}</span>
+                <span>{thinkingTextMap[language] || 'Zyno is thinking...'}</span>
               </div>
             )}
             <div ref={chatEndRef} />
@@ -765,7 +765,7 @@ export const AICompanion: React.FC = () => {
                 voiceState === 'listening'
                   ? "Listening... Tap to stop"
                   : voiceState === 'speaking'
-                  ? "Nova speaking... Tap to interrupt"
+                  ? "Zyno speaking... Tap to interrupt"
                   : t.companion?.listening || "Voice Query"
               }
             >
@@ -781,7 +781,7 @@ export const AICompanion: React.FC = () => {
               type="text"
               value={inputValue}
               onChange={e => setInputValue(e.target.value)}
-              placeholder={t.companion?.inputPlaceholder || "Ask Nova or describe what you want..."}
+              placeholder={t.companion?.inputPlaceholder || "Ask Zyno or describe what you want..."}
               className="flex-1 px-3 py-2 bg-slate-800/80 border border-white/10 rounded-xl text-base sm:text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400"
             />
             <button

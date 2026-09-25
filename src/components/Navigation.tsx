@@ -458,7 +458,7 @@ export const Navigation: React.FC = () => {
             {[
               {
                 id: 'aiCompanion',
-                label: t.companion?.name || 'Nova AI Companion',
+                label: t.companion?.name || 'Zyno AI Companion',
                 icon: Bot,
                 iconColor: 'text-cyan-400',
                 action: () => openModal('aiCompanion'),

@@ -232,7 +232,7 @@ function formatGeminiContents(history = [], currentMsg = '') {
   const rawList = [];
   if (Array.isArray(history)) {
     for (const h of history) {
-      const role = (h.role === 'model' || h.sender === 'nova' || h.sender === 'assistant') ? 'model' : 'user';
+      const role = (h.role === 'model' || h.sender === 'zyno' || h.sender === 'nova' || h.sender === 'assistant') ? 'model' : 'user';
       const text = (h.text || h.content || '').trim();
       if (text) {
         rawList.push({ role, text });
@@ -725,7 +725,7 @@ function searchReelsCatalog(query) {
 }
 
 /**
- * Nova AI Companion: Multilingual conversational assistant with ChatGPT/Claude-grade intelligence
+ * Zyno AI Companion: Multilingual conversational assistant with ChatGPT/Claude-grade intelligence
  */
 export async function companionChat(userMessage, context = {}) {
   const originalMsg = (userMessage || '').trim();
@@ -884,7 +884,7 @@ export async function companionChat(userMessage, context = {}) {
         ? `The user is currently watching reel "${currentReel.title}" in category "${currentReel.category || 'Reel'}" by creator @${currentReel.creator?.name || 'creator'}. Reel description: "${currentReel.description || ''}".`
         : 'The user is browsing the reels feed.';
 
-      const sysPrompt = `You are Nova, the real-time AI Voice and Entertainment Companion on Zynqo Social.
+      const sysPrompt = `You are Zyno, the real-time AI Voice and Entertainment Companion on Zynqo Social.
 You are in a live, real-time voice conversation with the user.
 ${reelContextInfo}
 User intent mode: "${currentIntent}".
@@ -994,7 +994,7 @@ Voice Interaction Guidelines:
     /तुम्हारा नाम|आप कौन हैं|तुम कौन हो|आप क्या कर सकते/i.test(originalMsg);
 
   if (isIdentity) {
-    const rawReply = "I'm Nova, your AI Entertainment and Knowledge Companion on Zynqo Social! Just like ChatGPT or Claude, I can answer your questions on any subject, solve math problems, write stories and poems, explain code, help you discover high-impact learning reels, and test your knowledge with interactive quizzes. You can talk to me in any language—including Gujarati, Hindi, and English! What would you like to explore today?";
+    const rawReply = "I'm Zyno, your AI Entertainment and Knowledge Companion on Zynqo Social! Just like ChatGPT or Claude, I can answer your questions on any subject, solve math problems, write stories and poems, explain code, help you discover high-impact learning reels, and test your knowledge with interactive quizzes. You can talk to me in any language—including Gujarati, Hindi, and English! What would you like to explore today?";
     const localizedReply = await translateText(rawReply, lang);
     return {
       reply: localizedReply,
@@ -1048,7 +1048,7 @@ Voice Interaction Guidelines:
 
   // F. General Greetings ("Hi", "Hello", "નમસ્તે", "કેમ છો")
   if (/^(hi|hello|hey|greetings|kem chho|namaste|bonjour|hola|hallo|konnichiwa|good morning|good evening|good afternoon)\b/i.test(cleanEng)) {
-    const rawReply = 'Hello! I\'m Nova, your AI Entertainment Companion on Zynqo Social. I\'m tuned to your "' + currentIntent + '" mode. You can ask me to answer any question, write stories or code, explain complex topics in simple terms, or recommend learning reels! How can I help you today?';
+    const rawReply = 'Hello! I\'m Zyno, your AI Entertainment Companion on Zynqo Social. I\'m tuned to your "' + currentIntent + '" mode. You can ask me to answer any question, write stories or code, explain complex topics in simple terms, or recommend learning reels! How can I help you today?';
     const localizedReply = await translateText(rawReply, lang);
     return {
       reply: localizedReply,

@@ -62,7 +62,7 @@ export const AIAvatarModal: React.FC = () => {
   const personas: AvatarPersona[] = [
     {
       id: 'twin',
-      name: userProfile?.name ? `${userProfile.name}'s Twin` : 'Nova Digital Twin',
+      name: userProfile?.name ? `${userProfile.name}'s Twin` : 'Zyno Digital Twin',
       role: 'Personal AI Entertainment Twin',
       avatarUrl: userProfile?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
       description: 'Learns your tastes, mood, and watch habits to curate your ideal content stream.',
@@ -70,8 +70,8 @@ export const AIAvatarModal: React.FC = () => {
       badge: 'Your Digital Twin'
     },
     {
-      id: 'nova',
-      name: 'Nova AI Avatar',
+      id: 'zyno',
+      name: 'Zyno AI Avatar',
       role: 'Autonomous Content Curator',
       avatarUrl: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=150&auto=format&fit=crop&q=80',
       description: 'High-energy, empathetic AI guide specialized in discovering hidden viral gems.',

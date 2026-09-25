@@ -128,17 +128,17 @@ export const MobileTopBar: React.FC = () => {
 
           {/* Quick Action Icons */}
           <div className="flex items-center gap-1.5">
-            {/* Nova AI Companion Trigger */}
+            {/* Zyno AI Companion Trigger */}
             <button
               onClick={() => {
                 triggerHaptic('medium');
                 openModal('aiCompanion');
               }}
               className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-gradient-to-r from-cyan-500/20 via-pink-500/20 to-purple-500/20 border border-cyan-400/40 text-cyan-300 shadow-sm active:scale-95 transition"
-              title="Nova AI Companion"
+              title="Zyno AI Companion"
             >
               <Bot className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-              <span className="text-[11px] font-bold text-white tracking-tight">Nova</span>
+              <span className="text-[11px] font-bold text-white tracking-tight">Zyno</span>
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
             </button>
 

@@ -45,7 +45,7 @@ Transforms any reel in 1 click into 4 high-leverage outputs:
 - **Source Transparency**: Clickable citations to peer-reviewed literature and institutions.
 - **Comment Toxicity Protection**: Real-time NLP filter blocking abusive content.
 
-### 5. 🤖 Nova AI Entertainment Companion (Features 38, 39, 40, 42, 83, 84)
+### 5. 🤖 Zyno AI Entertainment Companion (Features 38, 39, 40, 42, 83, 84)
 - Floating dock & expandable conversational assistant.
 - Natural language queries: *"Find me quick Python tricks"*, *"Explain this like I'm 10 (ELI10)"*, *"Explain deeper"*, or *"Surprise me"*.
 - Speech-to-text voice recognition integration.
@@ -57,7 +57,7 @@ Transforms any reel in 1 click into 4 high-leverage outputs:
 ### 7. 👥 Temporary Interest Rooms & Watch Together (Features 56, 57, 62, 64)
 - Synchronized video reel playback across all room participants via WebSockets (Socket.IO).
 - Real-time room chat with simulated spectators.
-- **AI Room Assistant ("Nova")**: Dynamically chimes in with discussion prompts, trivia, and conversation starters.
+- **AI Room Assistant ("Zyno")**: Dynamically chimes in with discussion prompts, trivia, and conversation starters.
 
 ### 8. 📊 Digital Wellbeing & Entertainment Nutrition Label (Features 182, 184, 186, 187)
 - **Entertainment Nutrition Label**: Visual breakdown of your daily session (e.g. 45% Learning, 30% Productivity, 15% Mindfulness, 10% Entertainment).
@@ -120,7 +120,7 @@ Open your browser at:
 2. **"I Have 5 Mins" Mode**: Click the timer button in the navbar -> start 5-minute session -> observe live countdown ring -> trigger Smart Session Ending.
 3. **"Make This Useful"**: On Reel 1 (Neural Networks), click the glowing ⚡ **Make This Useful** button on the right -> take the 3-question quiz -> score points -> see XP animation!
 4. **AI Reality Check**: On Reel 3 (Water trend), click the 🛡️ **Reality Check** badge -> inspect the claim breakdown and peer-reviewed sources.
-5. **Nova AI Companion**: Click the glowing orb in the bottom-left -> ask *"Explain like I'm 10"* or click *"Surprise Me"*.
+5. **Zyno AI Companion**: Click the glowing orb in the bottom-left -> ask *"Explain like I'm 10"* or click *"Surprise Me"*.
 6. **Watch Together Lounge**: Click "Watch Together" in the navbar -> test synchronized play/pause and real-time chat with the AI Room Assistant.
 7. **Creator Studio**: Click "Creator Studio" -> enter a topic -> generate 3 viral hooks and 60-second script!
 8. **Digital Wellbeing**: Click "Wellbeing" -> view your Entertainment Nutrition Label and Attention Budget.
@@ -164,7 +164,7 @@ pulse-ai-reels/
         ├── RealityCheckModal.tsx # Fact check & source citations
         ├── ExplainModal.tsx  # "Why Am I Seeing This?" explainability graph
         ├── TimeSessionModal.tsx  # "I Have X Minutes" countdown & completion
-        ├── AICompanion.tsx   # Nova AI floating conversational assistant
+        ├── AICompanion.tsx   # Zyno AI floating conversational assistant
         ├── GoalLearningView.tsx  # Goal-based micro-learning tracks
         ├── WatchTogetherRoom.tsx # Synced viewing room & AI Room Assistant
         ├── DigitalWellbeingModal.tsx # Nutrition Label & Attention Budget
