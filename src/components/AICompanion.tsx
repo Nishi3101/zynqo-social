@@ -17,6 +17,8 @@ import {
 import { useApp } from '../context/AppContext';
 import { getLocalizedReel } from '../utils/translations';
 import { clientCompanionChat } from '../utils/aiClientEngine';
+import { sounds } from '../utils/sound';
+import { triggerHaptic } from '../utils/nativeBridge';
 
 export type VoiceState = 'idle' | 'listening' | 'processing' | 'speaking' | 'error';
 
@@ -48,6 +50,9 @@ export const AICompanion: React.FC = () => {
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const recognitionRef = useRef<any>(null);
+  const activeUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const keepAliveTimerRef = useRef<any>(null);
+  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
 
   const speechLangMap: Record<string, string> = {
     gu: 'gu-IN',
@@ -62,135 +67,181 @@ export const AICompanion: React.FC = () => {
     en: 'en-US'
   };
 
+  // Preload and monitor available voices
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      const loadVoices = () => {
+        try {
+          const v = window.speechSynthesis.getVoices();
+          if (v && v.length > 0) setVoices(v);
+        } catch (e) {}
+      };
+      loadVoices();
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+  }, []);
+
   const stopSpeaking = () => {
+    if (keepAliveTimerRef.current) {
+      clearInterval(keepAliveTimerRef.current);
+      keepAliveTimerRef.current = null;
+    }
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
       audioRef.current = null;
     }
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
+      try {
+        window.speechSynthesis.cancel();
+      } catch (e) {}
     }
+    activeUtteranceRef.current = null;
+    try {
+      (window as any).__zyno_active_utterance = null;
+    } catch (e) {}
     setSpeakingMessageId(null);
     setVoiceState(prev => (prev === 'speaking' ? 'idle' : prev));
   };
 
-  // Resilient Web Speech synthesis fallback
-  const speakWithWebSpeech = (cleanText: string, msgId?: string) => {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      try {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(cleanText);
-        const targetLang = speechLangMap[language] || 'en-US';
-        utterance.lang = targetLang;
-        utterance.rate = 1.0;
-        utterance.pitch = 1.05;
-        utterance.volume = 1.0;
-
-        const voices = window.speechSynthesis.getVoices();
-        if (voices && voices.length > 0) {
-          const match = voices.find(v => v.lang === targetLang || v.lang.startsWith(targetLang.slice(0, 2)));
-          if (match) utterance.voice = match;
+  // Keeps Chrome from pausing SpeechSynthesis mid-sentence
+  const startKeepAlive = () => {
+    if (keepAliveTimerRef.current) clearInterval(keepAliveTimerRef.current);
+    keepAliveTimerRef.current = setInterval(() => {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+          window.speechSynthesis.pause();
+          window.speechSynthesis.resume();
         }
-
-        utterance.onstart = () => {
-          setVoiceState('speaking');
-          if (msgId) setSpeakingMessageId(msgId);
-        };
-        utterance.onend = () => {
-          setSpeakingMessageId(null);
-          setVoiceState('idle');
-        };
-        utterance.onerror = (e) => {
-          console.warn('SpeechSynthesis event error:', e);
-          setSpeakingMessageId(null);
-          setVoiceState('idle');
-        };
-
-        window.speechSynthesis.speak(utterance);
-      } catch (err) {
-        console.warn('SpeechSynthesis error:', err);
-        setSpeakingMessageId(null);
-        setVoiceState('idle');
       }
-    } else {
-      setSpeakingMessageId(null);
-      setVoiceState('idle');
+    }, 4000);
+  };
+
+  // Unlock device audio context on user tap or click
+  const unlockAudio = () => {
+    if (typeof window !== 'undefined') {
+      if ('speechSynthesis' in window) {
+        try {
+          if (window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+          }
+        } catch (e) {}
+      }
+      sounds.playClick();
     }
   };
 
-  // Text-to-Speech speaking function supporting all languages with multi-tiered fallback
-  const speakText = async (text: string, msgId?: string) => {
+  const cleanForSpeech = (text: string) => {
+    return (text || '')
+      .replace(/[*_#`~[\]()]/g, ' ')
+      .replace(/https?:\/\/\S+/g, ' ')
+      .replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  };
+
+  const getSpokenSnippet = (clean: string): string => {
+    if (clean.length <= 220) return clean;
+    const sentences = clean.match(/[^.!?]+[.!?]+(\s|$)/g);
+    if (sentences && sentences.length > 0) {
+      let snippet = '';
+      for (const s of sentences) {
+        if ((snippet + s).length <= 220) {
+          snippet += s;
+        } else {
+          break;
+        }
+      }
+      if (snippet.trim()) return snippet.trim();
+    }
+    return clean.slice(0, 200).trim() + '...';
+  };
+
+  // Direct, zero-latency Web Speech synthesis with Chrome GC protection
+  const speakText = (text: string, msgId?: string) => {
+    if (speakingMessageId === msgId) {
+      stopSpeaking();
+      return;
+    }
+
     stopSpeaking();
 
-    if (speakingMessageId === msgId) {
+    const clean = cleanForSpeech(text);
+    if (!clean) {
+      setSpeakingMessageId(null);
       setVoiceState('idle');
       return;
     }
 
-    setVoiceState('speaking');
-    if (msgId) {
-      setSpeakingMessageId(msgId);
-    }
+    const spokenText = getSpokenSnippet(clean);
 
-    // Clean text of markdown asterisks, backticks, emojis and formatting
-    const cleanText = (text || '')
-      .replace(/[*_#`~[\]()]/g, '')
-      .replace(/https?:\/\/\S+/g, '')
-      .replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '')
-      .trim();
-
-    if (!cleanText) {
-      setSpeakingMessageId(null);
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
       setVoiceState('idle');
       return;
     }
 
     try {
-      const res = await fetch('/api/ai/tts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          text: cleanText,
-          lang: language
-        })
-      });
-
-      const contentType = res.headers.get('content-type') || '';
-      if (!res.ok || !contentType.includes('audio')) {
-        throw new Error(`TTS server unavailable or returned non-audio (${res.status})`);
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
       }
 
-      const blob = await res.blob();
-      if (blob.size < 100) {
-        throw new Error('TTS audio blob too small');
+      const utterance = new SpeechSynthesisUtterance(spokenText);
+      const targetLang = speechLangMap[language] || 'en-US';
+      utterance.lang = targetLang;
+      utterance.rate = 1.0;
+      utterance.pitch = 1.05;
+      utterance.volume = 1.0;
+
+      const voiceList = voices.length > 0 ? voices : window.speechSynthesis.getVoices();
+      if (voiceList && voiceList.length > 0) {
+        const exactMatch = voiceList.find(v => v.lang === targetLang);
+        const prefixMatch = voiceList.find(v => v.lang.startsWith(targetLang.slice(0, 2)));
+        const fallbackMatch = voiceList.find(v => v.lang.startsWith('en'));
+        const chosen = exactMatch || prefixMatch || fallbackMatch;
+        if (chosen) utterance.voice = chosen;
       }
 
-      const audioUrl = URL.createObjectURL(blob);
-      const audio = new Audio(audioUrl);
-      audioRef.current = audio;
+      utterance.onstart = () => {
+        setVoiceState('speaking');
+        if (msgId) setSpeakingMessageId(msgId);
+        startKeepAlive();
+      };
 
-      audio.onended = () => {
+      utterance.onend = () => {
+        if (keepAliveTimerRef.current) {
+          clearInterval(keepAliveTimerRef.current);
+          keepAliveTimerRef.current = null;
+        }
+        activeUtteranceRef.current = null;
+        try { (window as any).__zyno_active_utterance = null; } catch (e) {}
         setSpeakingMessageId(null);
         setVoiceState('idle');
-        audioRef.current = null;
-        URL.revokeObjectURL(audioUrl);
       };
 
-      audio.onerror = () => {
-        console.warn('Audio playback error, falling back to Web Speech synthesis');
-        audioRef.current = null;
-        URL.revokeObjectURL(audioUrl);
-        speakWithWebSpeech(cleanText, msgId);
+      utterance.onerror = (e) => {
+        if (keepAliveTimerRef.current) {
+          clearInterval(keepAliveTimerRef.current);
+          keepAliveTimerRef.current = null;
+        }
+        activeUtteranceRef.current = null;
+        try { (window as any).__zyno_active_utterance = null; } catch (e) {}
+        setSpeakingMessageId(null);
+        setVoiceState('idle');
+        console.warn('[Zyno Speech] Utterance event error:', e);
       };
 
-      audio.play().catch(playErr => {
-        console.warn('Audio play() rejected, falling back to Web Speech synthesis:', playErr);
-        speakWithWebSpeech(cleanText, msgId);
-      });
+      activeUtteranceRef.current = utterance;
+      (window as any).__zyno_active_utterance = utterance;
+
+      window.speechSynthesis.speak(utterance);
     } catch (err) {
-      console.warn('Google TTS failed, falling back to Web Speech synthesis:', err);
-      speakWithWebSpeech(cleanText, msgId);
+      console.warn('[Zyno Speech] Synthesis error:', err);
+      if (keepAliveTimerRef.current) {
+        clearInterval(keepAliveTimerRef.current);
+        keepAliveTimerRef.current = null;
+      }
+      setSpeakingMessageId(null);
+      setVoiceState('idle');
     }
   };
 
@@ -201,20 +252,22 @@ export const AICompanion: React.FC = () => {
     };
   }, []);
 
-  // Initialize or update greeting when language or intent changes
+  // Initialize or update greeting when language or intent changes - PRESERVES existing conversation!
   useEffect(() => {
-    stopSpeaking();
     const greetingText = t.companion?.greeting || 
       `Hello! I'm Zyno, your AI Entertainment Companion. I'm tuned to your "${intent}" mode. Ask me anything about what you're watching, or tell me what you want to achieve today!`;
 
-    setMessages([
-      {
-        id: `m-init-${language}`,
-        sender: 'zyno',
-        text: greetingText,
-        timestamp: 'Just now'
-      }
-    ]);
+    setMessages(prev => {
+      if (prev.length > 0) return prev;
+      return [
+        {
+          id: `m-init-${language}`,
+          sender: 'zyno',
+          text: greetingText,
+          timestamp: 'Just now'
+        }
+      ];
+    });
   }, [language, intent, t.companion?.greeting]);
 
   useEffect(() => {
@@ -227,6 +280,16 @@ export const AICompanion: React.FC = () => {
     const text = textToSend || inputValue;
     if (!text.trim()) return;
 
+    // Ensure drawer is open so user sees both their question and Zyno's response
+    setIsOpen(true);
+    if (activeModal !== 'aiCompanion') {
+      openModal('aiCompanion');
+    }
+
+    // Unlock device audio pipeline on user gesture
+    unlockAudio();
+    triggerHaptic('light');
+
     if (isVoiceQuery) {
       setVoiceState('processing');
       setVoiceErrorMsg(null);
@@ -235,7 +298,7 @@ export const AICompanion: React.FC = () => {
     const userMsg: Message = {
       id: `msg-${Date.now()}`,
       sender: 'user',
-      text,
+      text: text.trim(),
       timestamp: 'Just now'
     };
 
@@ -255,11 +318,15 @@ export const AICompanion: React.FC = () => {
     try {
       let data: any = null;
       try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 1200);
+
         const res = await fetch('/api/ai/companion', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          signal: controller.signal,
           body: JSON.stringify({
-            message: text,
+            message: text.trim(),
             context: {
               currentReel: localizedReel || currentReel,
               intent,
@@ -269,15 +336,16 @@ export const AICompanion: React.FC = () => {
             }
           })
         });
-        if (res.headers.get('content-type')?.includes('application/json')) {
+        clearTimeout(timeoutId);
+        if (res.ok && res.headers.get('content-type')?.includes('application/json')) {
           data = await res.json();
         }
       } catch (networkErr) {
-        console.warn('Backend Zyno companion notice:', networkErr);
+        // Fallback gracefully without hanging
       }
 
       if (!data || !data.success || !data.reply || typeof data.reply !== 'string' || !data.reply.trim()) {
-        data = await clientCompanionChat(text, {
+        data = await clientCompanionChat(text.trim(), {
           currentReel: localizedReel || currentReel,
           intent,
           remainingMinutes: 5,
@@ -301,40 +369,41 @@ export const AICompanion: React.FC = () => {
       };
       setMessages(prev => [...prev, zynoMsg]);
 
-      // Speak Zyno's reply aloud (Voice Mode enabled by default for demo)
+      // Play soft confirmation chime & speak aloud
+      sounds.playZynoChime();
       if (isVoiceMode !== false) {
         speakText(replyText, zynoMsg.id);
       } else {
         setVoiceState('idle');
       }
 
-        // Trigger action callbacks if requested
-        if (data.action === 'SWITCH_REEL' && data.targetReelId) {
+      // Trigger action callbacks if requested
+      if (data.action === 'SWITCH_REEL' && data.targetReelId) {
+        const targetIdx = reels.findIndex(r => r.id === data.targetReelId);
+        if (targetIdx !== -1) {
+          setCurrentPage('feed');
+          setCurrentReelIndex(targetIdx);
+        }
+      } else if (data.action === 'OPEN_QUIZ') {
+        if (data.targetReelId) {
           const targetIdx = reels.findIndex(r => r.id === data.targetReelId);
           if (targetIdx !== -1) {
             setCurrentPage('feed');
             setCurrentReelIndex(targetIdx);
           }
-        } else if (data.action === 'OPEN_QUIZ') {
-          if (data.targetReelId) {
-            const targetIdx = reels.findIndex(r => r.id === data.targetReelId);
-            if (targetIdx !== -1) {
-              setCurrentPage('feed');
-              setCurrentReelIndex(targetIdx);
-            }
-          }
-          openModal('makeUseful');
-        } else if (data.action === 'PLAN_SESSION') {
-          openModal('timeSession');
-        } else if (data && data.action === 'EXPLAIN_SIMPLE') {
-          if (data.targetReelId) {
-            const targetIdx = reels.findIndex(r => r.id === data.targetReelId);
-            if (targetIdx !== -1) {
-              setCurrentPage('feed');
-              setCurrentReelIndex(targetIdx);
-            }
+        }
+        openModal('makeUseful');
+      } else if (data.action === 'PLAN_SESSION') {
+        openModal('timeSession');
+      } else if (data && data.action === 'EXPLAIN_SIMPLE') {
+        if (data.targetReelId) {
+          const targetIdx = reels.findIndex(r => r.id === data.targetReelId);
+          if (targetIdx !== -1) {
+            setCurrentPage('feed');
+            setCurrentReelIndex(targetIdx);
           }
         }
+      }
     } catch (err) {
       setIsTyping(false);
       if (isVoiceQuery) {
@@ -359,6 +428,12 @@ export const AICompanion: React.FC = () => {
     if (speakingMessageId || voiceState === 'speaking') {
       stopSpeaking();
       return;
+    }
+
+    unlockAudio();
+    setIsOpen(true);
+    if (activeModal !== 'aiCompanion') {
+      openModal('aiCompanion');
     }
 
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -454,7 +529,13 @@ export const AICompanion: React.FC = () => {
         <div className="liquid-glass-dock rounded-full p-1.5 flex items-center gap-1.5 shadow-2xl backdrop-blur-2xl border border-white/20 bg-slate-950/85">
           {/* Main Zyno Active Liquid Bubble */}
           <button
-            onClick={() => setIsOpen(prev => !prev)}
+            onClick={() => {
+              unlockAudio();
+              setIsOpen(prev => !prev);
+              if (!isOpen && activeModal !== 'aiCompanion') {
+                openModal('aiCompanion');
+              }
+            }}
             className={`group relative px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full flex items-center gap-1.5 sm:gap-2 transition-all duration-300 cursor-pointer overflow-hidden ${
               isOpen
                 ? 'liquid-glass-bubble prismatic-rim animate-chromatic-shimmer text-white shadow-lg'
@@ -479,6 +560,11 @@ export const AICompanion: React.FC = () => {
           {/* Quick Voice Mode Bubble */}
           <button
             onClick={() => {
+              unlockAudio();
+              setIsOpen(true);
+              if (activeModal !== 'aiCompanion') {
+                openModal('aiCompanion');
+              }
               if (speakingMessageId || voiceState === 'speaking') {
                 stopSpeaking();
               } else {
@@ -519,7 +605,11 @@ export const AICompanion: React.FC = () => {
           {/* Quick Superpower Quiz Mini-Bubble */}
           <button
             onClick={() => {
-              if (!isOpen) setIsOpen(true);
+              unlockAudio();
+              setIsOpen(true);
+              if (activeModal !== 'aiCompanion') {
+                openModal('aiCompanion');
+              }
               handleSendMessage(t.companion?.quizMe || 'Quiz Me', true);
             }}
             className="hidden lg:flex px-2.5 py-1.5 rounded-full text-[11px] font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition items-center gap-1"
@@ -718,7 +808,7 @@ export const AICompanion: React.FC = () => {
                 )}
                 <div className="flex flex-col max-w-[85%]">
                   <div
-                    className={`p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed shadow-md select-text ${
+                    className={`p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed shadow-md select-text whitespace-pre-wrap break-words ${
                       msg.sender === 'user'
                         ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 font-semibold rounded-tr-none'
                         : 'bg-slate-800 text-slate-100 border border-white/10 rounded-tl-none font-normal'

@@ -189,18 +189,125 @@ export async function clientCompanionChat(message: string, context: any = {}): P
     };
   }
 
-  // 6. General Conversational Fallback
-  const replies = [
-    `Hello! I'm Zyno, your AI companion on Zynqo Social. Whether you want to learn from the current reel, test your knowledge with a quiz, explore creative scripts, or just chat, I'm here 24/7! What would you like to explore? ✨`,
-    `That's an interesting thought! On Zynqo, we prioritize mindful entertainment and practical learning. How can I help you make the most of your session today? 🚀`,
-    `I'm ready! Feel free to ask me to summarize any reel, generate study notes, write code, or explain any scientific concept in simple terms. 💡`
-  ];
+  // 6. Conversational Greetings & Social Dialogue
+  if (/^(?:hi|hello|hey|greetings|namaste|kem cho|kem chho|halo|hola|bonjour|good morning|good afternoon|good evening)\b/i.test(lower)) {
+    const greetingReplies = [
+      `Hello! I'm Zyno, your AI Entertainment and Learning Companion on Zynqo Social. I'm tuned in and ready to assist! Ask me anything about what you're watching, test yourself with a quiz, or ask any general question! ✨`,
+      `Hey there! Welcome to Zynqo Social. I'm Zyno, your real-time AI companion. How can I help power your session today? 🚀`,
+      `Hi! Zyno here! Looking to learn something new from the feed, break down a complex topic, or just chat? Let me know what's on your mind! 💡`
+    ];
+    return {
+      success: true,
+      reply: greetingReplies[Math.floor(Math.random() * greetingReplies.length)],
+      languageAnalysis: { detectedLanguage: lang, sentiment: 'positive', formality: 'casual' }
+    };
+  }
 
-  const randomReply = replies[Math.floor(Math.random() * replies.length)];
+  // 7. Check-in & Well-being ("How are you?", "Are you ok?", "Kaise ho?")
+  if (/how (are|r) you|are you (ok|okay|fine|good|well|happy)|how('s|s) it going|what('s|s) up|how do you do|kem cho|kaise ho/i.test(lower)) {
+    return {
+      success: true,
+      reply: `I'm doing fantastic, thank you for asking! 😊 I'm full of energy and ready to help you discover great content, learn new concepts, or answer any question. How is your day going?`,
+      languageAnalysis: { detectedLanguage: lang, sentiment: 'positive', formality: 'casual' }
+    };
+  }
+
+  // 8. Identity & Persona ("Who are you?", "What is your name?", "What can you do?")
+  if (/who are you|what is your name|who made you|who created you|what can you do|are you real|are you human|are you an? ai/i.test(lower)) {
+    return {
+      success: true,
+      reply: `I'm Zyno, your AI Voice and Entertainment Companion on Zynqo Social! I can explain any reel, generate study notes, write code and stories, solve math problems, test your knowledge with interactive quizzes, and recommend high-impact videos. Feel free to talk or ask me anything! 🤖✨`,
+      languageAnalysis: { detectedLanguage: lang, sentiment: 'positive', formality: 'casual' }
+    };
+  }
+
+  // 9. Jokes & Entertainment ("Tell me a joke", "Make me laugh")
+  if (/tell (me )?a joke|make me laugh|something funny|funny joke|joke/i.test(lower)) {
+    const jokes = [
+      `Why do programmers always prefer dark mode? Because light attracts bugs! 😂`,
+      `Why was the computer cold? It left its Windows open! 💻❄️`,
+      `There are 10 types of people in the world: those who understand binary, and those who don't! 🤓`,
+      `Why did the JavaScript developer wear glasses? Because they didn't C#! 👓`
+    ];
+    return {
+      success: true,
+      reply: jokes[Math.floor(Math.random() * jokes.length)],
+      languageAnalysis: { detectedLanguage: lang, sentiment: 'positive', formality: 'casual' }
+    };
+  }
+
+  // 10. AI, Science, and Knowledge Concepts
+  if (lower.includes('what is ai') || lower.includes('artificial intelligence') || lower.includes('machine learning') || lower.includes('neural network')) {
+    return {
+      success: true,
+      reply: `**Artificial Intelligence (AI)** is the simulation of human intelligence by computer systems. Modern AI uses deep neural networks trained on vast datasets to recognize patterns, understand language, make decisions, and generate creative content like text and video! 🧠⚡`,
+      languageAnalysis: { detectedLanguage: lang, sentiment: 'thoughtful', formality: 'casual' }
+    };
+  }
+
+  if (lower.includes('quantum computing') || lower.includes('qubit')) {
+    return {
+      success: true,
+      reply: `**Quantum Computing** leverages the bizarre physics of quantum mechanics! While classical computers process bits as 0 or 1, quantum computers use **qubits** that exist in a **superposition** of both states simultaneously, unlocking exponential computing power for molecular simulations and cryptography. 🔬⚛️`,
+      languageAnalysis: { detectedLanguage: lang, sentiment: 'thoughtful', formality: 'casual' }
+    };
+  }
+
+  if (lower.includes('photosynthesis')) {
+    return {
+      success: true,
+      reply: `**Photosynthesis** is the biological process where green plants, algae, and cyanobacteria convert sunlight, water (H2O), and carbon dioxide (CO2) into glucose (energy) and oxygen (O2) using chlorophyll pigments! Formula: 6CO2 + 6H2O + light → C6H12O6 + 6O2. 🌿☀️`,
+      languageAnalysis: { detectedLanguage: lang, sentiment: 'thoughtful', formality: 'casual' }
+    };
+  }
+
+  if (lower.includes('gravity')) {
+    return {
+      success: true,
+      reply: `**Gravity** is the universal fundamental force by which physical masses attract one another! In Newtonian physics, it is proportional to mass. In Einstein's General Relativity, gravity is actually the curvature of spacetime caused by mass and energy! 🌌🪐`,
+      languageAnalysis: { detectedLanguage: lang, sentiment: 'thoughtful', formality: 'casual' }
+    };
+  }
+
+  if (lower.includes('virat kohli') || lower.includes('cricket') || lower.includes('ipl') || lower.includes('rohit sharma') || lower.includes('dhoni')) {
+    return {
+      success: true,
+      reply: `Cricket is pure passion! 🏏 Virat Kohli is legendary for his chase mastery, extraordinary fitness, and 50+ ODI centuries. Whether it's high-stakes World Cup matches or thrilling IPL finishes, cricket combines master strategy with intense athletic execution!`,
+      languageAnalysis: { detectedLanguage: lang, sentiment: 'positive', formality: 'casual' }
+    };
+  }
+
+  if (lower.includes('football') || lower.includes('messi') || lower.includes('ronaldo')) {
+    return {
+      success: true,
+      reply: `Football is the world's most beautiful game! ⚽ From Messi's surgical dribbling and vision to Cristiano Ronaldo's athletic dominance and relentless finishing, football inspires millions around the globe. Who is your all-time favorite player?`,
+      languageAnalysis: { detectedLanguage: lang, sentiment: 'positive', formality: 'casual' }
+    };
+  }
+
+  if (lower.includes('zynqo') || lower.includes('this app') || lower.includes('platform')) {
+    return {
+      success: true,
+      reply: `**Zynqo Social** is a next-generation short-form video platform designed for mindful entertainment, learning, and creator superpowers! It features attention budget timers, AI Make This Useful study tools, Reality Check source verification, Watch Lounges, and me—Zyno, your AI companion! 🚀✨`,
+      languageAnalysis: { detectedLanguage: lang, sentiment: 'positive', formality: 'casual' }
+    };
+  }
+
+  if (lower.includes('eli10') || lower.includes('explain simply') || lower.includes('like i am 10')) {
+    const reelTitle = currentReel ? currentReel.title : 'this concept';
+    return {
+      success: true,
+      reply: `Think of ${reelTitle} like building with LEGO bricks! When a goal feels too huge, you don't build the entire castle at once. You just snap one brick in place each day. Small consistent steps turn into massive accomplishments without stress! 🧱✨`,
+      languageAnalysis: { detectedLanguage: lang, sentiment: 'thoughtful', formality: 'casual' }
+    };
+  }
+
+  // 11. General Intelligent Conversational Answering
+  const cleanQuery = text.replace(/[?.,!]/g, '').trim();
   return {
     success: true,
-    reply: randomReply,
-    languageAnalysis: { detectedLanguage: lang, sentiment: 'positive', formality: 'casual' }
+    reply: `Regarding "${cleanQuery}": Great question! On Zynqo Social, we love exploring new ideas. Here are the core insights:\n\n1. **Core Insight**: Approaching ${cleanQuery} with curiosity reveals surprising practical value.\n2. **Action Step**: You can apply this concept in small 5-minute increments today.\n\nWould you like me to find a related learning reel or quiz you on this topic? 💡`,
+    languageAnalysis: { detectedLanguage: lang, sentiment: 'thoughtful', formality: 'casual' }
   };
 }
 

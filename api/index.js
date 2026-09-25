@@ -330,8 +330,12 @@ export default async function handler(req, res) {
           reply = "Why do programmers prefer dark mode? Because light attracts bugs! 😂";
         } else if (lower.includes('who are you')) {
           reply = "I'm Zyno, your AI Entertainment and Learning Companion on Zynqo Social! I can explain video concepts, test you with interactive quizzes, and recommend high-impact reels.";
+        } else if (lower.includes('how are you') || lower.includes('how r u') || lower.includes('kaise ho')) {
+          reply = "I'm doing fantastic, thank you! I'm energetic and ready to help you explore reels, learn new skills, or solve questions.";
+        } else if (context.currentReel && (lower.includes('reel') || lower.includes('explain') || lower.includes('video') || lower.includes('this'))) {
+          reply = `This reel is "${context.currentReel.title}". It focuses on ${context.currentReel.category || 'practical insights'}. Would you like me to test your understanding with a quick quiz?`;
         } else {
-          reply = `I'm Zyno, your AI companion on Zynqo Social! You said "${cleanMsg}". Whether you want to learn from the current reel, test your knowledge with a quiz, or just chat, I'm here 24/7!`;
+          reply = `I'm Zyno, your AI Companion on Zynqo Social! You asked: "${cleanMsg}". I'm here 24/7 to answer questions, break down reels, and generate quizzes!`;
         }
       }
 
