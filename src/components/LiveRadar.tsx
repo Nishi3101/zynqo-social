@@ -15,6 +15,7 @@ interface SignalPoint {
   label: string;
   emoji: string;
   count: string;
+  reelsCount?: number;
   angle: number;       // Angle in degrees (0 - 360)
   distance: number;    // Distance from center (0 - 100%)
   color: string;       // Signal accent color
@@ -70,7 +71,11 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
     const cultureReels = activeReels.filter(r => r.category === 'Culture & Dance');
     const cultureViews = cultureReels.reduce((s, r) => s + (r.views || 0), 0);
 
-    const musicReels = activeReels.filter(r => r.category === 'Music & Audio');
+    const musicReels = activeReels.filter(r => 
+      r.category === 'Music & Audio' || 
+      r.category === 'Mindfulness & Detox' || 
+      (r.goalTags && r.goalTags.some(t => ['music', 'guitar', 'relaxation', 'soundhealing', 'audio'].includes(t.toLowerCase())))
+    );
     const musicViews = musicReels.reduce((s, r) => s + (r.views || 0), 0);
 
     const aiReels = activeReels.filter(r => r.category === 'Tech & AI' || (r.goalTags && r.goalTags.some(t => t.toLowerCase().includes('ai') || t.toLowerCase().includes('tech'))));
@@ -82,15 +87,15 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
     const fitnessReels = activeReels.filter(r => r.category === 'Fitness & Health');
     const fitnessViews = fitnessReels.reduce((s, r) => s + (r.views || 0), 0);
 
-    const sortedByViews = [...activeReels].sort((a, b) => (b.views || 0) - (a.views || 0));
-    const trendingViews = sortedByViews.slice(0, 100).reduce((s, r) => s + (r.views || 0), 0);
+    const trendingViews = activeReels.reduce((s, r) => s + (r.views || 0), 0);
 
     return [
       { 
         id: 'viral', 
         label: 'VIRAL', 
         emoji: '🔥', 
-        count: `+${formatCompact(cultureViews)}`, 
+        reelsCount: cultureReels.length,
+        count: `${formatCompact(cultureViews)} views`, 
         angle: 45, 
         distance: 74, 
         color: '#f97316', 
@@ -101,18 +106,20 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
         id: 'music', 
         label: 'MUSIC', 
         emoji: '🎵', 
-        count: `+${formatCompact(musicViews)}`, 
+        reelsCount: musicReels.length,
+        count: `${formatCompact(musicViews)} views`, 
         angle: 135, 
         distance: 62, 
         color: '#ec4899', 
         pulseDelay: '0.6s',
-        category: 'Music & Audio'
+        category: 'Mindfulness & Detox'
       },
       { 
         id: 'reels', 
         label: 'REELS', 
         emoji: '🎬', 
-        count: `${totalReelsCount.toLocaleString()} REELS`, 
+        reelsCount: totalReelsCount,
+        count: `${formatCompact(totalViews)} views`, 
         angle: 220, 
         distance: 82, 
         color: '#06b6d4', 
@@ -123,7 +130,8 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
         id: 'ai', 
         label: 'AI', 
         emoji: '🤖', 
-        count: `+${formatCompact(aiViews)}`, 
+        reelsCount: aiReels.length,
+        count: `${formatCompact(aiViews)} views`, 
         angle: 295, 
         distance: 52, 
         color: '#a855f7', 
@@ -134,7 +142,8 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
         id: 'memes', 
         label: 'MEMES', 
         emoji: '😂', 
-        count: `+${formatCompact(memesViews)}`, 
+        reelsCount: memesReels.length,
+        count: `${formatCompact(memesViews)} views`, 
         angle: 345, 
         distance: 68, 
         color: '#eab308', 
@@ -145,7 +154,8 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
         id: 'gaming', 
         label: 'FITNESS', 
         emoji: '⚡', 
-        count: `+${formatCompact(fitnessViews)}`, 
+        reelsCount: fitnessReels.length,
+        count: `${formatCompact(fitnessViews)} views`, 
         angle: 175, 
         distance: 78, 
         color: '#10b981', 
@@ -156,7 +166,8 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
         id: 'trending', 
         label: 'TRENDING', 
         emoji: '✨', 
-        count: `+${formatCompact(trendingViews)}`, 
+        reelsCount: totalReelsCount,
+        count: `${formatCompact(trendingViews)} views`, 
         angle: 85, 
         distance: 86, 
         color: '#38bdf8', 
@@ -326,7 +337,7 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
       </div>
 
       {/* ─────────────────────────────────────────────────────────────
-          2. LIVE METRICS BAR: ACTIVE TRENDS & LIVE SIGNALS
+          2. LIVE METRICS BAR: ACTIVE REELS & TOTAL AUDIENCE VIEWS
           ───────────────────────────────────────────────────────────── */}
       <div className="relative z-10 grid grid-cols-2 gap-2 my-2 flex-shrink-0">
         <div className={`border rounded-xl px-3 py-1.5 backdrop-blur-md flex items-center justify-between transition-colors ${
@@ -338,13 +349,13 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
             <span className={`text-[9px] font-mono uppercase tracking-wider block ${
               isLight ? 'text-slate-500' : 'text-slate-400'
             }`}>
-              {t.landing?.activeTrends || 'ACTIVE TRENDS'}
+              {language === 'gu' ? 'કુલ સક્રિય રીલ્સ' : language === 'hi' ? 'कुल सक्रिय रील्स' : 'ACTIVE REELS'}
             </span>
             <span className={`text-xs font-mono font-black flex items-center gap-1 ${
               isLight ? 'text-slate-900' : 'text-white'
             }`}>
               <Activity className={`w-3 h-3 ${isLight ? 'text-[#be123c]' : 'text-pink-400'}`} />
-              {totalReelsCount.toLocaleString()}
+              {totalReelsCount.toLocaleString()} {language === 'gu' ? 'રીલ્સ' : language === 'hi' ? 'रील्स' : 'REELS'}
             </span>
           </div>
           <span className="text-[9px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 px-1.5 py-0.5 rounded border border-emerald-300 dark:border-emerald-500/20 font-bold">
@@ -361,13 +372,13 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
             <span className={`text-[9px] font-mono uppercase tracking-wider block ${
               isLight ? 'text-slate-500' : 'text-slate-400'
             }`}>
-              {t.landing?.liveSignals || 'LIVE SIGNALS'}
+              {language === 'gu' ? 'કુલ વ્યૂઝ' : language === 'hi' ? 'कुल व्यूज़' : 'AUDIENCE VIEWS'}
             </span>
             <span className={`text-xs font-mono font-black flex items-center gap-1 ${
               isLight ? 'text-slate-900' : 'text-white'
             }`}>
               <Zap className="w-3 h-3 text-amber-500 dark:text-amber-400" />
-              {liveSignals}k/s
+              {(totalViews / 1000000).toFixed(1)}M {language === 'gu' ? 'વ્યૂઝ' : language === 'hi' ? 'व्यूज़' : 'VIEWS'}
             </span>
           </div>
           <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded border ${
@@ -503,7 +514,7 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
                 </div>
 
                 {/* Elegant Micro Tag */}
-                <div className={`absolute ${isRightSide ? 'right-3.5' : 'left-3.5'} -top-2 flex flex-col backdrop-blur-md px-1.5 py-0.5 rounded-md border shadow-xl pointer-events-none whitespace-nowrap min-w-[50px] transition-all duration-200 group-hover/sig:scale-105 ${
+                <div className={`absolute ${isRightSide ? 'right-3.5' : 'left-3.5'} -top-2 flex flex-col backdrop-blur-md px-2 py-0.5 rounded-md border shadow-xl pointer-events-none whitespace-nowrap min-w-[56px] transition-all duration-200 group-hover/sig:scale-105 ${
                   isLight 
                     ? 'bg-white/95 border-rose-200/80 text-slate-800' 
                     : 'bg-[#181228]/95 border-white/15 text-slate-200'
@@ -516,6 +527,13 @@ export const LiveRadar: React.FC<LiveRadarProps> = ({
                     >
                       {getSignalLabel(sig)}
                     </span>
+                    {sig.reelsCount !== undefined && sig.reelsCount > 0 && (
+                      <span className={`text-[8px] font-mono font-semibold opacity-75 ${
+                        isLight ? 'text-slate-500' : 'text-slate-400'
+                      }`}>
+                        ({sig.reelsCount} {sig.reelsCount === 1 ? 'reel' : 'reels'})
+                      </span>
+                    )}
                   </div>
                   <span className={`text-[8px] font-mono font-semibold leading-none pt-0.5 ${
                     isLight ? 'text-slate-600' : 'text-slate-300'
