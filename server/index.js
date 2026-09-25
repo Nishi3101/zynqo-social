@@ -1,18 +1,23 @@
-import 'dotenv/config';
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Ensure .env is loaded regardless of working directory
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+dotenv.config();
+
 import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
 import reelsRouter from './routes/reels.js';
 import aiRouter from './routes/ai.js';
 import creatorRouter from './routes/creator.js';
 import userRouter from './routes/user.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 const server = http.createServer(app);

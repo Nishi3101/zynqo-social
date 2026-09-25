@@ -1,3 +1,69 @@
+import dotenv from 'dotenv';
+import path from 'path';
+
+// Helper to read Google OAuth credentials safely
+const getGoogleCredentials = () => {
+  if (!process.env.GOOGLE_CLIENT_ID && !process.env.VITE_GOOGLE_CLIENT_ID) {
+    try {
+      dotenv.config({ path: path.resolve(process.cwd(), '.env'), override: true });
+    } catch (e) {}
+  }
+
+  const clean = (val) => {
+    if (!val) return '';
+    let str = String(val).trim();
+    if ((str.startsWith('"') && str.endsWith('"')) || (str.startsWith("'") && str.endsWith("'"))) {
+      str = str.slice(1, -1).trim();
+    }
+    return str;
+  };
+
+  const clientId = clean(
+    process.env.GOOGLE_CLIENT_ID || 
+    process.env.VITE_GOOGLE_CLIENT_ID || 
+    process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || 
+    ''
+  );
+
+  const clientSecret = clean(
+    process.env.GOOGLE_CLIENT_SECRET || 
+    process.env.VITE_GOOGLE_CLIENT_SECRET || 
+    process.env.GOOGLE_SECRET || 
+    ''
+  );
+
+  const isConfigured = Boolean(
+    clientId && 
+    !clientId.toLowerCase().includes('your_google_client_id') &&
+    clientId.toLowerCase() !== 'placeholder' &&
+    clientId.toLowerCase() !== 'your_client_id_here'
+  );
+
+  return { clientId, clientSecret, isConfigured };
+};
+
+// Helper to determine exact OAuth redirect URI
+const getOAuthRedirectUri = (req) => {
+  const proto = req.headers['x-forwarded-proto'] || 'https';
+  const host = req.headers['x-forwarded-host'] || req.headers.host || 'localhost:5000';
+  const configuredUri = (process.env.GOOGLE_REDIRECT_URI || '').trim();
+
+  if (configuredUri.startsWith('/')) {
+    return `${proto}://${host}${configuredUri}`;
+  }
+
+  const isLiveHost = host && !host.includes('localhost') && !host.includes('127.0.0.1');
+  if (isLiveHost && configuredUri.includes('localhost')) {
+    return `${proto}://${host}/api/user/auth/google/callback`;
+  }
+
+  if (configuredUri) {
+    return configuredUri;
+  }
+
+  return `${proto}://${host}/api/user/auth/google/callback`;
+};
+
 export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -13,26 +79,22 @@ export default async function handler(req, res) {
     return;
   }
 
-  const url = req.url || '';
+  const rawUrl = req.url || '';
+  const matchedPath = req.headers['x-matched-path'] || req.headers['x-invoke-path'] || '';
+  const url = `${rawUrl} ${matchedPath}`;
 
   // Google OAuth Config
-  if (url.includes('/api/user/auth/google/config')) {
-    const clientId = process.env.GOOGLE_CLIENT_ID || '';
-    const isConfigured = Boolean(
-      clientId && 
-      clientId.trim() && 
-      !clientId.includes('your_google_client_id') && 
-      clientId !== 'placeholder'
-    );
+  if (url.includes('/auth/google/config')) {
+    const { clientId, isConfigured } = getGoogleCredentials();
     return res.status(200).json({
       success: true,
       configured: isConfigured,
-      clientId: isConfigured ? clientId.trim() : ''
+      clientId: isConfigured ? clientId : ''
     });
   }
 
   // Google ID Token Verification
-  if (url.includes('/api/user/auth/google/verify')) {
+  if (url.includes('/auth/google/verify')) {
     try {
       const { credential, isDemo } = req.body || {};
 
@@ -60,7 +122,7 @@ export default async function handler(req, res) {
           return res.status(401).json({ success: false, error: 'Google email address is not verified.' });
         }
 
-        const configuredClientId = process.env.GOOGLE_CLIENT_ID;
+        const { clientId: configuredClientId } = getGoogleCredentials();
         if (configuredClientId && tokenPayload.aud !== configuredClientId) {
           console.error('[Google OAuth] Audience mismatch:', tokenPayload.aud, 'expected:', configuredClientId);
           return res.status(401).json({ success: false, error: 'Google token was not issued for this application.' });
@@ -98,9 +160,9 @@ export default async function handler(req, res) {
   }
 
   // Google OAuth Redirect
-  if (url.startsWith('/api/user/auth/google') && !url.includes('config') && !url.includes('verify') && !url.includes('callback')) {
-    const clientId = process.env.GOOGLE_CLIENT_ID;
-    if (!clientId || clientId.includes('your_google_client_id')) {
+  if (url.includes('/auth/google') && !url.includes('config') && !url.includes('verify') && !url.includes('callback')) {
+    const { clientId, isConfigured } = getGoogleCredentials();
+    if (!isConfigured) {
       res.setHeader('Content-Type', 'text/html');
       return res.status(400).send(`
         <!DOCTYPE html>
@@ -115,9 +177,7 @@ export default async function handler(req, res) {
       `);
     }
 
-    const proto = req.headers['x-forwarded-proto'] || 'https';
-    const host = req.headers['x-forwarded-host'] || req.headers.host;
-    const redirectUri = process.env.GOOGLE_REDIRECT_URI || `${proto}://${host}/api/user/auth/google/callback`;
+    const redirectUri = getOAuthRedirectUri(req);
     const state = Math.random().toString(36).substring(7);
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=openid%20email%20profile&state=${state}&prompt=select_account`;
     res.writeHead(302, { Location: authUrl });
@@ -125,8 +185,8 @@ export default async function handler(req, res) {
   }
 
   // Google OAuth Callback
-  if (url.includes('/api/user/auth/google/callback')) {
-    const query = new URL(url, `https://${req.headers.host || 'localhost'}`).searchParams;
+  if (url.includes('/auth/google/callback')) {
+    const query = new URL(rawUrl || '/api/user/auth/google/callback', `https://${req.headers.host || 'localhost'}`).searchParams;
     const code = query.get('code');
     const error = query.get('error');
 
@@ -150,11 +210,8 @@ export default async function handler(req, res) {
     }
 
     try {
-      const clientId = process.env.GOOGLE_CLIENT_ID;
-      const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-      const proto = req.headers['x-forwarded-proto'] || 'https';
-      const host = req.headers['x-forwarded-host'] || req.headers.host;
-      const redirectUri = process.env.GOOGLE_REDIRECT_URI || `${proto}://${host}/api/user/auth/google/callback`;
+      const { clientId, clientSecret } = getGoogleCredentials();
+      const redirectUri = getOAuthRedirectUri(req);
 
       const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
         method: 'POST',

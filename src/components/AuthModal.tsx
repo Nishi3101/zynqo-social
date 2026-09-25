@@ -139,10 +139,23 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     setIsSubmittingGoogle(true);
 
     try {
-      const configRes = await fetch('/api/user/auth/google/config');
-      const config = await configRes.json();
+      let config: any = null;
+      try {
+        const configRes = await fetch('/api/user/auth/google/config');
+        if (configRes.ok) {
+          config = await configRes.json();
+        }
+      } catch (err) {
+        console.warn('[Google OAuth] Could not fetch server config:', err);
+      }
 
-      if (!config.configured || !config.clientId) {
+      // Check server config first, then Vite client-side environment variable fallback
+      const clientSideId = ((import.meta as any).env?.VITE_GOOGLE_CLIENT_ID || '').trim();
+      const effectiveClientId = (config && config.configured && config.clientId)
+        ? String(config.clientId).trim()
+        : (clientSideId && !clientSideId.toLowerCase().includes('your_google_client_id') && clientSideId.toLowerCase() !== 'placeholder' ? clientSideId : '');
+
+      if (!effectiveClientId) {
         setIsSubmittingGoogle(false);
         setUnconfiguredGoogle(true);
         return;
@@ -150,26 +163,32 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
       // If Google Identity Services script is ready
       if (window.google?.accounts?.id) {
-        window.google.accounts.id.initialize({
-          client_id: config.clientId,
-          callback: async (response: any) => {
-            if (response && response.credential) {
-              await verifyGoogleCredential(response.credential);
-            }
-          },
-          auto_select: false,
-          cancel_on_tap_outside: true
-        });
+        try {
+          window.google.accounts.id.initialize({
+            client_id: effectiveClientId,
+            callback: async (response: any) => {
+              if (response && response.credential) {
+                await verifyGoogleCredential(response.credential);
+              }
+            },
+            auto_select: false,
+            cancel_on_tap_outside: true
+          });
 
-        window.google.accounts.id.prompt((notification: any) => {
-          if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-            openGoogleOAuthPopup();
-          }
-        });
+          window.google.accounts.id.prompt((notification: any) => {
+            if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+              openGoogleOAuthPopup();
+            }
+          });
+        } catch (gisErr) {
+          console.warn('[Google OAuth] GIS prompt error, falling back to OAuth popup:', gisErr);
+          openGoogleOAuthPopup();
+        }
       } else {
         openGoogleOAuthPopup();
       }
     } catch (e: any) {
+      console.warn('[Google OAuth] Initializing flow via popup redirect:', e);
       openGoogleOAuthPopup();
     }
   };

@@ -1,6 +1,7 @@
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
+import dotenv from 'dotenv';
 import { DatabaseSync } from 'node:sqlite';
 
 const router = express.Router();
@@ -1002,30 +1003,68 @@ router.get('/users', (req, res) => {
   }
 });
 
-// GET /api/user/auth/google/config - Public OAuth client configuration
-router.get('/auth/google/config', (req, res) => {
-  const clientId = process.env.GOOGLE_CLIENT_ID || '';
+// Helper to read and reload Google OAuth credentials safely
+const getGoogleCredentials = () => {
+  // If not yet present in process.env, reload .env dynamically from project root
+  if (!process.env.GOOGLE_CLIENT_ID && !process.env.VITE_GOOGLE_CLIENT_ID) {
+    try {
+      dotenv.config({ path: path.resolve(process.cwd(), '.env'), override: true });
+    } catch (e) {}
+  }
+
+  const clientId = (
+    process.env.GOOGLE_CLIENT_ID || 
+    process.env.VITE_GOOGLE_CLIENT_ID || 
+    ''
+  ).trim();
+
+  const clientSecret = (
+    process.env.GOOGLE_CLIENT_SECRET || 
+    process.env.VITE_GOOGLE_CLIENT_SECRET || 
+    process.env.GOOGLE_SECRET || 
+    ''
+  ).trim();
+
   const isConfigured = Boolean(
     clientId && 
-    clientId.trim() && 
-    !clientId.includes('your_google_client_id') &&
-    clientId !== 'placeholder'
+    !clientId.toLowerCase().includes('your_google_client_id') &&
+    clientId.toLowerCase() !== 'placeholder' &&
+    clientId.toLowerCase() !== 'your_client_id_here'
   );
+
+  return { clientId, clientSecret, isConfigured };
+};
+
+// GET /api/user/auth/google/config - Public OAuth client configuration
+router.get('/auth/google/config', (req, res) => {
+  const { clientId, isConfigured } = getGoogleCredentials();
 
   res.json({
     success: true,
     configured: isConfigured,
-    clientId: isConfigured ? clientId.trim() : ''
+    clientId: isConfigured ? clientId : ''
   });
 });
 
 // Helper to determine exact OAuth redirect URI
 const getOAuthRedirectUri = (req) => {
-  if (process.env.GOOGLE_REDIRECT_URI && process.env.GOOGLE_REDIRECT_URI.trim()) {
-    return process.env.GOOGLE_REDIRECT_URI.trim();
-  }
   const protocol = req.headers['x-forwarded-proto'] || req.protocol || 'http';
-  const host = req.headers['x-forwarded-host'] || req.get('host');
+  const host = req.headers['x-forwarded-host'] || req.get('host') || 'localhost:5000';
+  const configuredUri = (process.env.GOOGLE_REDIRECT_URI || '').trim();
+
+  if (configuredUri.startsWith('/')) {
+    return `${protocol}://${host}${configuredUri}`;
+  }
+
+  const isLiveHost = host && !host.includes('localhost') && !host.includes('127.0.0.1');
+  if (isLiveHost && configuredUri.includes('localhost')) {
+    return `${protocol}://${host}/api/user/auth/google/callback`;
+  }
+
+  if (configuredUri) {
+    return configuredUri;
+  }
+
   return `${protocol}://${host}/api/user/auth/google/callback`;
 };
 
@@ -1061,7 +1100,7 @@ router.post('/auth/google/verify', async (req, res) => {
       }
 
       // Validate token audience against configured Client ID
-      const configuredClientId = process.env.GOOGLE_CLIENT_ID;
+      const { clientId: configuredClientId } = getGoogleCredentials();
       if (configuredClientId && tokenPayload.aud !== configuredClientId) {
         console.error('[Google OAuth] Token audience mismatch. Expected:', configuredClientId, 'Got:', tokenPayload.aud);
         return res.status(401).json({ success: false, error: 'Google token was not issued for this application.' });
@@ -1148,8 +1187,8 @@ router.post('/auth/google/verify', async (req, res) => {
 
 // GET /api/user/auth/google - Initiate Google OAuth Redirect
 router.get('/auth/google', (req, res) => {
-  const clientId = process.env.GOOGLE_CLIENT_ID;
-  if (!clientId || clientId.includes('your_google_client_id')) {
+  const { clientId, isConfigured } = getGoogleCredentials();
+  if (!isConfigured) {
     return res.status(400).send(`
       <!DOCTYPE html>
       <html>
@@ -1192,8 +1231,7 @@ router.get('/auth/google/callback', async (req, res) => {
   }
 
   try {
-    const clientId = process.env.GOOGLE_CLIENT_ID;
-    const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+    const { clientId, clientSecret } = getGoogleCredentials();
     const redirectUri = getOAuthRedirectUri(req);
 
     const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
