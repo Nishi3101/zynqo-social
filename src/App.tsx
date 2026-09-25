@@ -34,18 +34,20 @@ const MainLayout: React.FC = () => {
     authInitialStep, 
     openAuthModal, 
     closeAuthModal, 
-    activeModal,
-    openModal,
-    closeModal,
-    colorMode,
-    t
+    activeModal, 
+    openModal, 
+    closeModal, 
+    colorMode, 
+    t,
+    loginUser,
+    awardXP
   } = useApp();
   
   const [deviceFrameMode, setDeviceFrameMode] = useState<'mobile' | 'studio'>('mobile');
   const [showKeyboardHelp, setShowKeyboardHelp] = useState(false);
   const isLight = colorMode === 'light';
 
-  // Auto-open Watch Together if ?room= query parameter exists in URL
+  // Handle URL query parameters (?room= and ?auth=google_success)
   React.useEffect(() => {
     try {
       const urlParams = new URLSearchParams(window.location.search);
@@ -53,10 +55,25 @@ const MainLayout: React.FC = () => {
       if (roomParam) {
         openModal('watchTogether');
       }
+
+      const authParam = urlParams.get('auth');
+      if (authParam === 'google_success') {
+        const savedName = localStorage.getItem('pulseai_user_name') || 'Google User';
+        const savedEmail = localStorage.getItem('pulseai_user_email') || '';
+        const savedAvatar = localStorage.getItem('pulseai_user_avatar') || undefined;
+        if (savedEmail) {
+          loginUser(savedName, savedEmail, undefined, undefined, undefined, undefined, 'Happy', savedAvatar);
+          awardXP(100, 'Google Authentication');
+          openAuthModal('onboarding');
+        }
+        window.history.replaceState({}, '', window.location.pathname);
+      } else if (urlParams.get('error')) {
+        window.history.replaceState({}, '', window.location.pathname);
+      }
     } catch {
       // Ignore URL parsing errors
     }
-  }, [openModal]);
+  }, [openModal, loginUser, awardXP, openAuthModal]);
 
   // Sync Native Mobile Status Bar with Color Theme
   React.useEffect(() => {

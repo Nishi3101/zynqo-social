@@ -1005,12 +1005,29 @@ router.get('/users', (req, res) => {
 // GET /api/user/auth/google/config - Public OAuth client configuration
 router.get('/auth/google/config', (req, res) => {
   const clientId = process.env.GOOGLE_CLIENT_ID || '';
+  const isConfigured = Boolean(
+    clientId && 
+    clientId.trim() && 
+    !clientId.includes('your_google_client_id') &&
+    clientId !== 'placeholder'
+  );
+
   res.json({
     success: true,
-    configured: Boolean(clientId && clientId.trim() && !clientId.includes('your_google_client_id')),
-    clientId: clientId.trim()
+    configured: isConfigured,
+    clientId: isConfigured ? clientId.trim() : ''
   });
 });
+
+// Helper to determine exact OAuth redirect URI
+const getOAuthRedirectUri = (req) => {
+  if (process.env.GOOGLE_REDIRECT_URI && process.env.GOOGLE_REDIRECT_URI.trim()) {
+    return process.env.GOOGLE_REDIRECT_URI.trim();
+  }
+  const protocol = req.headers['x-forwarded-proto'] || req.protocol || 'http';
+  const host = req.headers['x-forwarded-host'] || req.get('host');
+  return `${protocol}://${host}/api/user/auth/google/callback`;
+};
 
 // POST /api/user/auth/google/verify - Verify Google ID Token (Google Identity Services)
 router.post('/auth/google/verify', async (req, res) => {
@@ -1041,6 +1058,13 @@ router.post('/auth/google/verify', async (req, res) => {
       const tokenPayload = await googleVerifyRes.json();
       if (!tokenPayload.email_verified || tokenPayload.email_verified === 'false') {
         return res.status(401).json({ success: false, error: 'Google email address is not verified.' });
+      }
+
+      // Validate token audience against configured Client ID
+      const configuredClientId = process.env.GOOGLE_CLIENT_ID;
+      if (configuredClientId && tokenPayload.aud !== configuredClientId) {
+        console.error('[Google OAuth] Token audience mismatch. Expected:', configuredClientId, 'Got:', tokenPayload.aud);
+        return res.status(401).json({ success: false, error: 'Google token was not issued for this application.' });
       }
 
       sub = tokenPayload.sub;
@@ -1139,7 +1163,7 @@ router.get('/auth/google', (req, res) => {
     `);
   }
 
-  const redirectUri = process.env.GOOGLE_REDIRECT_URI || `${req.protocol}://${req.get('host')}/api/user/auth/google/callback`;
+  const redirectUri = getOAuthRedirectUri(req);
   const state = Math.random().toString(36).substring(7);
   const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=openid%20email%20profile&state=${state}&prompt=select_account`;
   res.redirect(authUrl);
@@ -1170,7 +1194,7 @@ router.get('/auth/google/callback', async (req, res) => {
   try {
     const clientId = process.env.GOOGLE_CLIENT_ID;
     const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-    const redirectUri = process.env.GOOGLE_REDIRECT_URI || `${req.protocol}://${req.get('host')}/api/user/auth/google/callback`;
+    const redirectUri = getOAuthRedirectUri(req);
 
     const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
       method: 'POST',

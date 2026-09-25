@@ -109,24 +109,28 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     const left = window.screenX + (window.outerWidth - width) / 2;
     const top = window.screenY + (window.outerHeight - height) / 2;
 
-    const popup = window.open(
-      '/api/user/auth/google',
-      'google_oauth_popup',
-      `width=${width},height=${height},left=${left},top=${top},toolbar=0,scrollbars=1,status=1,resizable=1`
-    );
+    try {
+      const popup = window.open(
+        '/api/user/auth/google',
+        'google_oauth_popup',
+        `width=${width},height=${height},left=${left},top=${top},toolbar=0,scrollbars=1,status=1,resizable=1`
+      );
 
-    if (!popup) {
-      setIsSubmittingGoogle(false);
-      setAuthError('Popup was blocked by your browser. Please allow popups to sign in with Google.');
-      return;
-    }
-
-    const checkClosed = setInterval(() => {
-      if (popup.closed) {
-        clearInterval(checkClosed);
-        setIsSubmittingGoogle(false);
+      if (!popup || popup.closed || typeof popup.closed === 'undefined') {
+        // Fallback for mobile devices and popup blockers: use standard OAuth redirect
+        window.location.href = '/api/user/auth/google';
+        return;
       }
-    }, 1000);
+
+      const checkClosed = setInterval(() => {
+        if (popup.closed) {
+          clearInterval(checkClosed);
+          setIsSubmittingGoogle(false);
+        }
+      }, 1000);
+    } catch {
+      window.location.href = '/api/user/auth/google';
+    }
   };
 
   const handleGoogleSignIn = async () => {
@@ -204,6 +208,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     if (isOpen) {
       setStep(initialStep);
       setAuthError(null);
+      setUnconfiguredGoogle(false);
       if (initialStep === 'login') {
         setAuthMode('login');
       }
