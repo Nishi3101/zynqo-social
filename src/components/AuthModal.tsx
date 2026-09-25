@@ -156,8 +156,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         : (clientSideId && !clientSideId.toLowerCase().includes('your_google_client_id') && clientSideId.toLowerCase() !== 'placeholder' ? clientSideId : '');
 
       if (!effectiveClientId) {
-        setIsSubmittingGoogle(false);
-        setUnconfiguredGoogle(true);
+        // Fall back directly to the server OAuth redirect flow
+        openGoogleOAuthPopup();
         return;
       }
 
@@ -212,6 +212,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         setMoodChoice(u.current_mood || 'Happy');
         setIsSubmittingGoogle(false);
         setStep('onboarding');
+      } else if (event.data?.type === 'GOOGLE_AUTH_UNCONFIGURED') {
+        setIsSubmittingGoogle(false);
+        setUnconfiguredGoogle(true);
       } else if (event.data?.type === 'GOOGLE_AUTH_ERROR') {
         setIsSubmittingGoogle(false);
         setAuthError(event.data.error || 'Google Sign-In was cancelled or failed.');

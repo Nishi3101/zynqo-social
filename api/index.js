@@ -172,6 +172,11 @@ export default async function handler(req, res) {
             <h2>Google OAuth Not Configured</h2>
             <p style="color:#94a3b8;">Please set <code>GOOGLE_CLIENT_ID</code> and <code>GOOGLE_CLIENT_SECRET</code> in your Vercel Environment Variables.</p>
             <button onclick="window.close()" style="margin-top:1rem;padding:0.6rem 1.2rem;border-radius:0.5rem;background:#38bdf8;color:#0f172a;border:none;font-weight:bold;cursor:pointer;">Close Window</button>
+            <script>
+              if (window.opener) {
+                window.opener.postMessage({ type: 'GOOGLE_AUTH_UNCONFIGURED' }, '*');
+              }
+            </script>
           </body>
         </html>
       `);
